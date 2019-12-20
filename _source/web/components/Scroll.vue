@@ -10,7 +10,7 @@
 
     <div class="popup" v-if="ifShowMessage">
       <!-- 判断账号是否登录 -->
-      
+
 
       <div class="leave-message-two" v-if="isLogin">
         <div class="message-top">
@@ -27,7 +27,7 @@
 
         <div class="message-box">
           <div class="respond" v-if="isShowHint2">{{hint2}}</div>
-         
+
           <div class="message-list" v-for="(item, index) in book_list" :key="index">
             <div class="message-list-tbox clf">
               <div class="num fl">{{item.email}}</div>
@@ -38,7 +38,7 @@
             </div>
           </div>
 
-          
+
         </div>
 
         <div class="message-footer clf">
@@ -80,7 +80,7 @@
         <div class="prompt">{{text}}</div>
         <div class="message-btn" @click="submit()">LOGIN</div>
       </div>
-      
+
     </div>
 
   </div>
@@ -94,8 +94,8 @@
       return {
         btnFlag: false,
         ifShowMessage: false,
-         
-      
+
+
         text: '',
         account: '469678229@qq.com',
         ifEdit: true,
@@ -122,8 +122,8 @@
       window.addEventListener('scroll', this.scrollToTop);
       this.is_login();
       this.getUserBook();
-      console.log(111);
-      console.log(this.book_list);
+      // console.log(111);
+      // console.log(this.book_list);
     },
     destroyed() {
       window.removeEventListener('scroll', this.scrollToTop)
@@ -168,7 +168,7 @@
             var ipt = document.getElementById('ipt').focus();
           }, 100)
         }else{
-          
+
         }
 
       },
@@ -266,13 +266,13 @@
                     // this.title == '';
                     this.$router.go(0);
                   }, 2000)
-               } 
+               }
               console.log(res)
           }).catch(function (error) {
               console.log(error);
           })
 
-          
+
         }
       },
       closePopup(){
@@ -286,15 +286,15 @@
               page:this.page,
               username : this.username,
              }
-              
+
           }).then(res =>{
               if(res.data.code == 200){
-              
+
                 // this.book_list.push.apply(this.book_list,res.data.data.list);
                 this.book_list = this.book_list.concat(res.data.data.list)
-                console.log(res.data.data.list);
-              } 
-              console.log(res)
+                // console.log(res.data.data.list);
+              }
+              // console.log(res)
           }).catch(function (error) {
               console.log(error);
           })
@@ -307,7 +307,7 @@
           this.isLogin = true;
         }
       }
-      
+
 
     },
     props:['ifShowM'],

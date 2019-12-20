@@ -2,8 +2,10 @@
   <div class="ad">
     <div v-swiper:hisSwiper="swiperOptionTh">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" v-for="banner in banners">
-          <img :src="banner.url">
+        <div class="swiper-slide" v-for="banner in banners.data">
+          <a :href='banner.adv_url || "javascript:;"' target="_blank" >
+            <img :src="banner.adv_image">
+          </a>
         </div>
       </div>
 
@@ -29,8 +31,8 @@
     data(){
       return{
         banners:[
-          {url:'https://images-aka.zales.com/hp/z20191218/tsb_20191218_fs_d.gif',title: '123'},
-          {url:'https://images-aka.zales.com/hp/z20191212/tsb_20191212_DazzlingDeals_d.jpg',title: '1203'},
+          // {url:'https://images-aka.zales.com/hp/z20191218/tsb_20191218_fs_d.gif',title: '123'},
+          // {url:'https://images-aka.zales.com/hp/z20191212/tsb_20191212_DazzlingDeals_d.jpg',title: '1203'},
         ],
         swiperOptionTh: {
           loop: true,
@@ -59,17 +61,21 @@
       }
     },
     created(){
-      this.$axios.get('/common/advert-images',{
-          params:{
-            'id':1,
-          }
-      }).then(res =>{
-          // this.banner = res.data;
-          // console.log(res)
-          // console.log(this.banner)
-      }).catch(function (error) {
-          console.log(error);
-      });
+      this.getAdData()
+    },
+    methods:{
+      getAdData(){
+        this.$axios.get('/common/advert-images/banner',{
+            params:{
+              'adv_id': '4',
+            },
+        }).then(res =>{
+            this.banners = res.data;
+            console.log(this.banners)
+        }).catch(function (error) {
+            // console.log(error);
+        });
+      }
     }
   }
 </script>

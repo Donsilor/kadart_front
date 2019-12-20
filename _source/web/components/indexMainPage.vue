@@ -1,10 +1,12 @@
 <template>
   <div>
     <div class="home_ad">
-      <div v-swiper:mySwiper="swiperOption">
+      <div v-if="this.banners && this.banners != 0" v-swiper:mySwiper="swiperOption">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="banner in banners">
-            <img :src="banner.url">
+            <a :href='banner.adv_url || "javascript:;"' target="_blank" >
+              <img :src="banner.adv_image">
+            </a>
           </div>
         </div>
 
@@ -22,13 +24,14 @@
           </div>
         </div>
       </div>
+
     </div>
 
     <div class="banner">
       <div v-swiper:youSwiper="swiperOptionTwo">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="banner in bannersTwo">
-            <img :src="banner.url">
+          <div class="swiper-slide" v-for="ban in bannersTwo">
+            <img :src="ban.url">
           </div>
         </div>
       </div>
@@ -111,12 +114,13 @@
     data() {
       return {
         auto: false,
-        banners: [{
-            url: 'https://images-aka.zales.com/hp/z20191218/tsb_20191218_fs_d.gif',
+        banners: [],
+        bannersTwo: [
+          {
+            url: 'https://images-aka.zales.com/hp/z20191212/hp_20191212_gifter_main_d.jpg',
             title: '123'
-          }
-        ],
-        bannersTwo: [{
+          },
+          {
             url: 'https://images-aka.zales.com/hp/z20191212/hp_20191212_gifter_main_d.jpg',
             title: '123'
           }
@@ -160,6 +164,17 @@
           }
         }
       }
+    },
+    created(){
+      this.$axios.get('/common/advert-images',{
+          params:{
+            'adv_id':1,
+          }
+      }).then(res =>{
+           this.banners = res.data.data;
+      }).catch(function (error) {
+          console.log(error);
+      });
     }
   }
 </script>

@@ -58,13 +58,15 @@
       startSearch(){
         this.ifShowHot = false;
         this.iptVal = this.ipt;
-
-        var location_r = window.location.href;
         
+        localStorage.setItem('goods_id',this.ipt)
+        
+        var location_r = window.location.href;
+
         if(location_r.indexOf('goods-list') == -1){
           this.$router.push({
-            path: 'goods-list',
-            query:{
+            name: 'goods-list',
+            params:{
               id:this.ipt
             }
           })

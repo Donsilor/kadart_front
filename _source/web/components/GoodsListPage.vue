@@ -140,7 +140,7 @@
 
         <div class="commodity-show clf">
           <div class="commodity-show-list fl" v-for="(item, index) in commodityItem.data" :key="index">
-            <router-link :to="{ path: '/goods-detail', query: {id: commodityItem.data[index].id}}">
+            <router-link :to="{ name: 'goods-detail', params: {id: commodityItem.data[index].id}}">
               <div class="img-box">
                 <img :src=item.style_image alt="">
               </div>
@@ -265,30 +265,23 @@
         goodsId: ''
       }
     },
-    created(){
-      if(this.$route.query.id){
-        this.searchId = this.$route.query.id;
+    mounted(){
+      var goods_id = localStorage.getItem('goods_id');
+      if(goods_id){
+        this.searchId = goods_id;
+        this.acquireData(this.searchId, '');
       }
 
       var self = this;
       Bus.$on('sendPriceVal', function(val){
         self.searchId = val;
         self.acquireData(this.searchId, '');
-        console.log(123)
-        console.log(self.searchId)
+        console.log(222)
       })
 
-
-      if(this.searchId){
-          this.acquireData(this.searchId, '');
-          console.log(456)
-          console.log(self.searchId)
-      }else{
-        this.acquireData('', '');
-      }
     },
     methods: {
-      acquireData(k_id, k_filter){
+      acquireData(k_id,k_filter,k_page){
         var _self = this;
         _self.$axios.post('/goods/style/search',{
             params:{
@@ -297,9 +290,9 @@
             },
         }).then(res =>{
             _self.commodityItem = res.data.data;
-            console.log(res)
+            // console.log(res)
         }).catch(function (error) {
-            console.log(error);
+            // console.log(error);
         });
       },
 

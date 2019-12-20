@@ -98,7 +98,7 @@
             this.nav_text = 'VIEW ALL RINGS';
             break;
           case(2):
-            this.isShow = false;
+            this.isShow = true;
             this.isShowText = false;
             break;
           case(3):
@@ -107,7 +107,7 @@
             this.nav_text = 'VIEW ALL EARRINGS';
             break;
           case(4):
-            this.isShow = false;
+            this.isShow = true;
             this.isShowText = false;
             break;
           case(5):

@@ -5,8 +5,7 @@
       <span class="menu-list fl" @click="sendMsg()">Contact Us</span>
     </div>
     <div class="menu-right fr">
-      <span href="" class="menu-list fl" v-if="!isLogin" @click="ifShowLogin = true">Sign In</span>
-      <span href="" class="menu-list fl" v-if="isLogin" >{{username}}</span>
+      <span class="menu-list fl" @click="ifShowLogin = true" >{{usernametwo || 'Sign In'}}</span>
     </div>
 
     <div class="popup" v-if="ifShowLogin">
@@ -42,11 +41,12 @@
         ifShowLogin: false,
         ifShowSuccess: false,
         username: '',
+        usernametwo:'',
         isLogin: false,
       }
     },
     created(){
-      //this.is_login();
+      // this.is_login();
     },
     mounted(){
       this.is_login();
@@ -66,7 +66,7 @@
                  this.ifShowLogin = false;
                  this.isLogin = true;
                  this.$router.go(0);
-               } 
+               }
               console.log(res)
           }).catch(function (error) {
               console.log(error);
@@ -83,7 +83,7 @@
       is_login(){
         var username = localStorage.getItem('bdd_user');
         if(username != null){
-          this.username = username;
+          this.usernametwo = username;
           this.isLogin = true;
         }
       },

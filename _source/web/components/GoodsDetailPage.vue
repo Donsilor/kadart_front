@@ -184,10 +184,17 @@
         },
       }
     },
-    created() {
-      var _id = this.$route.query.id;
-      this.goodsId = _id;
-      console.log(this.goodsId)
+    mounted() {
+      var goodsDetailId = this.$route.params.id;
+
+      if(goodsDetailId){
+        localStorage.setItem('goodsDetailId', goodsDetailId)
+        this.goodsId = goodsDetailId;
+      }else{
+        goodsDetailId = localStorage.getItem('goodsDetailId');
+        this.goodsId = goodsDetailId;
+      }
+
       this.$axios.get('/goods/style/detail',{
           params:{
             id: this.goodsId
@@ -217,6 +224,7 @@
         console.log(i)
         var _self = this;
         _self.recommendId = _self.goodsRecommend.data[i].id;
+        localStorage.setItem('goodsDetailId', _self.recommendId)
         console.log((_self.recommendId))
 
         _self.$axios.get('/goods/style/detail',{
