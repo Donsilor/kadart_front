@@ -30,8 +30,8 @@
       <div class="commodity-right fl">
         <div class="price">Reference Price<span class="big">{{goodsDetail.data.currency}}{{goodsDetail.data.sale_price}}</span></div>
         <div class="mq">MoQ: {{goodsDetail.data.style_moq}} Pcs</div>
-        <div class="contact"><a href="" class="color">Please contact us</a> for more ring size information.</div>
-        <div class="contact-btn">CONTACT US</div>
+        <div class="contact"><span class="color" @click="sendMsg()">Please contact us</span> for more ring size information.</div>
+        <div class="contact-btn" @click="sendMsg()">CONTACT US</div>
         <div class="holiday-box">
           <div class="holiday clf">
             <div class="left fl">Product Parameters</div>
@@ -40,13 +40,17 @@
             </div>
           </div>
 
-          <table class="table">
-            <tr class="table-list clf" v-for="(item, index) in goodsDetail.data.style_attrs">
-              <td class="left fl">{{item.name}}</td>
-              <td class="right fl">{{item.value}}</td>
-            </tr>
+          <div class="table">
+            <table width="100%">
+              <tbody>
+                <tr class="table-list clf" v-for="(item, index) in goodsDetail.data.style_attrs">
+                  <td class="left fl">{{item.name}}</td>
+                  <td class="right fl">{{item.value}}</td>
+                </tr>
+              </tbody>
+            </table>
             <div class="table-line"></div>
-          </table>
+          </div>
         </div>
 
         <div class="share-text">Share:</div>
@@ -76,7 +80,9 @@
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(item, index) in goodsRecommend.data" :key="index">
             <div @click="infoRecommendPage(index)">
-              <img :src="item.style_image">
+				<div class="img-box">
+					<img :src="item.style_image">
+				</div>
               <div class="recommend-name">{{item.style_sn}}</div>
               <div class="recommend-price">{{item.currency}}{{item.sale_price}}</div>
             </div>
@@ -102,6 +108,7 @@
 </template>
 
 <script>
+  import Bus from './Bus.js'
   import magnifying from './Magnifying.vue'
   export default {
     components: {
@@ -190,7 +197,9 @@
       if(goodsDetailId){
         localStorage.setItem('goodsDetailId', goodsDetailId)
         this.goodsId = goodsDetailId;
+
       }else{
+
         goodsDetailId = localStorage.getItem('goodsDetailId');
         this.goodsId = goodsDetailId;
       }
@@ -250,6 +259,9 @@
         }).catch(function (error) {
             console.log(error);
         });
+      },
+      sendMsg(){
+        Bus.$emit('send', true)
       }
     }
   }
@@ -402,6 +414,7 @@
     color: #b64d52;
     text-decoration: underline;
     font-weight: bold;
+    cursor: pointer;
   }
 
   .commodity-right .contact-btn {
@@ -546,9 +559,9 @@
     width: 140px;
   }
 
-  .recommend-swiper .swiper-slide img{
-      width: 100%;
-      height: 100%;
+  .recommend-swiper .swiper-slide .img-box{
+      width: 140px;
+      height: 140px;
       margin-bottom: 6px;
   }
   /* 分页器容器 */

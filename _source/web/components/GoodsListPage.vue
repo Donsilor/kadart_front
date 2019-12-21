@@ -156,8 +156,8 @@
         </div>
 
         <div class="pages">
-          <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage3"
-            :page-size="10" layout="prev, pager, next, jumper" :total="1000">
+          <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage1"
+            :page-size="20" layout="prev, pager, next, jumper" :total="totalPages">
           </el-pagination>
         </div>
       </div>
@@ -171,13 +171,11 @@
   export default {
     data() {
       return {
-        currentPage1: 5,
-        currentPage2: 5,
-        currentPage3: 5,
-        currentPage4: 4,
+        currentPage1: 1,
+        totalPages: 1,
         ifOpenA: false,
         ifOpenB: false,
-        filter: ['1-0','1-1','2-0','2-1','3-0','3-1','4-0','4-1'],
+        filter: ['1_0','1_1','2_0','2_1','3_0','3_1','4_0','4_1'],
         filter_index: 1,
         dataItem: [{
             form: 'GENDER',
@@ -267,16 +265,23 @@
     },
     mounted(){
       var goods_id = localStorage.getItem('goods_id');
+      var now_page = localStorage.getItem('now_page');
+
+      if(now_page == null){
+        now_page = ''
+      }else{
+        this.currentPage1 = now_page-0
+      }
+      console.log(this.currentPage1)
+
       if(goods_id){
         this.searchId = goods_id;
-        this.acquireData(this.searchId, '');
+        this.acquireData(this.searchId, '' , now_page);
       }
 
       var self = this;
       Bus.$on('sendPriceVal', function(val){
-        self.searchId = val;
-        self.acquireData(this.searchId, '');
-        console.log(222)
+        self.acquireData(this.searchId, val);
       })
 
     },
@@ -286,11 +291,14 @@
         _self.$axios.post('/goods/style/search',{
             params:{
               keyword: k_id,
-              sort: k_filter
+              sort: k_filter,
+              page: k_page
             },
         }).then(res =>{
             _self.commodityItem = res.data.data;
-            // console.log(res)
+            // console.log(_self.commodityItem)
+            // this.currentPage1 = _self.commodityItem.page;
+            this.totalPages = _self.commodityItem.total_count-0;
         }).catch(function (error) {
             // console.log(error);
         });
@@ -300,6 +308,10 @@
         console.log(`每页 ${val} 条`);
       },
       handleCurrentChange(val) {
+        // localStorage.setItem('now_page',val);
+        this.currentPage1 = val;
+        this.acquireData('','',val)
+
         console.log(`当前页: ${val}`);
       },
       ifShowF(k) {

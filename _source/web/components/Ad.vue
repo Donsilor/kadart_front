@@ -1,6 +1,6 @@
 <template>
   <div class="ad">
-    <div v-swiper:hisSwiper="swiperOptionTh">
+    <div v-if="this.banners && this.banners != 0" v-swiper:hisSwiper="swiperOptionTh">
       <div class="swiper-wrapper">
         <div class="swiper-slide" v-for="banner in banners.data">
           <a :href='banner.adv_url || "javascript:;"' target="_blank" >
@@ -71,7 +71,7 @@
             },
         }).then(res =>{
             this.banners = res.data;
-            console.log(this.banners)
+            // console.log(this.banners)
         }).catch(function (error) {
             // console.log(error);
         });

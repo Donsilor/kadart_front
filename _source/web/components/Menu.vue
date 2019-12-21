@@ -17,7 +17,7 @@
 
         <div class="text">Enter Email Address</div>
         <div class="ipt-box">
-          <input type="text" class="ipt" placeholder="Email..." v-model="username" @focus="focus()">
+          <input type="text" class="ipt" placeholder="Email..." v-model="username" @focus="focus()" @keyup.enter="login()">
         </div>
         <div class="prompt">{{text}}</div>
         <div class="login-btn" @click="login()">LOGIN</div>
@@ -44,9 +44,6 @@
         usernametwo:'',
         isLogin: false,
       }
-    },
-    created(){
-      // this.is_login();
     },
     mounted(){
       this.is_login();

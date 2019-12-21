@@ -90,7 +90,27 @@
 </template>
 
 <script>
-  export default{}
+  export default{
+    data(){
+      return{}
+    },
+    methods:{
+      shareFaceBook(){
+        var _url = window.location.href;
+        var shareUrl = "http://www.facebook.com/sharer/sharer.php?u="+ _url;
+        popupwindow(shareUrl, 'Facebook', 600, 400);
+
+        function popupwindow(url, title, w, h) {
+            var wLeft = window.screenLeft ? window.screenLeft : window.screenX;
+            var wTop = window.screenTop ? window.screenTop : window.screenY;
+
+            var left = wLeft + (window.innerWidth / 2) - (w / 2);
+            var top = wTop + (window.innerHeight / 2) - (h / 2);
+            return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+        }
+      }
+    }
+  }
 </script>
 
 <style>

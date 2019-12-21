@@ -10,11 +10,13 @@
         <i class="iconfont iconfangdajing"></i>SEARCH
       </span>
       <div class="search-move clf" :class="[ifShowText == false ? 'active' : '']" @mouseover="showIpt()">
-        <i class="iconfont iconfangdajing fl" @click="startSearch()"></i>
-        <input class="ipt fl" type="text" v-model="ipt" placeholder="SEARCH" @focus="onFocus()" @blur="onBlur()" value="iptVal">
-        <span class="del fl">
-          <i class="iconfont iconquxiao" @click="del()"></i>
-        </span>
+        <div class="search-move-top">
+          <i class="iconfont iconfangdajing fl" @click="startSearch()"></i>
+          <input class="ipt fl" type="text" v-model="ipt" placeholder="SEARCH" @focus="onFocus()" @blur="onBlur()" value="iptVal" @keyup.enter="startSearch()">
+          <span class="del fl">
+            <i class="iconfont iconquxiao" @click="del()"></i>
+          </span>
+        </div>
         <div class="hot" v-show="ifShowHot">
           <div class="first-list">Quick Search</div>
           <div class="hot-list">Wedding Ring</div>
@@ -58,20 +60,20 @@
       startSearch(){
         this.ifShowHot = false;
         this.iptVal = this.ipt;
-        
-        localStorage.setItem('goods_id',this.ipt)
-        
+
+        localStorage.setItem('goods_id',this.iptVal)
+
         var location_r = window.location.href;
 
         if(location_r.indexOf('goods-list') == -1){
           this.$router.push({
             name: 'goods-list',
             params:{
-              id:this.ipt
+              id:this.iptVal
             }
           })
         }else{
-          Bus.$emit('sendPriceVal', true)
+          Bus.$emit('sendPriceVal', this.iptVal)
         }
 
       },
@@ -97,16 +99,16 @@
   }
   .search{
     position: absolute;
-    top: 50%;
+    top: 0;
     right: 40px;
     z-index: 20;
-    transform: translateY(-50%);
+   /* transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
     -moz-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
-    -z-transform: translateY(-50%);
+    -z-transform: translateY(-50%); */
     width: 160px;
-    height: 34px;
+    height: 150px;
     font-size: 12px;
     line-height: 34px;
     color: #480f33;
@@ -116,7 +118,7 @@
     overflow: hidden;
   }
   .search.on{
-    overflow: inherit;
+    /* overflow: inherit; */
   }
   .search .iconfont{
     margin-right: 10px;
@@ -131,17 +133,22 @@
     right: -100%;
     z-index: 2;
     width: 100%;
-    height: 100%;
     border: 1px solid #480F32;
-    padding-left: 10px;
     box-sizing: border-box;
     line-height: 28px;
     transition: right 1s;
-    background-color: #F0E2ED;
+    background-color: #fff;
+    padding-top: 1px;
   }
   .search-move.active{
     right: 0;
     transition: all 1s;
+  }
+  .search-move .search-move-top{
+    background-color: #F0E2ED;
+    padding-left: 10px;
+    box-sizing: border-box;
+    height: 34px;
   }
   .search-move .iconfangdajing{
     margin-right: 8px;
