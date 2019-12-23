@@ -156,7 +156,7 @@
         </div>
 
         <div class="pages">
-          <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage1"
+          <el-pagination v-if="totalPages != 0" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage1"
             :page-size="20" layout="prev, pager, next, jumper" :total="totalPages">
           </el-pagination>
         </div>
@@ -173,6 +173,7 @@
       return {
         currentPage1: 1,
         totalPages: 1,
+        total:'',
         ifOpenA: false,
         ifOpenB: false,
         filter: ['1_0','1_1','2_0','2_1','3_0','3_1','4_0','4_1'],
@@ -259,40 +260,79 @@
           {'list': 'Under $50 (1)'},
           {'list': 'Under $50 (1)'}
         ],
+        typeId: '',
         searchId:'',
-        goodsId: ''
+        sortId:'',
+        attrId: '',
+        attrValue: '',
+        priceRange: '',
+        pageId: ''
       }
     },
     mounted(){
       var goods_id = localStorage.getItem('goods_id');
       var now_page = localStorage.getItem('now_page');
+      var sort_id = localStorage.getItem('sort_id');
+
+      if(goods_id = null){
+        this.searchId = ''
+      }else{
+        this.searchId = goods_id;
+      }
+
+      if(sort_id == null){
+        this.sortId = '';
+      }else{
+        this.sortId = sort_id;
+      }
 
       if(now_page == null){
-        now_page = ''
+        this.pageId = ''
+        console.log(166)
       }else{
+        this.pageId = now_page;
         this.currentPage1 = now_page-0
+        console.log(188)
+        console.log(this.currentPage1)
       }
       console.log(this.currentPage1)
 
-      if(goods_id){
-        this.searchId = goods_id;
-        this.acquireData(this.searchId, '' , now_page);
+	  var urlData = '?type_id=25&attr_id=2&attr_value=15&price_range=42';
+	  var urlArr = urlData.split(/[?=&]/);
+    urlArr.shift();
+    for(var i=0; i<urlArr.length; i+=2){
+      if(urlArr[i] == 'type_id'){
+        this.typeId = urlArr[i+1]
+      }else if(urlArr[i] == 'attr_id'){
+        this.attrId = urlArr[i+1]
+      }else if(urlArr[i] == 'attr_value'){
+        this.attrValue = urlArr[i+1]
+      }else if(urlArr[i] == 'price_range'){
+        this.priceRange = urlArr[i+1]
       }
+    }
+
+      this.acquireData(this.searchId, this.sortId , this.pageId, this.typeId, this.attrId, this.attrValue, this.priceRange);
+
 
       var self = this;
       Bus.$on('sendPriceVal', function(val){
-        self.acquireData(this.searchId, val);
+        self.acquireData(this.searchId, val , this.pageId, this.typeId, this.attrId, this.attrValue, this.priceRange);
       })
 
     },
     methods: {
-      acquireData(k_id,k_filter,k_page){
+      acquireData(k_id,k_filter,k_page,k_type_id,K_attr_id,k_attr_value,k_price_range){
         var _self = this;
         _self.$axios.post('/goods/style/search',{
             params:{
               keyword: k_id,
               sort: k_filter,
-              page: k_page
+              page: k_page,
+              type_id: k_type_id,
+              attr_id: K_attr_id,
+              attr_value: k_attr_value,
+              price_range: k_price_range
             },
         }).then(res =>{
             _self.commodityItem = res.data.data;
@@ -308,9 +348,9 @@
         console.log(`每页 ${val} 条`);
       },
       handleCurrentChange(val) {
-        // localStorage.setItem('now_page',val);
+        localStorage.setItem('now_page',val);
         this.currentPage1 = val;
-        this.acquireData('','',val)
+        this.acquireData(this.searchId, this.sortId, val, this.typeId, this.attrId, this.attrValue, this.priceRange)
 
         console.log(`当前页: ${val}`);
       },
@@ -358,7 +398,8 @@
       sort(i) {
         var _self = this;
         _self.filter_index = i;
-        _self.acquireData(this.searchId, this.filter[i]);
+        localStorage.setItem('sort_id', this.filter[i]);
+        _self.acquireData(this.searchId, this.filter[i] , this.pageId, this.typeId, this.attrId, this.attrValue, this.priceRange);
         console.log(789)
       },
       clickC(i){

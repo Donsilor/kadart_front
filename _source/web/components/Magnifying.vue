@@ -2,7 +2,7 @@
   <div class="productLeft">
     <!-- 左侧中图  -->
     <div class="mdImg">
-      <img :src="qall" alt="">
+      <img class="no-stretch" :src="qall" alt="">
     </div>
     <!-- 遮罩层  -->
     <div v-show="isShow" class="marks" :style="{top:top+'px',left:left+'px'}"></div>
