@@ -152,7 +152,6 @@
               <div class="btn">VIEW DETAILS</div>
             </router-link>
           </div>
-
         </div>
 
         <div class="pages">

@@ -80,7 +80,7 @@
         params: {}
       }).then(res => {
         this.navList = res.data.data;
-        console.log(this.navList)
+        // console.log(this.navList)
       }).catch(function(error) {
         // console.log(error);
       });

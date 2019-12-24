@@ -6,7 +6,7 @@
         <div class="text-2">{{goodsDetail.data.style_name}}</div>
         <!-- <div class="text-2">1231</div> -->
         <div class="img-box">
-          <magnifying :msg = "bigImg"></magnifying>
+          <magnifying :msg = "bigImg[index_k]"></magnifying>
         </div>
         <div class="text-3">Mouse over the image to zoom or click here to view larger image
           <i class="iconfont iconfangda"></i>
@@ -135,8 +135,8 @@
             type_id: ''
           }
         },
-        smallImg: '',
-        bigImg: '',
+        smallImg: [],
+        bigImg: [],
         goodsRecommend: [
           {data: [
             {currency: '',
@@ -210,6 +210,7 @@
           this.goodsDetail = res.data;
           this.smallImg = res.data.data.goods_images.thumb;
           this.bigImg = res.data.data.goods_images.big;
+          console.log(this.goodsDetail)
       }).catch(function (error) {
           console.log(error);
       });
@@ -221,7 +222,7 @@
           }
       }).then(res =>{
           this.goodsRecommend = res.data;
-          console.log(this.goodsRecommend)
+          // console.log(this.goodsRecommend)
       }).catch(function (error) {
           console.log(error);
       });
