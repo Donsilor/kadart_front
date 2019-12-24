@@ -85,7 +85,7 @@
       <!-- 右侧列表区 -->
       <div class="commodity-right fl">
         <div class="filtrate clf">
-          <div class="filtrate-text fl"><span class="bold">6,060</span> Items found for Engagement Rings</div>
+          <div class="filtrate-text fl"><span class="bold">{{totalNum}}</span> Items found for Engagement Rings</div>
 
           <div class="filtrate-condition fr clf">
            <div class="filtrate-child fl" :class="[filter_index == 0 || filter_index == 1 ? 'active' : '']" @click="sort(1)">
@@ -140,7 +140,7 @@
 
         <div class="commodity-show clf">
           <div class="commodity-show-list fl" v-for="(item, index) in commodityItem.data" :key="index">
-            <router-link :to="{ name: 'goods-detail', params: {id: commodityItem.data[index].id}}">
+            <router-link :to="{ name: 'goods-detail', query: {id: commodityItem.data[index].id}}">
               <div class="img-box">
                 <img :src=item.style_image alt="">
               </div>

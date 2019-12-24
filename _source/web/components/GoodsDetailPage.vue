@@ -192,14 +192,12 @@
       }
     },
     mounted() {
-      var goodsDetailId = this.$route.params.id;
+      var goodsDetailId = this.$route.query.id;
 
       if(goodsDetailId){
         localStorage.setItem('goodsDetailId', goodsDetailId)
         this.goodsId = goodsDetailId;
-
       }else{
-
         goodsDetailId = localStorage.getItem('goodsDetailId');
         this.goodsId = goodsDetailId;
       }
@@ -365,7 +363,7 @@
     -ms-transform: translate(-50%, -50%);
     -o-transform: translate(-50%, -50%);
   }
-  
+
   .show-img .img-box-b .img-box img{
     width: 98%;
     margin-left: 1%;

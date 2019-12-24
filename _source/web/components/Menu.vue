@@ -67,6 +67,8 @@
               console.log(res)
           }).catch(function (error) {
               console.log(error);
+              alert('登录失败')
+              this.ifShowLogin = false;
           })
 
           // this.text = '',

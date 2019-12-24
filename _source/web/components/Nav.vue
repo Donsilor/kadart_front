@@ -138,6 +138,8 @@
       },
       noSearch(){
         localStorage.setItem('goods_id','')
+        localStorage.setItem('now_page','')
+        localStorage.setItem('sort_id','1_1')
       }
     }
   }

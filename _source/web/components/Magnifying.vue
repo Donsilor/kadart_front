@@ -155,6 +155,7 @@
           left:770px;
           border:1px solid #A096B4;
           background-color:#fff;
+          box-sizing: border-box;
       }
       .lgImg img{
           width:1520px;

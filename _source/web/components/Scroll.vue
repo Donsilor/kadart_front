@@ -449,7 +449,7 @@
   }
 
   .leave-message .textarea-box {
-    width: 280px;
+    width: 281px;
     height: 130px;
     border: 1px solid #999;
     border-radius: 6px;
