@@ -2,7 +2,7 @@
   <div class="nav" @mouseleave="isShow = false">
     <div class="inline">
       <div class="nav-list fl" v-for="(list, index) in navList" :key="'a'+index" @mouseover="chooseMe(index)">
-        <span>{{list.title}}</span>
+        <a :href="list.url || 'javascript:;'" @click="noSearch()">{{list.title}}</a>
       </div>
     </div>
 
@@ -11,11 +11,13 @@
         <div class="nav-classify fl" v-for="(item, index) in navList[idx_r].items" :key="'b'+index">
           <div class="nav-classify-child"><a href="javascript:;">{{item.title}}</a></div>
           <div class="nav-classify-child" v-for="(ite, ide) in item.items" :key="'c'+ide">
-            <a href="/goods-list">{{ite.title}}</a>
+            <a :href="ite.url || ''" @click="noSearch()">{{ite.title}}</a>
           </div>
         </div>
       </div>
-      <div class="nav-btn" v-if="isShowText">{{nav_text}}</div>
+      <div class="nav-btn" v-if="isShowText">
+        <a :href="navList[idx_r].url" @click="noSearch()">{{nav_text}}</a>
+      </div>
     </div>
   </div>
 </template>
@@ -70,7 +72,7 @@
         isShow: false,
         idx_r: 1,
         isShowText: true,
-        nav_text: '123'
+        nav_text: ''
       }
     },
     created() {
@@ -78,14 +80,14 @@
         params: {}
       }).then(res => {
         this.navList = res.data.data;
-        // console.log(this.navList)
+        console.log(this.navList)
       }).catch(function(error) {
         // console.log(error);
       });
     },
     methods: {
       chooseMe(i) {
-        this.idx_r = i;;
+        this.idx_r = i;
 
         switch(i){
           case(0):
@@ -133,6 +135,9 @@
             this.isShowText = false;
             break;
         }
+      },
+      noSearch(){
+        localStorage.setItem('goods_id','')
       }
     }
   }

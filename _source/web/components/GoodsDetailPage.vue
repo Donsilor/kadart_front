@@ -13,16 +13,16 @@
         </div>
         <div class="show-img">
           <div class="img-box-b clf">
-            <div v-if="index<4" class="img-box fl" :class="[index_k == index ? 'active' : '']" v-for="(item, index) in smallImg">
+            <div v-if="index<4" class="img-box fl" :class="[index_k == index ? 'active' : '']" v-for="(item, index) in smallImg" @click="chooseImg(index)">
               <img :src="item" alt="">
             </div>
-            <!-- <div v-if="index>3 && index<5" class="img-box fl" :class="[index_k == index ? 'active' : '']" v-for="(item, index) in smallImg" @click.prevent="chooseImg(index)">
+           <div v-if="index>3 && index<5" class="img-box fl" :class="[index_k == index ? 'active' : '']" v-for="(item, index) in smallImg" @click.prevent="chooseImg(index)">
               <img :src="item" alt="">
               <i class="iconfont iconyou" v-if="!isShowImg" @click.prevent="ShowImg()"></i>
             </div>
             <div v-if="index>4 && isShowImg" class="img-box fl" :class="[index_k == index ? 'active' : '']" v-for="(item, index) in smallImg" @click="chooseImg(index)">
               <img :src="item" alt="">
-            </div> -->
+            </div>
           </div>
         </div>
       </div>
@@ -76,7 +76,7 @@
     <h3 class="other">OTHER GUESTS ALSO LIKE</h3>
 
     <div class="recommend-swiper">
-      <div v-swiper:hisSwiper="swiperOptionFo">
+      <div v-if="this.goodsRecommend.data && this.goodsRecommend.data != 0" v-swiper:hisSwiper="swiperOptionFo">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(item, index) in goodsRecommend.data" :key="index">
             <div @click="infoRecommendPage(index)">
@@ -262,6 +262,9 @@
       },
       sendMsg(){
         Bus.$emit('send', true)
+      },
+      chooseImg(k){
+        this.index_k = k
       }
     }
   }
@@ -361,6 +364,11 @@
     -moz-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     -o-transform: translate(-50%, -50%);
+  }
+  
+  .show-img .img-box-b .img-box img{
+    width: 98%;
+    margin-left: 1%;
   }
 
   .swiper-button-prev {

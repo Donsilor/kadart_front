@@ -156,8 +156,8 @@
         </div>
 
         <div class="pages">
-          <el-pagination v-if="totalPages != 0" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage1"
-            :page-size="20" layout="prev, pager, next, jumper" :total="totalPages">
+          <el-pagination v-if="totalNum != 0" :total="totalNum" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage1"
+            :page-size="20" layout="total, prev, pager, next, jumper">
           </el-pagination>
         </div>
       </div>
@@ -173,7 +173,7 @@
       return {
         currentPage1: 1,
         totalPages: 1,
-        total:'',
+        totalNum: 100,
         ifOpenA: false,
         ifOpenB: false,
         filter: ['1_0','1_1','2_0','2_1','3_0','3_1','4_0','4_1'],
@@ -274,7 +274,8 @@
       var now_page = localStorage.getItem('now_page');
       var sort_id = localStorage.getItem('sort_id');
 
-      if(goods_id = null){
+      console.log(goods_id)
+      if(goods_id == null){
         this.searchId = ''
       }else{
         this.searchId = goods_id;
@@ -288,16 +289,12 @@
 
       if(now_page == null){
         this.pageId = ''
-        console.log(166)
       }else{
         this.pageId = now_page;
         this.currentPage1 = now_page-0
-        console.log(188)
-        console.log(this.currentPage1)
       }
-      console.log(this.currentPage1)
 
-	  var urlData = '?type_id=25&attr_id=2&attr_value=15&price_range=42';
+	  var urlData = location.search;
 	  var urlArr = urlData.split(/[?=&]/);
     urlArr.shift();
     for(var i=0; i<urlArr.length; i+=2){
@@ -312,12 +309,12 @@
       }
     }
 
-      this.acquireData(this.searchId, this.sortId , this.pageId, this.typeId, this.attrId, this.attrValue, this.priceRange);
+      this.acquireData(this.searchId, '' , '', this.typeId, this.attrId, this.attrValue, this.priceRange);
 
 
       var self = this;
       Bus.$on('sendPriceVal', function(val){
-        self.acquireData(this.searchId, val , this.pageId, this.typeId, this.attrId, this.attrValue, this.priceRange);
+        self.acquireData(val);
       })
 
     },
@@ -336,7 +333,8 @@
             },
         }).then(res =>{
             _self.commodityItem = res.data.data;
-            // console.log(_self.commodityItem)
+            console.log(_self.commodityItem)
+            this.totalNum = _self.commodityItem.total_count-0;
             // this.currentPage1 = _self.commodityItem.page;
             this.totalPages = _self.commodityItem.total_count-0;
         }).catch(function (error) {

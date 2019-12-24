@@ -9,7 +9,7 @@
       <span v-show="ifShowText">
         <i class="iconfont iconfangdajing"></i>SEARCH
       </span>
-      <div class="search-move clf" :class="[ifShowText == false ? 'active' : '']" @mouseover="showIpt()">
+      <div class="search-move clf" :class="[ifShowText == false ? 'active' : '']" @mouseover="showIpt()" @mouseout="hideIptTw()">
         <div class="search-move-top">
           <i class="iconfont iconfangdajing fl" @click="startSearch()"></i>
           <input class="ipt fl" type="text" v-model="ipt" placeholder="SEARCH" @focus="onFocus()" @blur="onBlur()" value="iptVal" @keyup.enter="startSearch()">
@@ -19,9 +19,7 @@
         </div>
         <div class="hot" v-show="ifShowHot">
           <div class="first-list">Quick Search</div>
-          <div class="hot-list">Wedding Ring</div>
-          <div class="hot-list">Necklace</div>
-          <div class="hot-list">Earring</div>
+          <div class="hot-list" v-for="(item, index) in hotList" @click="startHot(index)">{{item}}</div>
         </div>
       </div>
     </div>
@@ -37,13 +35,15 @@
         ifShowHot: false,
         ipt: '',
         iptVal: '',
-        judge: true
+        judge: true,
+        ifHide: false,
+        hotList:['Wedding Ring','Necklace','Earring']
       }
     },
     methods:{
       showIpt(){
+        this.ifHide = true;
         this.ifShowText = false
-
       },
       hideIpt(){
         if(this.ifShowHot){
@@ -51,13 +51,18 @@
           this.ifShowText = true
         }
       },
+      hideIptTw(){
+        this.ifHide=false;
+      },
       onFocus(){
         this.ifShowHot = true
       },
       onBlur(){
-        this.ifShowHot = false;
+        if(this.ifHide == false){
+          this.ifShowHot = false;
+        }
       },
-      startSearch(){
+      startSearch(i){
         this.ifShowHot = false;
         this.iptVal = this.ipt;
 
@@ -76,6 +81,22 @@
           Bus.$emit('sendPriceVal', this.iptVal)
         }
 
+      },
+      startHot(i){
+        var location_r = window.location.href;
+        
+        if(location_r.indexOf('goods-list') == -1){
+          this.$router.push({
+            name: 'goods-list',
+            params:{
+              id:this.hotList[i]
+            }
+          })
+        }else{
+          Bus.$emit('sendPriceVal', this.hotList[i])
+        }
+        
+        this.ifShowHot = false;
       },
       del(){
         this.ipt = '',
@@ -132,7 +153,7 @@
     top: 0;
     right: -100%;
     z-index: 2;
-    width: 100%;
+    width: 99%;
     border: 1px solid #480F32;
     box-sizing: border-box;
     line-height: 28px;
@@ -141,7 +162,7 @@
     padding-top: 1px;
   }
   .search-move.active{
-    right: 0;
+    right: 0px;
     transition: all 1s;
   }
   .search-move .search-move-top{
