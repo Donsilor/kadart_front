@@ -4,23 +4,25 @@
       <div class="commodity-left fl">
         <div class="text-1">Online Exclusive Brilliant Value</div>
         <div class="text-2">{{goodsDetail.data.style_name}}</div>
-        <!-- <div class="text-2">1231</div> -->
         <div class="img-box">
-          <magnifying :msg = "bigImg[index_k]"></magnifying>
+          <magnifying :msg="bigImg[index_k]"></magnifying>
         </div>
         <div class="text-3">Mouse over the image to zoom or click here to view larger image
           <i class="iconfont iconfangda"></i>
         </div>
         <div class="show-img">
           <div class="img-box-b clf">
-            <div v-if="index<4" class="img-box fl" :class="[index_k == index ? 'active' : '']" v-for="(item, index) in smallImg" @click="chooseImg(index)">
+            <div v-if="index<4" class="img-box fl" :class="[index_k == index ? 'active' : '']" v-for="(item, index) in smallImg"
+              @click="chooseImg(index)">
               <img :src="item" alt="">
             </div>
-           <div v-if="index>3 && index<5" class="img-box fl" :class="[index_k == index ? 'active' : '']" v-for="(item, index) in smallImg" @click.prevent="chooseImg(index)">
+            <div v-if="index>3 && index<5" class="img-box fl" :class="[index_k == index ? 'active' : '']" v-for="(item, index) in smallImg"
+              @click.prevent="chooseImg(index)">
               <img :src="item" alt="">
               <i class="iconfont iconyou" v-if="!isShowImg" @click.prevent="ShowImg()"></i>
             </div>
-            <div v-if="index>4 && isShowImg" class="img-box fl" :class="[index_k == index ? 'active' : '']" v-for="(item, index) in smallImg" @click="chooseImg(index)">
+            <div v-if="index>4 && isShowImg" class="img-box fl" :class="[index_k == index ? 'active' : '']" v-for="(item, index) in smallImg"
+              @click="chooseImg(index)">
               <img :src="item" alt="">
             </div>
           </div>
@@ -30,7 +32,8 @@
       <div class="commodity-right fl">
         <div class="price">Reference Price<span class="big">{{goodsDetail.data.currency}}{{goodsDetail.data.sale_price}}</span></div>
         <div class="mq">MoQ: {{goodsDetail.data.style_moq}} Pcs</div>
-        <div class="contact"><span class="color" @click="sendMsg()">Please contact us</span> for more ring size information.</div>
+        <div class="contact"><span class="color" @click="sendMsg()">Please contact us</span> for more ring size
+          information.</div>
         <div class="contact-btn" @click="sendMsg()">CONTACT US</div>
         <div class="holiday-box">
           <div class="holiday clf">
@@ -80,9 +83,9 @@
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(item, index) in goodsRecommend.data" :key="index">
             <div @click="infoRecommendPage(index)">
-				<div class="img-box">
-					<img :src="item.style_image">
-				</div>
+              <div class="img-box">
+                <img :src="item.style_image">
+              </div>
               <div class="recommend-name">{{item.style_sn}}</div>
               <div class="recommend-price">{{item.currency}}{{item.sale_price}}</div>
             </div>
@@ -92,7 +95,7 @@
         <div class="pos">
           <div class="inline">
             <div class="swiper-button-prev fl">
-               <i class="iconfont iconzuo2"></i>
+              <i class="iconfont iconzuo2"></i>
             </div>
 
             <div class="swiper-pagination swiper-pagination-bullets fl"></div>
@@ -116,20 +119,22 @@
     },
     data() {
       return {
+        recommendUrl: '',
         goodsId: '',
-        goodsDetail:{
-          data:{
-            currency:'',
+        goodsDetail: {
+          data: {
+            currency: '',
             goods_3ds: '',
-            goods_images:{
-              big:[],
-              thumb:[]
+            goods_images: {
+              big: [],
+              thumb: []
             },
-            id:'',
-            sale_price:'',
-            style_attrs:[
-              {name:'',value: ''}
-            ],
+            id: '',
+            sale_price: '',
+            style_attrs: [{
+              name: '',
+              value: ''
+            }],
             style_moq: '',
             style_name: '',
             type_id: ''
@@ -137,17 +142,17 @@
         },
         smallImg: [],
         bigImg: [],
-        goodsRecommend: [
-          {data: [
-            {currency: '',
+        goodsRecommend: [{
+          data: [{
+            currency: '',
             goods_clicks: '',
             id: '',
             sale_price: '',
             style_image: '',
             styel_name: '',
-            style_sn: ''}
-          ]}
-        ],
+            style_sn: ''
+          }]
+        }],
         recommendId: '',
         recommendIndex: '',
         banners: [
@@ -194,75 +199,82 @@
     mounted() {
       var goodsDetailId = this.$route.query.id;
 
-      if(goodsDetailId){
+      if (goodsDetailId) {
         localStorage.setItem('goodsDetailId', goodsDetailId)
         this.goodsId = goodsDetailId;
-      }else{
+      } else {
         goodsDetailId = localStorage.getItem('goodsDetailId');
         this.goodsId = goodsDetailId;
       }
 
-      this.$axios.get('/goods/style/detail',{
-          params:{
-            id: this.goodsId
-          }
-      }).then(res =>{
-          this.goodsDetail = res.data;
-          this.smallImg = res.data.data.goods_images.thumb;
-          this.bigImg = res.data.data.goods_images.big;
-          console.log(this.goodsDetail)
-      }).catch(function (error) {
-          console.log(error);
+      this.$axios.get('/goods/style/detail', {
+        params: {
+          id: this.goodsId
+        }
+      }).then(res => {
+        this.goodsDetail = res.data;
+        this.smallImg = res.data.data.goods_images.thumb || '';
+        this.bigImg = res.data.data.goods_images.big || '';
+        // console.log(this.goodsDetail)
+      }).catch(function(error) {
+        console.log(error);
       });
 
       // 商品推荐
-      this.$axios.get('/goods/style/guess-list',{
-          params:{
-            style_id: this.goodsId
-          }
-      }).then(res =>{
-          this.goodsRecommend = res.data;
-          // console.log(this.goodsRecommend)
-      }).catch(function (error) {
-          console.log(error);
+      this.$axios.get('/goods/style/guess-list', {
+        params: {
+          style_id: this.goodsId
+        }
+      }).then(res => {
+        this.goodsRecommend = res.data;
+        // console.log(this.goodsRecommend)
+      }).catch(function(error) {
+        console.log(error);
       });
     },
     methods: {
-      infoRecommendPage(i){
-        console.log(i)
+      infoRecommendPage(i) {
+        // console.log(i)
         var _self = this;
         _self.recommendId = _self.goodsRecommend.data[i].id;
         localStorage.setItem('goodsDetailId', _self.recommendId)
-        console.log((_self.recommendId))
 
-        _self.$axios.get('/goods/style/detail',{
-            params:{
-              id: this.recommendId
-            }
-        }).then(res =>{
-            _self.goodsDetail = res.data;
-            _self.smallImg = res.data.data.goods_images.thumb;
-            _self.bigImg = res.data.data.goods_images.big;
-        }).catch(function (error) {
-            console.log(error);
+        console.log(1)
+        _self.$router.push({
+          name: 'goods-detail',
+          query:{
+            id: _self.recommendId
+          }
+        })
+
+        _self.$axios.get('/goods/style/detail', {
+          params: {
+            id: this.recommendId
+          }
+        }).then(res => {
+          _self.goodsDetail = res.data;
+          _self.smallImg = res.data.data.goods_images.thumb;
+          _self.bigImg = res.data.data.goods_images.big;
+        }).catch(function(error) {
+          console.log(error);
         });
 
         // 商品推荐
-        _self.$axios.get('/goods/style/guess-list',{
-            params:{
-              style_id: this.recommendId
-            }
-        }).then(res =>{
-            _self.goodsRecommend = res.data;
-            console.log(this.goodsRecommend)
-        }).catch(function (error) {
-            console.log(error);
+        _self.$axios.get('/goods/style/guess-list', {
+          params: {
+            style_id: this.recommendId
+          }
+        }).then(res => {
+          _self.goodsRecommend = res.data;
+          console.log(this.goodsRecommend)
+        }).catch(function(error) {
+          console.log(error);
         });
       },
-      sendMsg(){
+      sendMsg() {
         Bus.$emit('send', true)
       },
-      chooseImg(k){
+      chooseImg(k) {
         this.index_k = k
       }
     }
@@ -309,7 +321,7 @@
 
   .commodity-box .text-3 .iconfont {
     font-size: 20px;
-    color: rgba(72,15,51,0.5);
+    color: rgba(72, 15, 51, 0.5);
     position: relative;
     top: 4px;
   }
@@ -349,12 +361,13 @@
     position: relative;
     cursor: pointer;
   }
+
   .show-img .img-box-b .img-box.active {
     border: 1px solid #480f33;
     box-sizing: border-box;
   }
 
-  .show-img .img-box-b .img-box .iconfont{
+  .show-img .img-box-b .img-box .iconfont {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -365,7 +378,7 @@
     -o-transform: translate(-50%, -50%);
   }
 
-  .show-img .img-box-b .img-box img{
+  .show-img .img-box-b .img-box img {
     width: 98%;
     margin-left: 1%;
   }
@@ -484,7 +497,7 @@
     box-sizing: border-box;
   }
 
-  .table .table-line{
+  .table .table-line {
     width: 0;
     height: 100%;
     border-left: 1px solid #999;
@@ -545,13 +558,14 @@
   }
 
   /* 底部推荐商品 */
-  .recommend-swiper{
+  .recommend-swiper {
     width: 1020px;
     height: 260px;
     overflow: hidden;
     margin: 40px auto 80px;
   }
-  .recommend-swiper .swiper{
+
+  .recommend-swiper .swiper {
     width: 100%;
     height: 180px;
     overflow: inherit;
@@ -561,52 +575,58 @@
     width: 100%;
     height: 220px;
   }
-  .recommend-swiper .swiper-slide{
+
+  .recommend-swiper .swiper-slide {
     height: 140px;
     width: 140px;
   }
 
-  .recommend-swiper .swiper-slide .img-box{
-      width: 140px;
-      height: 140px;
-      margin-bottom: 6px;
+  .recommend-swiper .swiper-slide .img-box {
+    width: 140px;
+    height: 140px;
+    margin-bottom: 6px;
   }
+
   /* 分页器容器 */
-  .recommend-swiper .swiper-pagination{
+  .recommend-swiper .swiper-pagination {
     float: left;
     height: 26px;
     position: inherit;
     margin: 0 20px;
   }
+
   /* 分页器 */
-  .recommend-swiper .swiper-pagination-bullet{
+  .recommend-swiper .swiper-pagination-bullet {
     width: 12px;
     height: 12px;
-    background-color: #fff ;
+    background-color: #fff;
     border-radius: 12px;
     opacity: 1;
     border: 1px solid #480f33;
     margin: 0 3px;
     margin-top: 7px;
   }
+
   /* 分页器选中 */
-  .recommend-swiper .swiper-pagination-bullet-active{
+  .recommend-swiper .swiper-pagination-bullet-active {
     background-color: #480f33 !important;
   }
 
-  .recommend-swiper .pos{
+  .recommend-swiper .pos {
     width: 100%;
     height: 26px;
     text-align: center;
     font-size: 0;
   }
-  .recommend-swiper .pos .inline{
+
+  .recommend-swiper .pos .inline {
     display: inline-block;
     height: 100%;
   }
+
   /* 左右按钮 */
   .recommend-swiper .swiper-button-prev,
-  .recommend-swiper .swiper-button-next{
+  .recommend-swiper .swiper-button-next {
     position: relative;
     background-image: none !important;
     height: 26px;
@@ -619,7 +639,7 @@
   }
 
   .recommend-swiper .iconzuo2,
-  .recommend-swiper .iconyou2{
+  .recommend-swiper .iconyou2 {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -633,7 +653,7 @@
   }
 
   .recommend-swiper .recommend-name,
-  .recommend-swiper .recommend-price{
+  .recommend-swiper .recommend-price {
     font-family: Didot;
     font-size: 14px;
     color: #333;
@@ -643,5 +663,4 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-
 </style>
