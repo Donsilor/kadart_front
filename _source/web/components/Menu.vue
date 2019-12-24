@@ -55,10 +55,11 @@
         if(email.test(this.username) == false){
           this.text = 'E-mail format is incorrect'
         }else(
-          this.$axios.post('/member/member/login',{
+          this.$axios.post('/site/email-login',{
               username : this.username
           }).then(res =>{
               if(res.data.code == 200){
+                console.log(123)
                  localStorage.setItem('bdd_user',this.username);
                  this.ifShowLogin = false;
                  this.isLogin = true;

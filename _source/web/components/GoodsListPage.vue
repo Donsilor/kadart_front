@@ -321,15 +321,13 @@
       acquireData(k_id,k_filter,k_page,k_type_id,K_attr_id,k_attr_value,k_price_range){
         var _self = this;
         _self.$axios.post('/goods/style/search',{
-            params:{
-              keyword: k_id,
-              sort: k_filter,
-              page: k_page,
-              type_id: k_type_id,
-              attr_id: K_attr_id,
-              attr_value: k_attr_value,
-              price_range: k_price_range
-            },
+            keyword: k_id,
+            sort: k_filter,
+            page: k_page,
+            type_id: k_type_id,
+            attr_id: K_attr_id,
+            attr_value: k_attr_value,
+            price_range: k_price_range
         }).then(res =>{
             _self.commodityItem = res.data.data;
             console.log(_self.commodityItem)
