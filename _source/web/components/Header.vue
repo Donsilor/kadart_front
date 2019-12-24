@@ -12,7 +12,8 @@
       <div class="search-move clf" :class="[ifShowText == false ? 'active' : '']" @mouseover="showIpt()" @mouseout="hideIptTw()">
         <div class="search-move-top">
           <i class="iconfont iconfangdajing fl" @click="startSearch()"></i>
-          <input class="ipt fl" type="text" v-model="ipt" placeholder="SEARCH" @focus="onFocus()" @blur="onBlur()" value="iptVal" @keyup.enter="startSearch()">
+          <input class="ipt fl" type="text" v-model="ipt" placeholder="SEARCH" @focus="onFocus()" @blur="onBlur()"
+            value="iptVal" @keyup.enter="startSearch()">
           <span class="del fl">
             <i class="iconfont iconquxiao" @click="del()"></i>
           </span>
@@ -28,102 +29,102 @@
 
 <script>
   import Bus from './Bus.js'
-  export default{
-    data(){
-      return{
+  export default {
+    data() {
+      return {
         ifShowText: true,
         ifShowHot: false,
         ipt: '',
         iptVal: '',
         judge: true,
         ifHide: false,
-        hotList:['Wedding Ring','Necklace','Earring']
+        hotList: ['Wedding Ring', 'Necklace', 'Earring']
       }
     },
-    methods:{
-      showIpt(){
+    methods: {
+      showIpt() {
         this.ifHide = true;
         this.ifShowText = false
       },
-      hideIpt(){
-        if(this.ifShowHot){
-        }else{
+      hideIpt() {
+        if (this.ifShowHot) {} else {
           this.ifShowText = true
         }
       },
-      hideIptTw(){
-        this.ifHide=false;
+      hideIptTw() {
+        this.ifHide = false;
       },
-      onFocus(){
+      onFocus() {
         this.ifShowHot = true
       },
-      onBlur(){
-        if(this.ifHide == false){
+      onBlur() {
+        if (this.ifHide == false) {
           this.ifShowHot = false;
         }
       },
-      startSearch(i){
+      startSearch(i) {
         this.ifShowHot = false;
         this.iptVal = this.ipt;
 
-        localStorage.setItem('goods_id',this.iptVal)
+        localStorage.setItem('goods_id', this.iptVal)
 
         var location_r = window.location.href;
 
-        if(location_r.indexOf('goods-list') == -1){
+        if (location_r.indexOf('goods-list') == -1) {
           this.$router.push({
             name: 'goods-list',
-            params:{
-              id:this.iptVal
+            params: {
+              id: this.iptVal
             }
           })
-        }else{
+        } else {
           Bus.$emit('sendPriceVal', this.iptVal)
         }
 
       },
-      startHot(i){
+      startHot(i) {
         var location_r = window.location.href;
-        
-        if(location_r.indexOf('goods-list') == -1){
+
+        if (location_r.indexOf('goods-list') == -1) {
           this.$router.push({
             name: 'goods-list',
-            params:{
-              id:this.hotList[i]
+            params: {
+              id: this.hotList[i]
             }
           })
-        }else{
+        } else {
           Bus.$emit('sendPriceVal', this.hotList[i])
         }
-        
+
         this.ifShowHot = false;
       },
-      del(){
+      del() {
         this.ipt = '',
-        this.iptval = ''
+          this.iptval = ''
       },
     },
-    mounted(){
-    }
+    mounted() {}
   }
 </script>
 
 <style>
-  .header{
+  .header {
     position: relative;
   }
-  .logo{
+
+  .logo {
     font-size: 60px;
     width: 70px;
     height: 82px;
     margin: 0 auto;
   }
-  .search{
+
+  .search {
     position: absolute;
     top: 0;
     right: 40px;
     z-index: 20;
-   /* transform: translateY(-50%);
+    /* transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
     -moz-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
@@ -138,17 +139,19 @@
     box-sizing: border-box;
     overflow: hidden;
   }
-  .search.on{
+
+  .search.on {
     /* overflow: inherit; */
   }
-  .search .iconfont{
+
+  .search .iconfont {
     margin-right: 10px;
     position: relative;
     overflow: hidden;
     top: 1px;
   }
 
-  .search-move{
+  .search-move {
     position: absolute;
     top: 0;
     right: -100%;
@@ -161,23 +164,27 @@
     background-color: #fff;
     padding-top: 1px;
   }
-  .search-move.active{
+
+  .search-move.active {
     right: 0px;
     transition: all 1s;
   }
-  .search-move .search-move-top{
+
+  .search-move .search-move-top {
     background-color: #F0E2ED;
     padding-left: 10px;
     box-sizing: border-box;
     height: 34px;
   }
-  .search-move .iconfangdajing{
+
+  .search-move .iconfangdajing {
     margin-right: 8px;
     height: 20px;
     margin-top: 5px;
     line-height: 20px;
   }
-  .search-move .ipt{
+
+  .search-move .ipt {
     width: 98px;
     height: 26px;
     font-size: 14px;
@@ -185,7 +192,8 @@
     margin-top: 3px;
     background-color: #F0E2ED;
   }
-  .search-move .del{
+
+  .search-move .del {
     width: 16px;
     height: 16px;
     border: 1px solid #999;
@@ -193,7 +201,8 @@
     border-radius: 50%;
     position: relative;
   }
-  .search-move .del .iconfont{
+
+  .search-move .del .iconfont {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -205,7 +214,7 @@
     color: #999;
   }
 
-  .search-move .hot{
+  .search-move .hot {
     position: absolute;
     top: 34px;
     left: 0;
@@ -214,8 +223,9 @@
     padding: 6px 0 10px;
     /* border: 1px solid #480F32; */
   }
+
   .search-move .first-list,
-  .search-move .hot-list{
+  .search-move .hot-list {
     width: 100%;
     height: 24px;
     font-size: 12px;
@@ -225,11 +235,13 @@
     padding-left: 30px;
     box-sizing: border-box;
   }
-  .search-move .first-list{
+
+  .search-move .first-list {
     color: #333;
     background-color: #f0f0f0;
   }
-  .search-move .hot-list:hover{
+
+  .search-move .hot-list:hover {
     color: #333;
     background-color: #f0f0f0;
   }

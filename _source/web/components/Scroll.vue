@@ -11,7 +11,6 @@
     <div class="popup" v-if="ifShowMessage">
       <!-- 判断账号是否登录 -->
 
-
       <div class="leave-message-two" v-if="isLogin">
         <div class="message-top">
           <div class="tit clf">
@@ -37,8 +36,6 @@
               <span class="bold"># {{item.title}} #</span> {{item.content}}
             </div>
           </div>
-
-
         </div>
 
         <div class="message-footer clf">
@@ -94,10 +91,8 @@
       return {
         btnFlag: false,
         ifShowMessage: false,
-
-
         text: '',
-        account: '469678229@qq.com',
+        account: '',
         ifEdit: true,
         placeholder1: 'Message Subject...',
         placeholder2: 'Message...',
@@ -115,15 +110,13 @@
         title:'',
         content:'',
         page:1,
-        book_list:[]
+        book_list: []
       }
     },
     mounted() {
       window.addEventListener('scroll', this.scrollToTop);
       this.is_login();
       this.getUserBook();
-      // console.log(111);
-      // console.log(this.book_list);
     },
     destroyed() {
       window.removeEventListener('scroll', this.scrollToTop)
@@ -196,7 +189,6 @@
             this.username = this.username;
             this.book_list = [];
             this.getUserBook();
-
           }
         }
       },
@@ -237,8 +229,10 @@
 
         if (email.test(this.username) == false) {
           this.text = 'E-mail format is incorrect！'
+          console.log(111)
         }else{
           this.text = ''
+          console.log(123)
         }
       },
       submit() {
@@ -250,13 +244,14 @@
         }
         if(this.content != '' && this.title != '' && this.ifEdit == true){
 
-          this.$axios.post('/member/book/add',{
+          this.$axios.post('/member/book/create',{
               username : this.username,
               title : this.title,
               content : this.content,
           }).then(res =>{
               if(res.data.code == 200){
                   localStorage.setItem('bdd_user',this.username);
+                  // this.book_list = res.data.data;
                   this.book_list = [];
                   this.getUserBook();
                   this.isShowHint2 = true;
@@ -267,7 +262,6 @@
                     this.$router.go(0);
                   }, 2000)
                }
-              console.log(res)
           }).catch(function (error) {
               console.log(error);
           })
@@ -289,10 +283,9 @@
 
           }).then(res =>{
               if(res.data.code == 200){
-
                 // this.book_list.push.apply(this.book_list,res.data.data.list);
-                this.book_list = this.book_list.concat(res.data.data.list)
-                // console.log(res.data.data.list);
+                this.book_list = this.book_list.concat(res.data.data.data)
+                console.log(res);
               }
               // console.log(res)
           }).catch(function (error) {

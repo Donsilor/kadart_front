@@ -172,7 +172,7 @@
       return {
         currentPage1: 1,
         totalPages: 1,
-        totalNum: 100,
+        totalNum: 0,
         ifOpenA: false,
         ifOpenB: false,
         filter: ['1_0','1_1','2_0','2_1','3_0','3_1','4_0','4_1'],
@@ -330,7 +330,7 @@
             price_range: k_price_range
         }).then(res =>{
             _self.commodityItem = res.data.data;
-            console.log(_self.commodityItem)
+            // console.log(_self.commodityItem)
             this.totalNum = _self.commodityItem.total_count-0;
             // this.currentPage1 = _self.commodityItem.page;
             this.totalPages = _self.commodityItem.total_count-0;

@@ -172,7 +172,7 @@
           }
       }).then(res =>{
            this.banners = res.data.data;
-           console.log(this.banners)
+           // console.log(this.banners)
       }).catch(function (error) {
           console.log(error);
       });
