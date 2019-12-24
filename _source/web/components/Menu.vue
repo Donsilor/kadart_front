@@ -59,16 +59,14 @@
               username : this.username
           }).then(res =>{
               if(res.data.code == 200){
-                console.log(123)
                  localStorage.setItem('bdd_user',this.username);
                  this.ifShowLogin = false;
                  this.isLogin = true;
-                 this.$router.go(0);
+                 // this.$router.go(0);
+                 this.usernametwo = this.username;
                }
-              console.log(res)
           }).catch(function (error) {
               console.log(error);
-              alert('登录失败')
               this.ifShowLogin = false;
           })
 

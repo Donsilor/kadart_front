@@ -82,13 +82,13 @@
       <div v-if="this.goodsRecommend.data && this.goodsRecommend.data != 0" v-swiper:hisSwiper="swiperOptionFo">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(item, index) in goodsRecommend.data" :key="index">
-            <div @click="infoRecommendPage(index)">
+            <a :href="'/goods-detail?id='+item.id">
               <div class="img-box">
                 <img :src="item.style_image">
               </div>
               <div class="recommend-name">{{item.style_sn}}</div>
               <div class="recommend-price">{{item.currency}}{{item.sale_price}}</div>
-            </div>
+            </a>
           </div>
         </div>
 
@@ -227,50 +227,49 @@
         }
       }).then(res => {
         this.goodsRecommend = res.data;
-        // console.log(this.goodsRecommend)
       }).catch(function(error) {
         console.log(error);
       });
     },
     methods: {
-      infoRecommendPage(i) {
-        // console.log(i)
-        var _self = this;
-        _self.recommendId = _self.goodsRecommend.data[i].id;
-        localStorage.setItem('goodsDetailId', _self.recommendId)
+      // infoRecommendPage(i) {
+      //   // console.log(i)
+      //   var _self = this;
+      //   _self.recommendId = _self.goodsRecommend.data[i].id;
+      //   localStorage.setItem('goodsDetailId', _self.recommendId)
 
-        console.log(1)
-        _self.$router.push({
-          name: 'goods-detail',
-          query:{
-            id: _self.recommendId
-          }
-        })
+      //   console.log(1)
+      //   _self.$router.push({
+      //     name: 'goods-detail',
+      //     query:{
+      //       id: _self.recommendId
+      //     }
+      //   })
 
-        _self.$axios.get('/goods/style/detail', {
-          params: {
-            id: this.recommendId
-          }
-        }).then(res => {
-          _self.goodsDetail = res.data;
-          _self.smallImg = res.data.data.goods_images.thumb;
-          _self.bigImg = res.data.data.goods_images.big;
-        }).catch(function(error) {
-          console.log(error);
-        });
+      //   _self.$axios.get('/goods/style/detail', {
+      //     params: {
+      //       id: this.recommendId
+      //     }
+      //   }).then(res => {
+      //     _self.goodsDetail = res.data;
+      //     _self.smallImg = res.data.data.goods_images.thumb;
+      //     _self.bigImg = res.data.data.goods_images.big;
+      //   }).catch(function(error) {
+      //     console.log(error);
+      //   });
 
-        // 商品推荐
-        _self.$axios.get('/goods/style/guess-list', {
-          params: {
-            style_id: this.recommendId
-          }
-        }).then(res => {
-          _self.goodsRecommend = res.data;
-          console.log(this.goodsRecommend)
-        }).catch(function(error) {
-          console.log(error);
-        });
-      },
+      //   // 商品推荐
+      //   _self.$axios.get('/goods/style/guess-list', {
+      //     params: {
+      //       style_id: this.recommendId
+      //     }
+      //   }).then(res => {
+      //     _self.goodsRecommend = res.data;
+      //     console.log(this.goodsRecommend)
+      //   }).catch(function(error) {
+      //     console.log(error);
+      //   });
+      // },
       sendMsg() {
         Bus.$emit('send', true)
       },

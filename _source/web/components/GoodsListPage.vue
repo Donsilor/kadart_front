@@ -395,7 +395,6 @@
         _self.filter_index = i;
         localStorage.setItem('sort_id', this.filter[i]);
         _self.acquireData(this.searchId, this.filter[i] , this.pageId, this.typeId, this.attrId, this.attrValue, this.priceRange);
-        console.log(789)
       },
       clickC(i){
         this.index_c = i;

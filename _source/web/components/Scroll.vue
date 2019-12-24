@@ -251,7 +251,6 @@
           }).then(res =>{
               if(res.data.code == 200){
                   localStorage.setItem('bdd_user',this.username);
-                  // this.book_list = res.data.data;
                   this.book_list = [];
                   this.getUserBook();
                   this.isShowHint2 = true;
@@ -285,9 +284,7 @@
               if(res.data.code == 200){
                 // this.book_list.push.apply(this.book_list,res.data.data.list);
                 this.book_list = this.book_list.concat(res.data.data.data)
-                console.log(res);
               }
-              // console.log(res)
           }).catch(function (error) {
               console.log(error);
           })
