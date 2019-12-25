@@ -5,7 +5,8 @@
       <span class="menu-list fl" @click="sendMsg()">Contact Us</span>
     </div>
     <div class="menu-right fr">
-      <span class="menu-list fl" @click="ifShowLogin = true" >{{usernametwo || 'Sign In'}}</span>
+      <div class="menu-list fl user-num" @click="ifLogin()" >{{this.usernametwo || 'Sign In'}}</div>
+      <div class="menu-list fl log-out" v-if="usernametwo" @click="logOut()">Log out</div>
     </div>
 
     <div class="popup" v-if="ifShowLogin">
@@ -25,7 +26,7 @@
     </div>
 
     <div class="popup" v-if="ifShowSuccess">
-      <div class="success">Login successful !</div>
+      <div class="success">{{this.hintText}}</div>
     </div>
   </div>
 </template>
@@ -43,6 +44,7 @@
         username: '',
         usernametwo:'',
         isLogin: false,
+        hintText: 'Login successful !'
       }
     },
     mounted(){
@@ -51,6 +53,7 @@
     methods:{
       login(){
         var email = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+        this.hintText = 'Login successful !';
 
         if(email.test(this.username) == false){
           this.text = 'E-mail format is incorrect'
@@ -64,6 +67,12 @@
                  this.isLogin = true;
                  // this.$router.go(0);
                  this.usernametwo = this.username;
+                 this.ifShowSuccess = true,
+                 setTimeout(()=>{
+                   this.ifShowSuccess = false;
+                   this.$router.go(0);
+                 },1500)
+
                }
           }).catch(function (error) {
               console.log(error);
@@ -90,6 +99,23 @@
       },
       sendMsg(){
         Bus.$emit('send', true)
+      },
+      logOut(){
+        this.usernametwo = '';
+        localStorage.removeItem('bdd_user');
+        this.hintText = 'Account logout successful';
+        this.ifShowSuccess = true,
+        setTimeout(()=>{
+          this.ifShowSuccess = false
+          this.$router.go(0);
+        },1500)
+      },
+      ifLogin(){
+        if(this.usernametwo){
+
+        }else{
+          this.ifShowLogin = true;
+        }
       }
     }
   }
@@ -119,12 +145,27 @@
   .menu-left .menu-list:last-child{
     cursor: pointer;
   }
+  .menu-left .menu-list:last-child:hover{
+    text-decoration: underline;
+    color: #480f33;
+  }
   .menu-right .menu-list{
     padding-right: 0;
     cursor: pointer;
   }
-  .menu-list:not(:first-child){
+  .menu-left .menu-list:not(:first-child){
     border-left: 1px solid #ccc;
+  }
+
+  .user-num{
+    width-width: 146px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .log-out{
+      color: #480f33;
+      text-decoration: underline;
   }
 
   .popup{
@@ -227,8 +268,8 @@
     -moz-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     -o-transform: translate(-50%, -50%);
-    width: 180px;
     height: 60px;
+    padding: 0 20px;
     background-color: #fff;
     border-radius: 10px;
     font-size: 16px;

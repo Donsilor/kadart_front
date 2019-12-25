@@ -141,6 +141,6 @@ table {
 	-o-transform: translate(-50%, -50%);
 	max-width: 100%;
 	max-height: 100%;
-  width: inherit !important;
-  height: inherit !important;
+  width: auto !important;
+  height: auto !important;
 }

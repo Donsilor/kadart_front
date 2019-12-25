@@ -144,9 +144,9 @@
               <div class="img-box">
                 <img :src=item.style_image alt="">
               </div>
-              <div class="price"><span class="reference">Reference Price</span>{{item.sale_price}}</div>
+              <div class="price"><span class="reference">Reference Price</span>{{item.currency}}{{item.sale_price}}</div>
               <div class="online">
-                <span v-if="item.style_sn">{{item.style_sn}}</span>
+                <!-- <span v-if="item.style_sn">{{item.style_sn}}</span> -->
               </div>
               <div class="explain">{{item.style_name}}</div>
               <div class="btn">VIEW DETAILS</div>
@@ -176,7 +176,7 @@
         ifOpenA: false,
         ifOpenB: false,
         filter: ['1_0','1_1','2_0','2_1','3_0','3_1','4_0','4_1'],
-        filter_index: 1,
+        filter_index: -1,
         dataItem: [{
             form: 'GENDER',
             isShowT: false,
@@ -308,11 +308,12 @@
       }
     }
 
-      this.acquireData(this.searchId, '' , '', this.typeId, this.attrId, this.attrValue, this.priceRange);
+      this.acquireData(this.searchId, '' , this.pageId, this.typeId, this.attrId, this.attrValue, this.priceRange);
 
 
       var self = this;
       Bus.$on('sendPriceVal', function(val){
+        location.search = '';
         self.acquireData(val);
       })
 
@@ -330,7 +331,7 @@
             price_range: k_price_range
         }).then(res =>{
             _self.commodityItem = res.data.data;
-            // console.log(_self.commodityItem)
+            console.log(_self.commodityItem)
             this.totalNum = _self.commodityItem.total_count-0;
             // this.currentPage1 = _self.commodityItem.page;
             this.totalPages = _self.commodityItem.total_count-0;
@@ -409,7 +410,7 @@
     font-size: 38px;
     color: #000;
     text-align: center;
-    margin-top: 40px;
+    margin-top: 60px;
   }
 
   .engagement-text {
@@ -727,14 +728,14 @@
 
   .explain {
     font-family: Didot;
-    height: 40px;
+    height: 48px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
     font-size: 16px;
     color: #333;
-    line-height: 20px;
+    line-height: 24px;
   }
 
   .commodity-show-list .btn {
@@ -746,7 +747,7 @@
     border-radius: 4px;
     font-size: 12px;
     color: #fff;
-    margin-top: 10px;
+    margin-top: 20px;
   }
 
   .pages {

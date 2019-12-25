@@ -264,6 +264,10 @@
     margin: 40px auto;
   }
 
+  .vadio video{
+    object-fit: fill
+  }
+
   .series {
     height: 320px;
   }

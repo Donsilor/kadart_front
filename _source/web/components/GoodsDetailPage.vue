@@ -2,7 +2,9 @@
   <div>
     <div class="commodity-box clf">
       <div class="commodity-left fl">
-        <div class="text-1">Online Exclusive Brilliant Value</div>
+        <div class="text-1">
+          <!-- <span>Online Exclusive Brilliant Value</span> -->
+        </div>
         <div class="text-2">{{goodsDetail.data.style_name}}</div>
         <div class="img-box">
           <magnifying :msg="bigImg[index_k]"></magnifying>
@@ -11,19 +13,21 @@
           <i class="iconfont iconfangda"></i>
         </div>
         <div class="show-img">
-          <div class="img-box-b clf">
-            <div v-if="index<4" class="img-box fl" :class="[index_k == index ? 'active' : '']" v-for="(item, index) in smallImg"
-              @click="chooseImg(index)">
-              <img :src="item" alt="">
-            </div>
-            <div v-if="index>3 && index<5" class="img-box fl" :class="[index_k == index ? 'active' : '']" v-for="(item, index) in smallImg"
-              @click.prevent="chooseImg(index)">
-              <img :src="item" alt="">
-              <i class="iconfont iconyou" v-if="!isShowImg" @click.prevent="ShowImg()"></i>
-            </div>
-            <div v-if="index>4 && isShowImg" class="img-box fl" :class="[index_k == index ? 'active' : '']" v-for="(item, index) in smallImg"
-              @click="chooseImg(index)">
-              <img :src="item" alt="">
+          <div class="img-box-b">
+            <div class="img-box-b-mid">
+              <div v-if="index<5" class="img-box" :class="[index_k == index ? 'active' : '']" v-for="(item, index) in smallImg"
+                @click="chooseImg(index)">
+                <img :src="item" alt="">
+              </div>
+              <div v-if="index>4 && index<6" class="img-box" :class="[index_k == index ? 'active' : '']" v-for="(item, index) in smallImg"
+                @click.prevent="chooseImg(index)">
+                <img :src="item" alt="">
+                <i class="iconfont iconyou" v-if="!isShowImg" @click.prevent="ShowImg()"></i>
+              </div>
+              <div v-if="index>6 && isShowImg" class="img-box" :class="[index_k == index ? 'active' : '']" v-for="(item, index) in smallImg"
+                @click="chooseImg(index)">
+                <img :src="item" alt="">
+              </div>
             </div>
           </div>
         </div>
@@ -47,8 +51,12 @@
             <table width="100%">
               <tbody>
                 <tr class="table-list clf" v-for="(item, index) in goodsDetail.data.style_attrs">
-                  <td class="left fl">{{item.name}}</td>
-                  <td class="right fl">{{item.value}}</td>
+                  <td class="left fl">
+                    <div class="table-child">{{item.name}}</div>
+                  </td>
+                  <td class="right fl">
+                    <div class="table-child">{{item.value}}</div>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -56,8 +64,8 @@
           </div>
         </div>
 
-        <div class="share-text">Share:</div>
-        <div class="share-box">
+        <div class="share-text" style="display: none;">Share:</div>
+        <div class="share-box" style="display: none;">
           <a href="">
             <img src="../static/index/icon01.png" alt="">
           </a>
@@ -81,12 +89,12 @@
     <div class="recommend-swiper">
       <div v-if="this.goodsRecommend.data && this.goodsRecommend.data != 0" v-swiper:hisSwiper="swiperOptionFo">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="(item, index) in goodsRecommend.data" :key="index">
+          <div v-if="index < 6" class="swiper-slide" v-for="(item, index) in goodsRecommend.data" :key="index">
             <a :href="'/goods-detail?id='+item.id">
               <div class="img-box">
                 <img :src="item.style_image">
               </div>
-              <div class="recommend-name">{{item.style_sn}}</div>
+              <div class="recommend-name">Reference Price</div>
               <div class="recommend-price">{{item.currency}}{{item.sale_price}}</div>
             </a>
           </div>
@@ -172,9 +180,6 @@
         index_k: 0,
         swiperOptionFo: {
           loop: true,
-          autoplay: {
-            stopOnLastSlide: true
-          },
           slidesPerView: 'auto',
           centeredSlides: true,
           spaceBetween: 80,
@@ -215,7 +220,7 @@
         this.goodsDetail = res.data;
         this.smallImg = res.data.data.goods_images.thumb || '';
         this.bigImg = res.data.data.goods_images.big || '';
-        // console.log(this.goodsDetail)
+        console.log(this.goodsDetail)
       }).catch(function(error) {
         console.log(error);
       });
@@ -232,49 +237,14 @@
       });
     },
     methods: {
-      // infoRecommendPage(i) {
-      //   // console.log(i)
-      //   var _self = this;
-      //   _self.recommendId = _self.goodsRecommend.data[i].id;
-      //   localStorage.setItem('goodsDetailId', _self.recommendId)
-
-      //   console.log(1)
-      //   _self.$router.push({
-      //     name: 'goods-detail',
-      //     query:{
-      //       id: _self.recommendId
-      //     }
-      //   })
-
-      //   _self.$axios.get('/goods/style/detail', {
-      //     params: {
-      //       id: this.recommendId
-      //     }
-      //   }).then(res => {
-      //     _self.goodsDetail = res.data;
-      //     _self.smallImg = res.data.data.goods_images.thumb;
-      //     _self.bigImg = res.data.data.goods_images.big;
-      //   }).catch(function(error) {
-      //     console.log(error);
-      //   });
-
-      //   // 商品推荐
-      //   _self.$axios.get('/goods/style/guess-list', {
-      //     params: {
-      //       style_id: this.recommendId
-      //     }
-      //   }).then(res => {
-      //     _self.goodsRecommend = res.data;
-      //     console.log(this.goodsRecommend)
-      //   }).catch(function(error) {
-      //     console.log(error);
-      //   });
-      // },
       sendMsg() {
         Bus.$emit('send', true)
       },
       chooseImg(k) {
         this.index_k = k
+      },
+      ShowImg(){
+        this.isShowImg = true
       }
     }
   }
@@ -295,13 +265,19 @@
     color: #daab60;
     font-family: Didot;
     font-style: italic;
+    height: 22px;
   }
 
   .commodity-box .text-2 {
     font-family: Didot;
+    height: 60px;
     font-size: 22px;
     color: #333;
-    margin-top: 10px;
+    margin-top: 8px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
   }
 
   .commodity-box .img-box {
@@ -351,6 +327,16 @@
     margin: 0 10px;
     position: relative;
     padding-top: 2px;
+    overflow: hidden;
+  }
+
+  .img-box-b-mid{
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    min-width: 100%;
+    white-space: nowrap;
   }
 
   .show-img .img-box-b .img-box {
@@ -358,7 +344,9 @@
     height: 100px;
     margin: 0 10px 0 0;
     position: relative;
+    display: inline-block;
     cursor: pointer;
+    font-size: 0;
   }
 
   .show-img .img-box-b .img-box.active {
@@ -453,7 +441,7 @@
     width: 406px;
     border-top: 1px solid #808080;
     border-bottom: 1px solid #808080;
-    padding: 0 24px 30px;
+    padding: 0 24px 40px;
     box-sizing: border-box;
   }
 
@@ -470,13 +458,22 @@
     border-top: 1px solid #999;
     position: relative;
     z-index: -1;
+    table-layout:fixed
   }
 
   .table .table-list {
     border-bottom: 1px solid #999;
-    min-height: 30px;
-    line-height: 24px;
+    height: 30px;
+    line-height: 30px;
     word-break: break-all;
+  }
+
+  .table-child{
+    width: 175px;
+    overflow: hidden;
+    white-space: nowrap;
+    padding-left: 5px;
+    box-sizing: border-box;
   }
 
   .table-list .left {
@@ -484,16 +481,18 @@
     font-weight: bold;
     font-size: 12px;
     width: 50%;
-    padding: 6px;
     box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   .table-list .right {
     text-align: center;
     width: 50%;
     color: #666;
-    padding: 6px;
     box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   .table .table-line {

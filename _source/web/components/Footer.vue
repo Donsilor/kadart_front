@@ -7,7 +7,7 @@
         <div class="text">Online Message</div>
         <div class="line-2"></div>
         <div class="text-2">We will reply you on email</div>
-        <div class="btn">Send</div>
+        <div class="btn" @click="sendMsg()">Send</div>
       </div>
       <div class="footer-box-right fl clf">
         <div class="list fl">
@@ -51,7 +51,7 @@
           <div class="child">
             <a href="">Online Shopping</a>
           </div>
-          <div class="icon-box">
+          <div class="icon-box" style="display: none;">
             <div class="icon">
               <img src="../static/index/icon01.png" alt="">
             </div>
@@ -90,11 +90,16 @@
 </template>
 
 <script>
+  import Bus from './Bus.js'
+
   export default{
     data(){
       return{}
     },
     methods:{
+      sendMsg(){
+        Bus.$emit('send', true)
+      },
       shareFaceBook(){
         var _url = window.location.href;
         var shareUrl = "http://www.facebook.com/sharer/sharer.php?u="+ _url;
@@ -165,6 +170,7 @@
     line-height: 24px;
     color: #fff;
     margin: 30px auto 0;
+    cursor: pointer;
   }
 
   .footer-box-right .list {
@@ -181,7 +187,11 @@
     line-height: 30px;
     padding-left: 10px;
     box-sizing: border-box;
-    font-size: 10px;
+    font-size: 14px;
+    color: #333;
+  }
+  .footer-box-right .list .child:hover{
+    color: #a096b4;
   }
 
   .footer-box-right .list .child:first-child {

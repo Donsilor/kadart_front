@@ -121,9 +121,11 @@
 
       }
       /* 左侧中图 */
-      .mdImg,.mdImg>img{
+      .mdImg{
           width:100%;
-          height:100%;
+          height:560px;
+          position: relative;
+          overflow: hidden;
       }
       /*遮罩层superMarks */
       .superMarks{

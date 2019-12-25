@@ -1,8 +1,8 @@
 <template>
-  <div class="nav" @mouseleave="isShow = false">
+  <div class="nav" @mouseleave="liveNav()">
     <div class="inline">
-      <div class="nav-list fl" v-for="(list, index) in navList" :key="'a'+index" @mouseover="chooseMe(index)">
-        <a :href="list.url || 'javascript:;'" @click="noSearch()">{{list.title}}</a>
+      <div class="nav-list fl" :class="[idx_r == index ? 'active' : '']" v-for="(list, index) in navList" :key="'a'+index" @mouseover="chooseMe(index)">
+        <a :href="list.url || 'javascript:;'" target="_blank" @click="noSearch()">{{list.title}}</a>
       </div>
     </div>
 
@@ -11,12 +11,12 @@
         <div class="nav-classify fl" v-for="(item, index) in navList[idx_r].items" :key="'b'+index">
           <div class="nav-classify-child"><a href="javascript:;">{{item.title}}</a></div>
           <div class="nav-classify-child" v-for="(ite, ide) in item.items" :key="'c'+ide">
-            <a :href="ite.url || ''" @click="noSearch()">{{ite.title}}</a>
+            <a :href="ite.url || 'javascript:;'" target="_blank" @click="noSearch()">{{ite.title}}</a>
           </div>
         </div>
       </div>
       <div class="nav-btn" v-if="isShowText">
-        <a :href="navList[idx_r].url" @click="noSearch()">{{nav_text}}</a>
+        <a :href="navList[idx_r].url || 'javascript:;'" target="_blank" @click="noSearch()">{{nav_text}}</a>
       </div>
     </div>
   </div>
@@ -70,7 +70,7 @@
           url: ''
         }],
         isShow: false,
-        idx_r: 1,
+        idx_r: -1,
         isShowText: true,
         nav_text: ''
       }
@@ -140,6 +140,10 @@
         localStorage.setItem('goods_id','')
         localStorage.setItem('now_page','')
         localStorage.setItem('sort_id','1_1')
+      },
+      liveNav(){
+        this.isShow = false;
+        this.idx_r = -1;
       }
     }
   }
@@ -169,7 +173,7 @@
     cursor: pointer;
   }
 
-  .nav-list:hover {
+  .nav-list.active {
     border-color: #7f004e;
     color: #7f004e;
   }

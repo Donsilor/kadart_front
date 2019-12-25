@@ -41,10 +41,10 @@
         <div class="message-footer clf">
           <div class="message-footer-left fl">
             <div class="Subject-box">
-              <input type="text" class="ipt"  :class="isChangeRed1 ? 'isRed' : ''" :placeholder="placeholder4" v-model="title" maxlength="24" @focus="focusIpt4()"
+              <input type="text" class="ipt" :class="isChangeRed1 ? 'isRed' : ''" :placeholder="placeholder4" v-model="title" maxlength="24" @focus="focusIpt4()"
                 @blur="blurIpt4()">
             </div>
-            <div class="">
+            <div>
               <textarea class="Subject-textarea" :class="isChangeRed2 ? 'isRed' : ''" :placeholder="placeholder5" v-model="content" @focus="focusIpt5()" @blur="blurIpt5()"></textarea>
             </div>
           </div>
@@ -54,7 +54,6 @@
         </div>
       </div>
 
-
     <div class="leave-message" v-else>
         <div class="message-top">
           <div class="tit">
@@ -63,15 +62,15 @@
           <i class="iconfont iconjian" @click="closePopup()"></i>
         </div>
         <div class="ipt-box">
-          <input type="text" class="ipt" :placeholder="placeholder1" v-model="title" maxlength="28" @focus="focusIpt1()"
+          <input type="text" class="ipt"  :class="isChangeRed1 ? 'isRed' : ''"  :placeholder="placeholder1" v-model="title" maxlength="28" @focus="focusIpt1()"
             @blur="blurIpt1()">
         </div>
         <div class="textarea-box">
-          <textarea class="textarea" :placeholder="placeholder2" @focus="focusIpt2()" @blur="blurIpt2()" v-model="content"></textarea>
+          <textarea class="textarea"  :class="isChangeRed2 ? 'isRed' : ''"  :placeholder="placeholder2" @focus="focusIpt2()" @blur="blurIpt2()" v-model="content"></textarea>
         </div>
         <div class="text">*Email Address</div>
         <div class="ipt-box">
-          <input type="text" class="ipt" :placeholder="placeholder3" v-model="username" maxlength="30" @focus="focusIpt3()"
+          <input type="text" class="ipt" :class="isChangeRed3 ? 'isRed' : ''" :placeholder="placeholder3" v-model="username" maxlength="30" @focus="focusIpt3()"
             @blur="blurIpt3()">
         </div>
         <div class="prompt">{{text}}</div>
@@ -105,6 +104,7 @@
         hint2: 'received! We will reply you though email.',
         isChangeRed1: false,
         isChangeRed2: false,
+        isChangeRed3: false,
         isLogin:false,
         username:'',
         title:'',
@@ -225,23 +225,25 @@
         this.placeholder5 = 'Message Subject...'
       },
       send() {
+      },
+      submit() {
         var email = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
 
         if (email.test(this.username) == false) {
           this.text = 'E-mail format is incorrect！'
-          console.log(111)
+          this.isChangeRed3 = true;
         }else{
           this.text = ''
-          console.log(123)
+          this.isChangeRed3 = false;
         }
-      },
-      submit() {
+
         if(this.content == ''){
           this.isChangeRed2 = true;
         }
         if(this.title == ''){
           this.isChangeRed1 = true;
         }
+
         if(this.content != '' && this.title != '' && this.ifEdit == true){
 
           this.$axios.post('/member/book/create',{
@@ -272,6 +274,16 @@
         this.ifShowMessage = false;
       },
 
+      is_login(){
+        var username = localStorage.getItem('bdd_user');
+        if(username != null){
+          this.username = username;
+          this.isLogin = true;
+        }else{
+          this.isLogin = false;
+        }
+      },
+
       //获取用户信息
       getUserBook(){
           this.$axios.get('/member/book',{
@@ -288,14 +300,6 @@
           }).catch(function (error) {
               console.log(error);
           })
-      },
-
-      is_login(){
-        var username = localStorage.getItem('bdd_user');
-        if(username != null){
-          this.username = username;
-          this.isLogin = true;
-        }
       }
 
 
@@ -583,6 +587,8 @@
     resize: none;
     padding: 10px;
     box-sizing: border-box;
+    overflow:-Scroll;
+    overflow-y:hidden
   }
 
   .message-send {
@@ -659,6 +665,7 @@
 
   .message-list-text {
     width: 220px;
+    max-height: 68px;
     margin: 6px 0 0 20px;
     padding: 10px;
     text-align: justify;
@@ -667,6 +674,10 @@
     background-color: #f5f5f5;
     box-shadow: 4px 4px 0px 0px rgba(214, 180, 177, 0.5);
     border-radius: 10px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
   }
 
   .message-list-text .bold {

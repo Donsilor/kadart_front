@@ -5,13 +5,15 @@
         <img src="../static/index/logo.png" alt="">
       </a>
     </div>
-    <div class="search" :class="ifShowText == false ? 'on' : ''" @mouseover="showIpt()" @mouseout="hideIpt()">
+    <div class="search" :class="ifShowText == false ? 'on' : 'on'" @mouseover="showIpt()" @mouseout="hideIpt()">
       <span v-show="ifShowText">
         <i class="iconfont iconfangdajing"></i>SEARCH
       </span>
       <div class="search-move clf" :class="[ifShowText == false ? 'active' : '']" @mouseover="showIpt()" @mouseout="hideIptTw()">
         <div class="search-move-top">
-          <i class="iconfont iconfangdajing fl" @click="startSearch()"></i>
+          <!-- <a :href="'goods-list?keyword='+this.ipt"> -->
+            <i class="iconfont iconfangdajing fl" @click="startSearch()"></i>
+          <!-- </a> -->
           <input class="ipt fl" type="text" v-model="ipt" placeholder="SEARCH" @focus="onFocus()" @blur="onBlur()"
             value="iptVal" @keyup.enter="startSearch()">
           <span class="del fl">
@@ -20,7 +22,9 @@
         </div>
         <div class="hot" v-show="ifShowHot">
           <div class="first-list">Quick Search</div>
-          <div class="hot-list" v-for="(item, index) in hotList" @click="startHot(index)">{{item}}</div>
+          <div class="hot-list" v-for="(item, index) in hotList" @click="startHot(index)">
+            <a :href="'goods-list?keyword='+hotList[index]">{{item}}</a>
+          </div>
         </div>
       </div>
     </div>
@@ -44,18 +48,18 @@
     methods: {
       showIpt() {
         this.ifHide = true;
-        this.ifShowText = false
+        this.ifShowText = false;
       },
       hideIpt() {
         if (this.ifShowHot) {} else {
-          this.ifShowText = true
+          this.ifShowText = true;
         }
       },
       hideIptTw() {
         this.ifHide = false;
       },
       onFocus() {
-        this.ifShowHot = true
+        this.ifShowHot = true;
       },
       onBlur() {
         if (this.ifHide == false) {
@@ -65,16 +69,18 @@
       startSearch(i) {
         this.ifShowHot = false;
         this.iptVal = this.ipt;
+        localStorage.setItem('now_page','')
+        localStorage.setItem('sort_id','')
 
         localStorage.setItem('goods_id', this.iptVal)
-
+        // location.search="";
         var location_r = window.location.href;
 
         if (location_r.indexOf('goods-list') == -1) {
           this.$router.push({
             name: 'goods-list',
-            params: {
-              id: this.iptVal
+            query: {
+              keyword: this.iptVal
             }
           })
         } else {
@@ -83,18 +89,23 @@
 
       },
       startHot(i) {
-        var location_r = window.location.href;
+        localStorage.setItem('now_page','');
+        localStorage.setItem('sort_id','');
 
-        if (location_r.indexOf('goods-list') == -1) {
-          this.$router.push({
-            name: 'goods-list',
-            params: {
-              id: this.hotList[i]
-            }
-          })
-        } else {
-          Bus.$emit('sendPriceVal', this.hotList[i])
-        }
+        location.search="";
+
+        // var location_r = window.location.href;
+
+        // if (location_r.indexOf('goods-list') == -1) {
+        //   this.$router.push({
+        //     name: 'goods-list',
+        //     params: {
+        //       id: this.hotList[i]
+        //     }
+        //   })
+        // } else {
+        //   Bus.$emit('sendPriceVal', this.hotList[i])
+        // }
 
         this.ifShowHot = false;
       },
@@ -162,7 +173,6 @@
     line-height: 28px;
     transition: right 1s;
     background-color: #fff;
-    padding-top: 1px;
   }
 
   .search-move.active {
