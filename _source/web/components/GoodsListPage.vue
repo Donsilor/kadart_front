@@ -1,5 +1,10 @@
 <template>
-  <div>
+  <div
+        v-loading="loading"
+        element-loading-text="拼命加载中"
+        element-loading-spinner="el-icon-loading"
+        element-loading-background="rgba(0, 0, 0, 0.8)"
+      >
     <h2 class="engagement" v-if="ifShowDescribe">Engagement Rings</h2>
     <div class="engagement-text" v-if="ifShowDescribe">Find the diamond engagement ring or bridal set of her dreams from our selection of
       designer styles. Choose from classic solitaires with traditional round or princess‐cut diamonds, glistening
@@ -178,6 +183,8 @@
   export default {
     data() {
       return {
+        loading: true,
+        // fullscreenLoading: true,
         currentPage1: 1,
         totalPages: 1,
         totalNum: 0,
@@ -353,8 +360,9 @@
             attr_value: k_attr_value,
             price_range: k_price_range
         }).then(res =>{
+          this.loading = false;
             _self.commodityItem = res.data.data;
-            console.log(_self.commodityItem)
+            // console.log(_self.commodityItem)
             // this.currentPage1 = _self.commodityItem.page;
             this.totalNum = _self.commodityItem.total_count-0;
             this.totalPages = _self.commodityItem.total_count-0;
