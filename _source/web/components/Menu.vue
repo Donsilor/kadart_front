@@ -78,13 +78,6 @@
               console.log(error);
               this.ifShowLogin = false;
           })
-
-          // this.text = '',
-          // this.ifShowLogin = false,
-          // this.ifShowSuccess = true,
-          // setTimeout(()=>{
-          //   this.ifShowSuccess = false
-          // },1500)
         )
       },
       is_login(){

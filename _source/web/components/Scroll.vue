@@ -79,6 +79,10 @@
 
     </div>
 
+    <div class="popup" v-if="ifShowHint">
+      <div class="success">received! We will reply you though email.</div>
+    </div>
+
   </div>
 </template>
 
@@ -110,7 +114,8 @@
         title:'',
         content:'',
         page:1,
-        book_list: []
+        book_list: [],
+        ifShowHint: false
       }
     },
     mounted() {
@@ -205,10 +210,11 @@
         this.placeholder2 = 'Message...'
       },
       focusIpt3() {
-        this.placeholder3 = ''
+        this.placeholder3 = '';
+        this.text = ''
       },
       blurIpt3() {
-        this.placeholder3 = 'Email...'
+        this.placeholder3 = 'Email...';
       },
       focusIpt4() {
         this.placeholder4 = '';
@@ -256,10 +262,12 @@
                   this.book_list = [];
                   this.getUserBook();
                   this.isShowHint2 = true;
+                  this.ifShowHint = true;
                   setTimeout(() => {
                     // this.isShowHint2 = false;
                     // this.content == '';
                     // this.title == '';
+                    this.ifShowHint = false;
                     this.$router.go(0);
                   }, 2000)
                }

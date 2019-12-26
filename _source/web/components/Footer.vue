@@ -197,7 +197,7 @@
   .footer-box-right .list .child:first-child {
     height: 40px;
     line-height: 40px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #808080;
     padding-left: 0;
     font-size: 16px;
     color: #333;

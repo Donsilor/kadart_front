@@ -3,7 +3,7 @@
     <div v-if="this.banners && this.banners != 0" v-swiper:hisSwiper="swiperOptionTh">
       <div class="swiper-wrapper">
         <div class="swiper-slide" v-for="banner in banners.data">
-          <a :href='banner.adv_url || "javascript:;"' target="_blank" >
+          <a :href='banner.adv_url || "javascript:;"' target="_blank">
             <img :src="banner.adv_image">
           </a>
         </div>
@@ -12,7 +12,7 @@
       <div class="pos">
         <div class="inline">
           <div class="swiper-button-prev fl">
-             <i class="iconfont iconzuo2"></i>
+            <i class="iconfont iconzuo2"></i>
           </div>
 
           <div class="swiper-pagination swiper-pagination-bullets fl"></div>
@@ -27,13 +27,14 @@
 </template>
 
 <script>
-  export default{
-    data(){
-      return{
-        banners:[
+  export default {
+    data() {
+      return {
+        banners: [
           // {url:'https://images-aka.zales.com/hp/z20191218/tsb_20191218_fs_d.gif',title: '123'},
           // {url:'https://images-aka.zales.com/hp/z20191212/tsb_20191212_DazzlingDeals_d.jpg',title: '1203'},
         ],
+        adv_id: 2,
         swiperOptionTh: {
           loop: true,
           autoplay: {
@@ -60,20 +61,25 @@
         },
       }
     },
-    created(){
+    mounted(){
       this.getAdData()
     },
-    methods:{
-      getAdData(){
-        this.$axios.get('/common/advert-images/banner',{
-            params:{
-              'adv_id': '4',
-            },
-        }).then(res =>{
-            this.banners = res.data;
-            // console.log(this.banners)
-        }).catch(function (error) {
-            // console.log(error);
+    methods: {
+      getAdData() {
+        var line_id = localStorage.getItem('line_id');
+        if(line_id){
+          this.adv_id = line_id;
+        }
+        this.$axios.get('/common/advert-images/banner', {
+          params: {
+            'adv_id': '12',
+            'type_id': this.adv_id
+          },
+        }).then(res => {
+          this.banners = res.data;
+          // console.log(this.banners)
+        }).catch(function(error) {
+          // console.log(error);
         });
       }
     }
@@ -81,12 +87,13 @@
 </script>
 
 <style>
-  .ad{
+  .ad {
     height: 180px;
     margin-top: 20px;
     border-bottom: 1px solid #e2eaf0;
   }
-  .ad .swiper{
+
+  .ad .swiper {
     width: 100%;
     height: 180px;
     overflow: inherit;
@@ -96,50 +103,56 @@
     width: 100%;
     height: 150px;
   }
-  .ad .swiper-slide{
+
+  .ad .swiper-slide {
     height: 130px;
   }
 
-  .ad .swiper-slide img{
-      width: 100%;
-      height: 100%;
+  .ad .swiper-slide img {
+    width: 100%;
+    height: 100%;
   }
+
   /* 分页器容器 */
-  .ad .swiper-pagination{
+  .ad .swiper-pagination {
     float: left;
     height: 26px;
     position: inherit;
     margin: 0 20px;
   }
+
   /* 分页器 */
-  .ad .swiper-pagination-bullet{
+  .ad .swiper-pagination-bullet {
     width: 12px;
     height: 12px;
-    background-color: #fff ;
+    background-color: #fff;
     border-radius: 12px;
     opacity: 1;
     border: 1px solid #480f33;
     margin: 0 3px;
     margin-top: 7px;
   }
+
   /* 分页器选中 */
-  .ad .swiper-pagination-bullet-active{
+  .ad .swiper-pagination-bullet-active {
     background-color: #480f33 !important;
   }
 
-  .ad .pos{
+  .ad .pos {
     width: 100%;
     height: 26px;
     text-align: center;
     font-size: 0;
   }
-  .pos .inline{
+
+  .pos .inline {
     display: inline-block;
     height: 100%;
   }
+
   /* 左右按钮 */
   .ad .swiper-button-prev,
-  .ad .swiper-button-next{
+  .ad .swiper-button-next {
     position: relative;
     background-image: none !important;
     height: 26px;
@@ -152,7 +165,7 @@
   }
 
   .iconzuo2,
-  .iconyou2{
+  .iconyou2 {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -164,5 +177,4 @@
     font-size: 22px;
     color: #480f33;
   }
-
 </style>

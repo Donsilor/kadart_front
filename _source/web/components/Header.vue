@@ -11,11 +11,11 @@
       </span>
       <div class="search-move clf" :class="[ifShowText == false ? 'active' : '']" @mouseover="showIpt()" @mouseout="hideIptTw()">
         <div class="search-move-top">
-          <!-- <a :href="'goods-list?keyword='+this.ipt"> -->
-            <i class="iconfont iconfangdajing fl" @click="startSearch()"></i>
-          <!-- </a> -->
-          <input class="ipt fl" type="text" v-model="ipt" placeholder="SEARCH" @focus="onFocus()" @blur="onBlur()"
-            value="iptVal" @keyup.enter="startSearch()">
+          <div @click="startSearch()">
+            <i class="iconfont iconfangdajing fl"></i>
+          </div>
+          <input class="ipt fl" type="text" v-on:input="monitorIpt()" v-model="ipt" placeholder="SEARCH" @focus="onFocus()"
+            @blur="onBlur()" value="123" @keyup.enter="startSearch()">
           <span class="del fl">
             <i class="iconfont iconquxiao" @click="del()"></i>
           </span>
@@ -66,55 +66,40 @@
           this.ifShowHot = false;
         }
       },
-      startSearch(i) {
-        this.ifShowHot = false;
-        this.iptVal = this.ipt;
-        localStorage.setItem('now_page','')
-        localStorage.setItem('sort_id','')
-
-        localStorage.setItem('goods_id', this.iptVal)
-        // location.search="";
-        var location_r = window.location.href;
-
-        if (location_r.indexOf('goods-list') == -1) {
-          this.$router.push({
-            name: 'goods-list',
-            query: {
-              keyword: this.iptVal
-            }
-          })
-        } else {
-          Bus.$emit('sendPriceVal', this.iptVal)
-        }
-
-      },
       startHot(i) {
-        localStorage.setItem('now_page','');
-        localStorage.setItem('sort_id','');
-
-        location.search="";
-
-        // var location_r = window.location.href;
-
-        // if (location_r.indexOf('goods-list') == -1) {
-        //   this.$router.push({
-        //     name: 'goods-list',
-        //     params: {
-        //       id: this.hotList[i]
-        //     }
-        //   })
-        // } else {
-        //   Bus.$emit('sendPriceVal', this.hotList[i])
-        // }
-
         this.ifShowHot = false;
+      },
+
+      startSearch() {
+        this.$router.push({
+          path: '/goods-list',
+          query: {
+            keyword: this.ipt
+          }
+        })
+      },
+
+      monitorIpt() {
+        if (this.ipt != '') {
+          this.ifShowHot = false
+        } else {
+          this.ifShowHot = true
+        }
       },
       del() {
         this.ipt = '',
-          this.iptval = ''
+        this.iptval = ''
       },
     },
-    mounted() {}
+    watch: {
+      '$route'(to, from) {
+        this.$router.go(0);
+      }
+    },
+    mounted() {},
+    created() {
+      this.ipt = this.$route.query.keyword;
+    }
   }
 </script>
 

@@ -2,7 +2,7 @@
   <div class="nav" @mouseleave="liveNav()">
     <div class="inline">
       <div class="nav-list fl" :class="[idx_r == index ? 'active' : '']" v-for="(list, index) in navList" :key="'a'+index" @mouseover="chooseMe(index)">
-        <a :href="list.url || 'javascript:;'" target="_blank" @click="noSearch()">{{list.title}}</a>
+        <a :href="list.url || 'javascript:;'" target="_blank" @click="noSearch(index)">{{list.title}}</a>
       </div>
     </div>
 
@@ -80,7 +80,6 @@
         params: {}
       }).then(res => {
         this.navList = res.data.data;
-        // console.log(this.navList)
       }).catch(function(error) {
         // console.log(error);
       });
@@ -136,7 +135,7 @@
             break;
         }
       },
-      noSearch(){
+      noSearch(i){
         localStorage.setItem('goods_id','')
         localStorage.setItem('now_page','')
         localStorage.setItem('sort_id','1_1')
@@ -202,7 +201,7 @@
   .nav-box .nav-classify {
     width: 200px;
     text-align: left;
-    line-height: 24px;
+    line-height: 26px;
     font-size: 14px;
     color: #333;
   }

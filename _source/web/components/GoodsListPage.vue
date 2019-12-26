@@ -1,9 +1,10 @@
 <template>
   <div>
-    <h2 class="engagement">Engagement Rings</h2>
-    <div class="engagement-text">Find the diamond engagement ring or bridal set of her dreams from our selection of
+    <h2 class="engagement" v-if="ifShowDescribe">Engagement Rings</h2>
+    <div class="engagement-text" v-if="ifShowDescribe">Find the diamond engagement ring or bridal set of her dreams from our selection of
       designer styles. Choose from classic solitaires with traditional round or princess‐cut diamonds, glistening
-      halo‐framed Asscher or cushion‐cut diamonds, meaningful three‐stone looks, and much more.</div>
+      halo‐framed Asscher or cushion‐cut diamonds, meaningful three‐stone looks, and much more.
+    </div>
 
     <div class="components-box clf">
       <!-- 左侧选择区 -->
@@ -139,7 +140,14 @@
         </div>
 
         <div class="commodity-show clf">
-          <div class="commodity-show-list fl" v-for="(item, index) in commodityItem.data" :key="index">
+          <div class="no-result" v-for="(item, index) in commodityItem.data" :key="index" v-if="index < 0">
+            <div class="icon">
+              <i class="iconfont iconfangdajing"></i>
+            </div>
+            <div class="text">No results, try another keyword.</div>
+          </div>
+
+          <div v-if="index > 0" class="commodity-show-list fl" v-for="(item, index) in commodityItem.data" :key="index">
             <router-link :to="{ name: 'goods-detail', query: {id: commodityItem.data[index].id}}">
               <div class="img-box">
                 <img :src=item.style_image alt="">
@@ -177,6 +185,9 @@
         ifOpenB: false,
         filter: ['1_0','1_1','2_0','2_1','3_0','3_1','4_0','4_1'],
         filter_index: -1,
+        flag: true,
+        sort_i: 0,
+        ifShowDescribe: false,
         dataItem: [{
             form: 'GENDER',
             isShowT: false,
@@ -265,7 +276,8 @@
         attrId: '',
         attrValue: '',
         priceRange: '',
-        pageId: ''
+        pageId: '',
+        line_id: 2
       }
     },
     mounted(){
@@ -273,7 +285,19 @@
       var now_page = localStorage.getItem('now_page');
       var sort_id = localStorage.getItem('sort_id');
 
-      console.log(goods_id)
+      var type_id = this.$route.query.type_id;
+
+      if(type_id){
+        this.line_id = type_id;
+        localStorage.setItem('line_id', this.line_id);
+      }else{
+        localStorage.setItem('line_id', this.line_id);
+      }
+
+      if(type_id == 2 || type_id == 4 || type_id == 6 || type_id == 8 || type_id == 15 || type_id == 2 || 16){
+        this.ifShowDescribe = true;
+      }
+
       if(goods_id == null){
         this.searchId = ''
       }else{
@@ -310,7 +334,6 @@
 
       this.acquireData(this.searchId, '' , this.pageId, this.typeId, this.attrId, this.attrValue, this.priceRange);
 
-
       var self = this;
       Bus.$on('sendPriceVal', function(val){
         location.search = '';
@@ -332,8 +355,8 @@
         }).then(res =>{
             _self.commodityItem = res.data.data;
             console.log(_self.commodityItem)
-            this.totalNum = _self.commodityItem.total_count-0;
             // this.currentPage1 = _self.commodityItem.page;
+            this.totalNum = _self.commodityItem.total_count-0;
             this.totalPages = _self.commodityItem.total_count-0;
         }).catch(function (error) {
             // console.log(error);
@@ -392,10 +415,23 @@
         this.ifOpenB = !this.ifOpenB;
       },
       sort(i) {
+        if(this.sort_i != 0){
+          if(this.sort_i != i){
+            this.flag = true;
+          }
+        }
         var _self = this;
-        _self.filter_index = i;
-        localStorage.setItem('sort_id', this.filter[i]);
-        _self.acquireData(this.searchId, this.filter[i] , this.pageId, this.typeId, this.attrId, this.attrValue, this.priceRange);
+        if(this.flag){
+          _self.filter_index = i;
+        }else{
+          _self.filter_index = i-1;
+        }
+        localStorage.setItem('sort_id', this.filter[_self.filter_index]);
+        localStorage.setItem('now_page','');
+        this.currentPage1 = 1;
+        _self.acquireData(this.searchId, this.filter[_self.filter_index] , '', this.typeId, this.attrId, this.attrValue, this.priceRange);
+        this.flag = !this.flag;
+        this.sort_i = i;
       },
       clickC(i){
         this.index_c = i;
@@ -784,5 +820,23 @@
     border-color: #480F32;
     padding: 0;
     color: #480F32;
+  }
+
+  .no-result{
+    width: 100%;
+    margin-top: 30px;
+  }
+  .no-result .icon{
+    text-align: center;
+  }
+  .no-result .iconfont{
+    font-size: 40px;
+    color: #d2b8c7;
+  }
+  .no-result .text{
+    font-size: 12px;
+    color: #ae809a;
+    text-align: center;
+    margin-top: 20px;
   }
 </style>

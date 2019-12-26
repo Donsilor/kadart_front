@@ -5,7 +5,7 @@
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="banner in banners">
             <a :href='banner.adv_url || "javascript:;"' target="_blank" >
-              <img :src="banner.adv_image">
+              <img :src="banner.adv_image" alt="">
             </a>
           </div>
         </div>
@@ -31,7 +31,9 @@
       <div v-swiper:youSwiper="swiperOptionTwo">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="ban in bannersTwo">
-            <img :src="ban.url">
+            <a :href='ban.adv_url || "javascript:;"' target="_blank" >
+              <img :src="ban.adv_image" alt="">
+            </a>
           </div>
         </div>
       </div>
@@ -90,19 +92,16 @@
         <el-carousel indicator-position="" :autoplay=auto class="swiper">
           <el-carousel-item v-for="item in 4" :key="item" class="swiper-item">
             <div class="swiper-item-box">
-              <img src="../static/index/1.png" alt="" class="swiper-img">
-              <img src="../static/index/1.png" alt="" class="swiper-img">
-              <img src="../static/index/1.png" alt="" class="swiper-img">
-              <img src="../static/index/1.png" alt="" class="swiper-img">
-              <img src="../static/index/1.png" alt="" class="swiper-img">
-              <img src="../static/index/1.png" alt="" class="swiper-img">
+              <img v-for="(item,index) in classifyImg" :src="item.adv_image" alt="" class="swiper-img">
             </div>
           </el-carousel-item>
         </el-carousel>
       </div>
 
       <div class="new">
-        <img src="../static/index/1.png" alt="">
+        <a :href="footNewImg[0].adv_url">
+          <img :src="footNewImg[0].adv_image" alt="">
+        </a>
       </div>
 
     </div>
@@ -115,21 +114,16 @@
       return {
         auto: false,
         banners: [],
-        bannersTwo: [
+        bannersTwo: [],
+        classifyImg: [],
+        footNewImg: [
           {
-            url: 'https://images-aka.zales.com/hp/z20191212/hp_20191212_gifter_main_d.jpg',
-            title: '123'
-          },
-          {
-            url: 'https://images-aka.zales.com/hp/z20191212/hp_20191212_gifter_main_d.jpg',
-            title: '123'
+            adv_url: '',
+            adv_image: ''
           }
         ],
         swiperOption: {
           loop: true,
-          autoplay: {
-            stopOnLastSlide: true
-          },
           slidesPerView: 'auto',
           centeredSlides: true,
           spaceBetween: 30,
@@ -166,13 +160,46 @@
       }
     },
     created(){
+      // 顶部轮播图
       this.$axios.get('/common/advert-images',{
           params:{
-            'adv_id':1,
+            'adv_id': 11,
           }
       }).then(res =>{
            this.banners = res.data.data;
-           // console.log(this.banners)
+      }).catch(function (error) {
+          console.log(error);
+      });
+
+      // banner图
+      this.$axios.get('/common/advert-images',{
+          params:{
+            'adv_id': 10,
+          }
+      }).then(res =>{
+           this.bannersTwo = res.data.data;
+      }).catch(function (error) {
+          console.log(error);
+      });
+
+      // 分类小图，6张
+      this.$axios.get('/common/advert-images',{
+          params:{
+            'adv_id': 13,
+          }
+      }).then(res =>{
+           this.classifyImg = res.data.data;
+      }).catch(function (error) {
+          console.log(error);
+      });
+
+      // 底部新品预告图
+      this.$axios.get('/common/advert-images',{
+          params:{
+            'adv_id': 14,
+          }
+      }).then(res =>{
+           this.footNewImg = res.data.data;
       }).catch(function (error) {
           console.log(error);
       });
@@ -184,7 +211,6 @@
   .banner {
     width: 100%;
     height: 360px;
-    background-color: #d0c9ce;
     margin-top: 16px;
   }
 
