@@ -262,7 +262,13 @@
                   this.book_list = [];
                   this.getUserBook();
                   this.isShowHint2 = true;
-                  this.ifShowHint = true;
+                  this.ifShowMessage = false;
+
+                  if(this.isLogin){
+                    this.ifShowHint2 = true;
+                  }else{
+                    this.ifShowHint = false;
+                  }
                   setTimeout(() => {
                     // this.isShowHint2 = false;
                     // this.content == '';

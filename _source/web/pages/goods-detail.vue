@@ -20,6 +20,10 @@ import footers from '~/components/Footer.vue'
 import scroll from '~/components/Scroll.vue'
 
 export default {
+  data(){
+    return{
+    }
+  },
   components: {
     menus,
     headers,

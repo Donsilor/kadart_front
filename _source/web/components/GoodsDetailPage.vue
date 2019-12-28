@@ -50,7 +50,7 @@
           <div class="table">
             <table width="100%">
               <tbody>
-                <tr class="table-list clf" v-for="(item, index) in goodsDetail.data.style_attrs">
+                <tr class="table-list clf" v-if="index < 13" v-for="(item, index) in goodsDetail.data.style_attrs">
                   <td class="left fl">
                     <div class="table-child">{{item.name}}</div>
                   </td>
@@ -125,8 +125,17 @@
     components: {
       magnifying
     },
+    head () {
+      return {
+        title: this.goodsDetail.data.style_name,
+        meta: [
+          { hid: 'description', name: 'description', content: 'My custom description' }
+        ]
+      }
+    },
     data() {
       return {
+        title: '',
         recommendUrl: '',
         goodsId: '',
         goodsDetail: {

@@ -88,24 +88,24 @@
 
 <style>
   .ad {
-    height: 180px;
+    height: 288px;
     margin-top: 20px;
     border-bottom: 1px solid #e2eaf0;
   }
 
   .ad .swiper {
     width: 100%;
-    height: 180px;
+    height: 288px;
     overflow: inherit;
   }
 
   .ad .swiper-wrapper {
     width: 100%;
-    height: 150px;
+    height: 254px;
   }
 
   .ad .swiper-slide {
-    height: 130px;
+    height: 240px;
   }
 
   .ad .swiper-slide img {
