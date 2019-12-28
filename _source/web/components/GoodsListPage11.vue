@@ -1,7 +1,15 @@
 <template>
-  <div>
-    <h2 class="engagement" v-if="ifShowDescribe">{{seo.title}}</h2>
-    <div class="engagement-text" v-if="ifShowDescribe">{{seo.description}}</div>
+  <div
+        v-loading="loading"
+        element-loading-text="拼命加载中"
+        element-loading-spinner="el-icon-loading"
+        element-loading-background="rgba(0, 0, 0, 0.8)"
+      >
+    <h2 class="engagement" v-if="ifShowDescribe">Engagement Rings</h2>
+    <div class="engagement-text" v-if="ifShowDescribe">Find the diamond engagement ring or bridal set of her dreams from our selection of
+      designer styles. Choose from classic solitaires with traditional round or princess‐cut diamonds, glistening
+      halo‐framed Asscher or cushion‐cut diamonds, meaningful three‐stone looks, and much more.
+    </div>
 
     <div class="components-box clf">
       <!-- 左侧选择区 -->
@@ -69,7 +77,7 @@
           </div>
 
           <div class="D-box" v-for="(children, idx) in item.content" :key="idx">
-            <div class="child-a clf" :class="[children.isChoose ? 'active' : '']" @click="ifChooseF(index, idx)">
+            <div class="child-a clf" :class="[children.isChoose ? 'active' : '']"  @click="ifChooseF(index, idx)">
               <div class="square fl">
                 <i class="iconfont iconduihao" v-if="children.isChoose"></i>
               </div>
@@ -81,13 +89,12 @@
       </div>
 
       <!-- 右侧列表区 -->
-      <div class="commodity-right fl" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
-    element-loading-background="rgba(0, 0, 0, 0)">
+      <div class="commodity-right fl">
         <div class="filtrate clf">
-          <div class="filtrate-text fl"><span class="bold">{{totalNum}} </span>{{nav_text}}</div>
+          <div class="filtrate-text fl"><span class="bold">{{totalNum}}</span> Items found for Engagement Rings</div>
 
           <div class="filtrate-condition fr clf">
-            <div class="filtrate-child fl" :class="[filter_index == 0 || filter_index == 1 ? 'active' : '']" @click="sort(1)">
+           <div class="filtrate-child fl" :class="[filter_index == 0 || filter_index == 1 ? 'active' : '']" @click="sort(1)">
               <div class="filtrate-child-text fl">Price</div>
               <div class="triangle-wrap fl">
                 <div class="triangle-box" :class="[filter_index == 0 ? 'on' : '']" @click.stop="sort(0)">
@@ -138,7 +145,7 @@
         </div>
 
         <div class="commodity-show clf">
-          <div class="no-result" v-if="ifShowText">
+          <div class="no-result" v-for="(item, index) in commodityItem.data" :key="index" v-if="index < 0">
             <div class="icon">
               <i class="iconfont iconfangdajing"></i>
             </div>
@@ -161,8 +168,8 @@
         </div>
 
         <div class="pages">
-          <el-pagination v-if="totalNum != 0" :total="totalNum" @size-change="handleSizeChange" @current-change="handleCurrentChange"
-            :current-page.sync="currentPage1" :page-size="20" layout="total, prev, pager, next, jumper">
+          <el-pagination :total="totalNum" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageId"
+            :page-size="pageSize" layout="total, prev, pager, next, jumper">
           </el-pagination>
         </div>
       </div>
@@ -176,14 +183,14 @@
   export default {
     data() {
       return {
-        loading: false,
+        loading: true,
         // fullscreenLoading: true,
         currentPage1: 1,
         totalPages: 1,
         totalNum: 0,
         ifOpenA: false,
         ifOpenB: false,
-        filter: ['1_0', '1_1', '2_0', '2_1', '3_0', '3_1', '4_0', '4_1'],
+        filter: ['1_0','1_1','2_0','2_1','3_0','3_1','4_0','4_1'],
         filter_index: -1,
         flag: true,
         sort_i: 0,
@@ -260,195 +267,142 @@
         order: [], //选中的位置
         index_r: 0, // 筛选第几个
         commodityItem: [],
-        priceList: [{
-            'list': 'Under $50 (1)'
-          },
-          {
-            'list': 'Under $50 (1)'
-          },
-          {
-            'list': 'Under $50 (1)'
-          },
-          {
-            'list': 'Under $50 (1)'
-          },
-          {
-            'list': 'Under $50 (1)'
-          },
-          {
-            'list': 'Under $50 (1)'
-          },
-          {
-            'list': 'Under $50 (1)'
-          },
-          {
-            'list': 'Under $50 (1)'
-          }
+        priceList:[
+          {'list': 'Under $50 (1)'},
+          {'list': 'Under $50 (1)'},
+          {'list': 'Under $50 (1)'},
+          {'list': 'Under $50 (1)'},
+          {'list': 'Under $50 (1)'},
+          {'list': 'Under $50 (1)'},
+          {'list': 'Under $50 (1)'},
+          {'list': 'Under $50 (1)'}
         ],
-        keyword: '',
         typeId: '',
-        searchId: '',
-        sortId: '',
+        searchId:'',
+        sortId:'',
         attrId: '',
         attrValue: '',
         priceRange: '',
         pageId: 1,
         line_id: 2,
-        pageSize: 20,
-        ifShowText: false,
-        nav_text: 'Items found for',
-        seo:{
-                "meta_title": '',
-                "meta_word": '',
-                "meta_desc": '',
-                'title':'',
-                'description':'',
-            },
+        pageSize: 2,
+        sort_filter:''
       }
     },
-    mounted() {
+    mounted(){
       var goods_id = localStorage.getItem('goods_id');
       var now_page = localStorage.getItem('now_page');
       var sort_id = localStorage.getItem('sort_id');
-
-      var nav_t = localStorage.getItem('nav_text');
-      if(nav_t){
-        this.nav_text = nav_t
-      }
-
-
+      this.pageId= this.$route.query.page-0;
+      console.log(this.pageId)
       var type_id = this.$route.query.type_id;
-      this.keyword = this.$route.query.keyword;
 
-      if(this.keyword != undefined){
-        this.loading = true
-      }
-
-      if (type_id) {
+      if(type_id){
         this.line_id = type_id;
         localStorage.setItem('line_id', this.line_id);
-      } else {
+      }else{
         localStorage.setItem('line_id', this.line_id);
       }
 
-      if(type_id == 2){
-        this.ifShowDescribe = true;
-      }else if(type_id == 4){
-        this.ifShowDescribe = true;
-      }else if(type_id == 6){
-        this.ifShowDescribe = true;
-      }else if(type_id == 8){
-        this.ifShowDescribe = true;
-      }else if(type_id == 15){
+      if(type_id == 2 || type_id == 4 || type_id == 6 || type_id == 8 || type_id == 15 || type_id == 2 || 16){
         this.ifShowDescribe = true;
       }
 
-      if (goods_id == null) {
+      if(goods_id == null){
         this.searchId = ''
-      } else {
+      }else{
         this.searchId = goods_id;
       }
 
-      if (sort_id == null) {
+      if(sort_id == null){
         this.sortId = '';
-      } else {
+      }else{
         this.sortId = sort_id;
       }
 
-      if (now_page == null) {
-        this.pageId = ''
-      } else {
-        this.pageId = now_page;
-        this.currentPage1 = now_page - 0
-      }
+     console.log();
+      // if(now_page == null){
+      //   this.pageId = '1'
+      // }else{
+      //   this.pageId = now_page;
+      //   this.currentPage1 = now_page-0
+      // }
 
-      var urlData = location.search;
-      var urlArr = urlData.split(/[?=&]/);
-      urlArr.shift();
-      for (var i = 0; i < urlArr.length; i += 2) {
-        if (urlArr[i] == 'type_id') {
-          this.typeId = urlArr[i + 1]
-        } else if (urlArr[i] == 'attr_id') {
-          this.attrId = urlArr[i + 1]
-        } else if (urlArr[i] == 'attr_value') {
-          this.attrValue = urlArr[i + 1]
-        } else if (urlArr[i] == 'price_range') {
-          this.priceRange = urlArr[i + 1]
-        }
+	  var urlData = location.search;
+	  var urlArr = urlData.split(/[?=&]/);
+    urlArr.shift();
+    for(var i=0; i<urlArr.length; i+=2){
+      if(urlArr[i] == 'type_id'){
+        this.typeId = urlArr[i+1]
+      }else if(urlArr[i] == 'attr_id'){
+        this.attrId = urlArr[i+1]
+      }else if(urlArr[i] == 'attr_value'){
+        this.attrValue = urlArr[i+1]
+      }else if(urlArr[i] == 'price_range'){
+        this.priceRange = urlArr[i+1]
       }
+    }
 
-      this.acquireData(this.keyword, '', this.pageId, this.typeId, this.attrId, this.attrValue, this.priceRange, this.pageSize);
+      this.acquireData();
 
       var self = this;
-      Bus.$on('sendPriceVal', function(val) {
+      Bus.$on('sendPriceVal', function(val){
         location.search = '';
         self.acquireData(val);
       })
 
     },
     methods: {
-      acquireData(k_id, k_filter, k_page, k_type_id, K_attr_id, k_attr_value, k_price_range, k_page_size) {
+      acquireData(){
         var _self = this;
-        _self.$axios.post('/goods/style/search', {
-          keyword: k_id,
-          sort: k_filter,
-          page: k_page,
-          type_id: k_type_id,
-          attr_id: K_attr_id,
-          attr_value: k_attr_value,
-          price_range: k_price_range,
-          page_size: k_page_size
-        }).then(res => {
+        _self.$axios.post('/goods/style/search',{
+            keyword: this.searchId,
+            sort: this.sort_filter,
+            page: this.pageId,
+            type_id: this.typeId,
+            attr_id: this.attrId,
+            attr_value: this.attrValue,
+            price_range: this.priceRange,
+            page_size: this.pageSize
+        }).then(res =>{
           this.loading = false;
-          _self.commodityItem = res.data.data;
-          this.seo = _self.commodityItem.seo;
-          // this.currentPage1 = _self.commodityItem.page;
-          console.log(_self.commodityItem.data)
-          this.totalNum = _self.commodityItem.total_count - 0;
-          this.totalPages = _self.commodityItem.page_count - 0;
-
-          if(_self.commodityItem.data[0] == undefined){
-            this.ifShowText = true;
-          }
-        }).catch(function(error) {
-          // console.log(error);
+            _self.commodityItem = res.data.data;
+            // console.log(_self.commodityItem)
+            // this.currentPage1 = _self.commodityItem.page;
+            this.totalNum = _self.commodityItem.total_count-0;
+            this.totalPages = _self.commodityItem.page_count-0;
+            console.log(this.totalNum,this.totalPages)
+        }).catch(function (error) {
+            // console.log(error);
         });
       },
 
+
       handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
+        this.$router.replace({
+          path: this.$route.path,
+          query: {
+            page: this.$route.query.page ? this.$route.query.page : 1,
+          }
+        });
+        this.acquireData();
       },
+      //分页页码变化
       handleCurrentChange(val) {
-        localStorage.setItem('now_page', val);
-        this.currentPage1 = val;
+        this.$router.replace({
+          path: this.$route.path,
+          query: {
+            page: val,
 
-        var type_id = this.$route.query.type_id;
-        var attr_id = this.$route.query.attr_id;
-        var key_word = this.$route.query.keyword;
-
-        if (type_id == undefined) {
-          this.typeId = ''
-        } else {
-          this.typeId = type_id;
-        }
-
-        if (attr_id == undefined) {
-          this.attrId = ''
-        } else {
-          this.attrId = attr_id;
-        }
-
-        if (key_word == undefined) {
-          this.searchId = ''
-        } else {
-          this.searchId = key_word;
-        }
-
-        this.acquireData(this.searchId, this.sortId, val, this.typeId, this.attrId, this.attrValue, this.priceRange,
-          this.pageSize)
-
-        console.log(`当前页: ${val}`);
+          }
+        });
+        this.acquireData();
       },
+
+
+
+
+
       ifShowF(k) {
         this.dataItem[k].isShowT = !this.dataItem[k].isShowT
       },
@@ -491,36 +445,28 @@
         this.ifOpenB = !this.ifOpenB;
       },
       sort(i) {
-        if (this.sort_i != 0) {
-          if (this.sort_i != i) {
+        if(this.sort_i != 0){
+          if(this.sort_i != i){
             this.flag = true;
           }
         }
         var _self = this;
-        if (this.flag) {
+        if(this.flag){
           _self.filter_index = i;
-        } else {
-          _self.filter_index = i - 1;
+        }else{
+          _self.filter_index = i-1;
         }
         localStorage.setItem('sort_id', this.filter[_self.filter_index]);
-        localStorage.setItem('now_page', '');
+        localStorage.setItem('now_page','');
         this.currentPage1 = 1;
-        _self.acquireData(this.searchId, this.filter[_self.filter_index], '', this.typeId, this.attrId, this.attrValue,
-          this.priceRange);
+        this.pageId=1;
+        this.sort_filter = this.filter[_self.filter_index];
+        _self.acquireData();
         this.flag = !this.flag;
         this.sort_i = i;
       },
-      clickC(i) {
+      clickC(i){
         this.index_c = i;
-      }
-    },
-    head () {
-      return {
-        title: this.seo.meta_title,
-        meta: [
-          { hid: 'description', name: 'description', content: this.seo.meta_desc },
-          { hid: 'keywords', name: 'keywords', content:  this.seo.meta_word}
-        ]
       }
     }
   }
@@ -613,7 +559,7 @@
     cursor: pointer;
   }
 
-  .child-a.active {
+  .child-a.active{
     color: #480f33;
   }
 
@@ -640,7 +586,7 @@
     white-space: nowrap;
   }
 
-  .child-c.active {
+  .child-c.active{
     color: #480f33;
     text-decoration: underline;
   }
@@ -733,10 +679,9 @@
     cursor: pointer;
   }
 
-  .commodity-right {
+  .commodity-right{
     width: 100%;
   }
-
   .filtrate {
     /* width: 1030px; */
     width: 100%;
@@ -909,21 +854,18 @@
     color: #480F32;
   }
 
-  .no-result {
+  .no-result{
     width: 100%;
-    margin-top: 80px;
+    margin-top: 30px;
   }
-
-  .no-result .icon {
+  .no-result .icon{
     text-align: center;
   }
-
-  .no-result .iconfont {
+  .no-result .iconfont{
     font-size: 40px;
     color: #d2b8c7;
   }
-
-  .no-result .text {
+  .no-result .text{
     font-size: 12px;
     color: #ae809a;
     text-align: center;

@@ -22,8 +22,9 @@
         </div>
         <div class="hot" v-show="ifShowHot">
           <div class="first-list">Quick Search</div>
-          <div class="hot-list" v-for="(item, index) in hotList" @click="startHot(index)">
-            <a :href="'goods-list?keyword='+hotList[index]">{{item}}</a>
+          <div class="hot-list" v-for="(item, index) in hotList">
+            <!-- <a :href="'goods-list?keyword='+hotList[index]">{{item}}</a> -->
+            <a :href="hotUrl[index]" target="_blank">{{item}}</a>
           </div>
         </div>
       </div>
@@ -42,7 +43,12 @@
         iptVal: '',
         judge: true,
         ifHide: false,
-        hotList: ['Wedding Ring', 'Necklace', 'Earring']
+        hotList: ['Wedding Ring', 'Necklace', 'Earring'],
+        hotUrl:[
+          'http://www.kadart.bddia.com/goods-list/?type_id=2',
+          'http://www.kadart.bddia.com/goods-list/?type_id=4',
+          'http://www.kadart.bddia.com/goods-list/?type_id=6'
+        ]
       }
     },
     methods: {
@@ -71,6 +77,8 @@
       },
 
       startSearch() {
+        localStorage.removeItem('now_page');
+        localStorage.removeItem('nav_text');
         this.$router.push({
           path: '/goods-list',
           query: {
@@ -211,7 +219,7 @@
 
   .search-move .hot {
     position: absolute;
-    top: 34px;
+    top: 35px;
     left: 0;
     width: 100%;
     background-color: #fff;
@@ -239,5 +247,10 @@
   .search-move .hot-list:hover {
     color: #333;
     background-color: #f0f0f0;
+  }
+  .search-move .hot-list a{
+    display: inline-block;
+    width: 100%;
+    height: 100%;
   }
 </style>

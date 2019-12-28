@@ -1,29 +1,44 @@
 <template>
   <div class="article-wrap clf">
     <div class="article-left fl">
-      <div class="article-left-tit">BRAND CULTURE</div>
+      <div class="article-left-tit">Customer Service</div>
       <div class="article-left-box">
         <div class="article-left-list" :class="index == 0 ? 'active' : ''" @click="clickMe(0)">Contact Us</div>
+        <div class="article-left-list" :class="index == 1 ? 'active' : ''"  @click="clickMe(1)">Quality Certification</div>
+        <div class="article-left-list" :class="index == 2 ? 'active' : ''"  @click="clickMe(2)">Return and Exchange Policy</div>
+        <div class="article-left-list" :class="index == 3 ? 'active' : ''"  @click="clickMe(3)">Repairs and Services</div>
       </div>
     </div>
     <div class="article-right fr">
       <div class="article-right-tit">Contact KAD</div>
       <div class="article-right-box">
         <div class="article-right-list">
-          <div class="article-right-list-title">About  KADART</div>
-          <div class="article-right-list-text">KADART, we are a global jewelry manufacture enterprise. It is aiming at hiring domestic and overseas experienced jewelry craftsman to produce high quality jewelry for the world. Our location is in Shenzhen IBC, set up headquarters in Hong Kong. We have 3 branch office and 9 factories. All the precious-stones, semi-gems and fashion jewelry material are sourcing around the world. The high quality jewelry we showed is made by our practiced craftsman. This is our belief, we only produce high quality jewelry.</div>
-        </div>
-        
-        <div class="article-right-list">
-          <div class="article-right-list-title">About HENGDELI</div>
-          <div class="article-right-list-text">HENGDELI is a luxury jewelry supplier, who focusing on jadeite, nephrite and precious stones. It is concentrating on producing the top class jewelry of Chinese traditional culture.</div>
-        </div>
-        
-        <div class="article-right-list">
-          <div class="article-right-list-title">About BBD Co.</div>
-          <div class="article-right-list-text">BBD Co. is an international online retailer of jewelry. It is concentrating on selling the diamond jewelry & fashion jewelry made by ourselves. All of our items comply with high quality standards and are greatly appreciated in a variety of different markets throughout the world.</div>
+          <div class="article-right-list-title">The Diamond Card</div>
+          <div class="article-right-list-text">Do you have questions about The Diamond Card? Would you like assistance making a payment on your credit account? Contact Comenity Capital Bank LLC at 1-844-271-2708 (TDD/TYY: 888-819-1918 ) or use their automated service 24 hours a day.</div>
         </div>
 
+        <div class="article-right-list">
+          <div class="article-right-list-title">The Diamond Card</div>
+          <div class="article-right-list-text">Do you have questions about The Diamond Card? Would you like assistance making a payment on your credit account? Contact Comenity Capital Bank LLC at 1-844-271-2708 (TDD/TYY: 888-819-1918 ) or use their automated service 24 hours a day.</div>
+        </div>
+
+        <div class="article-right-list">
+          <div class="article-right-list-title">The Diamond Card</div>
+          <div class="article-right-list-text">Do you have questions about The Diamond Card? Would you like assistance making a payment on your credit account? Contact Comenity Capital Bank LLC at 1-844-271-2708 (TDD/TYY: 888-819-1918 ) or use their automated service 24 hours a day.</div>
+        </div>
+
+        <div class="article-right-list">
+          <div class="article-right-list-title">The Diamond Card</div>
+          <div class="article-right-list-text">Do you have questions about The Diamond Card? Would you like assistance making a payment on your credit account? Contact Comenity Capital Bank LLC at 1-844-271-2708 (TDD/TYY: 888-819-1918 ) or use their automated service 24 hours a day.</div>
+
+          <div class="article-detail">
+            <div class="article-img">
+              <!-- <img src="../static/index/1.png" alt=""> -->
+            </div>
+            <div class="article-detail-tit">The Diamond Card</div>
+            <div class="article-detail-text">Do you have questions about The Diamond Card? Would you like assistance making a payment on your credit account? Contact Comenity Capital Bank LLC at 1-844-271-2708 (TDD/TYY: 888-819-1918 ) or use their automated service 24 hours a day.</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

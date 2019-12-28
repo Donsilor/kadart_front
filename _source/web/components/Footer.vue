@@ -13,9 +13,9 @@
         <div class="list fl">
           <div class="child">Customer Service</div>
           <div class="child">
-            <a href="/article">Contact Us</a>
+            <span @click="sendMsgTwo()">Contact Us</span>
           </div>
-          <div class="child">
+          <!-- <div class="child">
             <a href="">Quality Certification</a>
           </div>
           <div class="child">
@@ -23,33 +23,33 @@
           </div>
           <div class="child">
             <a href="">Repairs and Services</a>
-          </div>
+          </div> -->
         </div>
         <div class="list fl">
           <div class="child">	About Us</div>
-          <div class="child">
+          <!-- <div class="child">
             <a href="">Our Brands</a>
-          </div>
+          </div> -->
           <div class="child">
-            <a href="">Brand Culture</a>
+            <router-link :to="{ name:'article'}">Brand Culture</router-link>
           </div>
-          <div class="child">
+          <!-- <div class="child">
             <a href="">Brand Service</a>
-          </div>
+          </div> -->
         </div>
         <div class="list fl">
           <div class="child">Help</div>
           <div class="child">
-            <a href="">Message Board</a>
+            <span @click="sendMsg()">Message Board</span>
           </div>
-          <div class="child">
+          <!-- <div class="child">
             <a href="">Login</a>
           </div>
           <div class="child">
             <a href="">Site Map</a>
-          </div>
+          </div> -->
           <div class="child">
-            <a href="">Online Shopping</a>
+            <a href="http://www.kadart.bddia.com/goods-list/?type_id=2" target="_blank">Online Shopping</a>
           </div>
           <div class="icon-box" style="display: none;">
             <div class="icon">
@@ -75,7 +75,7 @@
     <div class="footer-bottom">
       <div class="registered-trademark fl">&copy;ZALES.COM</div>
       <div class="fr">
-        <div class="footer-bottom-list fl">
+        <!-- <div class="footer-bottom-list fl">
           <a href="">Privacy Policy</a>
         </div>
         <div class="footer-bottom-list fl">
@@ -83,7 +83,7 @@
         </div>
         <div class="footer-bottom-list fl">
           <a href="">Sitemap</a>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -113,7 +113,10 @@
             var top = wTop + (window.innerHeight / 2) - (h / 2);
             return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
         }
-      }
+      },
+      sendMsgTwo(){
+        Bus.$emit('send', true)
+      },
     }
   }
 </script>
@@ -189,6 +192,9 @@
     box-sizing: border-box;
     font-size: 14px;
     color: #333;
+  }
+  .footer-box-right .list .child span{
+    cursor: pointer;
   }
   .footer-box-right .list .child:hover{
     color: #a096b4;

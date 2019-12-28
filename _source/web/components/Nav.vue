@@ -1,8 +1,8 @@
 <template>
   <div class="nav" @mouseleave="liveNav()">
     <div class="inline">
-      <div class="nav-list fl" :class="[idx_r == index ? 'active' : '']" v-for="(list, index) in navList" :key="'a'+index" @mouseover="chooseMe(index)">
-        <a :href="list.url || 'javascript:;'" target="_blank" @click="noSearch(index)">{{list.title}}</a>
+      <div v-if="index != 8" class="nav-list fl" :class="[idx_r == index ? 'active' : '']" v-for="(list, index) in navList" :key="'a'+index" @mouseover="chooseMe(index)">
+        <a :href="list.url || 'javascript:;'" target="_blank" @click="noSearch(index,$event)">{{list.title}}</a>
       </div>
     </div>
 
@@ -11,7 +11,7 @@
         <div class="nav-classify fl" v-for="(item, index) in navList[idx_r].items" :key="'b'+index">
           <div class="nav-classify-child"><a href="javascript:;">{{item.title}}</a></div>
           <div class="nav-classify-child" v-for="(ite, ide) in item.items" :key="'c'+ide">
-            <a :href="ite.url || 'javascript:;'" target="_blank" @click="noSearch()">{{ite.title}}</a>
+            <a :href="ite.url || 'javascript:;'" target="_blank" @click="noSearch('',$event)">{{ite.title}}</a>
           </div>
         </div>
       </div>
@@ -72,7 +72,7 @@
         isShow: false,
         idx_r: -1,
         isShowText: true,
-        nav_text: ''
+        nav_text: 'Items found for'
       }
     },
     created() {
@@ -135,10 +135,11 @@
             break;
         }
       },
-      noSearch(i){
+      noSearch(i,e){
         localStorage.setItem('goods_id','')
         localStorage.setItem('now_page','')
         localStorage.setItem('sort_id','1_1')
+        localStorage.setItem('nav_text', e.target.innerText)
       },
       liveNav(){
         this.isShow = false;
