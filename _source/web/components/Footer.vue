@@ -49,7 +49,7 @@
             <a href="">Site Map</a>
           </div> -->
           <div class="child">
-            <a href="http://www.kadart.bddia.com/goods-list/?type_id=2" target="_blank">Online Shopping</a>
+            <a href="/goods-list/?type_id=2" target="_blank">Online Shopping</a>
           </div>
           <div class="icon-box" style="display: none;">
             <div class="icon">
@@ -73,7 +73,7 @@
     </div>
 
     <div class="footer-bottom">
-      <div class="registered-trademark fl">&copy;ZALES.COM</div>
+      <div class="registered-trademark fl">&copy;KADART.COM</div>
       <div class="fr">
         <!-- <div class="footer-bottom-list fl">
           <a href="">Privacy Policy</a>

@@ -15,7 +15,8 @@
           </div>
         </div>
       </div>
-      <div class="nav-btn" v-if="isShowText">
+      <!-- <div class="nav-btn" v-if="isShowText"> -->
+      <div class="nav-btn" v-if="0">
         <a :href="navList[idx_r].url || 'javascript:;'" target="_blank" @click="noSearch()">{{nav_text}}</a>
       </div>
     </div>

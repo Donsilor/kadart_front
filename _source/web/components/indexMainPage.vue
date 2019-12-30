@@ -4,7 +4,7 @@
       <div v-if="this.banners && this.banners != 0" v-swiper:mySwiper="swiperOption">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="banner in banners">
-            <a :href='banner.adv_url || "javascript:;"' target="_blank" >
+            <a :href='banner.adv_url || "javascript:;"' target="_blank">
               <img :src="banner.adv_image" alt="">
             </a>
           </div>
@@ -13,7 +13,7 @@
         <div class="pos">
           <div class="inline">
             <div class="swiper-button-prev fl">
-               <i class="iconfont iconzuo2"></i>
+              <i class="iconfont iconzuo2"></i>
             </div>
 
             <div class="swiper-pagination swiper-pagination-bullets fl"></div>
@@ -28,10 +28,10 @@
     </div>
 
     <div class="banner">
-      <div v-swiper:youSwiper="swiperOptionTwo">
+      <div v-if="this.bannersTwo && this.bannersTwo != 0" v-swiper:youSwiper="swiperOptionTk">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="ban in bannersTwo">
-            <a :href='ban.adv_url || "javascript:;"' target="_blank" >
+            <a :href='ban.adv_url || "javascript:;"' target="_blank">
               <img :src="ban.adv_image" alt="">
             </a>
           </div>
@@ -39,91 +39,83 @@
 
         <div class="pos">
           <div class="inline">
-            <div class="swiper-button-prev fl">
-               <i class="iconfont iconzuo2"></i>
-            </div>
-
             <div class="swiper-pagination swiper-pagination-bullets fl"></div>
-
-            <div class="swiper-button-next fl">
-              <i class="iconfont iconyou2"></i>
-            </div>
           </div>
         </div>
-
       </div>
     </div>
 
+
     <div class="width-box">
-      <h3 class="tit">POPULAR COLLECTION</h3>
-      <h4 class="subheading">POPULAR COLLECTION</h4>
+      <h3 class="tit">FINE JEWELLY  COLLECTION</h3>
+      <h4 class="subheading">
+        <!-- <span>POPULAR COLLECTION</span> -->
+      </h4>
 
       <div class="banner">
-         <a href="http://www.kadart.bddia.com/goods-list/?type_id=2" target="_blank">
+        <a href="/goods-list/?type_id=2" target="_blank">
           <img src="../static/index/home-13.png" alt="">
-         </a>
+        </a>
       </div>
       <div class="box clf">
         <div class="img-box fl">
-          <a href="http://www.kadart.bddia.com/goods-list/?type_id=4" target="_blank">
+          <a href="/goods-list/?type_id=4" target="_blank">
             <img src="../static/index/home-11.png" alt="">
           </a>
         </div>
         <div class="img-box fr">
-          <a href="http://www.kadart.bddia.com/goods-list/?type_id=6" target="_blank">
+          <a href="/goods-list/?type_id=6" target="_blank">
             <img src="../static/index/home-12.png" alt="">
           </a>
         </div>
       </div>
 
       <h3 class="tit">BRAND CULTURE</h3>
-      <h4 class="subheading">BRAND CULTURE</h4>
+      <h4 class="subheading">
+        <!-- <span>BRAND CULTURE</span> -->
+      </h4>
 
       <div class="classify clf">
         <div class="classify-left fl">
-          <a href="http://www.kadart.bddia.com/goods-list/?type_id=2" target="_blank">
+          <a href="/article" target="_blank">
             <img src="../static/index/home-16.png" alt="">
           </a>
         </div>
         <div class="classify-right fr">
           <div class="classif-list">
-            <a href="http://www.kadart.bddia.com/goods-list/?type_id=4" target="_blank">
+            <a href="/goods-list/?type_id=4" target="_blank">
               <img src="../static/index/home-14.png" alt="">
             </a>
           </div>
           <div class="classif-list">
-            <a href="http://www.kadart.bddia.com/goods-list/?type_id=6" target="_blank">
+            <a href="/goods-list/?type_id=6" target="_blank">
               <img src="../static/index/home-15.png" alt="">
             </a>
           </div>
         </div>
       </div>
 
-      <!-- <h3 class="tit">QUALITY ASSURANCE</h3> -->
-      <!-- <h4 class="subheading">QUALITY ASSURANCE</h4> -->
-
-      <!-- <div class="quality"> -->
-        <!-- <img src="../static/index/1.png" alt=""> -->
-      <!-- </div> -->
       <div class="video">
         <div class="cover" v-if="ifPlay">
           <div class="cover-but" @click="onPlay()"></div>
           <img src="../static/index/video.png" alt="">
         </div>
-        <video width="100%" height="100%" controls="controls" :autoplay="videoAutoplay">
+        <video width="100%" height="100%" controls="controls" :autoplay="false" ref="video" @ended="endedEd()">
           <source src="https://cloud.video.taobao.com//play/u/2200750399716/p/1/e/6/t/1/248174688205.mp4" type="video/mp4">
           <source src="https://cloud.video.taobao.com//play/u/2200750399716/p/1/e/1/t/1/248174688205.swf" type="audio/mp4">
         </video>
       </div>
 
       <h3 class="tit">PRODUCT CATEGORIES</h3>
-      <h4 class="subheading">PRODUCT CATEGORIES</h4>
+      <h4 class="subheading">
+        <!-- <span>PRODUCT CATEGORIES</span> -->
+      </h4>
 
       <div class="series">
         <el-carousel indicator-position="" :autoplay=auto class="swiper">
           <el-carousel-item v-for="item in 4" :key="item" class="swiper-item">
             <div class="swiper-item-box">
-              <a :href="item.adv_url" v-for="(item,index) in classifyImg" >
+              <a :href="item.adv_url" v-for="(item,index) in classifyImg">
                 <img :src="item.adv_image" alt="" class="swiper-img">
               </a>
             </div>
@@ -147,14 +139,13 @@
       return {
         auto: false,
         banners: [],
-        bannersTwo: [],
-        classifyImg: [],
-        footNewImg: [
-          {
-            adv_url: '',
-            adv_image: ''
-          }
+        bannersTwo: [
         ],
+        classifyImg: [],
+        footNewImg: [{
+          adv_url: '',
+          adv_image: ''
+        }],
         swiperOption: {
           loop: true,
           autoplay: {
@@ -165,8 +156,6 @@
           spaceBetween: 30,
           pagination: {
             el: '.swiper-pagination',
-
-            dynamicBullets: true
           },
           navigation: {
             nextEl: '.swiper-button-next',
@@ -181,89 +170,78 @@
             }
           }
         },
-        swiperOptionTwo: {
+        swiperOptionTk: {
           loop: true,
-          autoplay: {
-            stopOnLastSlide: true
-          },
           slidesPerView: 'auto',
           centeredSlides: true,
           spaceBetween: 30,
-          on: {
-            slideChange() {
-              console.log('onSlideChangeEnd', this);
-            },
-            tap() {
-              console.log('onTap', this);
-            }
-          },
           pagination: {
             el: '.swiper-pagination',
-          }
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
         },
         videoAutoplay: false,
-        ifPlay: true
+        ifPlay: true,
+        ifPaused: false
 
       }
     },
-    created(){
+    created() {
       // 顶部轮播图
-      this.$axios.get('/common/advert-images',{
-          params:{
-            'adv_id': 11,
-          }
-      }).then(res =>{
-           this.banners = res.data.data;
-      }).catch(function (error) {
-          console.log(error);
+      this.$axios.get('/common/advert-images', {
+        params: {
+          'adv_id': 11,
+        }
+      }).then(res => {
+        this.banners = res.data.data;
+      }).catch(function(error) {
+        console.log(error);
       });
 
       // banner图
-      this.$axios.get('/common/advert-images',{
-          params:{
-            'adv_id': 10,
-          }
-      }).then(res =>{
-           this.bannersTwo = res.data.data;
-      }).catch(function (error) {
-          console.log(error);
+      this.$axios.get('/common/advert-images', {
+        params: {
+          'adv_id': 10,
+        }
+      }).then(res => {
+        this.bannersTwo = res.data.data;
+      }).catch(function(error) {
+        console.log(error);
       });
 
       // 分类小图，6张
-      this.$axios.get('/common/advert-images',{
-          params:{
-            'adv_id': 13,
-          }
-      }).then(res =>{
-           this.classifyImg = res.data.data;
-           console.log(this.classifyImg)
-           console.log(666)
-      }).catch(function (error) {
-          console.log(error);
+      this.$axios.get('/common/advert-images', {
+        params: {
+          'adv_id': 13,
+        }
+      }).then(res => {
+        this.classifyImg = res.data.data;
+        // console.log(this.classifyImg)
+      }).catch(function(error) {
+        console.log(error);
       });
 
       // 底部新品预告图
-      this.$axios.get('/common/advert-images',{
-          params:{
-            'adv_id': 14,
-          }
-      }).then(res =>{
-           this.footNewImg = res.data.data;
-      }).catch(function (error) {
-          console.log(error);
+      this.$axios.get('/common/advert-images', {
+        params: {
+          'adv_id': 14,
+        }
+      }).then(res => {
+        this.footNewImg = res.data.data;
+      }).catch(function(error) {
+        console.log(error);
       });
     },
-    methods:{
-      onPlay(){
-        console.log(888)
-        this.videoAutoplay = true;
-        console.log(this.videoAutoplay)
+    methods: {
+      onPlay() {
+        this.ifPlay = false;
+        this.$refs.video.play()
       },
-      showImg(){
-        console.log(256313)
-        _this.videoAutoplay = true;
-
-        console.log(_this.videoAutoplay)
+      endedEd() {
+        this.ifPlay = true;
       }
     }
   }
@@ -276,17 +254,17 @@
     margin-top: 16px;
   }
 
-  .banner .swiper-wrapper{
+  .banner .swiper-wrapper {
     width: 100%;
     height: 360px;
   }
 
-  .banner .swiper-slide{
+  .banner .swiper-slide {
     width: 100%;
     height: 360px;
   }
 
-  .banner img{
+  .banner img {
     width: 100%;
     height: 100%;
   }
@@ -352,15 +330,17 @@
     margin: 90px auto 0;
     position: relative;
   }
-  .video .cover{
+
+  .video .cover {
     position: absolute;
     top: 0;
     left: 0;
-    width: 50%;
-    height: 50%;
+    width: 100%;
+    height: 100%;
     z-index: 1;
   }
-  .video .cover .cover-but{
+
+  .video .cover .cover-but {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -374,7 +354,8 @@
     z-index: 2;
     border-radius: 50%;
   }
-  .video video{
+
+  .video video {
     object-fit: fill
   }
 
@@ -426,7 +407,7 @@
     border-bottom: 1px solid #e2eaf0;
   }
 
-  .home_ad .swiper{
+  .home_ad .swiper {
     overflow: inherit;
   }
 
@@ -434,50 +415,56 @@
     width: 100%;
     height: 254px;
   }
-  .home_ad .swiper-slide{
+
+  .home_ad .swiper-slide {
     height: 240px;
   }
 
-  .home_ad .swiper-slide img{
-      width: 100%;
-      height: 100%;
+  .home_ad .swiper-slide img {
+    width: 100%;
+    height: 100%;
   }
+
   /* 分页器容器 */
-  .swiper-pagination{
+  .swiper-pagination {
     float: left;
     height: 26px;
     position: inherit;
     margin: 0 20px;
   }
+
   /* 分页器 */
-  .swiper-pagination-bullet{
+  .swiper-pagination-bullet {
     width: 12px;
     height: 12px;
-    background-color: #fff ;
+    background-color: #fff;
     border-radius: 12px;
     opacity: 1;
     border: 1px solid #480f33;
     margin: 0 3px;
     margin-top: 7px;
   }
+
   /* 分页器选中 */
-  .swiper-pagination-bullet-active{
+  .swiper-pagination-bullet-active {
     background-color: #480f33 !important;
   }
 
-  .pos{
+  .pos {
     width: 100%;
     height: 26px;
     text-align: center;
     font-size: 0;
   }
-  .pos .inline{
+
+  .pos .inline {
     display: inline-block;
     height: 100%;
   }
+
   /* 左右按钮 */
   .swiper-button-prev,
-  .swiper-button-next{
+  .swiper-button-next {
     position: relative;
     background-image: none !important;
     height: 26px;
@@ -490,7 +477,7 @@
   }
 
   .iconzuo2,
-  .iconyou2{
+  .iconyou2 {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -503,41 +490,9 @@
     color: #480f33;
   }
 
-  /* 分页器容器 */
-  .banner .swiper-pagination-bullet{
-    float: left;
-    height: 26px;
-    position: inherit;
-    margin: 0 20px;
-  }
-
-
-  .banner .swiper-pagination{
-    width: 12px;
-    height: 12px;
-    background-color: #fff;
-    border-radius: 12px;
-    opacity: 1;
-    border: 1px solid #480f33;
-    margin: 0 3px;
-    margin-top: 7px;
-  }
-  .banner .swiper-pagination-bullet-active{
-    background-color: #480f33 !important;
-  }
-  /* 分页器 */
-  .banner .swiper-pagination-bullet{
-    width: 12px;
-    height: 12px;
-    background-color: #fff ;
-    border-radius: 12px;
-    opacity: 1;
-    border: 1px solid #480f33;
-    margin: 0 3px;
-    margin-top: 7px;
-  }
-  /* 分页器选中 */
-  .banner .swiper-pagination-bullet-active{
-    background-color: #480f33 !important;
+  .banner .pos{
+    position: relative;
+    z-index: 3;
+    top: -46px;
   }
 </style>

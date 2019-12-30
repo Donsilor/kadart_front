@@ -9,7 +9,7 @@
         <div class="img-box">
           <magnifying :msg="bigImg[index_k]"></magnifying>
         </div>
-        <div class="text-3">Mouse over the image to zoom or click here to view larger image
+        <div class="text-3">Mouse over the image to view the large picture
           <i class="iconfont iconfangda"></i>
         </div>
         <div class="show-img">
@@ -127,9 +127,10 @@
     },
     head () {
       return {
-        title: this.goodsDetail.data.style_name,
+        title: 'Best high quality jewelry with fine craftsmanship wholesale',
         meta: [
-          { hid: 'description', name: 'description', content: 'My custom description' }
+          { hid: 'description', name: 'description', content: 'KADArt manufacturer and wholesale top-end gold,silver, copper and alloy jewelry with precious,semi gems,crystal,zircon,rhinestone at good price'},
+          { hid: 'keywords', name: 'keywords', content: 'jewelry factory, jewelry supplier, jewelry manufacturer,jewelry wholesale,gold jewelry, silver jewelry, brass jewelry, high quality jewelry, best jewelry, stylish jewelry, fashion jewelry' }
         ]
       }
     },
@@ -331,7 +332,7 @@
   }
 
   .show-img .img-box-b {
-    width: 660px;
+    width: 666px;
     height: 102px;
     margin: 0 10px;
     position: relative;

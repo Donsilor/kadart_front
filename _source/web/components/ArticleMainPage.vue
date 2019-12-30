@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="article-right fr">
-      <div class="article-right-tit">Contact KAD</div>
+      <div class="article-right-tit">About us</div>
       <div class="article-right-box">
         <div class="article-right-list">
           <div class="article-right-list-title">About  KADART</div>

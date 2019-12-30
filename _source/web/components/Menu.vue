@@ -5,8 +5,8 @@
       <span class="menu-list fl" @click="sendMsg()">Contact Us</span>
     </div>
     <div class="menu-right fr">
-      <div class="menu-list fl user-num" @click="ifLogin()" >{{this.usernametwo || 'Sign In'}}</div>
-      <div class="menu-list fl log-out" v-if="usernametwo" @click="logOut()">Log out</div>
+      <div id="menu-list" class="menu-list fl user-num" :class="this.usernametwo == '' ? '' : 'default' " @click="ifLogin()" >{{this.usernametwo || 'Sign In'}}</div>
+      <div id="log-out" class="menu-list fl log-out" v-show="usernametwo" @click="logOut()">Log out</div>
     </div>
 
     <div class="popup" v-if="ifShowLogin">
@@ -18,7 +18,7 @@
 
         <div class="text">Enter Email Address</div>
         <div class="ipt-box">
-          <input type="text" class="ipt" placeholder="Email..." v-model="username" @focus="focus()" @keyup.enter="login()">
+          <input type="text" class="ipt" placeholder="Email..." maxlength="30" v-model="username" @focus="focus()" @keyup.enter="login()">
         </div>
         <div class="prompt">{{text}}</div>
         <div class="login-btn" @click="login()">LOGIN</div>
@@ -43,12 +43,16 @@
         ifShowSuccess: false,
         username: '',
         usernametwo:'',
-        isLogin: false,
         hintText: 'Login successful !'
       }
     },
     mounted(){
       this.is_login();
+      var that = this
+			Bus.$on('onlogin', function(val){
+				that.username = val;
+				that.usernametwo = val;
+			})
     },
     methods:{
       login(){
@@ -64,13 +68,10 @@
               if(res.data.code == 200){
                  localStorage.setItem('bdd_user',this.username);
                  this.ifShowLogin = false;
-                 this.isLogin = true;
-                 // this.$router.go(0);
                  this.usernametwo = this.username;
                  this.ifShowSuccess = true,
                  setTimeout(()=>{
                    this.ifShowSuccess = false;
-                   this.$router.go(0);
                  },1500)
 
                }
@@ -81,11 +82,12 @@
         )
       },
       is_login(){
-        var username = localStorage.getItem('bdd_user');
-        if(username != null){
-          this.usernametwo = username;
-          this.isLogin = true;
-        }
+				var username = localStorage.getItem('bdd_user');
+				if(!username){
+				}else{
+					this.username = username;
+					this.usernametwo = username;
+				}
       },
       focus(){
         this.text = ''
@@ -94,21 +96,21 @@
         Bus.$emit('send', true)
       },
       logOut(){
+				this.username = '';
         this.usernametwo = '';
         localStorage.removeItem('bdd_user');
+        localStorage.removeItem('email_name');
         this.hintText = 'Account logout successful';
         this.ifShowSuccess = true,
         setTimeout(()=>{
           this.ifShowSuccess = false
-          this.$router.go(0);
         },1500)
       },
       ifLogin(){
-        if(this.usernametwo){
-
-        }else{
-          this.ifShowLogin = true;
-        }
+				console.log(this.usernametwo)
+				if(this.usernametwo == ''){
+					this.ifShowLogin = true;
+				}
       }
     }
   }
@@ -146,15 +148,19 @@
     padding-right: 0;
     cursor: pointer;
   }
+	.menu-right .menu-list.default{
+		cursor: default;
+	}
   .menu-left .menu-list:not(:first-child){
     border-left: 1px solid #ccc;
   }
 
   .user-num{
-    width-width: 146px;
+    max-width: 128px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
   }
   .log-out{
       color: #480f33;
