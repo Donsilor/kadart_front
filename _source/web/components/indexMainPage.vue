@@ -177,11 +177,7 @@
           spaceBetween: 30,
           pagination: {
             el: '.swiper-pagination',
-          },
-          navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-          },
+          }
         },
         videoAutoplay: false,
         ifPlay: true,

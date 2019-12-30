@@ -325,6 +325,8 @@
         }
 
         this.ifShowMessage = true;
+        this.book_list = [];
+        this.getUserBook();
 
         this.title = '';
         this.content = '';

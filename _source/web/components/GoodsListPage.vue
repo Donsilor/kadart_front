@@ -84,7 +84,7 @@
       <div class="commodity-right fl" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0)">
         <div class="filtrate clf">
-          <div class="filtrate-text fl"><span class="bold">{{totalNum}} </span>{{nav_text}}</div>
+          <div class="filtrate-text fl"><span class="bold">{{totalNum}} Items found for </span>{{nav_text}}</div>
 
           <div class="filtrate-condition fr clf">
             <div class="filtrate-child fl" :class="[filter_index == 0 || filter_index == 1 ? 'active' : '']" @click="sort(1)">
@@ -146,7 +146,7 @@
           </div>
 
           <div v-if="index >= 0" class="commodity-show-list fl" v-for="(item, index) in commodityItem.data" :key="index">
-            <router-link :to="{ name: 'goods-detail', query: {id: commodityItem.data[index].id}}">
+            <router-link :to="{ name: 'goods-detail/', query: {id: commodityItem.data[index].id}}">
               <div class="img-box">
                 <img :src=item.style_image alt="">
               </div>
@@ -296,7 +296,7 @@
         line_id: 2,
         pageSize: 20,
         ifShowText: false,
-        nav_text: 'Items found for',
+        nav_text: '',
         seo: {
           "meta_title": '',
           "meta_word": '',
@@ -313,18 +313,21 @@
       var now_page = localStorage.getItem('now_page');
       var sort_id = localStorage.getItem('sort_id');
 
-      var nav_t = localStorage.getItem('nav_text');
-      if (nav_t) {
-        this.nav_text = nav_t
-      }
-
-
       var type_id = this.$route.query.type_id;
       this.keyword = this.$route.query.keyword;
 
       if (this.keyword != undefined) {
-        this.loading = true
-      }
+        this.loading = true;
+
+        this.nav_text = this.keyword;
+      }else{
+          var nav_t = localStorage.getItem('nav_text');
+          if (nav_t) {
+            this.nav_text = nav_t
+          }
+        }
+
+
 
       if (type_id) {
         this.line_id = type_id;
