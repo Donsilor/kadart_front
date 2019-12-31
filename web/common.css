@@ -60,6 +60,15 @@ section {
 input::placeholder{
     color: #999;
 }
+/* 清除谷歌浏览器下的 search 叉号 */
+input::-webkit-search-cancel-button{
+  display: none;
+}
+/* 清除IE下的 search 叉号 */
+input::-ms-clear{
+  display: none;
+}
+
 textarea::-webkit-placeholder{
   color: #999;
 }
