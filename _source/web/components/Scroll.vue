@@ -133,6 +133,7 @@
       var self = this;
       Bus.$on('send', function(val) {
         self.ifShowMessage = val;
+        self.is_login();
       })
     },
 
@@ -168,10 +169,7 @@
           setTimeout(function() {
             var ipt = document.getElementById('ipt').focus();
           }, 100)
-        } else {
-
-        }
-
+        } else {}
       },
       editFocus() {
         this.hint1 = '';
@@ -353,14 +351,6 @@
         }).catch(function(error) {
           console.log(error);
         })
-      }
-
-
-    },
-    props: ['ifShowM'],
-    watch: {
-      ifShowM: function(val) {
-        this.ifShowMessage = true;
       }
     }
   }
