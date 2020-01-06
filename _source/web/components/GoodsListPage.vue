@@ -82,9 +82,9 @@
 
       <!-- 右侧列表区 -->
       <div class="commodity-right fl" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
-    element-loading-background="rgba(0, 0, 0, 0)">
+        element-loading-background="rgba(0, 0, 0, 0)">
         <div class="filtrate clf">
-          <div class="filtrate-text fl"><span class="bold">{{totalNum}} </span>{{nav_text}}</div>
+          <div class="filtrate-text fl"><span class="bold">{{totalNum}} Items found for </span>{{nav_text}}</div>
 
           <div class="filtrate-condition fr clf">
             <div class="filtrate-child fl" :class="[filter_index == 0 || filter_index == 1 ? 'active' : '']" @click="sort(1)">
@@ -146,7 +146,7 @@
           </div>
 
           <div v-if="index >= 0" class="commodity-show-list fl" v-for="(item, index) in commodityItem.data" :key="index">
-            <router-link :to="{ name: 'goods-detail', query: {id: commodityItem.data[index].id}}">
+            <router-link :to="{ name: 'goods-detail/', query: {id: commodityItem.data[index].id}}">
               <div class="img-box">
                 <img :src=item.style_image alt="">
               </div>
@@ -296,33 +296,38 @@
         line_id: 2,
         pageSize: 20,
         ifShowText: false,
-        nav_text: 'Items found for',
-        seo:{
-                "meta_title": '',
-                "meta_word": '',
-                "meta_desc": '',
-                'title':'',
-                'description':'',
-            },
+        nav_text: '',
+        seo: {
+          "meta_title": '',
+          "meta_word": '',
+          "meta_desc": '',
+          'title': '',
+          'description': '',
+        },
       }
     },
     mounted() {
+      window.addEventListener('scroll', this.scrollToTop);
+
       var goods_id = localStorage.getItem('goods_id');
       var now_page = localStorage.getItem('now_page');
       var sort_id = localStorage.getItem('sort_id');
 
-      var nav_t = localStorage.getItem('nav_text');
-      if(nav_t){
-        this.nav_text = nav_t
-      }
-
-
       var type_id = this.$route.query.type_id;
       this.keyword = this.$route.query.keyword;
 
-      if(this.keyword != undefined){
-        this.loading = true
-      }
+      if (this.keyword != undefined) {
+        this.loading = true;
+
+        this.nav_text = this.keyword;
+      }else{
+          var nav_t = localStorage.getItem('nav_text');
+          if (nav_t) {
+            this.nav_text = nav_t
+          }
+        }
+
+
 
       if (type_id) {
         this.line_id = type_id;
@@ -331,15 +336,15 @@
         localStorage.setItem('line_id', this.line_id);
       }
 
-      if(type_id == 2){
+      if (type_id == 2) {
         this.ifShowDescribe = true;
-      }else if(type_id == 4){
+      } else if (type_id == 4) {
         this.ifShowDescribe = true;
-      }else if(type_id == 6){
+      } else if (type_id == 6) {
         this.ifShowDescribe = true;
-      }else if(type_id == 8){
+      } else if (type_id == 8) {
         this.ifShowDescribe = true;
-      }else if(type_id == 15){
+      } else if (type_id == 15) {
         this.ifShowDescribe = true;
       }
 
@@ -403,11 +408,11 @@
           _self.commodityItem = res.data.data;
           this.seo = _self.commodityItem.seo;
           // this.currentPage1 = _self.commodityItem.page;
-          console.log(_self.commodityItem.data)
+          // console.log(_self.commodityItem.data)
           this.totalNum = _self.commodityItem.total_count - 0;
           this.totalPages = _self.commodityItem.page_count - 0;
 
-          if(_self.commodityItem.data[0] == undefined){
+          if (_self.commodityItem.data[0] == undefined) {
             this.ifShowText = true;
           }
         }).catch(function(error) {
@@ -419,6 +424,8 @@
         console.log(`每页 ${val} 条`);
       },
       handleCurrentChange(val) {
+        document.documentElement.scrollTop = document.body.scrollTop = 0;
+
         localStorage.setItem('now_page', val);
         this.currentPage1 = val;
 
@@ -491,11 +498,11 @@
         this.ifOpenB = !this.ifOpenB;
       },
       sort(i) {
-        if (this.sort_i != 0) {
-          if (this.sort_i != i) {
-            this.flag = true;
+          if (this.sort_i != 0) {
+            if (this.sort_i != i) {
+              this.flag = true;
+            }
           }
-        }
         var _self = this;
         if (this.flag) {
           _self.filter_index = i;
@@ -514,12 +521,19 @@
         this.index_c = i;
       }
     },
-    head () {
+    head() {
       return {
-        title: this.seo.meta_title,
-        meta: [
-          { hid: 'description', name: 'description', content: this.seo.meta_desc },
-          { hid: 'keywords', name: 'keywords', content:  this.seo.meta_word}
+        title: this.seo.meta_title || 'Quality gold,silver jewelry wholesale at factory price',
+        meta: [{
+            hid: 'description',
+            name: 'description',
+            content: this.seo.meta_desc || 'KADArt design, manufacture and wholesale gold,silver,brass and alloy jewelry with diamond,ruby,sapphire,zircon,crystal and rhinestone at very good price.'
+          },
+          {
+            hid: 'keywords',
+            name: 'keywords',
+            content: this.seo.meta_word || 'jewelry factory, jewelry supplier, jewelry manufacturer,China jewelry wholesale,gold jewelry, silver jewelry, brass jewelry,best jewelry, fashion jewelry '
+          }
         ]
       }
     }

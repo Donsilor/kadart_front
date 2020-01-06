@@ -5,11 +5,12 @@
         <img src="../static/index/logo.png" alt="">
       </a>
     </div>
-    <div class="search" :class="ifShowText == false ? 'on' : 'on'" @mouseover="showIpt()" @mouseout="hideIpt()">
-      <span v-show="ifShowText">
+
+    <div class="search" :class="ifShowHot ? 'searchHeight' : ''" @mouseover="showIpt()" @mouseleave="hideIpt()">
+      <div ref="searchIcon">
         <i class="iconfont iconfangdajing"></i>SEARCH
-      </span>
-      <div class="search-move clf" :class="[ifShowText == false ? 'active' : '']" @mouseover="showIpt()" @mouseout="hideIptTw()">
+      </div>
+      <div class="search-move clf" :class="[ifShowText == false ? 'active' : '']" @mouseover="showIpt()">
         <div class="search-move-top">
           <div @click="startSearch()">
             <i class="iconfont iconfangdajing fl"></i>
@@ -20,11 +21,10 @@
             <i class="iconfont iconquxiao" @click="del()"></i>
           </span>
         </div>
-        <div class="hot" v-show="ifShowHot">
+        <div class="hot" v-show="ifShowHot" @mouseover="showHot()" @mouseleave="hideHot()">
           <div class="first-list">Quick Search</div>
           <div class="hot-list" v-for="(item, index) in hotList">
-            <!-- <a :href="'goods-list?keyword='+hotList[index]">{{item}}</a> -->
-            <a :href="hotUrl[index]" target="_blank">{{item}}</a>
+            <a :href="hotUrl[index]" target="_blank" @click="hotListA()">{{item}}</a>
           </div>
         </div>
       </div>
@@ -42,37 +42,50 @@
         ipt: '',
         iptVal: '',
         judge: true,
-        ifHide: false,
+        ifHide: true,
         hotList: ['Wedding Ring', 'Necklace', 'Earring'],
         hotUrl:[
-          'http://www.kadart.bddia.com/goods-list/?type_id=2',
-          'http://www.kadart.bddia.com/goods-list/?type_id=4',
-          'http://www.kadart.bddia.com/goods-list/?type_id=6'
-        ]
+          '/goods-list/?type_id=2',
+          '/goods-list/?type_id=4',
+          '/goods-list/?type_id=6'
+        ],
       }
     },
     methods: {
       showIpt() {
-        this.ifHide = true;
         this.ifShowText = false;
+
+				var timer = setTimeout(() => {
+					var _that = this;
+					_that.$refs.searchIcon.style.display = 'none';
+					clearTimeout(timer)
+				},900)
       },
       hideIpt() {
         if (this.ifShowHot) {} else {
           this.ifShowText = true;
+					var timertt = setTimeout(() => {
+						var _that = this;
+						_that.$refs.searchIcon.style.display = 'block';
+						clearTimeout(timertt)
+					},900)
         }
-      },
-      hideIptTw() {
-        this.ifHide = false;
       },
       onFocus() {
         this.ifShowHot = true;
       },
       onBlur() {
-        if (this.ifHide == false) {
+        if (this.ifHide == true) {
           this.ifShowHot = false;
         }
       },
-      startHot(i) {
+      showHot(){
+        this.ifHide = false;
+      },
+      hideHot(){
+        this.ifHide = true;
+      },
+      hotListA(){
         this.ifShowHot = false;
       },
 
@@ -87,6 +100,7 @@
         })
       },
 
+      // 输入下方热词隐藏
       monitorIpt() {
         if (this.ipt != '') {
           this.ifShowHot = false
@@ -125,23 +139,21 @@
 
   .search {
     position: absolute;
-    top: 0;
+    top: -12px;
     right: 40px;
     z-index: 20;
-    /* transform: translateY(-50%);
-    -webkit-transform: translateY(-50%);
-    -moz-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    -z-transform: translateY(-50%); */
-    width: 160px;
-    height: 150px;
+    width: 182px;
+    height: 64px;
     font-size: 12px;
     line-height: 34px;
     color: #480f33;
     cursor: pointer;
-    padding-left: 10px;
+    padding: 10px 0 0 30px;
     box-sizing: border-box;
     overflow: hidden;
+  }
+  .search.searchHeight{
+    height: 160px;
   }
 
   .search.on {
@@ -157,10 +169,10 @@
 
   .search-move {
     position: absolute;
-    top: 0;
+    top: 10px;
     right: -100%;
     z-index: 2;
-    width: 99%;
+    width: 160px;
     border: 1px solid #480F32;
     box-sizing: border-box;
     line-height: 28px;

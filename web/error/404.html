@@ -3,7 +3,37 @@
 	<head>
 		<meta charset="utf-8">
 		<title></title>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-155201916-1"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		
+		  gtag('config', 'UA-155201916-1');
+		</script>
 		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			body{
+				font-family: "microsoft yahei"
+			}
+			a{
+				color: inherit;
+			}
+
+			@font-face {
+			  font-family: AdobeHeitiStd-R;
+			  src: url(../font/AdobeHeitiStd-Regular.otf);
+			}
+			
+			@font-face {
+			  font-family: tw-cen-mt;
+			  src: url(../font/tw-cen-mt.ttf);
+			}
+			
 			.popup {
 				position: fixed;
 				top: 0;
@@ -38,27 +68,31 @@
 				-moz-transform: translate(-50%, -50%);
 				-ms-transform: translate(-50%, -50%);
 				-o-transform: translate(-50%, -50%);
-				font-family: AdobeHeitiStd-R;
 				font-size: 24px;
 				color: #480f33;
 			}
+			.error-text .text{
+				font-family: AdobeHeitiStd-R;
+			}
 
 			.error-type {
+				font-family: tw-cen-mt;
 				font-size: 300px;
 				color: #480f33;
 				font-style: italic;
-				margin-left: -120px;
+				margin: -10px 0 0 -80px;
 			}
 
 			.error-operation {
 				font-size: 18px;
-				color: #480f33;
+				color: #999;
+				font-weight: bold;
 			}
 
 			.goBack,
 			.goHome {
-				font-weight: bold;
 				text-decoration: underline;
+				color: #480f33;
 			}
 		</style>
 	</head>
@@ -67,7 +101,7 @@
 			<div class="error-text">
 				<div class="text">Sorry, the page can not be found</div>
 				<div class="error-type">404</div>
-				<div class="error-operation">You can go <a class="goBack" href="">back</a> or go to <a class="goHome" href="/">home</a>page</div>
+				<div class="error-operation">You can go <a class="goBack" href="javascript :history.back(-1)">back</a> or go to <a class="goHome" href="http://www.kadart.bddia.com/">home</a> page</div>
 			</div>
 		</div>
 	</body>
