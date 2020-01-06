@@ -17,6 +17,7 @@ import mains from '~/components/indexMainPage.vue'
 import footers from '~/components/Footer.vue'
 import scroll from '~/components/Scroll.vue'
 
+
 export default {
   data(){
     return{
@@ -38,9 +39,17 @@ export default {
         { hid: 'keywords', name: 'keywords', content: 'KADArt, jewelry manufacturer, high-quality jewelry supplier,  jewelry factory, jewelry wholesale' }
       ]
     }
-  }
+  },
+  mounted() {
+    const s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=UA-155201916-1';
+    document.body.appendChild(s);
+   },
 }
 </script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
 
 <style>
 </style>

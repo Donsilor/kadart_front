@@ -35,7 +35,7 @@
 
       <div class="commodity-right fl">
         <div class="price">Reference Price<span class="big">{{goodsDetail.data.currency}}{{goodsDetail.data.sale_price}}</span></div>
-        <div class="mq">MoQ: {{goodsDetail.data.style_moq}} Pcs</div>
+        <div class="mq">MOQ : {{goodsDetail.data.style_moq}}pcs</div>
         <div class="contact"><span class="color" @click="sendMsg()">Please contact us</span> for more ring size
           information.</div>
         <div class="contact-btn" @click="sendMsg()">CONTACT US</div>
@@ -114,6 +114,15 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="goods-detial-s">
+      <div class="goods-tit-s">COMMODITYD DETAILS</div>
+      <div class="goods-box-n" v-html="goodsDetailBS"></div>
+      <!-- <div class="goods-text-s">KADArt manufacturer and wholesale top-end gold,silver, copper and alloy jewelry with precious,semi gems,crystal,zircon,rhinestoneKADArt manufacturer and wholesale top-end gold,silver, copper and alloy jewelry with precious,semi gems,crystal,zircon,rhinestone</div> -->
+      <!-- <div class="goods-img-s"> -->
+        <!-- <img src="../static/index/home-12.png" alt=""> -->
+      <!-- </div> -->
     </div>
   </div>
 </template>
@@ -209,9 +218,16 @@
             }
           }
         },
+        goodsDetailBS:''
       }
     },
     mounted() {
+      // var url = 'http://www.kadart.com/goods_qweqweqwe/15312';
+      var url = window.location.href;
+      var _index = url.lastIndexOf('/');
+      var goodsDetId = url.slice(+_index+1);
+      console.log(goodsDetId)
+
       var goodsDetailId = this.$route.query.id;
 
       if (goodsDetailId) {
@@ -230,7 +246,8 @@
         this.goodsDetail = res.data;
         this.smallImg = res.data.data.goods_images.thumb || '';
         this.bigImg = res.data.data.goods_images.big || '';
-        console.log(this.goodsDetail)
+        this.goodsDetailBS = this.goodsDetail.data.goods_body;
+        // console.log(this.goodsDetailBS)
       }).catch(function(error) {
         console.log(error);
       });
@@ -279,7 +296,7 @@
   }
 
   .commodity-box .text-2 {
-    font-family: Didot;
+    /* font-family: Didot; */
     height: 60px;
     font-size: 22px;
     color: #333;
@@ -402,7 +419,7 @@
   }
 
   .commodity-right .price {
-    font-family: Didot;
+    /* font-family: Didot; */
     font-size: 24px;
     color: #b64d52;
   }
@@ -595,6 +612,11 @@
     margin-bottom: 6px;
   }
 
+  .recommend-swiper .swiper-slide .img-box  img{
+    width: 100%;
+    height: 100%;
+  }
+
   /* 分页器容器 */
   .recommend-swiper .swiper-pagination {
     float: left;
@@ -671,4 +693,44 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+
+  .goods-detial-s{
+    width: 100%;
+    margin-top: 100px;
+  }
+  .goods-tit-s{
+    height: 46px;
+    font-size: 18px;
+    color: #480f33;
+    border-bottom: 1px solid #480f33;
+    padding: 0 20px;
+    box-sizing: border-box;
+    margin-bottom: 100px;
+  }
+/*  .goods-text-s{
+    width: 1000px;
+    max-height: 58px;
+    font-size: 18px;
+    line-height: 30px;
+    color: #480f33;
+    text-align: center;
+    word-break: break-all;
+    margin: 100px auto 30px;
+    overflow: hidden;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+  } */
+  /* .goods-img-s{
+    width: 700px;
+    height: 400px;
+    margin: 0 auto 80px;
+  } */
+
+  .goods-box-n{
+    text-align: center;
+    width: 1000px;
+    margin: 0 auto;
+  }
+
 </style>

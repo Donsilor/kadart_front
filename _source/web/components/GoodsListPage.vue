@@ -146,7 +146,7 @@
           </div>
 
           <div v-if="index >= 0" class="commodity-show-list fl" v-for="(item, index) in commodityItem.data" :key="index">
-            <router-link :to="{ name: 'goods-detail/', query: {id: commodityItem.data[index].id}}">
+            <router-link :to="{ name: 'goods-detail', query: {id: commodityItem.data[index].id}}">
               <div class="img-box">
                 <img :src=item.style_image alt="">
               </div>
@@ -541,6 +541,10 @@
 </script>
 
 <style scoped>
+  img{
+  	  width: 100%;
+  	  height: 100%;
+  }
   .engagement {
     font-family: Didot;
     font-size: 38px;
@@ -830,7 +834,7 @@
   }
 
   .commodity-show-list .price {
-    font-family: Didot;
+    /* font-family: Didot; */
     font-size: 22px;
     color: #b64d52;
     margin-top: 18px;
@@ -842,7 +846,7 @@
   }
 
   .commodity-show-list .reference {
-    font-family: Didot;
+    /* font-family: Didot; */
     font-size: 16px;
     color: #b64d52;
     margin-right: 10px;
@@ -852,7 +856,7 @@
   }
 
   .commodity-show-list .online {
-    font-family: Didot;
+    /* font-family: Didot; */
     font-size: 14px;
     color: #daab60;
     font-style: italic;
@@ -864,7 +868,7 @@
   }
 
   .explain {
-    font-family: Didot;
+    /* font-family: Didot; */
     height: 48px;
     display: -webkit-box;
     -webkit-box-orient: vertical;

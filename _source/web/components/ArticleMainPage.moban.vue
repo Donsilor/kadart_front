@@ -60,6 +60,10 @@
 </script>
 
 <style>
+  img{
+	  width: 100%;
+	  height: 100%;
+  }
   .article-wrap{
     margin-top: 60px;
     min-height: 600px;
