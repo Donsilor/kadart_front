@@ -146,17 +146,21 @@
           </div>
 
           <div v-if="index >= 0" class="commodity-show-list fl" v-for="(item, index) in commodityItem.data" :key="index">
-            <router-link :to="{ name: 'goods-detail', query: {id: commodityItem.data[index].id}}">
-              <div class="img-box">
-                <img :src=item.style_image alt="">
-              </div>
-              <div class="price"><span class="reference">Reference Price</span>{{item.currency}}{{item.sale_price}}</div>
-              <div class="online">
-                <!-- <span v-if="item.style_sn">{{item.style_sn}}</span> -->
-              </div>
-              <div class="explain">{{item.style_name}}</div>
-              <div class="btn">VIEW DETAILS</div>
-            </router-link>
+            <!-- <router-link :to="{ name: '/goods-detail', query: {id: commodityItem.data[index].id}}"> -->
+            <div @mouseover="mouseoverData(index)">
+              <router-link :to="urlVal">
+
+                <div class="img-box">
+                  <img :src=item.style_image alt="">
+                </div>
+                <div class="price"><span class="reference">Reference Price</span>{{item.currency}}{{item.sale_price}}</div>
+                <div class="online">
+                  <!-- <span v-if="item.style_sn">{{item.style_sn}}</span> -->
+                </div>
+                <div class="explain">{{item.style_name}}</div>
+                <div class="btn">VIEW DETAILS</div>
+              </router-link>
+            </div>
           </div>
         </div>
 
@@ -176,6 +180,8 @@
   export default {
     data() {
       return {
+        urlVal: {},
+        goodsId: '-1',
         loading: false,
         // fullscreenLoading: true,
         currentPage1: 1,
@@ -304,29 +310,47 @@
           'title': '',
           'description': '',
         },
+        url: ''
       }
     },
     mounted() {
       window.addEventListener('scroll', this.scrollToTop);
 
+      var urlData = this.$route.path.split('/');
+
+      var typeIdText = '';
+      if(urlData.length == 2){
+        typeIdText = urlData[1];
+      }else if(urlData.length > 2){
+        var num = urlData[2]
+        var numSplit = num.split('-');
+        if(numSplit.length = 2){
+          this.typeId = numSplit[0];
+          this.attrId = numSplit
+        }
+      }
+      // console.log(num)
+
+      switch(typeIdText){
+        case 'rings': this.attrId = 2;
+        break;
+        case 'necklaces': this.attrId = 4;
+        break;
+        case 'earrings': this.attrId = 6;
+        break;
+        case 'bracelets': this.attrId = 8;
+        break;
+        case 'jade': this.attrId = 15;
+        break;
+      }
+      console.log(this.attrId)
+      var type_id = '';
+
+
+
       var goods_id = localStorage.getItem('goods_id');
       var now_page = localStorage.getItem('now_page');
       var sort_id = localStorage.getItem('sort_id');
-
-      var type_id = this.$route.query.type_id;
-      this.keyword = this.$route.query.keyword;
-
-      if (this.keyword != undefined) {
-        this.loading = true;
-
-        this.nav_text = this.keyword;
-      }else{
-          var nav_t = localStorage.getItem('nav_text');
-          if (nav_t) {
-            this.nav_text = nav_t
-          }
-        }
-
 
 
       if (type_id) {
@@ -367,31 +391,18 @@
         this.currentPage1 = now_page - 0
       }
 
-      var urlData = location.search;
-      var urlArr = urlData.split(/[?=&]/);
-      urlArr.shift();
-      for (var i = 0; i < urlArr.length; i += 2) {
-        if (urlArr[i] == 'type_id') {
-          this.typeId = urlArr[i + 1]
-        } else if (urlArr[i] == 'attr_id') {
-          this.attrId = urlArr[i + 1]
-        } else if (urlArr[i] == 'attr_value') {
-          this.attrValue = urlArr[i + 1]
-        } else if (urlArr[i] == 'price_range') {
-          this.priceRange = urlArr[i + 1]
-        }
-      }
 
       this.acquireData(this.keyword, '', this.pageId, this.typeId, this.attrId, this.attrValue, this.priceRange, this.pageSize);
 
-      var self = this;
-      Bus.$on('sendPriceVal', function(val) {
-        location.search = '';
-        self.acquireData(val);
-      })
 
     },
     methods: {
+      mouseoverData(i) {
+        this.goodsId = this.commodityItem.data[i].id;
+        this.urlVal = {
+          path: '/goods-detail/' + this.goodsId
+        }
+      },
       acquireData(k_id, k_filter, k_page, k_type_id, K_attr_id, k_attr_value, k_price_range, k_page_size) {
         var _self = this;
         _self.$axios.post('/goods/style/search', {
@@ -402,7 +413,8 @@
           attr_id: K_attr_id,
           attr_value: k_attr_value,
           price_range: k_price_range,
-          page_size: k_page_size
+          page_size: k_page_size,
+          url: this.url
         }).then(res => {
           this.loading = false;
           _self.commodityItem = res.data.data;
@@ -456,6 +468,7 @@
 
         console.log(`当前页: ${val}`);
       },
+
       ifShowF(k) {
         this.dataItem[k].isShowT = !this.dataItem[k].isShowT
       },
@@ -498,11 +511,11 @@
         this.ifOpenB = !this.ifOpenB;
       },
       sort(i) {
-          if (this.sort_i != 0) {
-            if (this.sort_i != i) {
-              this.flag = true;
-            }
+        if (this.sort_i != 0) {
+          if (this.sort_i != i) {
+            this.flag = true;
           }
+        }
         var _self = this;
         if (this.flag) {
           _self.filter_index = i;
@@ -527,12 +540,14 @@
         meta: [{
             hid: 'description',
             name: 'description',
-            content: this.seo.meta_desc || 'KADArt design, manufacture and wholesale gold,silver,brass and alloy jewelry with diamond,ruby,sapphire,zircon,crystal and rhinestone at very good price.'
+            content: this.seo.meta_desc ||
+              'KADArt design, manufacture and wholesale gold,silver,brass and alloy jewelry with diamond,ruby,sapphire,zircon,crystal and rhinestone at very good price.'
           },
           {
             hid: 'keywords',
             name: 'keywords',
-            content: this.seo.meta_word || 'jewelry factory, jewelry supplier, jewelry manufacturer,China jewelry wholesale,gold jewelry, silver jewelry, brass jewelry,best jewelry, fashion jewelry '
+            content: this.seo.meta_word ||
+              'jewelry factory, jewelry supplier, jewelry manufacturer,China jewelry wholesale,gold jewelry, silver jewelry, brass jewelry,best jewelry, fashion jewelry '
           }
         ]
       }
@@ -541,10 +556,11 @@
 </script>
 
 <style scoped>
-  img{
-  	  width: 100%;
-  	  height: 100%;
+  img {
+    width: 100%;
+    height: 100%;
   }
+
   .engagement {
     font-family: Didot;
     font-size: 38px;

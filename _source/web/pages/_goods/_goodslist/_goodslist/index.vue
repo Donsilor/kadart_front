@@ -1,18 +1,23 @@
 <template>
   <div class="container">
     <ad></ad>
-    <articleMainPage></articleMainPage>
+    <goodsListPage></goodsListPage>
   </div>
 </template>
 
 <script>
 import ad from '~/components/Ad.vue'
-import articleMainPage from '~/components/ArticleMainPage.vue'
+import goodsListPage from '~/components/GoodsListPage.vue'
 
 export default {
+  data(){
+    return{
+      title: '列表页'
+    }
+  },
   components: {
     ad,
-    articleMainPage,
+    goodsListPage,
   }
 }
 </script>

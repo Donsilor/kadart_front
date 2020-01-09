@@ -1,18 +1,22 @@
 <template>
   <div class="container">
     <ad></ad>
-    <articleMainPage></articleMainPage>
+    <goodsDetailPage></goodsDetailPage>
   </div>
 </template>
 
 <script>
 import ad from '~/components/Ad.vue'
-import articleMainPage from '~/components/ArticleMainPage.vue'
+import goodsDetailPage from '~/components/GoodsDetailPage.vue'
 
 export default {
+  data(){
+    return{
+    }
+  },
   components: {
     ad,
-    articleMainPage,
+    goodsDetailPage,
   }
 }
 </script>
