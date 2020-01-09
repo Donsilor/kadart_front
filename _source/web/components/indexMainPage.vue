@@ -47,7 +47,7 @@
 
 
     <div class="width-box">
-      <h3 class="tit">FINE JEWELLY  COLLECTION</h3>
+      <h3 class="tit">FINE JEWELRY  COLLECTION</h3>
       <h4 class="subheading">
         <!-- <span>POPULAR COLLECTION</span> -->
       </h4>
@@ -244,10 +244,6 @@
 </script>
 
 <style>
-  img{
-  	  width: 100%;
-  	  height: 100%;
-  }
   .banner {
     width: 100%;
     height: 360px;

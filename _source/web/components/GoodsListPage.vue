@@ -146,21 +146,17 @@
           </div>
 
           <div v-if="index >= 0" class="commodity-show-list fl" v-for="(item, index) in commodityItem.data" :key="index">
-            <!-- <router-link :to="{ name: '/goods-detail', query: {id: commodityItem.data[index].id}}"> -->
-            <div @mouseover="mouseoverData(index)">
-              <router-link :to="urlVal">
-
-                <div class="img-box">
-                  <img :src=item.style_image alt="">
-                </div>
-                <div class="price"><span class="reference">Reference Price</span>{{item.currency}}{{item.sale_price}}</div>
-                <div class="online">
-                  <!-- <span v-if="item.style_sn">{{item.style_sn}}</span> -->
-                </div>
-                <div class="explain">{{item.style_name}}</div>
-                <div class="btn">VIEW DETAILS</div>
-              </router-link>
-            </div>
+            <router-link :to="{ name: 'goods-detail', query: {id: commodityItem.data[index].id}}">
+              <div class="img-box">
+                <img :src=item.style_image alt="">
+              </div>
+              <div class="price"><span class="reference">Reference Price</span>{{item.currency}}{{item.sale_price}}</div>
+              <div class="online">
+                <!-- <span v-if="item.style_sn">{{item.style_sn}}</span> -->
+              </div>
+              <div class="explain">{{item.style_name}}</div>
+              <div class="btn">VIEW DETAILS</div>
+            </router-link>
           </div>
         </div>
 
@@ -180,8 +176,7 @@
   export default {
     data() {
       return {
-        urlVal: {},
-        goodsId: '-1',
+        aaa: 'sf',
         loading: false,
         // fullscreenLoading: true,
         currentPage1: 1,
@@ -310,47 +305,29 @@
           'title': '',
           'description': '',
         },
-        url: ''
       }
     },
     mounted() {
       window.addEventListener('scroll', this.scrollToTop);
 
-      var urlData = this.$route.path.split('/');
-
-      var typeIdText = '';
-      if(urlData.length == 2){
-        typeIdText = urlData[1];
-      }else if(urlData.length > 2){
-        var num = urlData[2]
-        var numSplit = num.split('-');
-        if(numSplit.length = 2){
-          this.typeId = numSplit[0];
-          this.attrId = numSplit
-        }
-      }
-      // console.log(num)
-
-      switch(typeIdText){
-        case 'rings': this.attrId = 2;
-        break;
-        case 'necklaces': this.attrId = 4;
-        break;
-        case 'earrings': this.attrId = 6;
-        break;
-        case 'bracelets': this.attrId = 8;
-        break;
-        case 'jade': this.attrId = 15;
-        break;
-      }
-      console.log(this.attrId)
-      var type_id = '';
-
-
-
       var goods_id = localStorage.getItem('goods_id');
       var now_page = localStorage.getItem('now_page');
       var sort_id = localStorage.getItem('sort_id');
+
+      var type_id = this.$route.query.type_id;
+      this.keyword = this.$route.query.keyword;
+
+      if (this.keyword != undefined) {
+        this.loading = true;
+
+        this.nav_text = this.keyword;
+      } else {
+        var nav_t = localStorage.getItem('nav_text');
+        if (nav_t) {
+          this.nav_text = nav_t
+        }
+      }
+
 
 
       if (type_id) {
@@ -391,18 +368,31 @@
         this.currentPage1 = now_page - 0
       }
 
+      var urlData = location.search;
+      var urlArr = urlData.split(/[?=&]/);
+      urlArr.shift();
+      for (var i = 0; i < urlArr.length; i += 2) {
+        if (urlArr[i] == 'type_id') {
+          this.typeId = urlArr[i + 1]
+        } else if (urlArr[i] == 'attr_id') {
+          this.attrId = urlArr[i + 1]
+        } else if (urlArr[i] == 'attr_value') {
+          this.attrValue = urlArr[i + 1]
+        } else if (urlArr[i] == 'price_range') {
+          this.priceRange = urlArr[i + 1]
+        }
+      }
 
       this.acquireData(this.keyword, '', this.pageId, this.typeId, this.attrId, this.attrValue, this.priceRange, this.pageSize);
 
+      var self = this;
+      Bus.$on('sendPriceVal', function(val) {
+        location.search = '';
+        self.acquireData(val);
+      })
 
     },
     methods: {
-      mouseoverData(i) {
-        this.goodsId = this.commodityItem.data[i].id;
-        this.urlVal = {
-          path: '/goods-detail/' + this.goodsId
-        }
-      },
       acquireData(k_id, k_filter, k_page, k_type_id, K_attr_id, k_attr_value, k_price_range, k_page_size) {
         var _self = this;
         _self.$axios.post('/goods/style/search', {
@@ -413,8 +403,7 @@
           attr_id: K_attr_id,
           attr_value: k_attr_value,
           price_range: k_price_range,
-          page_size: k_page_size,
-          url: this.url
+          page_size: k_page_size
         }).then(res => {
           this.loading = false;
           _self.commodityItem = res.data.data;
@@ -431,16 +420,7 @@
           // console.log(error);
         });
       },
-
-      handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
-      },
-      handleCurrentChange(val) {
-        document.documentElement.scrollTop = document.body.scrollTop = 0;
-
-        localStorage.setItem('now_page', val);
-        this.currentPage1 = val;
-
+      getData() {
         var type_id = this.$route.query.type_id;
         var attr_id = this.$route.query.attr_id;
         var key_word = this.$route.query.keyword;
@@ -462,13 +442,24 @@
         } else {
           this.searchId = key_word;
         }
+      },
+
+      handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+      },
+      handleCurrentChange(val) {
+        document.documentElement.scrollTop = document.body.scrollTop = 0;
+
+        localStorage.setItem('now_page', val);
+        this.currentPage1 = val;
+
+        this.getData();
 
         this.acquireData(this.searchId, this.sortId, val, this.typeId, this.attrId, this.attrValue, this.priceRange,
           this.pageSize)
 
         console.log(`当前页: ${val}`);
       },
-
       ifShowF(k) {
         this.dataItem[k].isShowT = !this.dataItem[k].isShowT
       },
@@ -511,20 +502,24 @@
         this.ifOpenB = !this.ifOpenB;
       },
       sort(i) {
+        this.getData();
+
         if (this.sort_i != 0) {
           if (this.sort_i != i) {
             this.flag = true;
           }
         }
+
         var _self = this;
-        if (this.flag) {
+        if (_self.flag) {
           _self.filter_index = i;
         } else {
           _self.filter_index = i - 1;
         }
-        localStorage.setItem('sort_id', this.filter[_self.filter_index]);
+        localStorage.setItem('sort_id', _self.filter[_self.filter_index]);
         localStorage.setItem('now_page', '');
         this.currentPage1 = 1;
+
         _self.acquireData(this.searchId, this.filter[_self.filter_index], '', this.typeId, this.attrId, this.attrValue,
           this.priceRange);
         this.flag = !this.flag;
@@ -556,11 +551,6 @@
 </script>
 
 <style scoped>
-  img {
-    width: 100%;
-    height: 100%;
-  }
-
   .engagement {
     font-family: Didot;
     font-size: 38px;
@@ -850,7 +840,7 @@
   }
 
   .commodity-show-list .price {
-    /* font-family: Didot; */
+    font-family: Didot;
     font-size: 22px;
     color: #b64d52;
     margin-top: 18px;
@@ -862,7 +852,7 @@
   }
 
   .commodity-show-list .reference {
-    /* font-family: Didot; */
+    font-family: Didot;
     font-size: 16px;
     color: #b64d52;
     margin-right: 10px;
@@ -872,7 +862,7 @@
   }
 
   .commodity-show-list .online {
-    /* font-family: Didot; */
+    font-family: Didot;
     font-size: 14px;
     color: #daab60;
     font-style: italic;
@@ -884,7 +874,7 @@
   }
 
   .explain {
-    /* font-family: Didot; */
+    font-family: Didot;
     height: 48px;
     display: -webkit-box;
     -webkit-box-orient: vertical;

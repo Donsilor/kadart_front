@@ -33,7 +33,6 @@ module.exports = {
     {src: '~plugins/ElementUI',ssr: true},
     {src: "~/plugins/vue-swiper.js",ssr: false},
     { src: '~/plugins/axios', ssr: true },
-    { src: '@/plugins/vue-components', ssr: true },
   ],
   css: [
     'element-ui/lib/theme-chalk/index.css',
