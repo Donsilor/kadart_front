@@ -214,6 +214,12 @@
     mounted() {
       var goodsDetailId = this.$route.query.id;
 
+      if(goodsDetailId == undefined){
+        var dataId = location.pathname;
+        var num = dataId.lastIndexOf('/');
+        goodsDetailId = dataId.slice(num+1);
+      }
+
       if (goodsDetailId) {
         localStorage.setItem('goodsDetailId', goodsDetailId)
         this.goodsId = goodsDetailId;

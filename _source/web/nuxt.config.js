@@ -88,7 +88,7 @@ module.exports = {
         name: 'goods-detail',
         path: '/goods-detail',
         component: 'pages/goods-detail.vue',
-        alias: '/goods_:goodName/:id'
+        alias: '/goods_:goodName/:id2'
       })
     }
   }
