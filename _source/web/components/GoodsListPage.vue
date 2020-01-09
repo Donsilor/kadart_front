@@ -316,11 +316,13 @@
 
       var type_id = this.$route.query.type_id;
       this.keyword = this.$route.query.keyword;
-	  
+
 	  if(this.keyword == undefined){
 	    var keywordId = location.pathname;
-	    var num = keywordId.lastIndexOf('/');
-	    this.keyword = keywordId.slice(num+1);
+      if(keywordId.indexOf('keyword') != -1){
+        var num = keywordId.lastIndexOf('/');
+        this.keyword = keywordId.slice(num+1);
+      }
 	  }
 
       if (this.keyword != undefined) {
@@ -333,8 +335,6 @@
           this.nav_text = nav_t
         }
       }
-
-
 
       if (type_id) {
         this.line_id = type_id;
@@ -374,20 +374,36 @@
         this.currentPage1 = now_page - 0
       }
 
-		
-
       var urlData = location.search;
-      var urlArr = urlData.split(/[?=&]/);
-      urlArr.shift();
-      for (var i = 0; i < urlArr.length; i += 2) {
-        if (urlArr[i] == 'type_id') {
-          this.typeId = urlArr[i + 1]
-        } else if (urlArr[i] == 'attr_id') {
-          this.attrId = urlArr[i + 1]
-        } else if (urlArr[i] == 'attr_value') {
-          this.attrValue = urlArr[i + 1]
-        } else if (urlArr[i] == 'price_range') {
-          this.priceRange = urlArr[i + 1]
+
+      if(urlData.indexOf('?') == -1){
+        var urlArr = urlData.split(/&/);
+        for (var i = 0; i < urlArr.length; i++) {
+          var arrVal = urlData.split(/=/);
+          if (urlArr[0] == 'type_id') {
+            this.typeId = urlArr[1]
+          } else if (urlArr[0] == 'attr_id') {
+            this.attrId = urlArr[1]
+          } else if (urlArr[0] == 'attr_value') {
+            this.attrValue = urlArr[1]
+          } else if (urlArr[0] == 'price_range') {
+            this.priceRange = urlArr[1]
+          }
+        }
+
+      }else{
+        var urlArr = urlData.split(/[?=&]/);
+        urlArr.shift();
+        for (var i = 0; i < urlArr.length; i += 2) {
+          if (urlArr[i] == 'type_id') {
+            this.typeId = urlArr[i + 1]
+          } else if (urlArr[i] == 'attr_id') {
+            this.attrId = urlArr[i + 1]
+          } else if (urlArr[i] == 'attr_value') {
+            this.attrValue = urlArr[i + 1]
+          } else if (urlArr[i] == 'price_range') {
+            this.priceRange = urlArr[i + 1]
+          }
         }
       }
 
