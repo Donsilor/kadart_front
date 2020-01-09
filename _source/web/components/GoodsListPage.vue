@@ -390,7 +390,7 @@
             this.priceRange = urlArr[1]
           }
         }
-
+         
       }else{
         var urlArr = urlData.split(/[?=&]/);
         urlArr.shift();
