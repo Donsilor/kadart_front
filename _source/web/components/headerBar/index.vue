@@ -2,7 +2,7 @@
   <div class="header clf">
     <div class="logo">
       <a href="/">
-        <img src="../static/index/logo.png" alt="">
+        <img src="../../static/index/logo.png" alt="">
       </a>
     </div>
 
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-  import Bus from './Bus.js'
+  import Bus from '../Bus.js'
   export default {
     data() {
       return {
@@ -92,7 +92,6 @@
       startSearch() {
         localStorage.removeItem('now_page');
         localStorage.removeItem('nav_text');
-        localStorage.removeItem('line_id');
         this.$router.push({
           path: '/goods-list',
           query: {
@@ -130,17 +129,16 @@
   .header {
     position: relative;
   }
+  .logo img{
+    width: 100%;
+    height: 100%;
+  }
 
   .logo {
     font-size: 60px;
     width: 70px;
     height: 82px;
     margin: 0 auto;
-  }
-  
-  .logo img{
-    width: 100%;
-    height: 100%;
   }
 
   .search {
