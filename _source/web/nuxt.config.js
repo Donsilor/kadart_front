@@ -84,18 +84,26 @@ module.exports = {
   },
   router: {
     extendRoutes(routes) {
+      //商品详情  
       routes.push({
         name: 'goods',
         path: '/goods-detail',
         component: 'pages/goods-detail.vue',
         alias: '/goods-:s/:p'
       })
-
+      //商品列表
       routes.push({
         name: 'category',
         path: '/goods-list',
         component: 'pages/goods-list.vue',
         alias: '/category-:s/:p'
+      })
+      //搜索
+      routes.push({
+        name: 'search',
+        path: '/goods-list',
+        component: 'pages/goods-list.vue',
+        alias: '/search/:p'
       })
 
     }
