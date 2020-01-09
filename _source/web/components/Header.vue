@@ -137,6 +137,11 @@
     height: 82px;
     margin: 0 auto;
   }
+  
+  .logo img{
+    width: 100%;
+    height: 100%;
+  }
 
   .search {
     position: absolute;
