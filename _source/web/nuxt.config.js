@@ -85,11 +85,19 @@ module.exports = {
   router: {
     extendRoutes(routes) {
       routes.push({
-        name: 'goods-detail',
+        name: 'goods',
         path: '/goods-detail',
         component: 'pages/goods-detail.vue',
-        alias: '/goods_:goodName/:id'
+        alias: '/goods-:s/:p'
       })
+
+      routes.push({
+        name: 'category',
+        path: '/goods-list',
+        component: 'pages/goods-list.vue',
+        alias: '/category-:s/:p'
+      })
+
     }
   }
 }
