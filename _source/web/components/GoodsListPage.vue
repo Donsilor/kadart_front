@@ -377,20 +377,27 @@
       var urlData = location.search;
 
       if(urlData.indexOf('?') == -1){
+        urlData = location.pathname;
+
+        var num = urlData.lastIndexOf('/');
+        urlData = urlData.slice(num+1);
+
         var urlArr = urlData.split(/&/);
+        // console.log(urlArr)
         for (var i = 0; i < urlArr.length; i++) {
-          var arrVal = urlData.split(/=/);
-          if (urlArr[0] == 'type_id') {
-            this.typeId = urlArr[1]
-          } else if (urlArr[0] == 'attr_id') {
-            this.attrId = urlArr[1]
-          } else if (urlArr[0] == 'attr_value') {
-            this.attrValue = urlArr[1]
-          } else if (urlArr[0] == 'price_range') {
-            this.priceRange = urlArr[1]
+          var arrVal = urlArr[i].split(/=/);
+          console.log(arrVal)
+          if (arrVal[0] == 'type_id') {
+            this.typeId = arrVal[1]
+          } else if (arrVal[0] == 'attr_id') {
+            this.attrId = arrVal[1]
+          } else if (arrVal[0] == 'attr_value') {
+            this.attrValue = arrVal[1]
+          } else if (arrVal[0] == 'price_range') {
+            this.priceRange = arrVal[1]
           }
         }
-         
+
       }else{
         var urlArr = urlData.split(/[?=&]/);
         urlArr.shift();
