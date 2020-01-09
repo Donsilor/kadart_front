@@ -90,7 +90,7 @@
 </template>
 
 <script>
-  import Bus from '../Bus.js'
+  import Bus from './Bus.js'
 
   export default {
     data() {
@@ -132,8 +132,8 @@
     created() {
       var self = this;
       Bus.$on('send', function(val) {
+        self.send_message();
         self.ifShowMessage = val;
-        self.is_login();
       })
     },
 
@@ -169,7 +169,10 @@
           setTimeout(function() {
             var ipt = document.getElementById('ipt').focus();
           }, 100)
-        } else {}
+        } else {
+
+        }
+
       },
       editFocus() {
         this.hint1 = '';
@@ -204,6 +207,32 @@
             this.getUserBook();
           }
         }
+      },
+      send_message(){
+        var username = localStorage.getItem('bdd_user');
+        var eName = localStorage.getItem('email_name');
+
+        var _that = this;
+        if (eName) {
+          _that.username = eName;
+          _that.emailName = eName;
+          _that.isLogin = true;
+        } else if (!eName && username) {
+          _that.username = username;
+          _that.emailName = username;
+          _that.isLogin = true;
+        } else if (!eName && !username) {
+          _that.username = '';
+          _that.emailName = '';
+          _that.isLogin = false;
+        }
+
+        _that.ifShowMessage = true;
+        _that.book_list = [];
+        _that.getUserBook();
+
+        _that.title = '';
+        _that.content = '';
       },
       focusIpt1() {
         this.placeholder1 = ''
@@ -305,29 +334,8 @@
       },
 
       is_login() {
-        var username = localStorage.getItem('bdd_user');
-        var eName = localStorage.getItem('email_name');
-
-        if (eName) {
-          this.username = eName;
-          this.emailName = eName;
-          this.isLogin = true;
-        } else if (!eName && username) {
-          this.username = username;
-          this.emailName = username;
-          this.isLogin = true;
-        } else if (!eName && !username) {
-          this.username = '';
-          this.emailName = '';
-          this.isLogin = false;
-        }
-
-        this.ifShowMessage = true;
-        this.book_list = [];
-        this.getUserBook();
-
-        this.title = '';
-        this.content = '';
+        var _that = this;
+        _that.send_message()
       },
 
       quitMessage() {
@@ -351,6 +359,14 @@
         }).catch(function(error) {
           console.log(error);
         })
+      }
+
+
+    },
+    props: ['ifShowM'],
+    watch: {
+      ifShowM: function(val) {
+        this.ifShowMessage = true;
       }
     }
   }
@@ -412,7 +428,7 @@
 
   .leave-message,
   .leave-message-two {
-    position: fixed;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -428,7 +444,6 @@
 
   .message-top {
     height: 72px;
-    ;
     border-bottom: 2px solid #e0e0e0;
     font-size: 16px;
     color: #480f33;
@@ -610,8 +625,8 @@
   }
 
   .respond {
-    position: fixed;
-    top: 70px;
+    position: absolute;
+    top: 0;
     left: 0;
     width: 100%;
     height: 26px;
