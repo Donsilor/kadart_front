@@ -316,14 +316,12 @@
 
       var type_id = this.$route.query.type_id;
       this.keyword = this.$route.query.keyword;
-
-      if(this.keyword == undefined){
-        var dataId = location.pathname;
-
-        if(dataId.indexOf('keyword=') != -1){
-          this.keyword = dataId.split('=')[1];
-        }
-      }
+	  
+	  if(this.keyword == undefined){
+	    var keywordId = location.pathname;
+	    var num = keywordId.lastIndexOf('/');
+	    this.keyword = keywordId.slice(num+1);
+	  }
 
       if (this.keyword != undefined) {
         this.loading = true;
@@ -335,6 +333,8 @@
           this.nav_text = nav_t
         }
       }
+
+
 
       if (type_id) {
         this.line_id = type_id;
@@ -374,6 +374,8 @@
         this.currentPage1 = now_page - 0
       }
 
+		
+
       var urlData = location.search;
       var urlArr = urlData.split(/[?=&]/);
       urlArr.shift();
@@ -388,9 +390,6 @@
           this.priceRange = urlArr[i + 1]
         }
       }
-
-      console.log(111111)
-      console.log(this.keyword)
 
       this.acquireData(this.keyword, '', this.pageId, this.typeId, this.attrId, this.attrValue, this.priceRange, this.pageSize);
 
