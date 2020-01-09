@@ -1,11 +1,31 @@
 <template>
-  <div>
+  <div class="wrap">
+    <div>
+      <menu-bar></menu-bar>
+    </div>
+
+    <div>
+      <header-bar></header-bar>
+    </div>
+
+    <div>
+      <nav-bar></nav-bar>
+    </div>
+
     <nuxt/>
+
+    <div>
+      <footer-bar></footer-bar>
+    </div>
+
+    <div>
+      <scroll-bar></scroll-bar>
+    </div>
   </div>
 </template>
 
 <style>
-html {
+/* html {
   font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
@@ -48,6 +68,10 @@ html {
 .button--grey:hover {
   color: #fff;
   background-color: #35495e;
+} */
+
+.wrap{
+  max-width: 1400px;
+  margin: 0 auto;
 }
 </style>
-

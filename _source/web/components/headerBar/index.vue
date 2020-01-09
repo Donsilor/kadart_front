@@ -2,7 +2,7 @@
   <div class="header clf">
     <div class="logo">
       <a href="/">
-        <img src="../static/index/logo.png" alt="">
+        <img src="../../static/index/logo.png" alt="">
       </a>
     </div>
 
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-  import Bus from './Bus.js'
+  import Bus from '../Bus.js'
   export default {
     data() {
       return {
@@ -128,6 +128,10 @@
 <style>
   .header {
     position: relative;
+  }
+  .logo img{
+    width: 100%;
+    height: 100%;
   }
 
   .logo {

@@ -2,7 +2,10 @@
   <div class="nav" @mouseleave="liveNav()">
     <div class="inline">
       <div v-if="index != 8" class="nav-list fl" :class="[idx_r == index ? 'active' : '']" v-for="(list, index) in navList" :key="'a'+index" @mouseover="chooseMe(index)">
-        <a :href="list.url || 'javascript:;'" target="_blank" @click="noSearch(index,$event)">{{list.title}}</a>
+        <!-- <a :href="list.url || 'javascript:;'" target="_blank" @click="noSearch(index,$event)">{{list.title}}</a> -->
+          <div @mouseover="overThis(index)">
+            <nuxt-link :to="navUrl">{{list.title}}</nuxt-link>
+          </div>
       </div>
     </div>
 
@@ -11,7 +14,10 @@
         <div class="nav-classify fl" v-for="(item, index) in navList[idx_r].items" :key="'b'+index">
           <div class="nav-classify-child"><a href="javascript:;">{{item.title}}</a></div>
           <div class="nav-classify-child" v-for="(ite, ide) in item.items" :key="'c'+ide">
-            <a :href="ite.url || 'javascript:;'" target="_blank" @click="noSearch('',$event)">{{ite.title}}</a>
+            <!-- <a :href="ite.url || 'javascript:;'" target="_blank" @click="noSearch('',$event)">{{ite.title}}</a> -->
+            <div @mouseover="overThisMo(index,ide)">
+              <nuxt-link :to="navUrlcc">{{ite.title}}</nuxt-link>
+            </div>
           </div>
         </div>
       </div>
@@ -27,53 +33,15 @@
   export default {
     data() {
       return {
-        navList: [{
-          id: '',
-          items: [{
-            id: '',
-            items: [{
-              id: '',
-              items: [],
-              level: '',
-              pid: '',
-              title: '',
-              url: ''
-            }],
-            level: '',
-            pid: '',
-            title: '',
-            url: ''
-          }],
-          level: '',
-          pid: '',
-          title: '',
-          url: ''
-        },{
-          id: '',
-          items: [{
-            id: '',
-            items: [{
-              id: '',
-              items: [],
-              level: '',
-              pid: '',
-              title: '',
-              url: ''
-            }],
-            level: '',
-            pid: '',
-            title: '',
-            url: ''
-          }],
-          level: '',
-          pid: '',
-          title: '',
-          url: ''
-        }],
+        navUrl: {},
+        navUrlcc: {path: '/asgd/asefa/4631'},
+        navList: [],
+        splitUrl: {},
         isShow: false,
         idx_r: -1,
         isShowText: true,
-        nav_text: 'Items found for'
+        nav_text: 'Items found for',
+        navBigList:['rings','necklaces','earrings','bracelets','jade','collections','gift-ideas']
       }
     },
     created() {
@@ -81,11 +49,73 @@
         params: {}
       }).then(res => {
         this.navList = res.data.data;
+        // console.log(this.navList)
       }).catch(function(error) {
         // console.log(error);
       });
     },
     methods: {
+      overThis(i){
+        if(i == 0){
+          this.navUrl = {path:'/article'}
+        }else if(i == 7){
+          this.navUrl = "javascript:;"
+        }else if(i == 9){
+          this.navUrl = {path:'/'}
+        }else{
+          var that = this;
+          var parameter = that.navList[i].title.toLocaleLowerCase().replace(" ","-");
+          that.navUrl = {path:'/'+this.navBigList[i-1]}
+        }
+      },
+      overThisMo(i,j){
+        var tit = this.navList[this.idx_r].items[i].items[j].title;
+        var urls = this.navList[this.idx_r].items[i].items[j].url;
+
+        urls = urls.split('?')[1];
+        urls = urls.split(/[&=]/);
+
+        var typeId = '',
+            attrId = '',
+            priceRange = '';
+        for(var i=0; i<urls.length; i++){
+          if('type_id' == urls[i]){
+            typeId = urls[i+1];
+          }else if('attr_id' == urls[i]){
+            attrId = urls[i+1]
+          }else if('price_range' == urls[i]){
+            var numArr = urls[i+1].split('-');
+            priceRange = '$'+numArr[0]+'-'+'$'+numArr[1];
+          }
+        }
+
+        var that = this;
+
+        if(urls.length == 2){
+          if('price_range' == urls[0]){
+            that.navUrl = {path:'/'+123321+'/' + this.navBigList[this.idx_r-1] + '/' + priceRange};
+          }else if('attr_id' == urls[0]){
+            that.navUrl = {path:'/'+123321+'/' + this.navBigList[this.idx_r-1] + '/' + attrId};
+          }else{
+            that.navUrl = {path:'/'+123321+'/' + this.navBigList[this.idx_r-1] + '/' + typeId};
+          }
+        }else if(urls.length > 2){
+          var flag = false;
+
+          for(var j=0; j<urls.length; j++){
+            if('price_range' == urls[j]){
+              flag = true;
+            }
+          }
+
+          if(flag){
+              that.navUrl = {path:'/'+123321+'/' + this.navBigList[this.idx_r-1] + '/' + typeId + '-' + priceRange};
+          }else{
+              that.navUrl = {path:'/'+123321+'/' + this.navBigList[this.idx_r-1] + '/' + typeId + '-' + attrId};
+          }
+        }
+      },
+
       chooseMe(i) {
         this.idx_r = i;
 
@@ -181,6 +211,12 @@
 
   .nav-list:not(:first-child) {
     margin-left: 20px;
+  }
+
+  .nav-list a{
+    display: inline-block;
+    width: 100%;
+    height: 100%;
   }
 
   .nav-box {

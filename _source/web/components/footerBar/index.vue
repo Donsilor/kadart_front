@@ -53,19 +53,19 @@
           </div>
           <div class="icon-box" style="display: none;">
             <div class="icon">
-              <img src="../static/index/icon01.png" alt="">
+              <img src="../../static/index/icon01.png" alt="">
             </div>
             <div class="icon">
-              <img src="../static/index/icon02.png" alt="">
+              <img src="../../static/index/icon02.png" alt="">
             </div>
             <div class="icon">
-              <img src="../static/index/icon03.png" alt="">
+              <img src="../../static/index/icon03.png" alt="">
             </div>
             <div class="icon">
-              <img src="../static/index/icon04.png" alt="">
+              <img src="../../static/index/icon04.png" alt="">
             </div>
             <div class="icon">
-              <img src="../static/index/icon05.png" alt="">
+              <img src="../../static/index/icon05.png" alt="">
             </div>
           </div>
         </div>
@@ -90,7 +90,7 @@
 </template>
 
 <script>
-  import Bus from './Bus.js'
+  import Bus from '../Bus.js'
 
   export default{
     data(){

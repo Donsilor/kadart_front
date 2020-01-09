@@ -225,10 +225,10 @@
       // var url = 'http://www.kadart.com/goods_qweqweqwe/15312';
       var url = window.location.href;
       var _index = url.lastIndexOf('/');
-      var goodsDetId = url.slice(+_index+1);
-      console.log(goodsDetId)
+      var goodsDetailId = url.slice(+_index+1);
+      // console.log(goodsDetId)
 
-      var goodsDetailId = this.$route.query.id;
+      // var goodsDetailId = this.$route.query.id;
 
       if (goodsDetailId) {
         localStorage.setItem('goodsDetailId', goodsDetailId)
