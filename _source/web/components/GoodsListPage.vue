@@ -146,7 +146,8 @@
           </div>
 
           <div v-if="index >= 0" class="commodity-show-list fl" v-for="(item, index) in commodityItem.data" :key="index">
-            <router-link :to="{ name: 'goods-detail', query: {id: commodityItem.data[index].id}}">
+            <!-- <router-link :to="{ name: 'goods-detail', query: {id: commodityItem.data[index].id}}"> -->
+            <a :href="commodityItem.data[index].url">
               <div class="img-box">
                 <img :src=item.style_image alt="">
               </div>
@@ -156,7 +157,8 @@
               </div>
               <div class="explain">{{item.style_name}}</div>
               <div class="btn">VIEW DETAILS</div>
-            </router-link>
+            </a>
+            <!-- </router-link> -->
           </div>
         </div>
 
@@ -383,10 +385,10 @@
         urlData = urlData.slice(num+1);
 
         var urlArr = urlData.split(/&/);
-        // console.log(urlArr)
+
         for (var i = 0; i < urlArr.length; i++) {
           var arrVal = urlArr[i].split(/=/);
-          console.log(arrVal)
+
           if (arrVal[0] == 'type_id') {
             this.typeId = arrVal[1]
           } else if (arrVal[0] == 'attr_id') {
@@ -397,7 +399,6 @@
             this.priceRange = arrVal[1]
           }
         }
-
       }else{
         var urlArr = urlData.split(/[?=&]/);
         urlArr.shift();
@@ -443,6 +444,9 @@
           // console.log(_self.commodityItem.data)
           this.totalNum = _self.commodityItem.total_count - 0;
           this.totalPages = _self.commodityItem.page_count - 0;
+
+          console.log(111111)
+          console.log(_self.commodityItem)
 
           if (_self.commodityItem.data[0] == undefined) {
             this.ifShowText = true;

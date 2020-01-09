@@ -90,7 +90,8 @@
       <div v-if="this.goodsRecommend.data && this.goodsRecommend.data != 0" v-swiper:hisSwiper="swiperOptionFo">
         <div class="swiper-wrapper">
           <div v-if="index < 6" class="swiper-slide" v-for="(item, index) in goodsRecommend.data" :key="index">
-            <a :href="'/goods-detail?id='+item.id">
+            <!-- <a :href="'/goods-detail?id='+item.id"> -->
+            <a :href="item.url">
               <div class="img-box">
                 <img :src="item.style_image">
               </div>
@@ -248,6 +249,7 @@
         }
       }).then(res => {
         this.goodsRecommend = res.data;
+        console.log(this.goodsRecommend)
       }).catch(function(error) {
         console.log(error);
       });
