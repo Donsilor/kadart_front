@@ -11,7 +11,7 @@ import { setContext, getLocation, getRouteData, normalizeError } from './utils'
 
 /* Plugins */
 
-import nuxt_plugin_axios_c36d9126 from 'nuxt_plugin_axios_c36d9126' // Source: .\\axios.js (mode: 'all')
+import nuxt_plugin_axios_5c26b081 from 'nuxt_plugin_axios_5c26b081' // Source: .\\axios.js (mode: 'all')
 import nuxt_plugin_ElementUI_2318970e from 'nuxt_plugin_ElementUI_2318970e' // Source: ..\\plugins\\ElementUI (mode: 'all')
 import nuxt_plugin_vueswiper_6a7b4f42 from 'nuxt_plugin_vueswiper_6a7b4f42' // Source: ..\\plugins\\vue-swiper.js (mode: 'client')
 import nuxt_plugin_axios_3566aa80 from 'nuxt_plugin_axios_3566aa80' // Source: ..\\plugins\\axios (mode: 'all')
@@ -149,8 +149,8 @@ async function createApp (ssrContext) {
 
   // Plugin execution
 
-  if (typeof nuxt_plugin_axios_c36d9126 === 'function') {
-    await nuxt_plugin_axios_c36d9126(app.context, inject)
+  if (typeof nuxt_plugin_axios_5c26b081 === 'function') {
+    await nuxt_plugin_axios_5c26b081(app.context, inject)
   }
 
   if (typeof nuxt_plugin_ElementUI_2318970e === 'function') {

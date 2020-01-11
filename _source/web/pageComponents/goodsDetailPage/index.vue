@@ -67,19 +67,19 @@
         <div class="share-text" style="display: none;">Share:</div>
         <div class="share-box" style="display: none;">
           <a href="">
-            <img src="../static/index/icon01.png" alt="">
+            <img src="../../static/index/icon01.png" alt="">
           </a>
           <a href="">
-            <img src="../static/index/icon02.png" alt="">
+            <img src="../../static/index/icon02.png" alt="">
           </a>
           <a href="">
-            <img src="../static/index/icon03.png" alt="">
+            <img src="../../static/index/icon03.png" alt="">
           </a>
           <a href="">
-            <img src="../static/index/icon04.png" alt="">
+            <img src="../../static/index/icon04.png" alt="">
           </a>
           <a href="">
-            <img src="../static/index/icon05.png" alt="">
+            <img src="../../static/index/icon05.png" alt="">
           </a>
         </div>
       </div>
@@ -120,8 +120,8 @@
 </template>
 
 <script>
-  import Bus from './Bus.js'
-  import magnifying from './Magnifying.vue'
+  import Bus from '../../components/Bus.js'
+  import magnifying from '../Magnifying/index.vue'
   export default {
     components: {
       magnifying

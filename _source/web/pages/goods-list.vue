@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import ad from '~/components/Ad.vue'
-import goodsListPage from '~/components/GoodsListPage.vue'
+import ad from '~/components/ad/index.vue'
+import goodsListPage from '~/pageComponents/goodsListPage/index'
 
 export default {
   data(){

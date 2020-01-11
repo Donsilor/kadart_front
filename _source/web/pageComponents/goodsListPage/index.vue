@@ -174,7 +174,7 @@
 </template>
 
 <script>
-  import Bus from './Bus.js'
+  import Bus from '../../components/Bus.js'
   export default {
     data() {
       return {
@@ -319,13 +319,13 @@
       var type_id = this.$route.query.type_id;
       this.keyword = this.$route.query.keyword;
 
-	  if(this.keyword == undefined){
-	    var keywordId = location.pathname;
-      if(keywordId.indexOf('keyword') != -1){
-        var num = keywordId.lastIndexOf('/');
-        this.keyword = keywordId.slice(num+1);
+      if (this.keyword == undefined) {
+        var keywordId = location.pathname;
+        if (keywordId.indexOf('keyword') != -1) {
+          var num = keywordId.lastIndexOf('/');
+          this.keyword = keywordId.slice(num + 1);
+        }
       }
-	  }
 
       if (this.keyword != undefined) {
         this.loading = true;
@@ -378,28 +378,33 @@
 
       var urlData = location.search;
 
-      if(urlData.indexOf('?') == -1){
+      if (urlData.indexOf('?') == -1) {
         urlData = location.pathname;
-
         var num = urlData.lastIndexOf('/');
-        urlData = urlData.slice(num+1);
 
-        var urlArr = urlData.split(/&/);
+        if(urlData.indexOf('search') != -1){
+          this.keyword = urlData.slice(num + 1)
+          this.nav_text = urlData.slice(num + 1)
+        }else{
+          urlData = urlData.slice(num + 1);
 
-        for (var i = 0; i < urlArr.length; i++) {
-          var arrVal = urlArr[i].split(/=/);
+          var urlArr = urlData.split(/&/);
 
-          if (arrVal[0] == 'type_id') {
-            this.typeId = arrVal[1]
-          } else if (arrVal[0] == 'attr_id') {
-            this.attrId = arrVal[1]
-          } else if (arrVal[0] == 'attr_value') {
-            this.attrValue = arrVal[1]
-          } else if (arrVal[0] == 'price_range') {
-            this.priceRange = arrVal[1]
+          for (var i = 0; i < urlArr.length; i++) {
+            var arrVal = urlArr[i].split(/=/);
+
+            if (arrVal[0] == 'type_id') {
+              this.typeId = arrVal[1]
+            } else if (arrVal[0] == 'attr_id') {
+              this.attrId = arrVal[1]
+            } else if (arrVal[0] == 'attr_value') {
+              this.attrValue = arrVal[1]
+            } else if (arrVal[0] == 'price_range') {
+              this.priceRange = arrVal[1]
+            }
           }
         }
-      }else{
+      } else {
         var urlArr = urlData.split(/[?=&]/);
         urlArr.shift();
         for (var i = 0; i < urlArr.length; i += 2) {
@@ -445,8 +450,7 @@
           this.totalNum = _self.commodityItem.total_count - 0;
           this.totalPages = _self.commodityItem.page_count - 0;
 
-          console.log(111111)
-          console.log(_self.commodityItem)
+          // console.log(_self.commodityItem)
 
           if (_self.commodityItem.data[0] == undefined) {
             this.ifShowText = true;

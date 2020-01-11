@@ -13,7 +13,7 @@
         <div class="list fl">
           <div class="child">Customer Service</div>
           <div class="child">
-            <span @click="sendMsgTwo()">Contact Us</span>
+            <span @click="toArticle(2)">Contact Us</span>
           </div>
           <!-- <div class="child">
             <a href="">Quality Certification</a>
@@ -31,7 +31,7 @@
             <a href="">Our Brands</a>
           </div> -->
           <div class="child">
-            <router-link :to="{ name:'article'}">Brand Culture</router-link>
+            <span @click="toArticle(1)">Brand Culture</span>
           </div>
           <!-- <div class="child">
             <a href="">Brand Service</a>
@@ -114,9 +114,18 @@
             return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
         }
       },
-      sendMsgTwo(){
-        Bus.$emit('send', true)
-      },
+      toArticle(i){
+        localStorage.setItem('article', i)
+        var url = location.pathname;
+        console.log(url)
+        if(url == '/article'){
+          this.$router.go(0)
+        }else{
+          this.$router.push({
+            path: '/article'
+          })
+        }
+      }
     }
   }
 </script>

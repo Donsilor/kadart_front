@@ -3,11 +3,11 @@ import Router from 'vue-router'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _6c13468d = () => interopDefault(import('..\\pages\\article.vue' /* webpackChunkName: "pages_article" */))
-const _56763342 = () => interopDefault(import('..\\pages\\error.vue' /* webpackChunkName: "pages_error" */))
-const _e41b1abe = () => interopDefault(import('..\\pages\\goods-detail.vue' /* webpackChunkName: "pages_goods-detail" */))
-const _128cca6e = () => interopDefault(import('..\\pages\\goods-list.vue' /* webpackChunkName: "pages_goods-list" */))
-const _de026fae = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
+const _d689ea66 = () => interopDefault(import('..\\pages\\article.vue' /* webpackChunkName: "pages_article" */))
+const _3dde8ac2 = () => interopDefault(import('..\\pages\\error.vue' /* webpackChunkName: "pages_error" */))
+const _ce89533e = () => interopDefault(import('..\\pages\\goods-detail.vue' /* webpackChunkName: "pages_goods-detail" */))
+const _2dbb9e2e = () => interopDefault(import('..\\pages\\goods-list.vue' /* webpackChunkName: "pages_goods-list" */))
+const _c56ac72e = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
 const _5de19fa1 = () => interopDefault(import('..\\pages\\goods-detail.vue' /* webpackChunkName: "" */))
 const _7e63376e = () => interopDefault(import('..\\pages\\goods-list.vue' /* webpackChunkName: "" */))
 
@@ -22,23 +22,23 @@ export const routerOptions = {
 
   routes: [{
     path: "/article",
-    component: _6c13468d,
+    component: _d689ea66,
     name: "article"
   }, {
     path: "/error",
-    component: _56763342,
+    component: _3dde8ac2,
     name: "error"
   }, {
     path: "/goods-detail",
-    component: _e41b1abe,
+    component: _ce89533e,
     name: "goods-detail"
   }, {
     path: "/goods-list",
-    component: _128cca6e,
+    component: _2dbb9e2e,
     name: "goods-list"
   }, {
     path: "/",
-    component: _de026fae,
+    component: _c56ac72e,
     name: "index"
   }, {
     path: "/goods-detail",

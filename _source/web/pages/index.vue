@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import mains from '~/components/indexMainPage.vue'
+import mains from '~/pageComponents/indexPage/index'
 
 export default {
   data(){

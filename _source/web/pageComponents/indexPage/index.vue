@@ -53,19 +53,22 @@
       </h4>
 
       <div class="banner">
-        <a href="/goods-list/?type_id=2" target="_blank">
-          <img src="../static/index/home-13.png" alt="">
+        <a href="https://www.kadart.com/category/RINGS/type_id=2" target="_blank">
+        <!-- <a href="/goods-list/?type_id=2" target="_blank"> -->
+          <img src="../../static/index/home-13.png" alt="">
         </a>
       </div>
       <div class="box clf">
         <div class="img-box fl">
-          <a href="/goods-list/?type_id=4" target="_blank">
-            <img src="../static/index/home-11.png" alt="">
+          <a href="https://www.kadart.com/category/NECKLACES/type_id=4" target="_blank">
+          <!-- <a href="/goods-list/?type_id=4" target="_blank"> -->
+            <img src="../../static/index/home-11.png" alt="">
           </a>
         </div>
         <div class="img-box fr">
-          <a href="/goods-list/?type_id=6" target="_blank">
-            <img src="../static/index/home-12.png" alt="">
+          <a href="https://www.kadart.com/category/EARRINGS/type_id=6" target="_blank">
+          <!-- <a href="/goods-list/?type_id=6" target="_blank"> -->
+            <img src="../../static/index/home-12.png" alt="">
           </a>
         </div>
       </div>
@@ -78,18 +81,18 @@
       <div class="classify clf">
         <div class="classify-left fl">
           <a href="/article" target="_blank">
-            <img src="../static/index/home-16.png" alt="">
+            <img src="../../static/index/home-16.png" alt="">
           </a>
         </div>
         <div class="classify-right fr">
           <div class="classif-list">
             <a href="/goods-list/?type_id=4" target="_blank">
-              <img src="../static/index/home-14.png" alt="">
+              <img src="../../static/index/home-14.png" alt="">
             </a>
           </div>
           <div class="classif-list">
             <a href="/goods-list/?type_id=6" target="_blank">
-              <img src="../static/index/home-15.png" alt="">
+              <img src="../../static/index/home-15.png" alt="">
             </a>
           </div>
         </div>
@@ -98,7 +101,7 @@
       <div class="video">
         <div class="cover" v-if="ifPlay">
           <div class="cover-but" @click="onPlay()"></div>
-          <img src="../static/index/video.png" alt="">
+          <img src="../../static/index/video.png" alt="">
         </div>
         <video width="100%" height="100%" controls="controls" :autoplay="false" ref="video" @ended="endedEd()">
           <source src="https://cloud.video.taobao.com//play/u/2200750399716/p/1/e/6/t/1/248174688205.mp4" type="video/mp4">
@@ -115,7 +118,7 @@
         <el-carousel indicator-position="" :autoplay=auto class="swiper">
           <el-carousel-item v-for="item in 4" :key="item" class="swiper-item">
             <div class="swiper-item-box">
-              <a :href="item.adv_url" v-for="(item,index) in classifyImg">
+              <a :href="sixUrl[index]" v-for="(item,index) in classifyImg" target="_blank">
                 <img :src="item.adv_image" alt="" class="swiper-img">
               </a>
             </div>
@@ -181,8 +184,15 @@
         },
         videoAutoplay: false,
         ifPlay: true,
-        ifPaused: false
-
+        ifPaused: false,
+        sixUrl: [
+          'https://www.kadart.com/category/RINGS/type_id=2',
+          'https://www.kadart.com/category/NECKLACES/type_id=4',
+          'https://www.kadart.com/category/EARRINGS/type_id=6',
+          'https://www.kadart.com/category/BRACELETS/type_id=8',
+          'https://www.kadart.com/category/JADE/type_id=15',
+          'https://www.kadart.com/category/JADE/type_id=15'
+        ]
       }
     },
     created() {

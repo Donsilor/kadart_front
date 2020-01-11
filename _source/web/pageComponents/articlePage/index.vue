@@ -3,39 +3,27 @@
     <div class="article-left fl">
       <div class="article-left-tit">BRAND CULTURE</div>
       <div class="article-left-box">
-        <div class="article-left-list" :class="index == 0 ? 'active' : ''" @click="clickMe(0)">Contact Us</div>
+        <div class="article-left-list" :class="index == 1 ? 'active' : ''" @click="clickMe(1)">About Us</div>
+        <div class="article-left-list" :class="index == 2 ? 'active' : ''" @click="clickMe(2)">Contact Us</div>
       </div>
     </div>
-    <div class="article-right fr">
-      <div class="article-right-tit">About us</div>
-      <div class="article-right-box">
-        <div class="article-right-list">
-          <div class="article-right-list-title"></div>
-          <div class="article-right-list-text">KAD ART is a fashion jewelry company who has three jewelry brands totally. It is integrated with design, marketing, production and sales. We are very familiar with the trend of fashion jewelry. The creativity and vitality of our company is maintained by our advanced management model, effective advertising strategy and international branch office.</div>
-        </div>
-        
-        <div class="article-right-list">
-          <div class="article-right-list-title">About  KADART</div>
-          <div class="article-right-list-text">KADART, we are a global jewelry manufacture enterprise. It is aiming at hiring domestic and overseas experienced jewelry craftsman to produce high quality jewelry for the world. Our location is in Shenzhen IBC, set up headquarters in Hong Kong. We have 3 branch office and 9 factories. All the precious-stones, semi-gems and fashion jewelry material are sourcing around the world. The high quality jewelry we showed is made by our practiced craftsman. This is our belief, we only produce high quality jewelry.</div>
-        </div>
-        
-        <div class="article-right-list">
-          <div class="article-right-list-title">About HENGDELI</div>
-          <div class="article-right-list-text">HENGDELI is a luxury jewelry supplier, who focusing on jadeite, nephrite and precious stones. It is concentrating on producing the top class jewelry of Chinese traditional culture.</div>
-        </div>
-        
-        <div class="article-right-list">
-          <div class="article-right-list-title">About BBD Co.</div>
-          <div class="article-right-list-text">BBD Co. is an international online retailer of jewelry. It is concentrating on selling the diamond jewelry & fashion jewelry made by ourselves. All of our items comply with high quality standards and are greatly appreciated in a variety of different markets throughout the world.</div>
-        </div>
 
-      </div>
+    <div class="article-right fr">
+      <about-us v-if="index == 1"></about-us>
+      <contact-us v-else-if="index == 2"></contact-us>
     </div>
+
   </div>
 </template>
 
 <script>
+  import AboutUs from './brandCulture/aboutUs.vue'
+  import ContactUs from './brandCulture/contactUs.vue'
   export default{
+    components:{
+      AboutUs,
+      ContactUs
+    },
     data(){
       return{
         index: 0
@@ -45,6 +33,10 @@
       clickMe(k){
         this.index = k;
       }
+    },
+    mounted(){
+      var typeId = localStorage.getItem('article');
+      if(typeId) this.index = typeId;
     }
   }
 </script>
@@ -87,6 +79,7 @@
   .article-right{
     width: 1030px;
     border-top: 8px solid #808080;
+    padding-bottom: 30px;
   }
   .article-right-tit{
     width: 100%;

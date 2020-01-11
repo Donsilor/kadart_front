@@ -2,7 +2,7 @@
   <div class="menu clf">
     <div class="menu-left fl">
       <span class="menu-list fl">1-800-311-5393</span>
-      <span class="menu-list fl" @click="sendMsg()">Contact Us</span>
+      <span class="menu-list fl" @click="toArticle(2)">Contact Us</span>
     </div>
     <div class="menu-right fr">
       <div id="menu-list" class="menu-list fl user-num" :class="this.usernametwo == '' ? '' : 'default' " @click="ifLogin()" >{{this.usernametwo || 'Sign In'}}</div>
@@ -92,9 +92,6 @@
       focus(){
         this.text = ''
       },
-      sendMsg(){
-        Bus.$emit('send', true)
-      },
       logOut(){
 				this.username = '';
         this.usernametwo = '';
@@ -111,6 +108,14 @@
 				if(this.usernametwo == ''){
 					this.ifShowLogin = true;
 				}
+      },
+      toArticle(i){
+        localStorage.setItem('article', i)
+        var url = location.pathname;
+
+        this.$router.push({
+          path: '/article'
+        })
       }
     }
   }

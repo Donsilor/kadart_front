@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import ad from '~/components/Ad.vue'
-import articleMainPage from '~/components/ArticleMainPage.vue'
+import ad from '~/components/ad/index.vue'
+import articleMainPage from '~/pageComponents/articlePage/index'
 
 export default {
   components: {
@@ -29,6 +29,9 @@ export default {
         }
       ]
     }
+  },
+  mounted(){
+    document.documentElement.scrollTop = document.body.scrollTop = 0;
   }
 }
 </script>

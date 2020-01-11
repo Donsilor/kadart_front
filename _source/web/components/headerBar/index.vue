@@ -45,9 +45,9 @@
         ifHide: true,
         hotList: ['Wedding Ring', 'Necklace', 'Earring'],
         hotUrl:[
-          '/goods-list/?type_id=2',
-          '/goods-list/?type_id=4',
-          '/goods-list/?type_id=6'
+          'https://www.kadart.com/category/RINGS/type_id=2',
+          'https://www.kadart.com/category/NECKLACES/type_id=4',
+          'https://www.kadart.com/category/EARRINGS/type_id=6'
         ],
       }
     },
@@ -93,10 +93,7 @@
         localStorage.removeItem('now_page');
         localStorage.removeItem('nav_text');
         this.$router.push({
-          path: '/goods-list',
-          query: {
-            keyword: this.ipt
-          }
+          path: '/search/'+this.ipt
         })
       },
 
