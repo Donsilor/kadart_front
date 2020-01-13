@@ -113,9 +113,13 @@
         localStorage.setItem('article', i)
         var url = location.pathname;
 
-        this.$router.push({
-          path: '/article'
-        })
+        if(url.indexOf('article') != -1){
+          this.$router.go(0)
+        }else{
+          this.$router.push({
+            path: '/article'
+          })
+        }
       }
     }
   }

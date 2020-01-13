@@ -116,6 +116,11 @@
         </div>
       </div>
     </div>
+
+    <div class="goods-detail">
+      <div class="goods-detail-tit">商品详情</div>
+      <div class="goods-detail-box" v-html="goodsDetail.data.goods_body"></div>
+    </div>
   </div>
 </template>
 
@@ -249,7 +254,7 @@
         }
       }).then(res => {
         this.goodsRecommend = res.data;
-        console.log(this.goodsRecommend)
+        // console.log(this.goodsRecommend)
       }).catch(function(error) {
         console.log(error);
       });
@@ -317,6 +322,10 @@
     color: rgba(72, 15, 51, 0.5);
     position: relative;
     top: 4px;
+  }
+  .commodity-box img{
+    width: 100%;
+    height: 100%;
   }
 
   .show-img {
@@ -678,5 +687,39 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+  .recommend-swiper img{
+    width: 100%;
+    height: 100%;
+  }
+
+  .goods-detail{
+    margin-top: 100px;
+  }
+  .goods-detail-tit{
+    height: 40px;
+    border-bottom: 1px solid #480f33;
+    font-size: 18px;
+    color: #480f33;
+    padding-left: 10px;
+    font-weight: bold;
+  }
+  .goods-detail-box{
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 100px 0;
+    text-align: center;
+  }
+  .goods-detail-text{
+    text-align: center;
+    line-height: 30px;
+    font-size: 18px;
+    color: #480f33;
+    margin-bottom: 30px;
+  }
+  .goods-detail-box img{
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
   }
 </style>
