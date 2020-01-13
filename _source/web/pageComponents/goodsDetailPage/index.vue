@@ -119,7 +119,7 @@
 
     <div class="goods-detail">
       <div class="goods-detail-tit">商品详情</div>
-      <div class="goods-detail-box" v-html="goodsDetail.data.goods_body"></div>
+      <div class="goods-detail-box" id="goods-detail-box" v-html="goodsDetail.data.goods_body"></div>
     </div>
   </div>
 </template>
@@ -709,6 +709,7 @@
     margin: 0 auto;
     padding: 100px 0;
     text-align: center;
+    overflow: hidden;
   }
   .goods-detail-text{
     text-align: center;
@@ -718,8 +719,6 @@
     margin-bottom: 30px;
   }
   .goods-detail-box img{
-    max-width: 700px;
-    margin: 0 auto;
-    text-align: center;
+    max-width: 1000px;
   }
 </style>
