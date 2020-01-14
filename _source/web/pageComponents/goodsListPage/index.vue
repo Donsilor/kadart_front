@@ -879,7 +879,6 @@
   }
 
   .commodity-show-list .price {
-    font-family: Didot;
     font-size: 22px;
     color: #b64d52;
     margin-top: 18px;
@@ -891,7 +890,6 @@
   }
 
   .commodity-show-list .reference {
-    font-family: Didot;
     font-size: 16px;
     color: #b64d52;
     margin-right: 10px;
@@ -901,7 +899,6 @@
   }
 
   .commodity-show-list .online {
-    font-family: Didot;
     font-size: 14px;
     color: #daab60;
     font-style: italic;
@@ -913,7 +910,6 @@
   }
 
   .explain {
-    font-family: Didot;
     height: 48px;
     display: -webkit-box;
     -webkit-box-orient: vertical;

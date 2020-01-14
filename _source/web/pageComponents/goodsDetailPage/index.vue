@@ -35,7 +35,7 @@
 
       <div class="commodity-right fl">
         <div class="price">Reference Price<span class="big">{{goodsDetail.data.currency}}{{goodsDetail.data.sale_price}}</span></div>
-        <div class="mq">MoQ: {{goodsDetail.data.style_moq}} Pcs</div>
+        <div class="mq">MOQ: {{goodsDetail.data.style_moq}} pcs</div>
         <div class="contact"><span class="color" @click="sendMsg()">Please contact us</span> for more ring size
           information.</div>
         <div class="contact-btn" @click="sendMsg()">CONTACT US</div>
@@ -118,7 +118,7 @@
     </div>
 
     <div class="goods-detail">
-      <div class="goods-detail-tit">商品详情</div>
+      <div class="goods-detail-tit">COMMODITYD DETAILS</div>
       <div class="goods-detail-box" id="goods-detail-box" v-html="goodsDetail.data.goods_body"></div>
     </div>
   </div>
@@ -286,13 +286,11 @@
   .commodity-box .text-1 {
     font-size: 16px;
     color: #daab60;
-    font-family: Didot;
     font-style: italic;
     height: 22px;
   }
 
   .commodity-box .text-2 {
-    font-family: Didot;
     height: 60px;
     font-size: 22px;
     color: #333;
@@ -419,7 +417,6 @@
   }
 
   .commodity-right .price {
-    font-family: Didot;
     font-size: 24px;
     color: #b64d52;
   }

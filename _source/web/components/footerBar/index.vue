@@ -138,6 +138,7 @@
   }
 
   .footer-box {
+    width: 1400px;
     margin: 24px 0;
   }
 
