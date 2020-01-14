@@ -15,42 +15,28 @@
           <div class="child">
             <span @click="toArticle(2)">Contact Us</span>
           </div>
-          <!-- <div class="child">
-            <a href="">Quality Certification</a>
-          </div>
-          <div class="child">
-            <a href="">Return and Exchange Policy</a>
-          </div>
-          <div class="child">
-            <a href="">Repairs and Services</a>
-          </div> -->
         </div>
         <div class="list fl">
           <div class="child">	About Us</div>
-          <!-- <div class="child">
-            <a href="">Our Brands</a>
-          </div> -->
           <div class="child">
             <span @click="toArticle(1)">Brand Culture</span>
           </div>
-          <!-- <div class="child">
-            <a href="">Brand Service</a>
-          </div> -->
         </div>
         <div class="list fl">
           <div class="child">Help</div>
           <div class="child">
             <span @click="sendMsg()">Message Board</span>
           </div>
-          <!-- <div class="child">
-            <a href="">Login</a>
+          <div class="child">
+            <a href="https://www.kadart.com/category/RINGS/type_id=2" target="_blank">Online Shopping</a>
           </div>
           <div class="child">
-            <a href="">Site Map</a>
-          </div> -->
-          <div class="child">
-            <a href="/goods-list/?type_id=2" target="_blank">Online Shopping</a>
+            <span @click="toArticle(4)">Shipping Policy</span>
           </div>
+          <div class="child">
+            <span @click="toArticle(5)">Return Policy</span>
+          </div>
+
           <div class="icon-box" style="display: none;">
             <div class="icon">
               <img src="../../static/index/icon01.png" alt="">
@@ -117,7 +103,7 @@
       toArticle(i){
         localStorage.setItem('article', i)
         var url = location.pathname;
-        
+
         if(url.indexOf('article') != -1){
           this.$router.go(0)
         }else{

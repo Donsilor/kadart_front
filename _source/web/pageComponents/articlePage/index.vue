@@ -1,16 +1,29 @@
 <template>
   <div class="article-wrap clf">
     <div class="article-left fl">
-      <div class="article-left-tit">BRAND CULTURE</div>
-      <div class="article-left-box">
-        <div class="article-left-list" :class="index == 1 ? 'active' : ''" @click="clickMe(1)">About Us</div>
-        <div class="article-left-list" :class="index == 2 ? 'active' : ''" @click="clickMe(2)">Contact Us</div>
+      <div v-if="index < 4">
+        <div class="article-left-tit">BRAND CULTURE</div>
+        <div class="article-left-box">
+          <div class="article-left-list" :class="index == 1 ? 'active' : ''" @click="clickMe(1)">About Us</div>
+          <div class="article-left-list" :class="index == 3 ? 'active' : ''" @click="clickMe(3)">Production Capacity</div>
+          <div class="article-left-list" :class="index == 2 ? 'active' : ''" @click="clickMe(2)">Contact Us</div>
+        </div>
+      </div>
+      <div v-else>
+        <div class="article-left-tit">Terms and Condtions</div>
+        <div class="article-left-box">
+          <div class="article-left-list" :class="index == 4 ? 'active' : ''" @click="clickMe(4)">Shipping Policy</div>
+          <div class="article-left-list" :class="index == 5 ? 'active' : ''" @click="clickMe(5)">Return Policy</div>
+        </div>
       </div>
     </div>
 
     <div class="article-right fr">
       <about-us v-if="index == 1"></about-us>
       <contact-us v-else-if="index == 2"></contact-us>
+      <plant-article v-else-if="index == 3"></plant-article>
+      <shipping-policy v-else-if="index == 4"></shipping-policy>
+      <return-policy-kadart v-else-if="index == 5"></return-policy-kadart>
     </div>
 
   </div>
@@ -19,10 +32,16 @@
 <script>
   import AboutUs from './brandCulture/aboutUs.vue'
   import ContactUs from './brandCulture/contactUs.vue'
+  import ReturnPolicyKadart from './brandCulture/policyKadart.vue'
+  import ShippingPolicy from './brandCulture/shippingPolicy.vue'
+  import PlantArticle from './brandCulture/plantArticle.vue'
   export default{
     components:{
       AboutUs,
-      ContactUs
+      ContactUs,
+      ReturnPolicyKadart,
+      ShippingPolicy,
+      PlantArticle
     },
     data(){
       return{
@@ -44,7 +63,7 @@
 <style>
   .article-wrap{
     margin-top: 60px;
-    min-height: 600px;
+    min-height: 700px;
   }
   .article-left{
     width: 330px;

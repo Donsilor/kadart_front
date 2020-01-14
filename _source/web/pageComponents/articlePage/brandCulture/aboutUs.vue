@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="article-right-tit">About us</div>
+    <div class="article-right-tit">About Us</div>
     <div class="article-right-box">
       <div class="article-right-list">
         <div class="article-right-list-title">Who is KAD ART?</div>

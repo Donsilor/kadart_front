@@ -1,7 +1,9 @@
 <template>
   <div class="nav" @mouseleave="liveNav()">
     <div class="inline">
-      <div v-if="index != 8" class="nav-list fl" :class="[idx_r == index ? 'active' : '']" v-for="(list, index) in navList" :key="'a'+index" @mouseover="chooseMe(index)">
+      <div v-if="navList" class="nav-list fl" :class="[idx_r == 0 ? 'active' : '']" @mouseover="chooseMe(0)" @click="toArticle(1)">{{navList[0].title}}</div>
+
+      <div v-if="index != 8 && index>0" class="nav-list fl" :class="[idx_r == index ? 'active' : '']" v-for="(list, index) in navList" :key="'a'+index" @mouseover="chooseMe(index)">
         <a :href="list.url || 'javascript:;'" target="_blank" @click="noSearch(index,$event)">{{list.title}}</a>
       </div>
     </div>
@@ -81,6 +83,7 @@
         params: {}
       }).then(res => {
         this.navList = res.data.data;
+        // console.log
       }).catch(function(error) {
         // console.log(error);
       });
@@ -145,6 +148,18 @@
       liveNav(){
         this.isShow = false;
         this.idx_r = -1;
+      },
+      toArticle(i){
+        localStorage.setItem('article', i)
+        var url = location.pathname;
+
+        if(url.indexOf('article') != -1){
+          this.$router.go(0)
+        }else{
+          this.$router.push({
+            path: '/article'
+          })
+        }
       }
     }
   }

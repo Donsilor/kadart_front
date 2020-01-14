@@ -85,13 +85,11 @@
           </a>
         </div>
         <div class="classify-right fr">
-          <div class="classif-list">
-            <a href="/goods-list/?type_id=4" target="_blank">
+          <div class="classif-list" @click="toArticle(3)">
               <img src="../../static/index/home-14.png" alt="">
-            </a>
           </div>
           <div class="classif-list">
-            <a href="/goods-list/?type_id=6" target="_blank">
+            <a href="https://www.kadart.com/category/EARRINGS/type_id=6" target="_blank">
               <img src="../../static/index/home-15.png" alt="">
             </a>
           </div>
@@ -249,6 +247,18 @@
       },
       endedEd() {
         this.ifPlay = true;
+      },
+      toArticle(i){
+        localStorage.setItem('article', i)
+        var url = location.pathname;
+
+        if(url.indexOf('article') != -1){
+          this.$router.go(0)
+        }else{
+          this.$router.push({
+            path: '/article'
+          })
+        }
       }
     }
   }
