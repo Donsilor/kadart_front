@@ -374,12 +374,12 @@
 <style>
   .to-top {
     position: fixed;
-    bottom: 16px;
+    bottom: 50px;
     transform: translateY(-50%);
-    right: 12px;
+    right: 30px;
     z-index: 10;
-    width: 54px;
-    height: 54px;
+    width: 50px;
+    height: 50px;
     background-color: #a096b4;
     box-shadow: 4px 4px 0px 0px rgba(214, 180, 177, 0.5);
     border-radius: 6px;
