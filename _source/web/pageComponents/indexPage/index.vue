@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="home_ad">
+    <div class="home_cid">
       <div v-if="this.banners && this.banners != 0" v-swiper:mySwiper="swiperOption">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="banner in banners">
@@ -418,26 +418,26 @@
     height: 320px;
   }
 
-  .home_ad {
+  .home_cid {
     height: 288px;
     margin-top: 20px;
     border-bottom: 1px solid #e2eaf0;
   }
 
-  .home_ad .swiper {
+  .home_cid .swiper {
     overflow: inherit;
   }
 
-  .home_ad .swiper-wrapper {
+  .home_cid .swiper-wrapper {
     width: 100%;
     height: 254px;
   }
 
-  .home_ad .swiper-slide {
+  .home_cid .swiper-slide {
     height: 240px;
   }
 
-  .home_ad .swiper-slide img {
+  .home_cid .swiper-slide img {
     width: 100%;
     height: 100%;
   }

@@ -4,9 +4,9 @@
       <i class="iconfont iconhuidaodingbu"></i>
     </div>
 
-    <div class="message" @click="is_login()">
-      <i class="iconfont iconxinfeng"></i>
-    </div>
+    <!-- <div class="message" @click="is_login()"> -->
+      <!-- <i class="iconfont iconxinfeng"></i> -->
+    <!-- </div> -->
 
     <div class="popup" v-if="ifShowMessage">
 
@@ -122,19 +122,34 @@
         ifPopHint: false
       }
     },
-    mounted() {
-      window.addEventListener('scroll', this.scrollToTop);
-      this.getUserBook();
-    },
-    destroyed() {
-      window.removeEventListener('scroll', this.scrollToTop)
-    },
     created() {
       var self = this;
       Bus.$on('send', function(val) {
         self.ifShowMessage = val;
         self.is_login();
       })
+    },
+    mounted() {
+      window.addEventListener('scroll', this.scrollToTop);
+      this.getUserBook();
+
+      var ifShowM = sessionStorage.getItem('ifShowM');
+      if(ifShowM == undefined){
+        var that = this;
+        var Timer = setTimeout(function(){
+          if(!that.ifShowMessage){
+            that.is_login();
+            that.ifShowMessage = true;
+            clearTimeout(Timer);
+            Timer = null;
+            sessionStorage.setItem('ifShowM',true);
+          }
+        },30000)
+      }
+
+    },
+    destroyed() {
+      window.removeEventListener('scroll', this.scrollToTop)
     },
 
     methods: {
@@ -359,12 +374,12 @@
 <style>
   .to-top {
     position: fixed;
-    top: 85%;
+    bottom: 16px;
     transform: translateY(-50%);
-    right: 30px;
+    right: 12px;
     z-index: 10;
-    width: 50px;
-    height: 50px;
+    width: 54px;
+    height: 54px;
     background-color: #a096b4;
     box-shadow: 4px 4px 0px 0px rgba(214, 180, 177, 0.5);
     border-radius: 6px;

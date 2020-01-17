@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    <ad></ad>
+    <azzd></azzd>
     <goodsListPage></goodsListPage>
   </div>
 </template>
 
 <script>
-import ad from '~/components/ad/index.vue'
+import azzd from '~/components/azzd/index.vue'
 import goodsListPage from '~/pageComponents/goodsListPage/index'
 
 export default {
@@ -16,7 +16,7 @@ export default {
     }
   },
   components: {
-    ad,
+    azzd,
     goodsListPage,
   }
 }

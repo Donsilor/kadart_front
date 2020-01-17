@@ -1,5 +1,5 @@
 <template>
-  <div class="ad">
+  <div class="azzd">
     <div v-if="this.banners && this.banners != 0" v-swiper:hisSwiper="swiperOptionTh">
       <div class="swiper-wrapper">
         <div class="swiper-slide" v-for="banner in banners.data">
@@ -87,34 +87,34 @@
 </script>
 
 <style>
-  .ad {
+  .azzd {
     height: 288px;
     margin-top: 20px;
     border-bottom: 1px solid #e2eaf0;
   }
 
-  .ad .swiper {
+  .azzd .swiper {
     width: 100%;
     height: 288px;
     overflow: inherit;
   }
 
-  .ad .swiper-wrapper {
+  .azzd .swiper-wrapper {
     width: 100%;
     height: 254px;
   }
 
-  .ad .swiper-slide {
+  .azzd .swiper-slide {
     height: 240px;
   }
 
-  .ad .swiper-slide img {
+  .azzd .swiper-slide img {
     width: 100%;
     height: 100%;
   }
 
   /* 分页器容器 */
-  .ad .swiper-pagination {
+  .azzd .swiper-pagination {
     float: left;
     height: 26px;
     position: inherit;
@@ -122,7 +122,7 @@
   }
 
   /* 分页器 */
-  .ad .swiper-pagination-bullet {
+  .azzd .swiper-pagination-bullet {
     width: 12px;
     height: 12px;
     background-color: #fff;
@@ -134,11 +134,11 @@
   }
 
   /* 分页器选中 */
-  .ad .swiper-pagination-bullet-active {
+  .azzd .swiper-pagination-bullet-active {
     background-color: #480f33 !important;
   }
 
-  .ad .pos {
+  .azzd .pos {
     width: 100%;
     height: 26px;
     text-align: center;
@@ -151,8 +151,8 @@
   }
 
   /* 左右按钮 */
-  .ad .swiper-button-prev,
-  .ad .swiper-button-next {
+  .azzd .swiper-button-prev,
+  .azzd .swiper-button-next {
     position: relative;
     background-image: none !important;
     height: 26px;

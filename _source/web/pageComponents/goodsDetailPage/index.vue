@@ -6,6 +6,7 @@
           <!-- <span>Online Exclusive Brilliant Value</span> -->
         </div>
         <div class="text-2">{{goodsDetail.data.style_name}}</div>
+        <div class="text-9">Item #: <span class="text-item">{{goodsDetail.data.style_sn}}</span></div>
         <div class="img-box">
           <magnifying :msg="bigImg[index_k]"></magnifying>
         </div>
@@ -291,7 +292,8 @@
   }
 
   .commodity-box .text-2 {
-    height: 60px;
+    min-height: 32px;
+    max-height: 60px;
     font-size: 22px;
     color: #333;
     margin-top: 8px;
@@ -299,6 +301,17 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
+  }
+
+  .commodity-box .text-9{
+    height: 20px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #363636;
+  }
+
+  .commodity-box .text-9 .text-item{
+    font-weight: bold;
   }
 
   .commodity-box .img-box {

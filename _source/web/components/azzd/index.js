@@ -1,6 +1,6 @@
 import Component from './index.vue'
 export default {
   install(Vue) {
-    Vue.component('ad', Component)
+    Vue.component('azzd', Component)
   }
 }

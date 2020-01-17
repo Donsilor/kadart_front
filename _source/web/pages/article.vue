@@ -1,17 +1,17 @@
 <template>
   <div class="container">
-    <ad></ad>
+    <azzd></azzd>
     <articleMainPage></articleMainPage>
   </div>
 </template>
 
 <script>
-import ad from '~/components/ad/index.vue'
+import azzd from '~/components/azzd/index.vue'
 import articleMainPage from '~/pageComponents/articlePage/index'
 
 export default {
   components: {
-    ad,
+    azzd,
     articleMainPage,
   },
   head() {
