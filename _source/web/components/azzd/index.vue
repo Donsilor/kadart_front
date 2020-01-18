@@ -70,9 +70,9 @@
         if(line_id){
           this.adv_id = line_id;
         }
-        this.$axios.get('/common/advert-images/banner', {
+        this.$axios.get('/common/advert-images/baner', {
           params: {
-            'adv_id': '12',
+            'acdv_id': '12',
             'type_id': this.adv_id
           },
         }).then(res => {

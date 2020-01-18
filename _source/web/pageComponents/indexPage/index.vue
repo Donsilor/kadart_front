@@ -197,7 +197,7 @@
       // 顶部轮播图
       this.$axios.get('/common/advert-images', {
         params: {
-          'adv_id': 11,
+          'acdv_id': 11,
         }
       }).then(res => {
         this.banners = res.data.data;
@@ -209,7 +209,7 @@
       // banner图
       this.$axios.get('/common/advert-images', {
         params: {
-          'adv_id': 10,
+          'acdv_id': 10,
         }
       }).then(res => {
         this.bannersTwo = res.data.data;
@@ -220,7 +220,7 @@
       // 分类小图，6张
       this.$axios.get('/common/advert-images', {
         params: {
-          'adv_id': 13,
+          'acdv_id': 13,
         }
       }).then(res => {
         this.classifyImg = res.data.data;
@@ -232,7 +232,7 @@
       // 底部新品预告图
       this.$axios.get('/common/advert-images', {
         params: {
-          'adv_id': 14,
+          'acdv_id': 14,
         }
       }).then(res => {
         this.footNewImg = res.data.data;
