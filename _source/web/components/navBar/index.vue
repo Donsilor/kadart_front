@@ -78,15 +78,20 @@
         nav_text: 'Items found for'
       }
     },
-    created() {
-      this.$axios.get('/common/menu/index', {
-        params: {}
-      }).then(res => {
-        this.navList = res.data.data;
-        // console.log
-      }).catch(function(error) {
-        // console.log(error);
-      });
+    mounted(){
+      var list = JSON.parse(sessionStorage.getItem('navList'));
+      if(!list){
+        this.$axios.get('/common/menu/index', {
+          params: {}
+        }).then(res => {
+          this.navList = res.data.data;
+          sessionStorage.setItem('navList',JSON.stringify(this.navList))
+        }).catch(function(error) {
+          console.log(error);
+        });
+      }else{
+        this.navList = list;
+      }
     },
     methods: {
       chooseMe(i) {

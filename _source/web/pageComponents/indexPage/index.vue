@@ -55,20 +55,20 @@
       <div class="banner">
         <a href="https://www.kadart.com/category/RINGS/type_id=2" target="_blank">
         <!-- <a href="/goods-list/?type_id=2" target="_blank"> -->
-          <img src="../../static/index/home-13.png" alt="">
+          <img src="../../static/index/home-13.jpg" alt="">
         </a>
       </div>
       <div class="box clf">
         <div class="img-box fl">
           <a href="https://www.kadart.com/category/NECKLACES/type_id=4" target="_blank">
           <!-- <a href="/goods-list/?type_id=4" target="_blank"> -->
-            <img src="../../static/index/home-11.png" alt="">
+            <img src="../../static/index/home-11.jpg" alt="">
           </a>
         </div>
         <div class="img-box fr">
           <a href="https://www.kadart.com/category/EARRINGS/type_id=6" target="_blank">
           <!-- <a href="/goods-list/?type_id=6" target="_blank"> -->
-            <img src="../../static/index/home-12.png" alt="">
+            <img src="../../static/index/home-12.jpg" alt="">
           </a>
         </div>
       </div>
@@ -81,16 +81,16 @@
       <div class="classify clf">
         <div class="classify-left fl">
           <a href="/article" target="_blank">
-            <img src="../../static/index/home-16.png" alt="">
+            <img src="../../static/index/home-16.jpg" alt="">
           </a>
         </div>
         <div class="classify-right fr">
           <div class="classif-list" @click="toArticle(3)">
-              <img src="../../static/index/home-14.png" alt="">
+              <img src="../../static/index/home-14.jpg" alt="">
           </div>
           <div class="classif-list">
             <a href="https://www.kadart.com/category/EARRINGS/type_id=6" target="_blank">
-              <img src="../../static/index/home-15.png" alt="">
+              <img src="../../static/index/home-15.jpg" alt="">
             </a>
           </div>
         </div>
@@ -99,7 +99,7 @@
       <div class="video">
         <div class="cover" v-if="ifPlay">
           <div class="cover-but" @click="onPlay()"></div>
-          <img src="../../static/index/video.png" alt="">
+          <img src="../../static/index/video.jpg" alt="">
         </div>
         <video width="100%" height="100%" controls="controls" :autoplay="false" ref="video" @ended="endedEd()">
           <source src="https://cloud.video.taobao.com//play/u/2200750399716/p/1/e/6/t/1/248174688205.mp4" type="video/mp4">
@@ -201,7 +201,7 @@
         }
       }).then(res => {
         this.banners = res.data.data;
-        console.log(this.banners)
+        // console.log(this.banners)
       }).catch(function(error) {
         console.log(error);
       });
