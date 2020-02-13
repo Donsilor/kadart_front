@@ -1,6 +1,6 @@
 <template>
   <div class="azzd">
-    <div v-if="this.banners && this.banners != 0" v-swiper:hisSwiper="swiperOptionTh">
+    <div v-if="this.banners && this.banners != 0" v-swiper:hisSwiper="swiperOptionTh" :style="{'height': bannerHeightA+'px'}">
       <div class="swiper-wrapper">
         <div class="swiper-slide" v-for="banner in banners.data">
           <a :href='banner.adv_url || "javascript:;"' target="_blank">
@@ -59,12 +59,34 @@
             }
           }
         },
+        bannerHeightA:''
       }
     },
     mounted(){
-      this.getAdData()
+      this.getAdData();
+      const _this = this;
+      _this.$nextTick(() => {
+        window.onresize = function(){
+         _this.onresizeHei();
+        }
+      })
     },
     methods: {
+      onresizeHei(){
+        var that = this;
+        this.getHeight(that.banners, that.bannerHeightA);
+      },
+      getHeight(element,resu){
+       // 获取图片高度
+       var url = element[0].adv_image;
+       var image = new Image();
+       image.src = url;
+       var that = this;
+       image.onload = function(){
+         that.resu = (document.body.clientWidth * image.height) / image.width;
+         console.log(that.resu)
+       }
+     },
       getAdData() {
         var line_id = localStorage.getItem('line_id');
         if(line_id){
@@ -78,6 +100,7 @@
         }).then(res => {
           this.banners = res.data;
           // console.log(this.banners)
+          this.getHeight(this.banners, that.bannerHeightA)
         }).catch(function(error) {
           // console.log(error);
         });
@@ -88,24 +111,24 @@
 
 <style>
   .azzd {
-    height: 288px;
+    /* height: 288px; */
     margin-top: 20px;
     border-bottom: 1px solid #e2eaf0;
   }
 
   .azzd .swiper {
     width: 100%;
-    height: 288px;
+    /* height: 288px; */
     overflow: inherit;
   }
 
   .azzd .swiper-wrapper {
     width: 100%;
-    height: 254px;
+    /* height: 254px; */
   }
 
   .azzd .swiper-slide {
-    height: 240px;
+    /* height: 240px; */
   }
 
   .azzd .swiper-slide img {
@@ -143,6 +166,7 @@
     height: 26px;
     text-align: center;
     font-size: 0;
+    margin: 20px 0 10px;
   }
 
   .pos .inline {

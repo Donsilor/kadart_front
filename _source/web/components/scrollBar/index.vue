@@ -133,19 +133,19 @@
       window.addEventListener('scroll', this.scrollToTop);
       this.getUserBook();
 
-      var ifShowM = sessionStorage.getItem('ifShowM');
-      if(ifShowM == undefined){
-        var that = this;
-        var Timer = setTimeout(function(){
-          if(!that.ifShowMessage){
-            that.is_login();
-            that.ifShowMessage = true;
-            clearTimeout(Timer);
-            Timer = null;
-            sessionStorage.setItem('ifShowM',true);
-          }
-        },30000)
-      }
+      // var ifShowM = sessionStorage.getItem('ifShowM');
+      // if(ifShowM == undefined){
+      //   var that = this;
+      //   var Timer = setTimeout(function(){
+      //     if(!that.ifShowMessage){
+      //       that.is_login();
+      //       that.ifShowMessage = true;
+      //       clearTimeout(Timer);
+      //       Timer = null;
+      //       sessionStorage.setItem('ifShowM',true);
+      //     }
+      //   },30000)
+      // }
 
     },
     destroyed() {

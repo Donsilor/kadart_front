@@ -53,6 +53,19 @@
 				that.username = val;
 				that.usernametwo = val;
 			})
+			
+			var ifShowM = sessionStorage.getItem('ifShowM');
+			if(ifShowM == undefined && !that.usernametwo){
+				var that = this;
+				var Timer = setTimeout(function(){
+					// if(!that.usernametwo){
+						that.ifShowLogin = true;
+						clearTimeout(Timer);
+						Timer = null;
+						sessionStorage.setItem('ifShowM',true);
+					// }
+				},15000)
+			}
     },
     methods:{
       login(){

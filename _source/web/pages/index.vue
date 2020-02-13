@@ -8,10 +8,6 @@
 import mains from '~/pageComponents/indexPage/index'
 
 export default {
-  data(){
-    return{
-    }
-  },
   components: {
     mains,
   },
