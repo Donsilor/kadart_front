@@ -66,11 +66,11 @@
     min-height: 700px;
   }
   .article-left{
-    width: 330px;
+    width: 25%;
     border-top: 8px solid #808080;
   }
   .article-left-tit{
-    width: 280px;
+    width: 84%;
     height: 58px;
     margin: 0 auto;
     line-height: 60px;
@@ -79,7 +79,7 @@
     color: #333;
   }
   .article-left-box{
-    width: 280px;
+    width: 84%;
     margin: 20px auto;
     padding-left: 20px;
     box-sizing: border-box;
@@ -96,7 +96,7 @@
   }
 
   .article-right{
-    width: 1030px;
+    width: 75%;
     border-top: 8px solid #808080;
     padding-bottom: 30px;
   }
