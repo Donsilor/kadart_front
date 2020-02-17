@@ -102,7 +102,7 @@
             <div class="cover-but" @click="onPlay()"></div>
             <img src="../../static/index/video.jpg" alt="">
           </div>
-          <video width="100%" height="100%" controls="controls" :autoplay="false" ref="video" @ended="endedEd()">
+          <video width="100%" height="100%" controls="controls" :autoplay="false" @ended="endedEd()">
             <source src="https://cloud.video.taobao.com//play/u/2200750399716/p/1/e/6/t/1/248174688205.mp4" type="video/mp4">
             <source src="https://cloud.video.taobao.com//play/u/2200750399716/p/1/e/1/t/1/248174688205.swf" type="audio/mp4">
           </video>
@@ -112,14 +112,14 @@
       <h3 class="tit">PRODUCT CATEGORIES</h3>
       <h4 class="subheading">
         <!-- <span>PRODUCT CATEGORIES</span> -->
-      </h4>
+      </h4 ref="series">
 
       <div class="series">
         <el-carousel indicator-position="" :autoplay='auto' class="swiper" style="height: 60px;" :style="{'height': bannerHeightC+'px'}">
           <el-carousel-item v-for="item in 4" :key="item" class="swiper-item" :style="{'height': bannerHeightC+'px'}">
             <div class="swiper-item-box" :style="{'height': bannerHeightC+'px'}">
               <a :href="sixUrl[index]" v-for="(item,index) in classifyImg" target="_blank">
-                <img :src="item.adv_image" alt="" class="swiper-img">
+                <img :src="item.adv_image" ref="series" alt="" class="swiper-img">
               </a>
             </div>
           </el-carousel-item>
@@ -207,7 +207,7 @@
         }
       }).then(res => {
         this.banners = res.data.data;
-        this.getHeight(this.banners)
+        // this.getHeight(this.banners)
       }).catch(function(error) {
         console.log(error);
       });
@@ -219,7 +219,7 @@
         }
       }).then(res => {
         this.bannersTwo = res.data.data;
-        this.getHeight(this.bannersTwo)
+        // this.getHeight(this.bannersTwo)
       }).catch(function(error) {
         console.log(error);
       });
@@ -231,7 +231,7 @@
         }
       }).then(res => {
         this.classifyImg = res.data.data;
-        this.getHeight(this.classifyImg)
+        // this.getHeight(this.classifyImg)
       }).catch(function(error) {
         console.log(error);
       });
@@ -248,31 +248,35 @@
       });
     },
     mounted(){
-      const _this = this
-      _this.$nextTick(() => {
-        window.onresize = function(){
-         _this.onresizeHei();
-        }
-      })
+      // const _this = this
+      // _this.$nextTick(() => {
+      //   window.onresize = function(){
+         // _this.onresizeHei();
+      //   }
+      // })
+
+      console.log(1111)
+      console.log(this.$refs)
+
     },
     methods: {
-      onresizeHei(){
-        var that = this;
-        this.getHeight(that.bannersTwo, that.bannerHeightB);
-        this.getHeight(that.banners, that.bannerHeightA);
-        this.getHeight(that.classifyImg, that.bannerHeightC);
-      },
-      getHeight(element,resu){
-       // 获取图片高度
-       var url = element[0].adv_image;
-       var image = new Image();
-       image.src = url;
-       var that = this;
-       image.onload = function(){
-         that.resu = (document.body.clientWidth * image.height) / image.width;
-         // console.log(that.resu)
-       }
-      },
+      // onresizeHei(){
+      //   var that = this;
+      //   this.getHeight(that.bannersTwo, that.bannerHeightB);
+      //   this.getHeight(that.banners, that.bannerHeightA);
+      //   this.getHeight(that.classifyImg, that.bannerHeightC);
+      // },
+      // getHeight(element,resu){
+      //  // 获取图片高度
+      //  var url = element[0].adv_image;
+      //  var image = new Image();
+      //  image.src = url;
+      //  var that = this;
+      //  image.onload = function(){
+      //    that.resu = (document.body.clientWidth * image.height) / image.width;
+      //    // console.log(that.resu)
+      //  }
+      // },
       onPlay() {
         this.ifPlay = false;
         this.$refs.video.play()

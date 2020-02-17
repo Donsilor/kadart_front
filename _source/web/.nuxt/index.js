@@ -12,11 +12,11 @@ import { createStore } from './store.js'
 
 /* Plugins */
 
-import nuxt_plugin_axios_40b6cd20 from 'nuxt_plugin_axios_40b6cd20' // Source: .\\axios.js (mode: 'all')
+import nuxt_plugin_axios_5c26b081 from 'nuxt_plugin_axios_5c26b081' // Source: .\\axios.js (mode: 'all')
 import nuxt_plugin_ElementUI_2318970e from 'nuxt_plugin_ElementUI_2318970e' // Source: ..\\plugins\\ElementUI (mode: 'all')
 import nuxt_plugin_vueswiper_6a7b4f42 from 'nuxt_plugin_vueswiper_6a7b4f42' // Source: ..\\plugins\\vue-swiper.js (mode: 'client')
 import nuxt_plugin_axios_3566aa80 from 'nuxt_plugin_axios_3566aa80' // Source: ..\\plugins\\axios (mode: 'all')
-import nuxt_plugin_vuecomponents_b36d5e9e from 'nuxt_plugin_vuecomponents_b36d5e9e' // Source: ..\\plugins\\vue-components (mode: 'all')
+import nuxt_plugin_vuecomponents_61302338 from 'nuxt_plugin_vuecomponents_61302338' // Source: ..\\plugins\\vue-components.js (mode: 'all')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -28,7 +28,7 @@ Vue.component(NoSsr.name, {
     if (process.client && !NoSsr._warned) {
       NoSsr._warned = true
 
-      console.warn(`<no-ssr> has been deprecated and will be removed in Nuxt 3, please use <client-only> instead`)
+      console.warn('<no-ssr> has been deprecated and will be removed in Nuxt 3, please use <client-only> instead')
     }
     return NoSsr.render(h, ctx)
   }
@@ -40,7 +40,7 @@ Vue.component('NChild', NuxtChild)
 
 // Component NuxtLink is imported in server.js or client.js
 
-// Component: <Nuxt>`
+// Component: <Nuxt>
 Vue.component(Nuxt.name, Nuxt)
 
 Vue.use(Meta, {"keyName":"head","attribute":"data-n-head","ssrAttribute":"data-n-head-ssr","tagIDKeyName":"hid"})
@@ -67,10 +67,10 @@ async function createApp (ssrContext) {
     router,
     nuxt: {
       defaultTransition,
-      transitions: [ defaultTransition ],
+      transitions: [defaultTransition],
       setTransitions (transitions) {
         if (!Array.isArray(transitions)) {
-          transitions = [ transitions ]
+          transitions = [transitions]
         }
         transitions = transitions.map((transition) => {
           if (!transition) {
@@ -114,7 +114,7 @@ async function createApp (ssrContext) {
   if (ssrContext) {
     route = router.resolve(ssrContext.url).route
   } else {
-    const path = getLocation(router.options.base)
+    const path = getLocation(router.options.base, router.options.mode)
     route = router.resolve(path).route
   }
 
@@ -154,7 +154,7 @@ async function createApp (ssrContext) {
     Vue[installKey] = true
     // Call Vue.use() to install the plugin into vm
     Vue.use(() => {
-      if (!Vue.prototype.hasOwnProperty(key)) {
+      if (!Object.prototype.hasOwnProperty.call(Vue, key)) {
         Object.defineProperty(Vue.prototype, key, {
           get () {
             return this.$root.$options[key]
@@ -173,8 +173,8 @@ async function createApp (ssrContext) {
 
   // Plugin execution
 
-  if (typeof nuxt_plugin_axios_40b6cd20 === 'function') {
-    await nuxt_plugin_axios_40b6cd20(app.context, inject)
+  if (typeof nuxt_plugin_axios_5c26b081 === 'function') {
+    await nuxt_plugin_axios_5c26b081(app.context, inject)
   }
 
   if (typeof nuxt_plugin_ElementUI_2318970e === 'function') {
@@ -189,8 +189,8 @@ async function createApp (ssrContext) {
     await nuxt_plugin_axios_3566aa80(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_vuecomponents_b36d5e9e === 'function') {
-    await nuxt_plugin_vuecomponents_b36d5e9e(app.context, inject)
+  if (typeof nuxt_plugin_vuecomponents_61302338 === 'function') {
+    await nuxt_plugin_vuecomponents_61302338(app.context, inject)
   }
 
   // If server-side, wait for async component to be resolved first

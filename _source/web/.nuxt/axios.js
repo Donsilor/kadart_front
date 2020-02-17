@@ -1,4 +1,5 @@
 import Axios from 'axios'
+import defu from 'defu'
 
 // Axios.prototype cannot be modified
 const axiosExtra = {
@@ -33,6 +34,9 @@ const axiosExtra = {
   onError(fn) {
     this.onRequestError(fn)
     this.onResponseError(fn)
+  },
+  create(options) {
+    return createAxiosInstance(defu(options, this.defaults))
   }
 }
 
@@ -47,7 +51,23 @@ const extendAxiosInstance = axios => {
   }
 }
 
-const setupProgress = (axios, ctx) => {
+const createAxiosInstance = axiosOptions => {
+  // Create new axios instance
+  const axios = Axios.create(axiosOptions)
+  axios.CancelToken = Axios.CancelToken
+  axios.isCancel = Axios.isCancel
+
+  // Extend axios proto
+  extendAxiosInstance(axios)
+
+  // Setup interceptors
+
+  setupProgress(axios)
+
+  return axios
+}
+
+const setupProgress = (axios) => {
   if (process.server) {
     return
   }
@@ -114,8 +134,8 @@ const setupProgress = (axios, ctx) => {
 export default (ctx, inject) => {
   // baseURL
   const baseURL = process.browser
-      ? 'https://kadart.bddia.com/api/index.php/v1'
-      : (process.env._AXIOS_BASE_URL_ || 'https://kadart.bddia.com/api/index.php/v1')
+      ? 'https://api.kadart.com/index.php/v1'
+      : (process.env._AXIOS_BASE_URL_ || 'https://api.kadart.com/index.php/v1')
 
   // Create fresh objects for all default header scopes
   // Axios creates only one which is shared across SSR requests!
@@ -152,17 +172,7 @@ export default (ctx, inject) => {
     axiosOptions.headers.common['accept-encoding'] = 'gzip, deflate'
   }
 
-  // Create new axios instance
-  const axios = Axios.create(axiosOptions)
-  axios.CancelToken = Axios.CancelToken
-  axios.isCancel = Axios.isCancel
-
-  // Extend axios proto
-  extendAxiosInstance(axios)
-
-  // Setup interceptors
-
-  setupProgress(axios, ctx)
+  const axios = createAxiosInstance(axiosOptions)
 
   // Inject axios to the context as $axios
   ctx.$axios = axios

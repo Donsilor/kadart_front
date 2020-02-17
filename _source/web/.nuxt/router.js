@@ -3,13 +3,20 @@ import Router from 'vue-router'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _2873b59c = () => interopDefault(import('..\\pages\\article.vue' /* webpackChunkName: "pages_article" */))
-const _957865a4 = () => interopDefault(import('..\\pages\\error.vue' /* webpackChunkName: "pages_error" */))
-const _111814f2 = () => interopDefault(import('..\\pages\\goods-detail.vue' /* webpackChunkName: "pages_goods-detail" */))
-const _a6ae6602 = () => interopDefault(import('..\\pages\\goods-list.vue' /* webpackChunkName: "pages_goods-list" */))
-const _717daef8 = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
+const _d689ea66 = () => interopDefault(import('..\\pages\\article.vue' /* webpackChunkName: "pages_article" */))
+const _3dde8ac2 = () => interopDefault(import('..\\pages\\error.vue' /* webpackChunkName: "pages_error" */))
+const _ce89533e = () => interopDefault(import('..\\pages\\goods-detail.vue' /* webpackChunkName: "pages_goods-detail" */))
+const _2dbb9e2e = () => interopDefault(import('..\\pages\\goods-list.vue' /* webpackChunkName: "pages_goods-list" */))
+const _c56ac72e = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
 const _5de19fa1 = () => interopDefault(import('..\\pages\\goods-detail.vue' /* webpackChunkName: "" */))
 const _7e63376e = () => interopDefault(import('..\\pages\\goods-list.vue' /* webpackChunkName: "" */))
+
+// TODO: remove in Nuxt 3
+const emptyFn = () => {}
+const originalPush = Router.prototype.push
+Router.prototype.push = function push (location, onComplete = emptyFn, onAbort) {
+  return originalPush.call(this, location, onComplete, onAbort)
+}
 
 Vue.use(Router)
 
@@ -22,23 +29,23 @@ export const routerOptions = {
 
   routes: [{
     path: "/article",
-    component: _2873b59c,
+    component: _d689ea66,
     name: "article"
   }, {
     path: "/error",
-    component: _957865a4,
+    component: _3dde8ac2,
     name: "error"
   }, {
     path: "/goods-detail",
-    component: _111814f2,
+    component: _ce89533e,
     name: "goods-detail"
   }, {
     path: "/goods-list",
-    component: _a6ae6602,
+    component: _2dbb9e2e,
     name: "goods-list"
   }, {
     path: "/",
-    component: _717daef8,
+    component: _c56ac72e,
     name: "index"
   }, {
     path: "/goods-detail",
