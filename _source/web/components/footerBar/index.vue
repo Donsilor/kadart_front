@@ -37,7 +37,7 @@
             <span @click="toArticle(5)">Return Policy</span>
           </div>
 
-          <div class="icon-box" style="display: none;">
+          <!-- <div class="icon-box">
             <div class="icon">
               <img src="../../static/index/icon01.png" alt="">
             </div>
@@ -53,7 +53,7 @@
             <div class="icon">
               <img src="../../static/index/icon05.png" alt="">
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
