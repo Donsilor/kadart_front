@@ -21,7 +21,7 @@ import _6f6c098b from '..\\layouts\\default.vue'
 const layouts = { "_default": _6f6c098b }
 
 export default {
-  head: {"title":"vue-web2","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"Nuxt.js project"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"}],"script":[{"src":"\u002Flive-chat.js","type":"text\u002Fjavascript","charset":"utf-8"}],"style":[]},
+  head: {"title":"vue-web2","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"Nuxt.js project"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"}],"script":[{"src":"\u002Flive-chat.js","type":"text\u002Fjavascript","charset":"utf-8"},{"src":"\u002Fga.js","type":"text\u002Fjavascript","charset":"utf-8"}],"style":[]},
 
   render (h, props) {
     const loadingEl = h('NuxtLoading', { ref: 'loading' })
@@ -32,7 +32,7 @@ export default {
         id: '__layout'
       },
       key: this.layoutName
-    }, [ layoutEl ])
+    }, [layoutEl])
 
     const transitionEl = h('transition', {
       props: {
@@ -47,7 +47,7 @@ export default {
           })
         }
       }
-    }, [ templateEl ])
+    }, [templateEl])
 
     return h('div', {
       domProps: {

@@ -8,6 +8,7 @@ import NuxtError from './components/nuxt-error.vue'
 import Nuxt from './components/nuxt.js'
 import App from './App.js'
 import { setContext, getLocation, getRouteData, normalizeError } from './utils'
+import { createStore } from './store.js'
 
 /* Plugins */
 
@@ -15,7 +16,7 @@ import nuxt_plugin_axios_5c26b081 from 'nuxt_plugin_axios_5c26b081' // Source: .
 import nuxt_plugin_ElementUI_2318970e from 'nuxt_plugin_ElementUI_2318970e' // Source: ..\\plugins\\ElementUI (mode: 'all')
 import nuxt_plugin_vueswiper_6a7b4f42 from 'nuxt_plugin_vueswiper_6a7b4f42' // Source: ..\\plugins\\vue-swiper.js (mode: 'client')
 import nuxt_plugin_axios_3566aa80 from 'nuxt_plugin_axios_3566aa80' // Source: ..\\plugins\\axios (mode: 'all')
-import nuxt_plugin_vuecomponents_b36d5e9e from 'nuxt_plugin_vuecomponents_b36d5e9e' // Source: ..\\plugins\\vue-components (mode: 'all')
+import nuxt_plugin_vuecomponents_61302338 from 'nuxt_plugin_vuecomponents_61302338' // Source: ..\\plugins\\vue-components.js (mode: 'all')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -27,7 +28,7 @@ Vue.component(NoSsr.name, {
     if (process.client && !NoSsr._warned) {
       NoSsr._warned = true
 
-      console.warn(`<no-ssr> has been deprecated and will be removed in Nuxt 3, please use <client-only> instead`)
+      console.warn('<no-ssr> has been deprecated and will be removed in Nuxt 3, please use <client-only> instead')
     }
     return NoSsr.render(h, ctx)
   }
@@ -39,7 +40,7 @@ Vue.component('NChild', NuxtChild)
 
 // Component NuxtLink is imported in server.js or client.js
 
-// Component: <Nuxt>`
+// Component: <Nuxt>
 Vue.component(Nuxt.name, Nuxt)
 
 Vue.use(Meta, {"keyName":"head","attribute":"data-n-head","ssrAttribute":"data-n-head-ssr","tagIDKeyName":"hid"})
@@ -49,18 +50,27 @@ const defaultTransition = {"name":"page","mode":"out-in","appear":false,"appearC
 async function createApp (ssrContext) {
   const router = await createRouter(ssrContext)
 
+  const store = createStore(ssrContext)
+  // Add this.$router into store actions/mutations
+  store.$router = router
+
+  // Fix SSR caveat https://github.com/nuxt/nuxt.js/issues/3757#issuecomment-414689141
+  const registerModule = store.registerModule
+  store.registerModule = (path, rawModule, options) => registerModule.call(store, path, rawModule, Object.assign({ preserveState: process.client }, options))
+
   // Create Root instance
 
   // here we inject the router and store to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = {
+    store,
     router,
     nuxt: {
       defaultTransition,
-      transitions: [ defaultTransition ],
+      transitions: [defaultTransition],
       setTransitions (transitions) {
         if (!Array.isArray(transitions)) {
-          transitions = [ transitions ]
+          transitions = [transitions]
         }
         transitions = transitions.map((transition) => {
           if (!transition) {
@@ -95,18 +105,22 @@ async function createApp (ssrContext) {
     ...App
   }
 
+  // Make app available into store via this.app
+  store.app = app
+
   const next = ssrContext ? ssrContext.next : location => app.router.push(location)
   // Resolve route
   let route
   if (ssrContext) {
     route = router.resolve(ssrContext.url).route
   } else {
-    const path = getLocation(router.options.base)
+    const path = getLocation(router.options.base, router.options.mode)
     route = router.resolve(path).route
   }
 
   // Set context to app.context
   await setContext(app, {
+    store,
     route,
     next,
     error: app.nuxt.error.bind(app),
@@ -129,6 +143,9 @@ async function createApp (ssrContext) {
     // Add into app
     app[key] = value
 
+    // Add into store
+    store[key] = app[key]
+
     // Check if plugin not already installed
     const installKey = '__nuxt_' + key + '_installed__'
     if (Vue[installKey]) {
@@ -137,7 +154,7 @@ async function createApp (ssrContext) {
     Vue[installKey] = true
     // Call Vue.use() to install the plugin into vm
     Vue.use(() => {
-      if (!Vue.prototype.hasOwnProperty(key)) {
+      if (!Object.prototype.hasOwnProperty.call(Vue, key)) {
         Object.defineProperty(Vue.prototype, key, {
           get () {
             return this.$root.$options[key]
@@ -145,6 +162,13 @@ async function createApp (ssrContext) {
         })
       }
     })
+  }
+
+  if (process.client) {
+    // Replace store state before plugins execution
+    if (window.__NUXT__ && window.__NUXT__.state) {
+      store.replaceState(window.__NUXT__.state)
+    }
   }
 
   // Plugin execution
@@ -165,8 +189,8 @@ async function createApp (ssrContext) {
     await nuxt_plugin_axios_3566aa80(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_vuecomponents_b36d5e9e === 'function') {
-    await nuxt_plugin_vuecomponents_b36d5e9e(app.context, inject)
+  if (typeof nuxt_plugin_vuecomponents_61302338 === 'function') {
+    await nuxt_plugin_vuecomponents_61302338(app.context, inject)
   }
 
   // If server-side, wait for async component to be resolved first
@@ -187,6 +211,7 @@ async function createApp (ssrContext) {
   }
 
   return {
+    store,
     app,
     router
   }

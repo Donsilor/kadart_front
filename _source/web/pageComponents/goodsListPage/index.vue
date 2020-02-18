@@ -607,7 +607,7 @@
   }
 
   .components-box {
-    width: 1380px;
+    width: 100%;
     margin: 0 auto;
     margin-top: 50px;
   }
@@ -865,17 +865,19 @@
   }
 
   .commodity-show-list {
-    width: 294px;
+    /* width: 294px; */
     margin-bottom: 40px;
+    width: 24%;
   }
 
   .commodity-show-list:not(:nth-child(4n+1)) {
-    margin-left: 68px;
+    margin-left: 1%;
   }
 
   .commodity-show-list .img-box {
-    width: 100%;
-    height: 294px;
+    width: 96%;
+		margin: 0 auto;
+    /* height: 294px; */
   }
 
   .commodity-show-list .price {
@@ -910,6 +912,7 @@
   }
 
   .explain {
+    width: 100%;
     height: 48px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -918,10 +921,11 @@
     font-size: 16px;
     color: #333;
     line-height: 24px;
+    margin: 0 auto;
   }
 
   .commodity-show-list .btn {
-    width: 294px;
+    width: 100%;
     height: 38px;
     background-color: #480f33;
     line-height: 38px;
@@ -929,7 +933,7 @@
     border-radius: 4px;
     font-size: 12px;
     color: #fff;
-    margin-top: 28px;
+    margin: 28px auto 0;
   }
 
   .pages {

@@ -3,13 +3,13 @@
     <div class="line"></div>
 
     <div class="footer-box clf">
-      <div class="join-our fl">
+      <div class="join-our fl" ref="joinour" :style="{'height': heig+'px'}">
         <div class="text">Online Message</div>
         <div class="line-2"></div>
         <div class="text-2">We will reply you on email</div>
         <div class="btn" @click="sendMsg()">Send</div>
       </div>
-      <div class="footer-box-right fl clf">
+      <div class="footer-box-right fr clf">
         <div class="list fl">
           <div class="child">Customer Service</div>
           <div class="child">
@@ -80,9 +80,24 @@
 
   export default{
     data(){
-      return{}
+      return{
+        heig: ''
+      }
+    },
+    mounted(){
+      this.getWidth();
+      const _this = this
+      _this.$nextTick(() => {
+        window.onresize = function(){
+          _this.getWidth();
+        }
+      })
     },
     methods:{
+      getWidth(){
+         var wid = this.$refs.joinour.offsetWidth;
+         this.heig = (234/220)*wid;
+      },
       sendMsg(){
         Bus.$emit('send', true)
       },
@@ -120,20 +135,23 @@
   .line {
     height: 4px;
     background-color: #480f33;
-
   }
 
   .footer-box {
-    width: 1400px;
+    max-width: 1400px;
+    min-width: 1000px;
+    width: 100%;
     margin: 24px 0;
   }
 
   .join-our {
-    width: 210px;
+    /* width: 220px; */
+    width: 16.2%;
     height: 234px;
     background-color: #f0e2ed;
     padding: 30px 0;
-    margin: 0 150px 0 30px;
+    /* margin-left: 36px; */
+    margin-left: 2.8%;
   }
 
   .join-our .text {
@@ -172,13 +190,16 @@
     cursor: pointer;
   }
 
+  .footer-box-right{
+    width: 81%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+  }
   .footer-box-right .list {
     width: 200px;
     overflow: hidden;
-  }
-  .footer-box-right .list:not(:first-child) {
-    margin-left: 150px;
-
+    font-size: 0;
   }
 
   .footer-box-right .list .child {

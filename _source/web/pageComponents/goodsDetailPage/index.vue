@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div class="commodity-box clf">
-      <div class="commodity-left fl">
+    <div class="commodity-box clf" ref="commodityBox">
+      <div class="commodity-left" :style="{'width': commodityLeftWidth+'px'}">
         <div class="text-1">
           <!-- <span>Online Exclusive Brilliant Value</span> -->
         </div>
         <div class="text-2">{{goodsDetail.data.style_name}}</div>
         <div class="text-9">Item #: <span class="text-item">{{goodsDetail.data.style_sn}}</span></div>
-        <div class="img-box">
+        <div class="img-box" :style="{width: commodityLeftWidth}">
           <magnifying :msg="bigImg[index_k]"></magnifying>
         </div>
         <div class="text-3">Mouse over the image to view the large picture
@@ -34,7 +34,7 @@
         </div>
       </div>
 
-      <div class="commodity-right fl">
+      <div class="commodity-right">
         <div class="price">Reference Price<span class="big">{{goodsDetail.data.currency}}{{goodsDetail.data.sale_price}}</span></div>
         <div class="mq">MOQ: {{goodsDetail.data.style_moq}} pcs</div>
         <div class="contact"><span class="color" @click="sendMsg()">Please contact us</span> for more ring size
@@ -128,6 +128,7 @@
 <script>
   import Bus from '../../components/Bus.js'
   import magnifying from '../Magnifying/index.vue'
+
   export default {
     components: {
       magnifying
@@ -216,9 +217,12 @@
             }
           }
         },
+        commodityLeftWidth: ''
       }
     },
     mounted() {
+      console.log(this.$store.state.winWid)
+
       var goodsDetailId = this.$route.query.id;
 
       if(goodsDetailId == undefined){
@@ -243,7 +247,7 @@
         this.goodsDetail = res.data;
         this.smallImg = res.data.data.goods_images.thumb || '';
         this.bigImg = res.data.data.goods_images.big || '';
-        console.log(this.goodsDetail)
+
       }).catch(function(error) {
         console.log(error);
       });
@@ -259,6 +263,8 @@
       }).catch(function(error) {
         console.log(error);
       });
+
+
     },
     methods: {
       sendMsg() {
@@ -269,6 +275,12 @@
       },
       ShowImg(){
         this.isShowImg = true
+      },
+      getWidth(){
+        var comBox = this.$refs.commodityBox.clientWidth;
+        // var that = this;
+        this.commodityLeftWidth = comBox-568;
+        // console.log(that.commodityLeftWidth)
       }
     }
   }
@@ -276,12 +288,16 @@
 
 <style>
   .commodity-box {
-    margin-top: 40px;
+    margin: 40px auto 0;
+		min-width: 800px;
+		max-width: 90%;
+		position: relative;
   }
 
   .commodity-left {
-    width: 760px;
-    margin-left: 100px;
+    min-width: 432px;
+		max-width: 760px;
+		margin-right: 448px;
   }
 
   .commodity-box .text-1 {
@@ -304,7 +320,6 @@
   }
 
   .commodity-box .text-9{
-    height: 20px;
     margin-top: 10px;
     font-size: 14px;
     color: #363636;
@@ -315,7 +330,7 @@
   }
 
   .commodity-box .img-box {
-    width: 760px;
+    width: 100%;
     height: 560px;
     margin-top: 20px;
     font-size: 0;
@@ -427,6 +442,10 @@
   .commodity-box .commodity-right {
     width: 406px;
     margin: 20px 0 0 42px;
+		position: absolute;
+		right: 0;
+		top: 0;
+		z-index: -2;
   }
 
   .commodity-right .price {

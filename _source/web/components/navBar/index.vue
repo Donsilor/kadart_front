@@ -170,9 +170,10 @@
   }
 </script>
 
-<style>
+<style scoped>
   .nav {
     width: 100%;
+    min-width: 1000px;
     height: 50px;
     background-color: #eee;
     margin-top: 18px;

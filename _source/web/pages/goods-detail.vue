@@ -10,10 +10,6 @@ import azzd from '~/components/azzd/index.vue'
 import goodsDetailPage from '~/pageComponents/goodsDetailPage/index.vue'
 
 export default {
-  data(){
-    return{
-    }
-  },
   components: {
     azzd,
     goodsDetailPage,

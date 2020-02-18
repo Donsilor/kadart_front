@@ -1,6 +1,5 @@
 /web/favicon.ico
 /web/package.json
 /web/package-lock.json
-/web/nuxt.config.js
 /_source/web/nuxt.config.js
 /_source/web/package-lock.json

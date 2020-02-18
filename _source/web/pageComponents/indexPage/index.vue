@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="home_cid">
-      <div v-if="this.banners && this.banners != 0" v-swiper:mySwiper="swiperOption">
+      <div v-if="this.banners && this.banners != 0" v-swiper:mySwiper="swiperOption" :style="{'height': bannerHeightA+'px'}">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="banner in banners">
             <a :href='banner.adv_url || "javascript:;"' target="_blank">
-              <img :src="banner.adv_image" alt="">
+              <img :src="banner.adv_image" alt="" ref="img">
             </a>
           </div>
         </div>
@@ -28,8 +28,8 @@
     </div>
 
     <div class="banner">
-      <div v-if="this.bannersTwo && this.bannersTwo != 0" v-swiper:youSwiper="swiperOptionTk">
-        <div class="swiper-wrapper">
+      <div v-if="this.bannersTwo && this.bannersTwo != 0" v-swiper:youSwiper="swiperOptionTk" :style="{'height': bannerHeightB+'px'}">
+        <div class="swiper-wrapper" :style="{'height': bannerHeightB+'px'}">
           <div class="swiper-slide" v-for="ban in bannersTwo">
             <a :href='ban.adv_url || "javascript:;"' target="_blank">
               <img :src="ban.adv_image" alt="">
@@ -96,28 +96,30 @@
         </div>
       </div>
 
-      <div class="video">
-        <div class="cover" v-if="ifPlay">
-          <div class="cover-but" @click="onPlay()"></div>
-          <img src="../../static/index/video.jpg" alt="">
+      <div class="video-wrap">
+        <div class="video">
+          <div class="cover" v-if="ifPlay">
+            <div class="cover-but" @click="onPlay()"></div>
+            <img src="../../static/index/video.jpg" alt="">
+          </div>
+          <video width="100%" height="100%" controls="controls" :autoplay="false" @ended="endedEd()">
+            <source src="https://cloud.video.taobao.com//play/u/2200750399716/p/1/e/6/t/1/248174688205.mp4" type="video/mp4">
+            <source src="https://cloud.video.taobao.com//play/u/2200750399716/p/1/e/1/t/1/248174688205.swf" type="audio/mp4">
+          </video>
         </div>
-        <video width="100%" height="100%" controls="controls" :autoplay="false" ref="video" @ended="endedEd()">
-          <source src="https://cloud.video.taobao.com//play/u/2200750399716/p/1/e/6/t/1/248174688205.mp4" type="video/mp4">
-          <source src="https://cloud.video.taobao.com//play/u/2200750399716/p/1/e/1/t/1/248174688205.swf" type="audio/mp4">
-        </video>
       </div>
 
       <h3 class="tit">PRODUCT CATEGORIES</h3>
       <h4 class="subheading">
         <!-- <span>PRODUCT CATEGORIES</span> -->
-      </h4>
+      </h4 ref="series">
 
       <div class="series">
-        <el-carousel indicator-position="" :autoplay=auto class="swiper">
-          <el-carousel-item v-for="item in 4" :key="item" class="swiper-item">
-            <div class="swiper-item-box">
+        <el-carousel indicator-position="" :autoplay='auto' class="swiper" style="height: 60px;" :style="{'height': bannerHeightC+'px'}">
+          <el-carousel-item v-for="item in 4" :key="item" class="swiper-item" :style="{'height': bannerHeightC+'px'}">
+            <div class="swiper-item-box" :style="{'height': bannerHeightC+'px'}">
               <a :href="sixUrl[index]" v-for="(item,index) in classifyImg" target="_blank">
-                <img :src="item.adv_image" alt="" class="swiper-img">
+                <img :src="item.adv_image" ref="series" alt="" class="swiper-img">
               </a>
             </div>
           </el-carousel-item>
@@ -190,7 +192,11 @@
           'https://www.kadart.com/category/BRACELETS/type_id=8',
           'https://www.kadart.com/category/JADE/type_id=15',
           'https://www.kadart.com/category/JADE/type_id=15'
-        ]
+        ],
+        imgUrl:'',
+        bannerHeightA: '',
+        bannerHeightB: '',
+        bannerHeightC: ''
       }
     },
     created() {
@@ -201,7 +207,7 @@
         }
       }).then(res => {
         this.banners = res.data.data;
-        // console.log(this.banners)
+        // this.getHeight(this.banners)
       }).catch(function(error) {
         console.log(error);
       });
@@ -213,6 +219,7 @@
         }
       }).then(res => {
         this.bannersTwo = res.data.data;
+        // this.getHeight(this.bannersTwo)
       }).catch(function(error) {
         console.log(error);
       });
@@ -224,7 +231,7 @@
         }
       }).then(res => {
         this.classifyImg = res.data.data;
-        // console.log(this.classifyImg)
+        // this.getHeight(this.classifyImg)
       }).catch(function(error) {
         console.log(error);
       });
@@ -240,7 +247,36 @@
         console.log(error);
       });
     },
+    mounted(){
+      // const _this = this
+      // _this.$nextTick(() => {
+      //   window.onresize = function(){
+         // _this.onresizeHei();
+      //   }
+      // })
+
+      console.log(1111)
+      console.log(this.$refs)
+
+    },
     methods: {
+      // onresizeHei(){
+      //   var that = this;
+      //   this.getHeight(that.bannersTwo, that.bannerHeightB);
+      //   this.getHeight(that.banners, that.bannerHeightA);
+      //   this.getHeight(that.classifyImg, that.bannerHeightC);
+      // },
+      // getHeight(element,resu){
+      //  // 获取图片高度
+      //  var url = element[0].adv_image;
+      //  var image = new Image();
+      //  image.src = url;
+      //  var that = this;
+      //  image.onload = function(){
+      //    that.resu = (document.body.clientWidth * image.height) / image.width;
+      //    // console.log(that.resu)
+      //  }
+      // },
       onPlay() {
         this.ifPlay = false;
         this.$refs.video.play()
@@ -267,27 +303,23 @@
 <style>
   .banner {
     width: 100%;
-    height: 360px;
     margin-top: 16px;
   }
 
   .banner .swiper-wrapper {
     width: 100%;
-    height: 360px;
   }
 
   .banner .swiper-slide {
     width: 100%;
-    height: 360px;
   }
 
   .banner img {
     width: 100%;
-    height: 100%;
   }
 
   .width-box {
-    width: 1360px;
+    /* width: 1360px; */
     margin: 0 auto;
   }
 
@@ -295,7 +327,7 @@
     font-size: 24px;
     color: #333;
     font-weight: bold;
-    margin-top: 90px;
+    margin-top: 60px;
     text-align: center;
   }
 
@@ -313,20 +345,21 @@
   }
 
   .img-box {
-    width: 670px;
-    height: 400px;
+    width: 49%;
     background-color: #d0c9ce;
   }
 
   .classify-left {
-    width: 520px;
-    height: 740px;
+    width: 38%;
     background-color: #d0c9ce;
   }
 
+  .classify-right{
+    width: 60%;
+  }
+
   .classif-list {
-    width: 820px;
-    height: 360px;
+    width: 100%;
     background-color: #d0c9ce;
   }
 
@@ -340,12 +373,15 @@
     background-color: #d0c9ce;
   }
 
+  .video-wrap{
+    padding: 0 8.8%;
+  }
   .video {
-    width: 1120px;
-    height: 630px;
+    width: 100%;
     background-color: #d0c9ce;
     margin: 90px auto 0;
     position: relative;
+    box-sizing: border-box;
   }
 
   .video .cover {
@@ -377,27 +413,28 @@
   }
 
   .series {
-    height: 320px;
+    /* height: 320px; */
   }
 
   .new {
-    height: 240px;
+    /* height: 240px; */
     background-color: #d0c9ce;
     margin: 100px 0;
   }
 
   .series .el-carousel__container {
-    height: 320px;
+    /* height: 320px; */
+    /* height: auto; */
   }
 
   .series .swiper {
     width: 100%;
-    height: 320px;
+    /* height: 320px; */
   }
 
   .series .swiper-item {
     width: 100%;
-    height: 320px;
+    /* height: 320px; */
   }
 
   .series .el-carousel__button {
@@ -414,13 +451,13 @@
   }
 
   .series .swiper-img {
-    width: 220px;
-    height: 320px;
+    width: 98%;
+    /* height: 320px; */
   }
 
   .home_cid {
-    height: 288px;
-    margin-top: 20px;
+    /* height: 288px; */
+    margin: 20px 0;
     border-bottom: 1px solid #e2eaf0;
   }
 
@@ -430,16 +467,20 @@
 
   .home_cid .swiper-wrapper {
     width: 100%;
-    height: 254px;
+    /* height: 254px; */
   }
 
   .home_cid .swiper-slide {
-    height: 240px;
+    /* height: 240px; */
   }
 
   .home_cid .swiper-slide img {
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
+  }
+
+  .home_cid .pos{
+    margin-top: 10px;
   }
 
   /* 分页器容器 */
