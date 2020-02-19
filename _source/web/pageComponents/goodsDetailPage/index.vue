@@ -263,11 +263,10 @@
       }).catch(function(error) {
         console.log(error);
       });
-
-
     },
     methods: {
       sendMsg() {
+        console.log(123)
         Bus.$emit('send', true)
       },
       chooseImg(k) {
@@ -445,7 +444,7 @@
 		position: absolute;
 		right: 0;
 		top: 0;
-		z-index: -2;
+		z-index: 0;
   }
 
   .commodity-right .price {

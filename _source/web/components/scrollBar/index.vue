@@ -123,10 +123,12 @@
       }
     },
     created() {
-      var self = this;
+      var that = this;
       Bus.$on('send', function(val) {
-        self.ifShowMessage = val;
-        self.is_login();
+        console.log(1111)
+        console.log(val)
+        that.ifShowMessage = val;
+        that.is_login();
       })
     },
     mounted() {
