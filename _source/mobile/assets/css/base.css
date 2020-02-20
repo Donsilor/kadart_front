@@ -154,3 +154,8 @@ html, body{
   font-family: STKAITI;
   src: url('../font/STKAITI.TTF');
 }
+
+@font-face {
+  font-family: FZFYSJW;
+  src: url('../font/FZFYSJW.TTF');
+}

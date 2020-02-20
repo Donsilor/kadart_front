@@ -1,17 +1,11 @@
 <template>
   <div class="home">
+    <!-- 搜索 -->
     <div class="search-box" v-if="ifShowSearch">
       <search></search>
     </div>
-    <div class="home_cid">
-      <!-- <div v-swiper:mySwiper="swiperOption">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-              <img src="../../static/index/01_07.jpg" alt="">
-          </div>
-        </div>
-      </div> -->
 
+    <div class="home_cid">
       <div v-swiper:mySwiper="swiperOption">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="banner in banners">
@@ -20,11 +14,17 @@
         </div>
         <div class="swiper-pagination swiper-pagination-bullets"></div>
       </div>
-
     </div>
 
-    <div class="img-box-1">
-      <img src="../../static/index/01_03.jpg" alt="">
+    <div class="banner">
+      <div v-swiper:youSwiper="swiperOptionT">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide" v-for="banner in bannersTwo">
+            <img :src="banner">
+          </div>
+        </div>
+        <div class="swiper-pagination swiper-pagination-bullets"></div>
+      </div>
     </div>
 
     <h3 class="h3">POPULAR COLLECTION</h3>
@@ -144,14 +144,18 @@
           '/index/01_07.jpg',
           '/index/01_09.jpg',
         ],
+        bannersTwo: [
+          '/index/01_03.jpg',
+        ],
         swiperOption: {
           loop: true,
+          autoplay: {
+            stopOnLastSlide: true
+          },
           slidesPerView: 'auto',
           centeredSlides: true,
-          spaceBetween: 30,
           pagination: {
-            el: '.swiper-pagination',
-            dynamicBullets: true
+            el: '.swiper-pagination'
           },
           on: {
             slideChange() {
@@ -162,7 +166,20 @@
             }
           }
         },
-        optionIndex: 1,
+        swiperOptionT: {
+          loop: true,
+          slidesPerView: 'auto',
+          centeredSlides: true,
+          on: {
+            slideChange() {
+              console.log('onSlideChangeEnd', this);
+            },
+            tap() {
+              console.log('onTap', this);
+            }
+          }
+        },
+        optionIndex: 0,
         ifShowSearch: false
       }
     },
@@ -192,14 +209,15 @@
     position: absolute;
     top: 0;
     left: 0;
+    z-index: 2;
     width: 100%;
     background-color: #fff;
     padding: 0 3%;
   }
+
   .home_cid{
     width: 100%;
     height: 9.2rem;
-    border: 1px solid red;
   }
 
   .swiper-container{
@@ -212,9 +230,9 @@
     height: 100%;
   }
 
-  .swiper-slide{
+  .home_cid .swiper-slide{
     width: 100%;
-    height: 100%;
+    height: 7.4rem;
   }
 
   .swiper-slide img{
@@ -222,9 +240,10 @@
     height: 100%;
   }
 
-  .img-box-1{
+  .banner{
     width: 100%;
     margin: 2rem 0 3rem;
+    height: 32.6rem;
   }
   .h3{
     font-family: DFPYaSong;
@@ -381,7 +400,27 @@
     margin-top: 1.3rem;
   }
 
+  /* 分页器容器 */
+  .home_cid /deep/ .swiper-pagination {
+    position: inherit;
+    margin-top: -10px;
+  }
 
+  /* 分页器 */
+  .home_cid /deep/ .swiper-pagination-bullet {
+    width: 4px;
+    height: 4px;
+    background-color: #fff;
+    border-radius: 12px;
+    opacity: 1;
+    border: 1px solid #480f33;
+    margin: 0 0.5rem;
+  }
+
+  /* 分页器选中 */
+  .home_cid /deep/ .swiper-pagination-bullet-active {
+    background-color: #480f33 !important;
+  }
 
 
 </style>

@@ -14,11 +14,11 @@
 		</div>
 	</div>
 	<div class="footer-bottom-box">
-      <a href="">PRIVACY POLICY </a>
+      <a href="/" target="_blank">PRIVACY POLICY </a>
       <div class="footer-bottom-line"></div>
-      <a href="">TERMS AND CONDITIONS</a>
+      <a href="/" target="_blank">TERMS AND CONDITIONS</a>
       <div class="footer-bottom-line"></div>
-      <a href="">SITEMAP</a>
+      <a href="/" target="_blank">SITEMAP</a>
 	</div>
 
   </div>
@@ -28,7 +28,6 @@
   export default{
     data(){
       return{
-
       }
     },
     mounted(){
@@ -56,7 +55,7 @@
     width: 3.5rem;
     height: 4.1rem;
   }
-  
+
   .footer-email{
     font-size: 1.1rem;
     font-weight: bold;

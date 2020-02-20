@@ -27,7 +27,8 @@ export default {
   ** Global CSS
   */
   css: [
-    { src: '~assets/css/base.css' },
+    '~assets/css/base.css',
+    'swiper/dist/css/swiper.css'
   ],
   /*
   ** Plugins to load before mounting the App
