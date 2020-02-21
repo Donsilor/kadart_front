@@ -22,7 +22,7 @@
           <div class="article-right-list">
             <div class="article-right-list-title">Who is KAD ART?</div>
             <div class="article-right-list-text">KAD ART, a premier jewelry manufacturer and wholesaler worldwide. We are specializing in high quality and fine exquisite pieces with aesthetical design. </div>
-            <div class="article-right-list-text">We carry a wide selection including diamond, jade and silver锛宖eaturing a modern and elegant design. Meanwhile, we provide domestic and oversea manufacturing service with profession. </div>
+            <div class="article-right-list-text">We carry a wide selection including diamond, jade and silver，featuring a modern and elegant design. Meanwhile, we provide domestic and oversea manufacturing service with profession.</div>
           </div>
 
           <div class="article-right-list">
