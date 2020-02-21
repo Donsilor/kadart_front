@@ -2,7 +2,7 @@
   <div class="menu clf">
     <div class="menu-left fl">
       <span class="menu-list fl">1-800-311-5393</span>
-      <span class="menu-list fl" @click="toArticle(2)">Contact Us</span>
+      <a class="menu-list fl" href="/contact-kadart">Contact Us</a>
     </div>
     <div class="menu-right fr">
       <div id="menu-list" class="menu-list fl user-num" :class="this.usernametwo == '' ? '' : 'default' " @click="ifLogin()" >{{this.usernametwo || 'Sign In'}}</div>
@@ -53,7 +53,7 @@
 				that.username = val;
 				that.usernametwo = val;
 			})
-			
+
 			var ifShowM = sessionStorage.getItem('ifShowM');
 			if(ifShowM == undefined && !that.usernametwo){
 				var that = this;

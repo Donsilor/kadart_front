@@ -1,7 +1,9 @@
 <template>
   <div class="nav" @mouseleave="liveNav()">
     <div class="inline">
-      <div v-if="navList" class="nav-list fl" :class="[idx_r == 0 ? 'active' : '']" @mouseover="chooseMe(0)" @click="toArticle(1)">{{navList[0].title}}</div>
+      <div v-if="navList" class="nav-list fl" :class="[idx_r == 0 ? 'active' : '']" @mouseover="chooseMe(0)">
+        <a href="/about-kadart">{{navList[0].title}}</a>
+      </div>
 
       <div v-if="index != 8 && index>0" class="nav-list fl" :class="[idx_r == index ? 'active' : '']" v-for="(list, index) in navList" :key="'a'+index" @mouseover="chooseMe(index)">
         <a :href="list.url || 'javascript:;'" target="_blank" @click="noSearch(index,$event)">{{list.title}}</a>
@@ -158,11 +160,11 @@
         localStorage.setItem('article', i)
         var url = location.pathname;
 
-        if(url.indexOf('article') != -1){
+        if(url.indexOf('about-kadart') != -1){
           this.$router.go(0)
         }else{
           this.$router.push({
-            path: '/article'
+            path: '/about-kadart'
           })
         }
       }

@@ -13,13 +13,13 @@
         <div class="list fl">
           <div class="child">Customer Service</div>
           <div class="child">
-            <span @click="toArticle(2)">Contact Us</span>
+            <a href="/contact-kadart">Contact Us</a>
           </div>
         </div>
         <div class="list fl">
           <div class="child">	About Us</div>
           <div class="child">
-            <span @click="toArticle(1)">Brand Culture</span>
+            <a href="/about-kadart">Brand Culture</a>
           </div>
         </div>
         <div class="list fl">
@@ -31,10 +31,10 @@
             <a href="https://www.kadart.com/category/RINGS/type_id=2" target="_blank">Online Shopping</a>
           </div>
           <div class="child">
-            <span @click="toArticle(4)">Shipping Policy</span>
+            <a href="/kadart-jewelry-shipping-policy">Shipping Policy</a>
           </div>
           <div class="child">
-            <span @click="toArticle(5)">Return Policy</span>
+            <a href="/kadart-jewelry-return-policy">Return Policy</a>
           </div>
 
           <!-- <div class="icon-box">
