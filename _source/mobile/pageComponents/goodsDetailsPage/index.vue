@@ -65,10 +65,70 @@
         </div>
       </div>
     </div>
+
+    <div class="other">
+      <div class="tit-box">
+        <div class="title">OTHER GUESTS ALSO LIKE</div>
+      </div>
+
+      <div v-swiper:mySwiper="swiperOption">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide" v-for="banner in banners">
+            <div class="swiper-img">
+              <img :src="banner">
+            </div>
+            <div class="swiper-text">Reference priceReference priceReference priceReference price</div>
+            <div class="swiper-price">$19.49</div>
+          </div>
+        </div>
+        <div class="swiper-pagination swiper-pagination-bullets"></div>
+      </div>
+    </div>
+
+    <div class="goods-detail" v-if="0">
+      <div class="tit-box">
+        <div class="title">COMMODITYD DETAILS</div>
+      </div>
+
+    </div>
   </div>
 </template>
 
 <script>
+  export default{
+    data (){
+      return{
+        banners: [
+          '/index/01_03.jpg',
+          '/index/01_05.jpg',
+          '/index/01_07.jpg',
+          '/index/01_09.jpg',
+        ],
+        bannersTwo: [
+          '/index/01_03.jpg',
+        ],
+        swiperOption: {
+          loop: true,
+          autoplay: {
+            stopOnLastSli5: true
+          },
+          slidesPerView: '3',
+          spaceBetween: 10,
+          pagination: {
+            el: '.swiper-pagination'
+          },
+          on: {
+            slideChange() {
+              console.log('onSlideChangeEnd', this);
+            },
+            tap() {
+              console.log('onTap', this);
+            }
+          }
+        },
+      }
+    }
+  }
 </script>
 
 <style scoped>
@@ -211,18 +271,18 @@
   .goods-parameter{
     width: 100%;
     background-color: rgba(234, 234, 234, 0.37);
-    padding: 3rem 0 3rem 5%;
+    padding: 3rem 5%;
   }
 
   .tit-box{
     width: 100%;
-    height: 1.9rem;
+    height: 24px;
     border-bottom: 1px solid #000;
   }
   .tit-box .title{
     display: inline-block;
     font-size: 1.3rem;
-    line-height: 1.9rem;
+    line-height: 23px;
     font-weight: bold;
     letter-spacing: -1px;
     border-bottom: 2px solid #000;
@@ -255,5 +315,71 @@
     opacity: 0.71;
     border-left: 1px solid #ccc;
     padding-left: 3%;
+  }
+
+  .other{
+    width: 100%;
+    padding: 3rem 5%;
+  }
+
+  .swiper-container{
+    margin-top: 2.5rem;
+    width: 100%;
+    height: 100%;
+  }
+
+  .other .swiper-slide{
+    width: 100%;
+  }
+
+  .swiper-img{
+    width: 100%;
+    height: 7rem;
+    border: 1px solid #ccc;
+    margin-bottom: 0.4rem;
+  }
+
+  .swiper-slide img{
+    width: 100%;
+    height: 100%;
+  }
+
+  .swiper-text,
+  .swiper-price{
+    font-family: STKAITI;
+    font-size: 1.3rem;
+    color: #1d003a;
+    line-height: 1.2rem;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .goods-detail{
+    border-top: 1px solid #ccc;
+    padding: 3rem 5%;
+  }
+
+  /* 分页器容器 */
+  .other /deep/ .swiper-pagination {
+    position: inherit;
+    margin-top: 30px;
+  }
+
+  /* 分页器 */
+  .other /deep/ .swiper-pagination-bullet {
+    width: 4px;
+    height: 4px;
+    background-color: #fff;
+    border-radius: 12px;
+    opacity: 1;
+    border: 1px solid #480f33;
+    margin: 0 0.5rem;
+  }
+
+  /* 分页器选中 */
+  .other /deep/ .swiper-pagination-bullet-active {
+    background-color: #480f33 !important;
   }
 </style>
