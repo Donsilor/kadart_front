@@ -71,7 +71,7 @@
         <div class="title">OTHER GUESTS ALSO LIKE</div>
       </div>
 
-      <div v-swiper:mySwiper="swiperOption">
+      <div v-swiper:myaSwiper="swiperOptionTh">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="banner in banners">
             <div class="swiper-img">
@@ -103,15 +103,14 @@
           '/index/01_05.jpg',
           '/index/01_07.jpg',
           '/index/01_09.jpg',
+          '/index/01_07.jpg',
+          '/index/01_09.jpg',
         ],
-        bannersTwo: [
+        bannersT: [
           '/index/01_03.jpg',
         ],
-        swiperOption: {
+        swiperOptionTh: {
           loop: true,
-          autoplay: {
-            stopOnLastSli5: true
-          },
           slidesPerView: '3',
           spaceBetween: 10,
           pagination: {
