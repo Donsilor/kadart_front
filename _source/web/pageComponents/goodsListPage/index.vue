@@ -420,6 +420,8 @@
         }
       }
 
+      console.log('asdfsf',this.typeId)
+
       this.acquireData(this.keyword, '', this.pageId, this.typeId, this.attrId, this.attrValue, this.priceRange, this.pageSize);
 
       var self = this;
@@ -480,6 +482,50 @@
           this.searchId = ''
         } else {
           this.searchId = key_word;
+        }
+        
+        var urlData = location.search;
+        
+        if (urlData.indexOf('?') == -1) {
+          urlData = location.pathname;
+          var num = urlData.lastIndexOf('/');
+        
+          if(urlData.indexOf('search') != -1){
+            this.keyword = urlData.slice(num + 1)
+            this.nav_text = urlData.slice(num + 1)
+          }else{
+            urlData = urlData.slice(num + 1);
+        
+            var urlArr = urlData.split(/&/);
+        
+            for (var i = 0; i < urlArr.length; i++) {
+              var arrVal = urlArr[i].split(/=/);
+        
+              if (arrVal[0] == 'type_id') {
+                this.typeId = arrVal[1]
+              } else if (arrVal[0] == 'attr_id') {
+                this.attrId = arrVal[1]
+              } else if (arrVal[0] == 'attr_value') {
+                this.attrValue = arrVal[1]
+              } else if (arrVal[0] == 'price_range') {
+                this.priceRange = arrVal[1]
+              }
+            }
+          }
+        } else {
+          var urlArr = urlData.split(/[?=&]/);
+          urlArr.shift();
+          for (var i = 0; i < urlArr.length; i += 2) {
+            if (urlArr[i] == 'type_id') {
+              this.typeId = urlArr[i + 1]
+            } else if (urlArr[i] == 'attr_id') {
+              this.attrId = urlArr[i + 1]
+            } else if (urlArr[i] == 'attr_value') {
+              this.attrValue = urlArr[i + 1]
+            } else if (urlArr[i] == 'price_range') {
+              this.priceRange = urlArr[i + 1]
+            }
+          }
         }
       },
 
