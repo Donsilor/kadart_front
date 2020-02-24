@@ -67,6 +67,9 @@
     background-color: transparent;
   }
 
+  .search-recommended{
+    padding-bottom: 0.3rem;
+  }
   .search-recommended-tit{
     width: 100%;
     display: flex;

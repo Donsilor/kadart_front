@@ -1,40 +1,69 @@
 <template>
-  <div class="header flex-splice">
-    <div class="icon-left"></div>
-    <div class="icon-right clf">
-      <div class="icon-right-1 fl" @click="onSearch()"></div>
-      <div class="icon-right-2 fl"></div>
+  <div class="header-box">
+    <div class="header flex-splice">
+      <div class="icon-left" @click="showMenu()"></div>
+      <div class="icon-right clf">
+        <div class="icon-right-1 fl" @click="onSearch()"></div>
+        <div class="icon-right-2 fl"></div>
+      </div>
+      <div class="logo-box">
+        <a href="/">
+          <img src="../../static/index/icon/logo-1.png" alt="">
+        </a>
+      </div>
     </div>
-    <div class="logo-box">
-      <img src="../../static/index/icon/logo-1.png" alt="">
+
+    <!-- 搜索 -->
+    <div class="search-box" v-if="ifShowSearch" ref = "searchBox">
+      <search></search>
     </div>
   </div>
 </template>
 
 <script>
-  import Bus from '../../assets/js/bus.js'
+  import search from '../../pageComponents/search/index.vue'
+  import bus from '../../assets/js/bus.js'
+
   export default {
+    components:{
+      search
+    },
     data() {
       return {
-
+        ifShowSearch: false
       }
     },
+    mounted(){
+    },
     methods: {
+      showMenu(){
+        bus.$emit('showMenu', true)
+      },
       onSearch(){
-        Bus.$emit('onSearch', true)
+        var that = this;
+        that.ifShowSearch = !that.ifShowSearch;
+        var timer = setTimeout(function(){
+          // console.log(that.)
+          that.$refs.searchBox.classList.add('hei');
+        },20)
       }
     }
   }
 </script>
 
 <style scoped>
+  .header-box{
+    position: relative;
+  }
+
   .header {
     position: relative;
     width: 100%;
     height: 5.5rem;
     padding-top: 0.525rem;
     background-color: #fff;
-    border-bottom: 1px solid #480f32;
+    /* border-bottom: 1px solid #480f32; */
+    z-index: 3;
   }
 
   .icon-left{
@@ -79,10 +108,27 @@
     background-size: 110% 110%;
   }
 
-
   .logo-box{
     width: 2.9rem;
     height: 3.4rem;
     margin: 0 auto;
+  }
+
+  .search-box{
+    position: absolute;
+    top: -100%;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    background-color: #fff;
+    padding: 0 3%;
+    /* height: 0; */
+    /* overflow: hidden; */
+    transition: top 0.5s;
+  }
+
+  .hei{
+    top: 5.5rem;
+    transition: top 0.5s;
   }
 </style>

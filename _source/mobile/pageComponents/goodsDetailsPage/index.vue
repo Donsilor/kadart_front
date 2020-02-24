@@ -3,7 +3,16 @@
     <div class="goods-info">
       <div class="goods-tit">Round drop name earrings in sterling silver (8 Characters)</div>
       <div class="goods-num">Style no:3333333333</div>
-      <div class="goods-img-box"></div>
+      <div class="goods-img-box">
+        <div v-swiper:mybSwiper="swiperOptionFi">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide" v-for="banner in banners">
+               <img :src="banner">
+            </div>
+          </div>
+          <div class="swiper-pagination swiper-pagination-bullets"></div>
+        </div>
+      </div>
       <div class="small-img-box">
         <div class="img-scroll">
           <div class="small-img"></div>
@@ -109,6 +118,19 @@
         bannersT: [
           '/index/01_03.jpg',
         ],
+        swiperOptionFi: {
+          loop: true,
+          slidesPerView: 'auto',
+          spaceBetween: 10,
+          on: {
+            slideChange() {
+              console.log('onSlideChangeEnd', this);
+            },
+            tap() {
+              console.log('onTap', this);
+            }
+          }
+        },
         swiperOptionTh: {
           loop: true,
           slidesPerView: '3',
@@ -321,7 +343,7 @@
     padding: 3rem 5%;
   }
 
-  .swiper-container{
+  .other .swiper-container{
     margin-top: 2.5rem;
     width: 100%;
     height: 100%;
@@ -331,7 +353,7 @@
     width: 100%;
   }
 
-  .swiper-img{
+  .other .swiper-img{
     width: 100%;
     height: 7rem;
     border: 1px solid #ccc;

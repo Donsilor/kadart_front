@@ -1,10 +1,5 @@
 <template>
   <div class="home">
-    <!-- 搜索 -->
-    <div class="search-box" v-if="ifShowSearch">
-      <search></search>
-    </div>
-
     <div class="home_cid">
       <div v-swiper:mySwiper="swiperOption">
         <div class="swiper-wrapper">
@@ -31,15 +26,21 @@
     <!-- <h4 class="h4">POPULAR COLLECTION</h4> -->
 
     <div class="img-box-2">
-      <img src="../../static/index/01_05.jpg" alt="">
+      <a href="/">
+        <img src="../../static/index/01_05.jpg" alt="">
+      </a>
     </div>
 
     <div class="img-box-34 clf">
       <div class="img-box-3 fl">
-        <img src="../../static/index/01_07.jpg" alt="">
+        <a href="/">
+          <img src="../../static/index/01_07.jpg" alt="">
+        </a>
       </div>
       <div class="img-box-4 fr">
-        <img src="../../static/index/01_09.jpg" alt="">
+        <a href="/">
+          <img src="../../static/index/01_09.jpg" alt="">
+        </a>
       </div>
     </div>
 
@@ -48,14 +49,20 @@
 
     <div class="img-box-567">
       <div class="img-box-5">
-        <img src="../../static/index/01_13.jpg" alt="">
+        <a href="/">
+          <img src="../../static/index/01_13.jpg" alt="">
+        </a>
       </div>
       <div class="img-box-67">
         <div class="img-box-6">
-          <img src="../../static/index/01_15.jpg" alt="">
+          <a href="/">
+            <img src="../../static/index/01_15.jpg" alt="">
+          </a>
         </div>
         <div class="img-box-7">
-          <img src="../../static/index/01_19.jpg" alt="">
+          <a href="/">
+            <img src="../../static/index/01_19.jpg" alt="">
+          </a>
         </div>
       </div>
     </div>
@@ -63,7 +70,7 @@
     <h3 class="h3">PRODUCT CATEGORIES</h3>
     <!-- <h4 class="h4">PRODUCT CATEGORIES</h4> -->
 
-    <div class="img-box-more">
+    <!-- <div class="img-box-more">
       <div class="img-box-scroll">
         <div class="img-box-r">
           <img src="../../static/index/01_19.jpg" alt="">
@@ -80,6 +87,17 @@
         <div class="img-box-r">
           <img src="../../static/index/01_19.jpg" alt="">
         </div>
+      </div>
+    </div> -->
+
+    <div class="img-box-more">
+      <div v-swiper:myssSwiper="swiperOptionF">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide" v-for="banner in bannersThree">
+            <img :src="banner">
+          </div>
+        </div>
+        <div class="swiper-pagination swiper-pagination-bullets"></div>
       </div>
     </div>
 
@@ -110,7 +128,6 @@
           </div>
           <div class="list-right-icon"></div>
         </div>
-
       </div>
 
       <div class="list" :class="optionIndex == 3 ? 'on' : ''">
@@ -147,6 +164,13 @@
         bannersTwo: [
           '/index/01_03.jpg',
         ],
+        bannersThree: [
+          '/index/01_03.jpg',
+          '/index/01_05.jpg',
+          '/index/01_07.jpg',
+          '/index/01_09.jpg',
+          '/index/01_07.jpg',
+        ],
         swiperOption: {
           loop: true,
           autoplay: {
@@ -180,14 +204,20 @@
           }
         },
         optionIndex: 0,
-        ifShowSearch: false
+        swiperOptionF: {
+          loop: true,
+          slidesPerView: '3',
+          centeredSlides: true,
+          on: {
+            slideChange() {
+              console.log('onSlideChangeEnd', this);
+            },
+            tap() {
+              console.log('onTap', this);
+            }
+          }
+        },
       }
-    },
-    mounted(){
-      var that = this;
-      Bus.$on('onSearch', function(val) {
-        that.ifShowSearch = !that.ifShowSearch
-      })
     },
     methods: {
       contactOption(k){
@@ -202,19 +232,6 @@
 </script>
 
 <style scoped>
-  .home{
-    position: relative;
-  }
-  .search-box{
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    width: 100%;
-    background-color: #fff;
-    padding: 0 3%;
-  }
-
   .home_cid{
     width: 100%;
     height: 9.2rem;

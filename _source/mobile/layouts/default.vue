@@ -5,6 +5,10 @@
     </div>
 
     <nuxt/>
+    
+    <div>
+      <menu-bar></menu-bar>
+    </div>
   </div>
 </template>
 
