@@ -26,6 +26,7 @@ export default {
   /*
   ** Global CSS
   */
+
   css: [
     '~assets/css/base.css',
     'swiper/dist/css/swiper.css'
@@ -42,6 +43,10 @@ export default {
       ssr: false
     },
     {
+      src: '~/plugins/axios',
+      ssr: true
+    },
+    {
       src: '~/plugins/vue-components.js',
       ssr: true
     },
@@ -55,7 +60,18 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+   '@nuxtjs/axios'
   ],
+  axios: {
+   //prefix: 'https://api.kadart.com/index.php/v1',
+   // proxy: true // Can be also an object with default options
+   // 线上api
+  // baseURL: 'https://api.kadart.com/index.php/v1',
+   // 测试api
+  baseURL: 'https://kadart.bddia.com/api/index.php/v1'
+
+
+  },
   /*
   ** Build configuration
   */

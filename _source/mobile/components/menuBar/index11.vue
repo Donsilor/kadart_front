@@ -8,15 +8,15 @@
 
       <div class="menu-body">
         <div class="menu-list" :class="navList[index].isShow == true ? 'active' : ''" v-for="(nav, index) in navList" :key="index">
-          <div class="menu-list-content" @click.stop="showMenuOne(index)">
+          <div class="menu-list-content" @click.stop="showMenu(index)">
             <div class="menu-list-text">
-              <a href="">{{nav.title}}</a>
+            {{nav.title}}
             </div>
             <div class="menu-list-icon"></div>
           </div>
 
-          <div class="menu-list-two" :class="navTwo.isShowTwo == true ? 'on' : ''" v-for="(navTwo, idx) in nav.items" :key="idx">
-            <div class="menu-list-two-content" @click.stop="showMenuTwo(index, idx)">
+          <div class="menu-list-two" :class="ifShowMenuChild == true ? 'on' : ''" v-for="(navTwo, idx) in nav.items" :key="idx">
+            <div class="menu-list-two-content" @click.stop="ifShowMenuChild = !ifShowMenuChild">
               <div class="menu-list-text">{{navTwo.title}}</div>
               <div class="menu-list-icon"></div>
             </div>
@@ -95,7 +95,7 @@
           params: {}
         }).then(res => {
           that.navList = res.data.data;
-
+          // console.log(that.navList)
           that.judge();
           sessionStorage.setItem('navList',JSON.stringify(this.navList))
         }).catch(function(error) {
@@ -103,33 +103,19 @@
         });
       }else{
         that.navList = list;
+        // that.judge();
       }
     },
     methods:{
       judge(){
-        // this.$nextTick(function () {
-           var that = this;
-           for(var i=0; i<that.navList.length; i++){
-              that.navList[i].isShow = false;
-              var listTwo = that.navList[i].items;
-
-              if(listTwo.length != 0){
-                for(var j=0; j<listTwo.length; j++){
-                  listTwo[j].isShowTwo = false;
-                }
-              }
-            }
-            that.navList = JSON.parse(JSON.stringify(that.navList))
-         // })
+        for(var i=0; i<this.navList.length; i++){
+          this.navList[i].isShow = false;
+          console.log(this.navList[i])
+        }
       },
-      showMenuOne(k){
-        this.navList[k].isShow = !this.navList[k].isShow;
-
-        console.log(66)
-        console.log(this.navList)
-      },
-      showMenuTwo(i,j){
-        this.navList[i].items[j].isShowTwo = !this.navList[i].items[j].isShowTwo;
+      showMenu(i){
+        this.navList[i].isShow = !this.navList[i].isShow
+        // console.log(this.navList)
       }
     }
   }

@@ -42,10 +42,12 @@
       onSearch(){
         var that = this;
         that.ifShowSearch = !that.ifShowSearch;
-        var timer = setTimeout(function(){
-          // console.log(that.)
-          that.$refs.searchBox.classList.add('hei');
-        },20)
+        if(that.ifShowSearch){
+          var timer = setTimeout(function(){
+            // console.log(that.$refs.searchBox)
+            that.$refs.searchBox.classList.add('hei');
+          },20)
+        }
       }
     }
   }
