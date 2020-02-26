@@ -80,13 +80,15 @@
 
       <div class="classify clf">
         <div class="classify-left fl">
-          <a href="/article" target="_blank">
+          <a href="/about-kadart" target="_blank">
             <img src="../../static/index/home-16.jpg" alt="">
           </a>
         </div>
         <div class="classify-right fr">
-          <div class="classif-list" @click="toArticle(3)">
+          <div class="classif-list">
+            <a href="/kadart-jewelry-factory">
               <img src="../../static/index/home-14.jpg" alt="">
+            </a>
           </div>
           <div class="classif-list">
             <a href="https://www.kadart.com/category/EARRINGS/type_id=6" target="_blank">
