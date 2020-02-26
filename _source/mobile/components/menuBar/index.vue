@@ -9,9 +9,7 @@
       <div class="menu-body">
         <div class="menu-list" :class="navList[index].isShow == true ? 'active' : ''" v-for="(nav, index) in navList" :key="index">
           <div class="menu-list-content" @click.stop="showMenuOne(index)">
-            <div class="menu-list-text">
-              <a href="">{{nav.title}}</a>
-            </div>
+            <div class="menu-list-text">{{nav.title}}</div>
             <div class="menu-list-icon"></div>
           </div>
 
@@ -124,9 +122,6 @@
       },
       showMenuOne(k){
         this.navList[k].isShow = !this.navList[k].isShow;
-
-        console.log(66)
-        console.log(this.navList)
       },
       showMenuTwo(i,j){
         this.navList[i].items[j].isShowTwo = !this.navList[i].items[j].isShowTwo;
