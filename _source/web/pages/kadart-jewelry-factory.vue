@@ -41,12 +41,12 @@
           <div class="img-a fl">
             <img src="../static/article/article_04.jpg" alt="">
           </div>
-          <div class="img-b fl">
+          <!-- <div class="img-b fl">
             <img src="../static/article/article_11.jpg" alt="">
           </div>
           <div class="img-b fl">
             <img src="../static/article/article_12.jpg" alt="">
-          </div>
+          </div> -->
         </div>
         <div class="article-right-box">
           <div class="article-right-list">
