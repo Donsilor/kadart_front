@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="search-box-r">
-      <div class="search-icon-left"></div>
+      <div class="search-icon-left" @click="startSearch()"></div>
       <div class="search-icon-right"></div>
-      <input type="text" class="search-ipt" placeholder="content">
+      <input type="text" class="search-ipt" v-model="ipt" :placeholder="placeholder" @keydown.enter="startSearch()" @focus="onFocus" @blur="onBlur">
     </div>
 
     <div class="search-recommended">
@@ -21,6 +21,29 @@
 </template>
 
 <script>
+	export default{
+    data(){
+      return{
+        ipt: '',
+        placeholder: 'content'
+      }
+    },
+		methods: {
+			startSearch() {
+			  this.$router.push({
+			    path: '/search/'+this.ipt
+			  })
+
+        this.$emit('starsSearch', true)
+			},
+      onFocus(){
+        this.placeholder = '';
+      },
+      onBlur(){
+        this.placeholder = 'content';
+      }
+		}
+	}
 </script>
 
 <style scoped>

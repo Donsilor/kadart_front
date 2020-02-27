@@ -23,7 +23,7 @@
       <div class="send">SEND EMAIL</div>
     </div>
 
-    <div class="contact-log-box">
+    <div class="contact-log-box" v-if="1">
       <div class="contact-log-tit">HISTORICAL MESSAGE</div>
       <div class="contact-log">
         <div class="log-time">12:23</div>
@@ -185,6 +185,6 @@
     min-height: 2.1rem;
     padding: 0 1rem;
     background-color: rgba(182, 181, 181, 0.87);
-    max-width: calc(88% - 4.8rem);
+    max-width: calc(100% - 6.8rem);
   }
 </style>

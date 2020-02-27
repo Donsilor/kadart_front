@@ -16,7 +16,7 @@ export default {
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/index/icon/logo-1.png' }
     ]
   },
   /*
@@ -68,7 +68,7 @@ export default {
    // 线上api
   // baseURL: 'https://api.kadart.com/index.php/v1',
    // 测试api
-  baseURL: 'https://kadart.bddia.com/api/index.php/v1'
+  // baseURL: 'https://kadart.bddia.com/api/index.php/v1'
 
 
   },
@@ -80,6 +80,32 @@ export default {
     ** You can extend webpack config here
     */
     extend (config, ctx) {
+    }
+  },
+  router: {
+    extendRoutes(routes) {
+      //商品详情
+      routes.push({
+        name: 'goods',
+        path: '/goods-detail',
+        component: 'pages/goods-details.vue',
+        alias: '/goods-:s/:p'
+      })
+      //商品列表
+      routes.push({
+        name: 'category',
+        path: '/goods-list',
+        component: 'pages/goods-list.vue',
+        alias: '/category/:s/:p'
+      })
+      //搜索
+      routes.push({
+        name: 'search',
+        path: '/goods-list',
+        component: 'pages/goods-list.vue',
+        alias: '/search/:p'
+      })
+
     }
   }
 }

@@ -15,7 +15,7 @@
 
     <!-- 搜索 -->
     <div class="search-box" v-if="ifShowSearch" ref = "searchBox">
-      <search></search>
+      <search @starsSearch="ifSearch"></search>
     </div>
   </div>
 </template>
@@ -40,6 +40,12 @@
         bus.$emit('showMenu', true)
       },
       onSearch(){
+        this.searchFn()
+      },
+      ifSearch(){
+        this.searchFn()
+      },
+      searchFn(){
         var that = this;
         that.ifShowSearch = !that.ifShowSearch;
         if(that.ifShowSearch){

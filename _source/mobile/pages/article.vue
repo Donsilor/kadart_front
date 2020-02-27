@@ -72,7 +72,8 @@ The high quality  jewelry we showed is made by our practiced craftsman.</div>
   .about-box .title .icon{
     width: 1.6rem;
     height: 1.6rem;
-    border: 1px solid red;
+    background: url(../static/article/back2.png) no-repeat center;
+    background-size: 100% 100%;
     margin-right: 1rem;
   }
 
@@ -91,7 +92,7 @@ The high quality  jewelry we showed is made by our practiced craftsman.</div>
   }
 
   .list .list-child{
-    margin-top: 2rem;
+    margin-top: 1rem;
     font-size: 1.3rem;
     line-height: 1.95rem;
     padding-left: 3%;

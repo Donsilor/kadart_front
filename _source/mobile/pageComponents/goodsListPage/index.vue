@@ -38,58 +38,15 @@
     </div>
 
     <div class="goods-box clf">
-      <div class="goods-list fl">
+      <div class="goods-list fl" v-for="(item, index) in commodityItem.data" :key="index">
         <div class="img-box">
-          <img src="../../static/goods-list/goods-list_01.jpg" alt="">
+          <a :href="commodityItem.data[index].url">
+            <img :src=item.style_image alt="">
+          </a>
         </div>
-        <div class="img-tit">Diamond Accent Beaded "MOM"</div>
+        <div class="img-tit">{{item.style_name}}</div>
         <div class="img-text">Reference Price</div>
-        <div class="img-price">$59.25</div>
-      </div>
-
-      <div class="goods-list fl">
-        <div class="img-box">
-          <img src="../../static/goods-list/goods-list_01.jpg" alt="">
-        </div>
-        <div class="img-tit">Diamond Accent Beaded "MOM"</div>
-        <div class="img-text">Reference Price</div>
-        <div class="img-price">$59.25</div>
-      </div>
-
-      <div class="goods-list fl">
-        <div class="img-box">
-          <img src="../../static/goods-list/goods-list_01.jpg" alt="">
-        </div>
-        <div class="img-tit">Diamond Accent Beaded "MOM"</div>
-        <div class="img-text">Reference Price</div>
-        <div class="img-price">$59.25</div>
-      </div>
-
-      <div class="goods-list fl">
-        <div class="img-box">
-          <img src="../../static/goods-list/goods-list_01.jpg" alt="">
-        </div>
-        <div class="img-tit">Diamond Accent Beaded "MOM"</div>
-        <div class="img-text">Reference Price</div>
-        <div class="img-price">$59.25</div>
-      </div>
-
-      <div class="goods-list fl">
-        <div class="img-box">
-          <img src="../../static/goods-list/goods-list_01.jpg" alt="">
-        </div>
-        <div class="img-tit">Diamond Accent Beaded "MOM"Diamond Accent Beaded "MOM"</div>
-        <div class="img-text">Reference Price</div>
-        <div class="img-price">$59.25</div>
-      </div>
-
-      <div class="goods-list fl">
-        <div class="img-box">
-          <img src="../../static/goods-list/goods-list_01.jpg" alt="">
-        </div>
-        <div class="img-tit">Diamond Accent Beaded "MOM"</div>
-        <div class="img-text">Reference Price</div>
-        <div class="img-price">$59.25</div>
+        <div class="img-price">{{item.currency}} {{item.sale_price}}</div>
       </div>
     </div>
 
@@ -103,11 +60,30 @@
   export default{
     data (){
       return{
+        // 排序类型
         filterType: 0,
+        // 正序反序
         sortType: 1,
+        // 获取数据
+        commodityItem: [],
+
+        typeId: '',
+        keyword: '',
+        attrId: '',
+        attrValue: '',
+        priceRange: '',
+        pageId: '',
+        pageSize: 20,
+        filter: ['1_0', '1_1', '2_0', '2_1', '3_0', '3_1', '4_0', '4_1'],
+        filter_index: -1,
       }
     },
+    mounted(){
+      this.analysisUrl();
+      this.acquireData(this.typeId, this.keyword, '', this.attrId, this.attrValue, this.priceRange,this.pageId, this.pageSize);
+    },
     methods:{
+      // 排序筛选
       chooseFilterType(i){
         if(this.filterType == i){
           this.sortType = this.sortType == 1 ? 2 : 1 ;
@@ -115,6 +91,100 @@
           this.sortType = 2
         }
         this.filterType = i;
+
+        if(i==1 && this.sortType==1){
+          this.filter_index = 1;
+        }else if(i==1 && this.sortType==2){
+          this.filter_index = 0;
+        }else if(i==2 && this.sortType==1){
+          this.filter_index = 3;
+        }else if(i==2 && this.sortType==2){
+          this.filter_index = 2;
+        }else if(i==3 && this.sortType==1){
+          this.filter_index = 5;
+        }else if(i==3 && this.sortType==2){
+          this.filter_index = 4;
+        }else if(i==4 && this.sortType==1){
+          this.filter_index = 7;
+        }else if(i==4 && this.sortType==2){
+          this.filter_index = 6;
+        }
+
+        this.analysisUrl();
+        this.acquireData(this.typeId, this.keyword, this.filter[this.filter_index], this.attrId, this.attrValue, this.priceRange,this.pageId, this.pageSize);
+      },
+      // 解析url
+      analysisUrl(){
+        var urlData = location.search;
+
+        if (urlData.indexOf('?') == -1) {
+          urlData = location.pathname;
+          var num = urlData.lastIndexOf('/');
+
+          if(urlData.indexOf('search') != -1){
+            this.keyword = urlData.slice(num + 1)
+          }else{
+            urlData = urlData.slice(num + 1);
+
+            var urlArr = urlData.split(/&/);
+
+            for (var i = 0; i < urlArr.length; i++) {
+              var arrVal = urlArr[i].split(/=/);
+
+              if (arrVal[0] == 'type_id') {
+                this.typeId = arrVal[1]
+              } else if (arrVal[0] == 'attr_id') {
+                this.attrId = arrVal[1]
+              } else if (arrVal[0] == 'attr_value') {
+                this.attrValue = arrVal[1]
+              } else if (arrVal[0] == 'price_range') {
+                this.priceRange = arrVal[1]
+              }
+            }
+          }
+        } else {
+          var urlArr = urlData.split(/[?=&]/);
+          urlArr.shift();
+          for (var i = 0; i < urlArr.length; i += 2) {
+            if (urlArr[i] == 'type_id') {
+              this.typeId = urlArr[i + 1]
+            } else if (urlArr[i] == 'attr_id') {
+              this.attrId = urlArr[i + 1]
+            } else if (urlArr[i] == 'attr_value') {
+              this.attrValue = urlArr[i + 1]
+            } else if (urlArr[i] == 'price_range') {
+              this.priceRange = urlArr[i + 1]
+            }
+          }
+        }
+      },
+      // 获取列表数据
+      acquireData(k_type_id, k_keyword, k_filter, K_attr_id, k_attr_value, k_price_range, k_page, k_page_size) {
+        var that = this;
+        that.$axios.post('/goods/style/search', {
+          type_id: k_type_id,
+          keyword: k_keyword,
+          sort: k_filter,
+          attr_id: K_attr_id,
+          attr_value: k_attr_value,
+          price_range: k_price_range,
+          page: k_page,
+          page_size: k_page_size
+        }).then(res => {
+          this.loading = false;
+          that.commodityItem = res.data.data;
+          // this.seo = that.commodityItem.seo;
+          // this.currentPage1 = that.commodityItem.page;
+          // console.log(that.commodityItem.data)
+          // this.totalNum = that.commodityItem.total_count - 0;
+          // this.totalPages = that.commodityItem.page_count - 0;
+
+          // if (that.commodityItem.data[0] == undefined) {
+            // this.ifShowText = true;
+          // }
+        }).catch(function(error) {
+          // console.log(error);
+        });
       }
     }
   }

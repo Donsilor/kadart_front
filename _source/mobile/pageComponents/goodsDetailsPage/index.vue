@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="goods-info">
-      <div class="goods-tit">Round drop name earrings in sterling silver (8 Characters)</div>
-      <div class="goods-num">Style no:3333333333</div>
+      <div class="goods-tit">{{goodsDetail.style_name}}</div>
+      <div class="goods-num">Style no:{{goodsDetail.style_sn}}</div>
       <div class="goods-img-box">
         <div v-swiper:mybSwiper="swiperOptionFi">
           <div class="swiper-wrapper">
             <div class="swiper-slide" v-for="banner in banners">
-               <img :src="banner">
+               <img :src="bigImg[index_k]">
             </div>
           </div>
           <div class="swiper-pagination swiper-pagination-bullets"></div>
@@ -15,12 +15,11 @@
       </div>
       <div class="small-img-box">
         <div class="img-scroll">
-          <div class="small-img"></div>
-          <div class="small-img"></div>
-          <div class="small-img"></div>
-          <div class="small-img"></div>
-          <div class="small-img"></div>
-          <div class="small-img"></div>
+          <div class="small-img" v-for="(item, index) in smallImg" @click="chooseImg(index)">
+            <a :href="item.url">
+              <img :src="item" alt="">
+            </a>
+          </div>
         </div>
       </div>
       <div class="share-box clf">
@@ -35,7 +34,7 @@
       <div class="contact-box">
         <div class="contact-box-left">
           <div class="contact-price">Reference price</div>
-          <div class="contact-num">$31.85</div>
+          <div class="contact-num">{{goodsDetail.currency}}{{goodsDetail.sale_price}}</div>
         </div>
         <div class="contact-box-btn">CONTACT US</div>
       </div>
@@ -48,29 +47,9 @@
       </div>
 
       <div class="parameter-box">
-        <div class="parameter-list clf">
-          <div class="parameter-name fl">Use</div>
-          <div class="parameter-val fl">Gift</div>
-        </div>
-        <div class="parameter-list clf">
-          <div class="parameter-name fl">Gender</div>
-          <div class="parameter-val fl">Ladies'</div>
-        </div>
-        <div class="parameter-list clf">
-          <div class="parameter-name fl">Metal material</div>
-          <div class="parameter-val fl">Silver</div>
-        </div>
-        <div class="parameter-list clf">
-          <div class="parameter-name fl">Popular styles</div>
-          <div class="parameter-val fl">Drop</div>
-        </div>
-        <div class="parameter-list clf">
-          <div class="parameter-name fl">Popular gift types</div>
-          <div class="parameter-val fl">Accessories</div>
-        </div>
-        <div class="parameter-list clf">
-          <div class="parameter-name fl">Product customization</div>
-          <div class="parameter-val fl">Support for custom</div>
+        <div class="parameter-list clf" v-if="index < 13" v-for="(item, index) in goodsDetail.style_attrs">
+          <div class="parameter-name fl">{{item.name}}</div>
+          <div class="parameter-val fl">{{item.value}}</div>
         </div>
       </div>
     </div>
@@ -82,12 +61,12 @@
 
       <div v-swiper:myaSwiper="swiperOptionTh">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="banner in banners">
+          <div class="swiper-slide" v-for="(item, index) in goodsRecommend" :key="index">
             <div class="swiper-img">
-              <img :src="banner">
+              <img :src="item.style_image">
             </div>
-            <div class="swiper-text">Reference priceReference priceReference priceReference price</div>
-            <div class="swiper-price">$19.49</div>
+            <div class="swiper-text">Reference price</div>
+            <div class="swiper-price">{{item.currency}}{{item.sale_price}}</div>
           </div>
         </div>
         <div class="swiper-pagination swiper-pagination-bullets"></div>
@@ -124,10 +103,10 @@
           spaceBetween: 10,
           on: {
             slideChange() {
-              console.log('onSlideChangeEnd', this);
+              // console.log('onSlideChangeEnd', this);
             },
             tap() {
-              console.log('onTap', this);
+              // console.log('onTap', this);
             }
           }
         },
@@ -140,14 +119,69 @@
           },
           on: {
             slideChange() {
-              console.log('onSlideChangeEnd', this);
+              // console.log('onSlideChangeEnd', this);
             },
             tap() {
-              console.log('onTap', this);
+              // console.log('onTap', this);
             }
           }
         },
+        goodsId: '',
+        goodsDetail: [],
+        smallImg: [],
+        bigImg: [],
+        index_k: 0,
+        goodsRecommend: []
       }
+    },
+    mounted(){
+      var that = this;
+      var goodsDetailId = this.$route.query.id;
+
+      if(goodsDetailId == undefined){
+        var dataId = location.pathname;
+        var num = dataId.lastIndexOf('/');
+        goodsDetailId = dataId.slice(num+1);
+      }
+
+      if (goodsDetailId) {
+        localStorage.setItem('goodsDetailId', goodsDetailId)
+        this.goodsId = goodsDetailId;
+      } else {
+        this.goodsId = localStorage.getItem('goodsDetailId');
+      }
+
+      this.$axios.get('/goods/style/detail', {
+        params: {
+          id: this.goodsId
+        }
+      }).then(res => {
+        that.goodsDetail = res.data.data;
+        that.smallImg = res.data.data.goods_images.thumb || '';
+        that.bigImg = res.data.data.goods_images.big || '';
+        console.log(that.goodsDetail)
+        console.log(that.smallImg)
+
+      }).catch(function(error) {
+        console.log(error);
+      });
+
+      // 商品推荐
+      this.$axios.get('/goods/style/guess-list', {
+        params: {
+          style_id: this.goodsId
+        }
+      }).then(res => {
+        this.goodsRecommend = res.data.data;
+        // console.log(this.goodsRecommend)
+      }).catch(function(error) {
+        console.log(error);
+      });
+    },
+    methods:{
+      chooseImg(k) {
+        this.index_k = k
+      },
     }
   }
 </script>

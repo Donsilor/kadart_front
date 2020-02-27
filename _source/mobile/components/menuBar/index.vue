@@ -21,11 +21,16 @@
 
             <div class="menu-child-box">
               <div class="menu-child-box-a">
-                <div class="menu-child" v-for="(navChild, idc) in navTwo.items" :key="idc">{{navChild.title}}</div>
+                <div class="menu-child" v-if="idc < 8" v-for="(navChild, idc) in navTwo.items" :key="idc">
+                  <a :href="navChild.url">{{navChild.title}}</a>
+                </div>
+               <div class="menu-child" v-if="idd >= 8 && navTwo.isShowM == true" v-for="(navChild, idd) in navTwo.items" :key="idd+'a'">
+                  <a :href="navChild.url">{{navChild.title}}</a>
+                </div>
               </div>
 
-              <div class="lookAll">
-                <div class="lookAll-text">Look At All</div>
+              <div class="lookAll" v-if="navTwo.isShowMoreBtn == true">
+                <div class="lookAll-text" @click="showMore(index, idx)">Look At All</div>
                 <div class="lookAll-icon"></div>
               </div>
             </div>
@@ -72,6 +77,8 @@
       return{
         ifShow: false,
         ifShowMenuChild: false,
+        // 限制导航数量
+        isShowMore: false,
         navList: []
       }
     },
@@ -114,6 +121,12 @@
               if(listTwo.length != 0){
                 for(var j=0; j<listTwo.length; j++){
                   listTwo[j].isShowTwo = false;
+                  if(listTwo[j].items.length < 9){
+                    listTwo[j].isShowMoreBtn = false;
+                  }else{
+                    listTwo[j].isShowMoreBtn = true;
+                  }
+                  listTwo[j].isShowM = false;
                 }
               }
             }
@@ -125,6 +138,10 @@
       },
       showMenuTwo(i,j){
         this.navList[i].items[j].isShowTwo = !this.navList[i].items[j].isShowTwo;
+      },
+      showMore(j, k){
+        this.navList[j].items[k].isShowMoreBtn = false;
+        this.navList[j].items[k].isShowM = true;
       }
     }
   }
