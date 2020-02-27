@@ -3,7 +3,10 @@
     <div class="menu">
       <div class="menu-top">
         <div class="icon-back" @click="ifShow = false"></div>
-        <div class="icon-my"></div>
+        <div class="menu-top-r">
+          <div class="icon-my" :class="userAccount != '' ? 'active' : ''" @click="onLogin"></div>
+          <div class="user-account" v-if="userAccount != ''">{{userAccount}}</div>
+        </div>
       </div>
 
       <div class="menu-body">
@@ -36,34 +39,35 @@
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="menu-bottom">
-        <div class="list search-box">
-          <div class="search-box-left">
-            <i class="search-icon"></i>
-            <input type="text" class="search-ipt" placeholder="Search...">
-          </div>
-          <div class="search-box-right"></div>
-          <div class="search-line"></div>
-        </div>
-
-        <div class="list contact-us">
-          <i class="contact-icon"></i>
-          <span class="contact-text">Contadct us</span>
-          <span>1-800-311-5393</span>
-        </div>
-        <div class="list sign-box">
-          <div class="sign-child">
-            <i class="sign-child-icon"></i>
-            <span>Sign In</span>
+        <div class="menu-bottom">
+          <div class="list search-box">
+            <div class="search-box-left">
+              <i class="search-icon" @click="startSearch"></i>
+              <input type="text" class="search-ipt" v-model="ipt" :placeholder="placeholder" @focus="placeholder = ''" @blur="placeholder = 'Search...'">
+            </div>
+            <div class="search-box-right" @click="clearLog"></div>
+            <div class="search-line"></div>
           </div>
 
-          <div class="sign-child">
-            <i class="sign-child-icon"></i>
-            <span>About Us</span>
+          <div class="list contact-us">
+            <i class="contact-icon"></i>
+            <span class="contact-text">Contadct us</span>
+            <span>1-800-311-5393</span>
+          </div>
+          <div class="list sign-box">
+            <div class="sign-child active" @click="loginOrQuit">
+              <i class="sign-child-icon"></i>
+              <span>{{userAccount == '' ? 'Sign In' : 'Log out'}}</span>
+            </div>
+
+            <a class="sign-child" href="/leave-message">
+                <i class="sign-child-icon"></i>
+                <span>About Us</span>
+            </a>
           </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -79,7 +83,10 @@
         ifShowMenuChild: false,
         // 限制导航数量
         isShowMore: false,
-        navList: []
+        navList: [],
+        userAccount: '',
+        placeholder: 'Search...',
+        ipt: ''
       }
     },
     mounted(){
@@ -108,6 +115,12 @@
         });
       }else{
         that.navList = list;
+      }
+
+      var username = localStorage.getItem('bdd_user');
+      if(!username){
+      }else{
+      	this.userAccount = username.slice(0,3) + '...' + username.slice(-3);
       }
     },
     methods:{
@@ -142,6 +155,33 @@
       showMore(j, k){
         this.navList[j].items[k].isShowMoreBtn = false;
         this.navList[j].items[k].isShowM = true;
+      },
+      onLogin(){
+        this.ifShow = false;
+        this.$emit('onLogin', true)
+      },
+      startSearch() {
+        this.$router.push({
+          path: '/search/'+this.ipt
+        })
+
+        this.ifShow = false;
+      },
+      clearLog(){
+        this.ipt = '';
+      },
+      loginOrQuit(){
+        if(this.userAccount == ''){
+          this.onLogin()
+        }else{
+          this.username = '';
+          localStorage.removeItem('bdd_user');
+          this.hintText = 'Account logout successful';
+          this.ifShowSuccess = true,
+          setTimeout(()=>{
+            this.ifShowSuccess = false
+          },1500)
+        }
       }
     }
   }
@@ -180,38 +220,60 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 5.8rem;
+    height: 5rem;
     background-color: #fff;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 11% 0 4%;
+    padding: 0 4.6% 0 4%;
   }
+
   .icon-back{
     width: 2rem;
     height: 2rem;
     background: url(../../static/menu/back.png) no-repeat center;
     background-size: 100% 100%;
   }
+  .menu-top-r{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    height: 100%;
+    padding: 0.5rem 0;
+  }
   .icon-my{
-    width: 1.6rem;
-    height: 1.6rem;
+    width: 2rem;
+    height: 2rem;
     background: url(../../static/menu/logn.png) no-repeat center;
     background-size: 100% 100%;
+  }
+  .icon-my.active{
+    background-image: url(../../static/menu/logn-active.png);
+  }
+
+  .user-account{
+    font-size: 1.2rem;
+    color: #999;
   }
 
   .menu-body{
     position: absolute;
     width: 100%;
-    height: calc(100% - 20.8rem - 4px);
-    top: 5.8rem;
+    height: calc(100% - 5rem);
+    background-color: #fff;
+    top: 5rem;
     left: 0;
     z-index: 50;
-    background-color: #fff;
     overflow: scroll;
   }
 
-  .menu-list{}
+  .menu-list{
+    /* background-color: #fff; */
+  }
+  .menu-list:not(:last-child){
+    border-bottom: 1px solid #fff;
+  }
   .menu-list-content{
     display: flex;
     align-items: center;
@@ -302,9 +364,6 @@
 
 
   .menu-bottom{
-    position: absolute;
-    bottom: 0;
-    left: 0;
     width: 100%;
     background-color: #fff;
   }
@@ -399,6 +458,10 @@
     background: url(../../static/menu/logn.png) no-repeat center;
     background-size: 100% 100%;
   }
+  .sign-child:first-child.active .sign-child-icon{
+    background-image: url(../../static/menu/logn-active.png);
+  }
+
   .sign-child:last-child .sign-child-icon{
     background: url(../../static/menu/about-us.png) no-repeat center;
     background-size: 100% 100%;

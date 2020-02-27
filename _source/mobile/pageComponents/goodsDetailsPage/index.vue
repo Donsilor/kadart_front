@@ -159,9 +159,6 @@
         that.goodsDetail = res.data.data;
         that.smallImg = res.data.data.goods_images.thumb || '';
         that.bigImg = res.data.data.goods_images.big || '';
-        console.log(that.goodsDetail)
-        console.log(that.smallImg)
-
       }).catch(function(error) {
         console.log(error);
       });
