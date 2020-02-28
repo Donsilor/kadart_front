@@ -22,7 +22,7 @@ import _6f6c098b from '..\\layouts\\default.vue'
 const layouts = { "_default": _6f6c098b }
 
 export default {
-  head: {"title":"vue-web2","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"Nuxt.js project"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Findex\u002Flogo.png"}],"script":[{"src":"\u002Flive-chat.js","type":"text\u002Fjavascript","charset":"utf-8"},{"src":"\u002Fga.js","type":"text\u002Fjavascript","charset":"utf-8"}],"style":[]},
+  head: {"title":"vue-web2","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"Nuxt.js project"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Findex\u002Flogo.png"}],"script":[{"src":"https:\u002F\u002Fwww.googletagmanager.com\u002Fgtag\u002Fjs?id=UA-156158677-1","type":"text\u002Fjavascript","charset":"utf-8","async":true},{"src":"\u002Fga.js","type":"text\u002Fjavascript","charset":"utf-8"},{"src":"\u002Flive-chat.js","type":"text\u002Fjavascript","charset":"utf-8"}],"style":[]},
 
   render (h, props) {
     const loadingEl = h('NuxtLoading', { ref: 'loading' })

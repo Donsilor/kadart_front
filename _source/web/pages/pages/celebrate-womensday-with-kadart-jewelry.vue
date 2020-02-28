@@ -91,7 +91,7 @@
     font-weight: 600;
     font-size: 24px;
     line-height: 1.22;
-    margin: 24px 0;
+    margin: 24px 0 60px;
     word-wrap: break-word;
     text-align: center;
   }
