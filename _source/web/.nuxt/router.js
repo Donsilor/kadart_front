@@ -3,18 +3,18 @@ import Router from 'vue-router'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _e78a8d64 = () => interopDefault(import('..\\pages\\about-kadart.vue' /* webpackChunkName: "pages_about-kadart" */))
-const _2fae2aca = () => interopDefault(import('..\\pages\\contact-kadart.vue' /* webpackChunkName: "pages_contact-kadart" */))
-const _ce89533e = () => interopDefault(import('..\\pages\\goods-detail.vue' /* webpackChunkName: "pages_goods-detail" */))
-const _2dbb9e2e = () => interopDefault(import('..\\pages\\goods-list.vue' /* webpackChunkName: "pages_goods-list" */))
-const _f25599f0 = () => interopDefault(import('..\\pages\\kadart-jewelry-factory.vue' /* webpackChunkName: "pages_kadart-jewelry-factory" */))
-const _420dff6d = () => interopDefault(import('..\\pages\\kadart-jewelry-return-policy.vue' /* webpackChunkName: "pages_kadart-jewelry-return-policy" */))
-const _0ae73aa2 = () => interopDefault(import('..\\pages\\kadart-jewelry-shipping-policy.vue' /* webpackChunkName: "pages_kadart-jewelry-shipping-policy" */))
-const _1fee5ae2 = () => interopDefault(import('..\\pages\\pages\\celebrate-womensday-with-kadart-jewelry.vue' /* webpackChunkName: "pages_pages_celebrate-womensday-with-kadart-jewelry" */))
-const _c3d3c170 = () => interopDefault(import('..\\pages\\pages\\kad-art-jewelry-timeline.vue' /* webpackChunkName: "pages_pages_kad-art-jewelry-timeline" */))
-const _0bdbac3e = () => interopDefault(import('..\\pages\\pages\\kad-art-silver-factory-is-open-to-accept-all-odm-oem-orders.vue' /* webpackChunkName: "pages_pages_kad-art-silver-factory-is-open-to-accept-all-odm-oem-orders" */))
-const _62659f4c = () => interopDefault(import('..\\pages\\pages\\white-valentines-day-jewelry-wishlist.vue' /* webpackChunkName: "pages_pages_white-valentines-day-jewelry-wishlist" */))
-const _c56ac72e = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
+const _049777df = () => interopDefault(import('..\\pages\\about-kadart.vue' /* webpackChunkName: "pages_about-kadart" */))
+const _875f6e28 = () => interopDefault(import('..\\pages\\contact-kadart.vue' /* webpackChunkName: "pages_contact-kadart" */))
+const _111814f2 = () => interopDefault(import('..\\pages\\goods-detail.vue' /* webpackChunkName: "pages_goods-detail" */))
+const _a6ae6602 = () => interopDefault(import('..\\pages\\goods-list.vue' /* webpackChunkName: "pages_goods-list" */))
+const _4e65b059 = () => interopDefault(import('..\\pages\\kadart-jewelry-factory.vue' /* webpackChunkName: "pages_kadart-jewelry-factory" */))
+const _45657bfe = () => interopDefault(import('..\\pages\\kadart-jewelry-return-policy.vue' /* webpackChunkName: "pages_kadart-jewelry-return-policy" */))
+const _f4120200 = () => interopDefault(import('..\\pages\\kadart-jewelry-shipping-policy.vue' /* webpackChunkName: "pages_kadart-jewelry-shipping-policy" */))
+const _bf3f959a = () => interopDefault(import('..\\pages\\pages\\celebrate-womensday-with-kadart-jewelry.vue' /* webpackChunkName: "pages_pages_celebrate-womensday-with-kadart-jewelry" */))
+const _7fff0d17 = () => interopDefault(import('..\\pages\\pages\\kad-art-jewelry-timeline.vue' /* webpackChunkName: "pages_pages_kad-art-jewelry-timeline" */))
+const _2742340f = () => interopDefault(import('..\\pages\\pages\\kad-art-silver-factory-is-open-to-accept-all-odm-oem-orders.vue' /* webpackChunkName: "pages_pages_kad-art-silver-factory-is-open-to-accept-all-odm-oem-orders" */))
+const _3be36aeb = () => interopDefault(import('..\\pages\\pages\\white-valentines-day-jewelry-wishlist.vue' /* webpackChunkName: "pages_pages_white-valentines-day-jewelry-wishlist" */))
+const _717daef8 = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
 const _5de19fa1 = () => interopDefault(import('..\\pages\\goods-detail.vue' /* webpackChunkName: "" */))
 const _7e63376e = () => interopDefault(import('..\\pages\\goods-list.vue' /* webpackChunkName: "" */))
 
@@ -36,51 +36,51 @@ export const routerOptions = {
 
   routes: [{
     path: "/about-kadart",
-    component: _e78a8d64,
+    component: _049777df,
     name: "about-kadart"
   }, {
     path: "/contact-kadart",
-    component: _2fae2aca,
+    component: _875f6e28,
     name: "contact-kadart"
   }, {
     path: "/goods-detail",
-    component: _ce89533e,
+    component: _111814f2,
     name: "goods-detail"
   }, {
     path: "/goods-list",
-    component: _2dbb9e2e,
+    component: _a6ae6602,
     name: "goods-list"
   }, {
     path: "/kadart-jewelry-factory",
-    component: _f25599f0,
+    component: _4e65b059,
     name: "kadart-jewelry-factory"
   }, {
     path: "/kadart-jewelry-return-policy",
-    component: _420dff6d,
+    component: _45657bfe,
     name: "kadart-jewelry-return-policy"
   }, {
     path: "/kadart-jewelry-shipping-policy",
-    component: _0ae73aa2,
+    component: _f4120200,
     name: "kadart-jewelry-shipping-policy"
   }, {
     path: "/pages/celebrate-womensday-with-kadart-jewelry",
-    component: _1fee5ae2,
+    component: _bf3f959a,
     name: "pages-celebrate-womensday-with-kadart-jewelry"
   }, {
     path: "/pages/kad-art-jewelry-timeline",
-    component: _c3d3c170,
+    component: _7fff0d17,
     name: "pages-kad-art-jewelry-timeline"
   }, {
     path: "/pages/kad-art-silver-factory-is-open-to-accept-all-odm-oem-orders",
-    component: _0bdbac3e,
+    component: _2742340f,
     name: "pages-kad-art-silver-factory-is-open-to-accept-all-odm-oem-orders"
   }, {
     path: "/pages/white-valentines-day-jewelry-wishlist",
-    component: _62659f4c,
+    component: _3be36aeb,
     name: "pages-white-valentines-day-jewelry-wishlist"
   }, {
     path: "/",
-    component: _c56ac72e,
+    component: _717daef8,
     name: "index"
   }, {
     path: "/goods-detail",

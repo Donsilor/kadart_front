@@ -86,7 +86,7 @@
         </div>
         <div class="classify-right fr">
           <div class="classif-list">
-            <a href="/kadart-jewelry-factory">
+            <a href="/kadart-jewelry-factory" target="_blank">
               <img src="../../static/index/home-14.jpg" alt="">
             </a>
           </div>
