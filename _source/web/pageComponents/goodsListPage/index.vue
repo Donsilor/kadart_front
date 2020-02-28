@@ -491,7 +491,7 @@
           var num = urlData.lastIndexOf('/');
         
           if(urlData.indexOf('search') != -1){
-            this.keyword = urlData.slice(num + 1)
+            this.searchId = urlData.slice(num + 1)
             this.nav_text = urlData.slice(num + 1)
           }else{
             urlData = urlData.slice(num + 1);
