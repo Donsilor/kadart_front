@@ -1,10 +1,5 @@
 <template>
   <div class="white-valentine-day">
-
-    <div class="img-1">
-      <img src="../../static/white/white-1.jpg" alt="">
-    </div>
-
     <div class="tit">Dreams of diamond, dreams of love.</div>
 
     <div class="img-1">
@@ -94,6 +89,7 @@
     line-height: 1.22;
     margin: 24px 0;
     word-wrap: break-word;
+    text-align: center;
   }
 
   .img-1{

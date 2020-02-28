@@ -17,12 +17,12 @@
       <li>
       <strong>Stay shoulder to shoulder</strong> with our customers, minimize losses from the epidemic.</li>
       </ul>
-      <div style="text-align: left;"><img src="https://cdn.shopify.com/s/files/1/0300/1443/9562/files/Kadart-QCS-inspect-jewelry-before-shipment-1200x900.jpg?v=1582271507" alt="Kadart-quality-control-inspect-each-piece-jewelry-before-shipment" width="" height="" style="float: none;"></div>
+      <div style="text-align: left;margin-top: 14px;"><img src="../../static/kad-art-silver/Kadart-QCS-1.webp" alt="Kadart-quality-control-inspect-each-piece-jewelry-before-shipment" width="" height="" style="float: none;"></div>
       <div style="text-align: left;"></div>
-      <p><img src="https://cdn.shopify.com/s/files/1/0300/1443/9562/files/Kadart-disinfection-jewelry-before-shipment.jpg?v=1582272133" alt="Kadart-disinfection-each-piece-of-jewelry-by-alcohol" width="" height=""></p>
+      <div style="margin-bottom: 8px;"><img src="../../static/kad-art-silver/Kadart-QCS-2.webp" alt="Kadart-disinfection-each-piece-of-jewelry-by-alcohol"></div>
       <p>You can <strong><a href="mailto:james@kadart.com" title="email">email us</a></strong>&nbsp;with your specific inquiry files or drawings, we will quote you within 24 hours and ship as above.</p>
-      <p><a href="https://www.kadartsilver.com/collections/mothers-day">Y2020 Mother's Day Jewelry Collection</a> for your reference.</p>
-      <p>14K, 18K and <a href="https://www.kadart.com/category/Gold-BRACELETS/type_id=8&amp;attr_id=31,32,229,230,237,238,239,240">24K gold jewelry</a>, diamond jewelry and brass jewerlry are available on <a href="https://www.kadart.com">Kadart.com</a> - our parent company.</p>
+      <p><a href="">Y2020 Mother's Day Jewelry Collection</a> for your reference.</p>
+      <p>14K, 18K and <a href=""></a>, diamond jewelry and brass jewerlry are available on <a href="https://www.kadart.com">Kadart.com</a> - our parent company.</p>
       <p>We appreciate your trust and enjoy your wonderful experience with KadArt Silver.</p>
         </div>
       </div>
@@ -53,7 +53,7 @@
 <style>
   .kad-art{
     max-width: 1000px;
-     margin: 25px auto;
+    margin: 25px auto 90px;
   }
 
   img{
@@ -70,6 +70,7 @@
      margin: 0;
      font-size: 20px;
      font-weight: 400;
+     text-align: center;
    }
 
    ul{
@@ -77,7 +78,7 @@
    }
 
    ul li {
-       padding: 4px 0 3px;
+       margin-bottom: 10px;
        list-style-position: outside;
    }
 

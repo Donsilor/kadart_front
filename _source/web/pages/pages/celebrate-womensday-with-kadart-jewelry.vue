@@ -1,10 +1,5 @@
 <template>
   <div class="white-valentine-day">
-
-    <div class="img-1">
-      <img src="../../static/womensDay/womens-day-1.jpg" alt="">
-    </div>
-
     <div class="tit">Celebrate Women Power With KadArt</div>
 
     <div class="text">
@@ -98,6 +93,7 @@
     line-height: 1.22;
     margin: 24px 0;
     word-wrap: break-word;
+    text-align: center;
   }
 
   .img-1{
