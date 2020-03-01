@@ -34,6 +34,11 @@ module.exports = {
         charset: 'utf-8',
         async: true
       },
+			{
+			  src: '/ga.js',
+			  type: 'text/javascript',
+			  charset: 'utf-8'
+			},
       {
         src: '/live-chat.js',
         type: 'text/javascript',

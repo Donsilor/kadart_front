@@ -83,7 +83,7 @@
     margin: 20px auto;
   }
 
-  .tit{
+  .white-valentine-day .tit{
     font-weight: 600;
     font-size: 24px;
     line-height: 1.22;
