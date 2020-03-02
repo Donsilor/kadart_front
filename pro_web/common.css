@@ -139,6 +139,16 @@ table {
   src: url(./font/tw-cen-mt.ttf);
 }
 
+@font-face {
+  font-family: Hirag-W3;
+  src: url(./font/HiraginoSansGBW3.ttf);
+}
+
+@font-face {
+  font-family: Hirag-W6;
+  src: url(./font/HiraginoSansGB-W6.otf);
+}
+
 .no-stretch{
 	position: absolute;
 	top: 50%;
@@ -261,4 +271,3 @@ table {
     color: #470e30;
     font-weight: bold;
   }
-
