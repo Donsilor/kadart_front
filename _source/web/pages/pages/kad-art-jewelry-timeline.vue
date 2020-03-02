@@ -9,7 +9,7 @@
 					<div class="year-time">2015</div>
 					<div class="year-info">
 						<div class="year-tit">BDD.Co & KADART</div>
-						<div class="year-text"><span class="font-weight">Established</span> Date <br> Expertise in diamond <span class="font-weight">sitting</span> and wholesale </div>
+						<div class="year-text">Establish Date <br> Expertise in diamond setting and wholesale </div>
 					</div>
 				</div>
 			</div>
@@ -29,7 +29,7 @@
 					<div class="year-info">
 						<div class="year-tit">Operation Center moved to Shenzhen</div>
 						<div class="year-text">
-							<p>Expanded business in Oversea <span class="font-weight">wholesale</span>,Domestic <span class="font-weight">e-commerce</span>, International <span class="font-weight">e-commerce</span> and High-end jewelry.</p>
+							<p>Expanded business in Oversea Wholesale,Domestic E-commerce, International E-commerce and High-end Jewelry.</p>
 							<p>KADART faces to the global market as in managing two segments of Oversea Wholesale and International E-commerce. </p>
 						</div>
 					</div>
@@ -53,7 +53,7 @@
 				<div class="clf">
 					<div class="mouth-list fr white">
 						<div class="mouth-num">11-Nov</div>
-						<div class="mouth-text">Foshan branch Office officially opened,<span class="font-weight">focusing</span> on high-end jewelry.</div>
+						<div class="mouth-text">Foshan branch Office officially opened,focuses on High-end Jewelry.</div>
 					</div>
 				</div>
 			</div>
@@ -203,10 +203,5 @@
 
 	.mouth-list.border{
 		border-bottom: 1px solid #fff;
-	}
-
-	.font-weight{
-		font-weight: bold;
-		color: #000;
 	}
 </style>

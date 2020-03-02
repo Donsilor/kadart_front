@@ -5,7 +5,7 @@
         <a href="/about-kadart">{{navList[0].title}}</a>
       </div>
 
-      <div v-if="index != 8 && index>0" class="nav-list fl" :class="[idx_r == index ? 'active' : '']" v-for="(list, index) in navList" :key="'a'+index" @mouseover="chooseMe(index)">
+      <div v-if="index>0" class="nav-list fl" :class="[idx_r == index ? 'active' : '']" v-for="(list, index) in navList" :key="'a'+index" @mouseover="chooseMe(index)">
         <a :href="list.url || 'javascript:;'" target="_blank" @click="noSearch(index,$event)">{{list.title}}</a>
       </div>
     </div>
