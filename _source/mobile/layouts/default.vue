@@ -7,11 +7,11 @@
     <nuxt/>
 
     <div>
-      <menu-bar @onLogin="startLogin"></menu-bar>
+      <menu-bar @onLogin="startLogin" @onQuit="quitLogin"></menu-bar>
     </div>
 
     <div class="login-bar" v-if="ifShowLogin">
-      <login></login>
+      <login :ifLogin="ifLogin"></login>
     </div>
   </div>
 </template>
@@ -22,22 +22,28 @@
   export default{
     data(){
       return{
-        ifShowLogin: false
+        ifShowLogin: false,
+        ifLogin: true
       }
     },
     mounted(){
       var that = this;
-      
+
       bus.$on('closeLogin', function(){
         that.ifShowLogin = false;
       })
-      
+
       bus.$on('onLogin', function(){
         that.ifShowLogin = true;
       })
     },
     methods:{
       startLogin(){
+        this.ifLogin = true;
+        this.ifShowLogin = true;
+      },
+      quitLogin(e){
+        this.ifLogin = false;
         this.ifShowLogin = true;
       }
     }

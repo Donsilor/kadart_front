@@ -57,6 +57,7 @@
   }
 
   .footer-email{
+    font-family: DFPYaSong;
     font-size: 1.1rem;
     font-weight: bold;
     color: #480f32;

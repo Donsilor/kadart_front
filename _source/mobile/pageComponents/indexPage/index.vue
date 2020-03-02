@@ -1,10 +1,13 @@
 <template>
   <div class="home">
     <div class="home_cid">
-      <div v-swiper:mySwiper="swiperOption">
+      <div v-if="this.banners && this.banners != 0" v-swiper:mySwiper="swiperOption">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="banner in banners">
-            <img :src="banner">
+            <a :href='banner.adv_url || "javascript:;"' target="_blank">
+              <img :src="banner.adv_image" class="no-stretch">
+            </a>
+            <!-- <img :src="banner" alt=""> -->
           </div>
         </div>
         <div class="swiper-pagination swiper-pagination-bullets"></div>
@@ -12,10 +15,12 @@
     </div>
 
     <div class="banner">
-      <div v-swiper:youSwiper="swiperOptionT">
+      <div v-if="this.bannersTwo && this.bannersTwo != 0" v-swiper:youSwiper="swiperOptionTwo">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="banner in bannersTwo">
-            <img :src="banner">
+          <div class="swiper-slide" v-for="ban in bannersTwo">
+            <a :href='ban.adv_url || "javascript:;"' target="_blank">
+              <img :src="ban.adv_image" alt="">
+            </a>
           </div>
         </div>
         <div class="swiper-pagination swiper-pagination-bullets"></div>
@@ -91,18 +96,20 @@
     </div> -->
 
     <div class="img-box-more">
-      <div v-swiper:myssSwiper="swiperOptionF">
+      <div v-swiper:myssSwiper="swiperOptionThr">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="banner in bannersThree">
-            <img :src="banner">
+            <img :src="banner.adv_image">
           </div>
         </div>
-        <div class="swiper-pagination swiper-pagination-bullets"></div>
+        <div class="swiper-button-next fl"></div>
       </div>
     </div>
 
     <div class="img-box-8">
-      <img src="../../static/index/01_21.jpg" alt="">
+      <a :href="bannersFour[0].adv_url">
+        <img :src="bannersFour[0].adv_image" alt="">
+      </a>
     </div>
 
     <div class="contact-box">
@@ -156,20 +163,48 @@
     data () {
       return {
         banners: [
-          '/index/01_03.jpg',
-          '/index/01_05.jpg',
-          '/index/01_07.jpg',
-          '/index/01_09.jpg',
+          {
+            adv_url: '',
+            adv_image: require('../../static/index/01_05.jpg')
+          }
         ],
         bannersTwo: [
-          '/index/01_03.jpg',
+          {
+            adv_url: '',
+            adv_image: require('../../static/index/01_03.jpg')
+          }
         ],
         bannersThree: [
-          '/index/01_03.jpg',
-          '/index/01_05.jpg',
-          '/index/01_07.jpg',
-          '/index/01_09.jpg',
-          '/index/01_07.jpg',
+          {
+            adv_url: '',
+            adv_image: require('../../static/index/01_03.jpg')
+          },
+          {
+            adv_url: '',
+            adv_image: require('../../static/index/01_05.jpg')
+          },
+          {
+            adv_url: '',
+            adv_image: require('../../static/index/01_07.jpg')
+          },
+          {
+            adv_url: '',
+            adv_image: require('../../static/index/01_09.jpg')
+          },
+          {
+            adv_url: '',
+            adv_image: require('../../static/index/01_13.jpg')
+          },
+          {
+            adv_url: '',
+            adv_image: require('../../static/index/01_15.jpg')
+          }
+        ],
+        bannersFour: [
+          {
+            adv_url: '',
+            adv_image: require('../../static/index/01_21.jpg')
+          }
         ],
         swiperOption: {
           loop: true,
@@ -190,8 +225,11 @@
             }
           }
         },
-        swiperOptionT: {
+        swiperOptionTwo: {
           loop: true,
+          autoplay: {
+            stopOnLastSlide: true
+          },
           slidesPerView: 'auto',
           centeredSlides: true,
           on: {
@@ -204,10 +242,14 @@
           }
         },
         optionIndex: 0,
-        swiperOptionF: {
+        swiperOptionThr: {
           loop: true,
-          slidesPerView: '3',
-          centeredSlides: true,
+          slidesPerView: 'auto',
+          spaceBetween: 10,
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
           on: {
             slideChange() {
               // console.log('onSlideChangeEnd', this);
@@ -218,6 +260,63 @@
           }
         },
       }
+    },
+    mounted(){
+      // 顶部轮播图
+      // this.$axios.get('/common/advert-images', {
+      //   params: {
+      //     'acdv_id': 11,
+      //   }
+      // }).then(res => {
+      //   this.banners = res.data.data;
+      //   // console.log(this.banners)
+      //   // this.getHeight(this.banners)
+      // }).catch(function(error) {
+      //   console.log(error);
+      // });
+
+      // banner图
+      // this.$axios.get('/common/advert-images', {
+      //   params: {
+      //     'acdv_id': 10,
+      //   }
+      // }).then(res => {
+      //   this.bannersTwo = res.data.data;
+      //   // console.log(this.bannersTwo)
+      //   // this.getHeight(this.bannersTwo)
+      // }).catch(function(error) {
+      //   console.log(error);
+      // });
+
+      // 分类小图，6张
+      // this.$axios.get('/common/advert-images', {
+      //   params: {
+      //     'acdv_id': 13,
+      //   }
+      // }).then(res => {
+      //    var that = this;
+      //    that.bannersThree = res.data.data;
+      //    // console.log(that.bannersThree)
+
+      //    // that.imgUrl = that.classifyImg[0].adv_image;
+
+      //    // that.getSeriesHeight()
+
+      // }).catch(function(error) {
+      //   console.log(error);
+      // });
+
+      // 底部新品预告图
+      // this.$axios.get('/common/advert-images', {
+      //   params: {
+      //     'acdv_id': 14,
+      //   }
+      // }).then(res => {
+      //   this.bannersFour = res.data.data;
+      //   console.log(this.bannersFour)
+      // }).catch(function(error) {
+      //   console.log(error);
+      // });
     },
     methods: {
       contactOption(k){
@@ -250,6 +349,8 @@
   .home_cid .swiper-slide{
     width: 100%;
     height: 7.4rem;
+    position: relative;
+    overflow: hidden;
   }
 
   .swiper-slide img{
@@ -322,6 +423,11 @@
     overflow-x: scroll;
     margin: 4rem 0 3.5rem 1%;
     padding-right: 1%;
+  }
+
+  .img-box-more .swiper-slide{
+    width: 10.5rem;
+    height: 13.1rem;
   }
 
   .img-box-scroll{
@@ -438,6 +544,7 @@
   .home_cid /deep/ .swiper-pagination-bullet-active {
     background-color: #480f33 !important;
   }
+
 
 
 </style>

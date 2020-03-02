@@ -37,7 +37,20 @@
         hintText: 'Login successful !'
       }
     },
+    props:['ifLogin'],
     mounted(){
+      if(this.ifLogin !== true){
+        this.ifShowLogin = false;
+        this.ifShowSuccess = true;
+        
+        var Timer = setTimeout(function(){
+        		bus.$emit('closeLogin', true)
+            this.ifShowLogin = true;
+            this.ifShowSuccess = false;
+        		clearTimeout(Timer);
+        		Timer = null;
+        },1500)
+      }
       this.is_login();
 
       var that = this;
@@ -50,6 +63,7 @@
 						sessionStorage.setItem('ifShowM',true);
 				},15000)
 			}
+
     },
     methods:{
       // 关闭登录弹窗
@@ -69,6 +83,7 @@
                  localStorage.setItem('bdd_user',this.username);
                  this.ifShowLogin = false;
                  this.ifShowSuccess = true;
+                 bus.$emit('addOn', true)
                  setTimeout(()=>{
                    this.ifShowSuccess = false;
                    bus.$emit('closeLogin', true)

@@ -56,7 +56,7 @@
             <span>1-800-311-5393</span>
           </div>
           <div class="list sign-box">
-            <div class="sign-child active" @click="loginOrQuit">
+            <div class="sign-child" :class="userAccount != '' ? 'active' : ''" @click="loginOrQuit">
               <i class="sign-child-icon"></i>
               <span>{{userAccount == '' ? 'Sign In' : 'Log out'}}</span>
             </div>
@@ -98,6 +98,14 @@
             that.$refs.menuBox.classList.add('on');
             timer = null;
           },20)
+        }
+      })
+
+      bus.$on('addOn',function(){
+        var username = localStorage.getItem('bdd_user');
+        if(!username){
+        }else{
+        	that.userAccount = username.slice(0,3) + '...' + username.slice(-3);
         }
       })
 
@@ -171,6 +179,7 @@
         this.ipt = '';
       },
       loginOrQuit(){
+        var that = this;
         if(this.userAccount == ''){
           this.onLogin()
         }else{
@@ -178,9 +187,10 @@
           localStorage.removeItem('bdd_user');
           this.hintText = 'Account logout successful';
           this.ifShowSuccess = true,
-          setTimeout(()=>{
-            this.ifShowSuccess = false
-          },1500)
+          this.ifShow = false;
+          this.userAccount = '';
+
+          that.$emit('onQuit', false)
         }
       }
     }
@@ -438,11 +448,12 @@
     align-items: center;
   }
   .sign-child{
-    width: 45%;
+    width: 50%;
     height: 70%;
     display: flex;
     align-items: center;
     padding: 0 5%;
+    box-sizing: border-box;
   }
   .sign-child-icon{
     width: 1.6rem;
@@ -450,8 +461,6 @@
     margin-right: 5%;
   }
   .sign-child:last-child{
-    width: 60%;
-    padding-left: 8%;
     border-left: 1px solid #878486;
   }
   .sign-child:first-child .sign-child-icon{
