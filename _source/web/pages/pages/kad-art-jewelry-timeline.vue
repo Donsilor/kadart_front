@@ -140,6 +140,7 @@
 		font-size: 20px;
 		color: #fff;
 		flex-shrink: 0;
+    font-weight: 100;
 	}
 	.year-info{
 		display: flex;
