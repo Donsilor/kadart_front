@@ -1,7 +1,7 @@
 <template>
   <div class="time-line">
 		<div class="time-line-tit">OUR DEVELOPING TIMELINE</div>
-		
+
 		<div class="time-box clf">
 			<div class="line"></div>
 			<div class="fr clg">
@@ -9,39 +9,39 @@
 					<div class="year-time">2015</div>
 					<div class="year-info">
 						<div class="year-tit">BDD.Co & KADART</div>
-						<div class="year-text"><span class="font-weight">Established</span> Date Expertise in diamond sitting and wholesale </div>
+						<div class="year-text"><span class="font-weight">Established</span> Date <br> Expertise in diamond <span class="font-weight">sitting</span> and wholesale </div>
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="clf">
 				<div class="year-list fl">
 					<div class="year-time">2018</div>
 					<div class="year-info">
-						<div class="year-text">Registered and established Hengdeli.Co </div>
+						<div class="year-tit">Registered and established Hengdeli.Co </div>
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="clf">
 				<div class="year-list fr">
 					<div class="year-time">2019</div>
 					<div class="year-info">
 						<div class="year-tit">Operation Center moved to Shenzhen</div>
 						<div class="year-text">
-							<p>Expanded business in Oversea wholesale,Domestic e-commerce, International e-commerce and High-end jewelry.</p>
+							<p>Expanded business in Oversea <span class="font-weight">wholesale</span>,Domestic <span class="font-weight">e-commerce</span>, International <span class="font-weight">e-commerce</span> and High-end jewelry.</p>
 							<p>KADART faces to the global market as in managing two segments of Oversea Wholesale and International E-commerce. </p>
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="clf">
-					<div class="mouth-list fr">
+					<div class="mouth-list fr border">
 						<div class="mouth-num">06-Jun</div>
 						<div class="mouth-text">Participated in JCK Las Vegas Trade Show</div>
 					</div>
 				</div>
-				
+
 				<div class="clf">
 					<div class="mouth-list fr">
 						<div class="mouth-num">09-Sep</div>
@@ -49,11 +49,11 @@
 						<br> HK International Jewellery Show </div>
 					</div>
 				</div>
-				
+
 				<div class="clf">
 					<div class="mouth-list fr white">
 						<div class="mouth-num">11-Nov</div>
-						<div class="mouth-text">Foshan branch Office officially opened,focusing on high-end jewelry.</div>
+						<div class="mouth-text">Foshan branch Office officially opened,<span class="font-weight">focusing</span> on high-end jewelry.</div>
 					</div>
 				</div>
 			</div>
@@ -79,7 +79,7 @@
 		    ]
 		  }
 		},
-		
+
 	}
 </script>
 
@@ -97,13 +97,13 @@
 		color: #fff;
 		margin: 0 auto;
 	}
-	
+
 	.time-box{
 		width: 1000px;
 		position: relative;
 		margin: 68px auto;
 	}
-	
+
 	.time-box .line{
 		position: absolute;
 		width: 6px;
@@ -114,7 +114,7 @@
 		background-color: #480f32;
 		z-index: -2;
 	}
-	
+
 	.year-list{
 		width: 497px;
 		display: flex;
@@ -124,18 +124,18 @@
 		box-sizing: border-box;
 		background-color: #fff;
 	}
-	
+
 	.year-list.fl{
 		width: 503px;
 	}
-	
+
 	.year-time{
 		width: 70px;
 		height: 70px;
 		background-color: #480f32;
 		border-radius: 50%;
 		text-align: center;
-		font-family: ;
+		font-family: Hirag-W3;
 		line-height: 70px;
 		font-size: 20px;
 		color: #fff;
@@ -162,7 +162,7 @@
 	.year-text p:first-child{
 		margin-bottom: 12px;
 	}
-	
+
 	.mouth-list{
 		width: 497px;
 		background-color: #480f32;
@@ -172,11 +172,10 @@
 		flex-direction: column;
 		align-items: flex-start;
 		justify-content: center;
-		border-bottom: 1px solid #333;
 	}
-	.mouth-list:not(:last-child){
-	}
+
 	.mouth-num{
+    font-family: Hirag-W6;
 		font-size: 20px;
 		color: #fff;
 		text-decoration: underline;
@@ -191,7 +190,7 @@
 		color: #000;
 		border: 1px solid #480f32;
 	}
-	
+
 	.mouth-list.white .mouth-num{
 		font-size: 20px;
 		color: #000;
@@ -201,14 +200,11 @@
 			color: #333;
 			opacity: 0.58;
 	}
-	
-	.mouth-list:first-of-type{
+
+	.mouth-list.border{
 		border-bottom: 1px solid #fff;
 	}
-	.mouth-list:last-of-type{
-		border: 1px solid #480f32;
-	}
-	
+
 	.font-weight{
 		font-weight: bold;
 		color: #000;
