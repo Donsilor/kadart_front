@@ -135,6 +135,12 @@
           </div>
           <div class="list-right-icon"></div>
         </div>
+
+        <div class="list-content">
+          <div class="list-content-child">
+            <a href="/article">About Us</a>
+          </div>
+        </div>
       </div>
 
       <div class="list" :class="optionIndex == 3 ? 'on' : ''">

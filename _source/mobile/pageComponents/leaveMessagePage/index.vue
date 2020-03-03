@@ -2,39 +2,39 @@
   <div>
     <div class="contact-send">
       <div class="contact-tit">CONTACT US</div>
-      <div class="list list-address">
+      <div class="list list-address" :class="isShowHint_a == true ? 'empty' : ''">
         <i class="icon-left"></i>
-        <i class="icon-right"></i>
-        <input type="text" v-model="emailName" class="ipt" placeholder="Email address..." @focus="onFocus(1)" @blur="onBlur(1)">
+        <i class="icon-right" @click="edit(1)"></i>
+        <input type="text" v-model="emailName" class="ipt" :placeholder="placeholder_a" @focus="onFocus(1)" @blur="onBlur(1)" ref="ipt_a">
         <div class="hint">Please fill in the correct content</div>
       </div>
 
-      <div class="list list-subject empty">
+      <div class="list list-subject" :class="isShowHint_b== true ? 'empty' : ''">
         <i class="icon-left"></i>
-        <i class="icon-right"></i>
-        <input type="text" v-model="title" class="ipt" placeholder="Message subject..." @focus="onFocus(2)" @blur="onBlur(2)">
+        <i class="icon-right" @click="edit(2)"></i>
+        <input type="text" v-model="title" class="ipt" :placeholder="placeholder_b" @focus="onFocus(2)" @blur="onBlur(2)" ref="ipt_b">
         <div class="hint">Please fill in the correct content</div>
       </div>
 
-      <div class="list list-message">
+      <div class="list list-message" :class="isShowHint_c == true ? 'empty' : ''">
         <i class="icon-left"></i>
-        <i class="icon-right"></i>
-        <input type="text" v-model="content" class="ipt" placeholder="Message..." @focus="onFocus(3)" @blur="onBlur(3)">
+        <i class="icon-right" @click="edit(3)"></i>
+        <input type="text" v-model="content" class="ipt" :placeholder="placeholder_c" @focus="onFocus(3)" @blur="onBlur(3)" ref="ipt_c">
         <div class="hint">Please fill in the correct content</div>
       </div>
 
       <div class="send" @click="submit()">SEND EMAIL</div>
     </div>
 
-    <div class="contact-log-box" v-if="1">
+    <div class="contact-log-box" v-if="username != '' && book_list.length != 0">
       <div class="contact-log-tit">HISTORICAL MESSAGE</div>
-      <div class="contact-log" v-for="(item, index) in book_list" :key="index">
+      <div class="contact-log">
         <div class="log-time">12:23</div>
         <div class="message-list message-left">
           <i class="message-icon"></i>
-          <i class="message-text">00 0000 00000  000000 00000 00000 000000 00 000 000000 0000 0000 000 0000 0000000 00000000000</i>
+          <i class="message-text">00 0000 011110000  000000 00000 00000 000000 00 000 000000 0000 0000 000 0000 0000000 00000000000</i>
         </div>
-        <div class="message-list message-right">
+        <div class="message-list message-right" v-for="(item, index) in book_list" :key="index">
           <i class="message-icon"></i>
           <i class="message-text">{{item.content}}</i>
         </div>
@@ -44,6 +44,7 @@
 </template>
 
 <script>
+  import bus from '../../assets/js/bus.js'
   export default{
     data(){
       return{
@@ -52,109 +53,185 @@
         book_list: [],
         emailName: '',
         title: '',
-        content: ''
+        content: '',
+        placeholder_a: 'Email address...',
+        placeholder_b: 'Message subject...',
+        placeholder_c: 'Message...',
+        isShowHint_a: false,
+        isShowHint_b: false,
+        isShowHint_c: false,
+        ifEdit: false
       }
     },
     mounted(){
-      var username = localStorage.getItem('bdd_user');
-      if(!username){
-      }else{
-      	this.username = username;
-      }
-      console.log(this.username)
-
+      var that = this;
       this.getUserBook();
+
+      bus.$on('userInfo', function(){
+        that.book_list = [];
+        that.getUserBook();
+      })
+
+      bus.$on('closeUserInfo', function(){
+        that.book_list = [];
+        that.getUserBook();
+      })
     },
     methods:{
       //获取用户信息
       getUserBook() {
+        var that = this;
+
+        var username = localStorage.getItem('bdd_user');
+        var emailName = localStorage.getItem('email_name');
+
+        if(!username){
+          if(!emailName){
+            // 未发送任何消息
+            this.username = '';
+            this.emailName = '';
+          }else{
+            // 未登录已发送消息
+            this.username = emailName;
+            this.emailName = emailName;
+            localStorage.setItem('bdd_user', this.username)
+            bus.$emit('addOn', true)
+          }
+        }else{
+          if(!emailName){
+            this.username = username;
+            this.emailName = username;
+          }else{
+            this.username = emailName;
+            this.emailName = emailName;
+          }
+        }
+
         this.$axios.get('/member/book', {
           params: {
-            page: this.page,
-            username: this.username,
+            page: that.page,
+            username: that.username,
           }
 
         }).then(res => {
           if (res.data.code == 200) {
-            // console.log(res.data)
-            // this.book_list.push.apply(this.book_list,res.data.data.list);
-            this.book_list = this.book_list.concat(res.data.data.data);
+            that.book_list = that.book_list.concat(res.data.data.data);
+            // localStorage.removeItem('email_name');
+            that.content = '';
+            that.title = '';
           }
         }).catch(function(error) {
           console.log(error);
         })
       },
       submit() {
-        // var email = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
-
-        // if (email.test(this.emailName) == false) {
-        //   this.text = 'E-mail format is incorrect！'
-        //   this.isChangeRed3 = true;
-        // } else {
-        //   this.text = ''
-        //   this.isChangeRed3 = false;
-        // }
-
-        // if (this.content == '') {
-        //   this.isChangeRed2 = true;
-        // }
-        // if (this.title == '') {
-        //   this.isChangeRed1 = true;
-        // }
-
-        // if (this.content != '' && this.title != '' && this.ifEdit == true) {
-        if (1) {
-
+        if (this.content != '' && this.title != '' && this.ifEdit == true) {
           this.$axios.post('/member/book/create', {
             username: this.emailName,
             title: this.title,
             content: this.content,
           }).then(res => {
             if (res.data.code == 200) {
-              console.log(123123)
-              console.log(res.data)
+
+              var username = localStorage.getItem('bdd_user');
+              if(username == null){
+                console.log(111)
+              }
+
               localStorage.setItem('email_name', this.emailName)
 
-              var bdd_user = localStorage.getItem('bdd_user');
-              if (!bdd_user) {
-                localStorage.setItem('bdd_user', this.emailName)
-              }
-
-              this.username = this.emailName;
               this.book_list = [];
               this.getUserBook();
-              this.isShowHint2 = true;
 
-              // console.log(this.isLogin)
-              if (this.isLogin) {
-                setTimeout(() => {
-                  this.ifShowMessage = false;
-                  this.isShowHint2 = false;
-                }, 2000)
-              } else {
-                Bus.$emit('onlogin', this.emailName)
-                setTimeout(() => {
-                  this.ifShowMessage = false;
-                  this.ifPopHint = true;
-                }, 2000)
-                setTimeout(() => {
-                  this.isShowHint2 = false;
-                  this.ifPopHint = false;
-                }, 4000)
-              }
+              // if (this.isLogin) {
+              //   setTimeout(() => {
+              //     this.ifShowMessage = false;
+              //     this.isShowHint2 = false;
+              //   }, 2000)
+              // } else {
+              //   bus.$emit('onlogin', this.emailName)
+              //   setTimeout(() => {
+              //     this.ifShowMessage = false;
+              //     this.ifPopHint = true;
+              //   }, 2000)
+              //   setTimeout(() => {
+              //     this.isShowHint2 = false;
+              //     this.ifPopHint = false;
+              //   }, 4000)
+              // }
 
             }
           }).catch(function(error) {
             console.log(error);
           })
 
+        }else{
+          if(this.content == ''){
+            this.isShowHint_c = true;
+          }
+
+          if(this.title == ''){
+            this.isShowHint_b = true;
+          }
+
+          var email = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+
+          if (email.test(this.emailName) == false) {
+            this.isShowHint_a = true;
+          }
         }
       },
       onFocus(i){
-        console.log(i)
+        switch (i){
+          case 1: this.placeholder_a = '';
+                  this.isShowHint_a = false;
+            break;
+          case 2: this.placeholder_b = '';
+                  this.isShowHint_b = false;
+            break;
+          case 3: this.placeholder_c = '';
+                  this.isShowHint_c = false;
+            break;
+        }
       },
       onBlur(i){
-        // while
+        if(i ==1){
+          this.placeholder_a = 'Email address...';
+          var email = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+
+          if (email.test(this.emailName) == false) {
+            this.isShowHint_a = true;
+          }
+        }else if(i == 2){
+          this.placeholder_b = 'Message subject...';
+
+          if(this.title == ''){
+            this.isShowHint_b = true;
+          }
+        }else if(i == 3){
+          this.placeholder_c = 'Message...';
+
+          if(this.content == ''){
+            this.isShowHint_c = true;
+          }
+        }
+
+        if(this.isShowHint_a == false && this.isShowHint_b == false && this.isShowHint_c == false){
+          this.ifEdit = true;
+        }
+      },
+      edit(k) {
+        switch (k){
+          case 1: this.$refs.ipt_a.focus();
+                  this.emailName = '';
+            break;
+          case 2: this.$refs.ipt_b.focus();
+                   this.title = '';
+            break;
+          case 3: this.$refs.ipt_c.focus();
+                  this.content = '';
+            break;
+        }
       }
     },
   }
@@ -179,6 +256,8 @@
     height: 4.3rem;
     background-color: rgb(192, 189, 197, 0.21);
     position: relative;
+    box-sizing: border-box;
+    border: 1px solid transparent;
   }
   .contact-send .list:not(:first-child){
     margin-top: 2.7rem;

@@ -43,7 +43,8 @@
         this.searchFn()
       },
       ifSearch(){
-        this.searchFn()
+        var that = this;
+        that.ifShowSearch = false;
       },
       searchFn(){
         var that = this;
@@ -137,6 +138,6 @@
 
   .hei{
     top: 5.5rem;
-    transition: top 0.5s;
+    transition: top ease-in 0.2s;
   }
 </style>

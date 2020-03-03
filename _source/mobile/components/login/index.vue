@@ -42,7 +42,7 @@
       if(this.ifLogin !== true){
         this.ifShowLogin = false;
         this.ifShowSuccess = true;
-        
+
         var Timer = setTimeout(function(){
         		bus.$emit('closeLogin', true)
             this.ifShowLogin = true;
@@ -84,6 +84,7 @@
                  this.ifShowLogin = false;
                  this.ifShowSuccess = true;
                  bus.$emit('addOn', true)
+                 bus.$emit('userInfo', true)
                  setTimeout(()=>{
                    this.ifShowSuccess = false;
                    bus.$emit('closeLogin', true)

@@ -185,12 +185,14 @@
         }else{
           this.username = '';
           localStorage.removeItem('bdd_user');
+          localStorage.removeItem('email_name');
           this.hintText = 'Account logout successful';
           this.ifShowSuccess = true,
           this.ifShow = false;
           this.userAccount = '';
 
           that.$emit('onQuit', false)
+          bus.$emit('closeUserInfo', true)
         }
       }
     }

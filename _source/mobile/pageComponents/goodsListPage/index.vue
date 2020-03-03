@@ -39,7 +39,7 @@
 
     <div class="goods-box clf">
       <div class="goods-list fl" v-for="(item, index) in commodityItem.data" :key="index">
-        <div class="img-box">
+        <div class="img-box" :style="{height : listHeight+'px'}">
           <a :href="commodityItem.data[index].url">
             <img :src=item.style_image alt="">
           </a>
@@ -76,11 +76,18 @@
         pageSize: 20,
         filter: ['1_0', '1_1', '2_0', '2_1', '3_0', '3_1', '4_0', '4_1'],
         filter_index: -1,
+        listHeight: ''
       }
     },
     mounted(){
+      var that = this;
+      var win_width = document.body.clientWidth;
+      that.listHeight = Math.round(win_width*0.49);
+
       this.analysisUrl();
       this.acquireData(this.typeId, this.keyword, '', this.attrId, this.attrValue, this.priceRange,this.pageId, this.pageSize);
+
+      console.log(that.listHeight)
     },
     methods:{
       // 排序筛选
@@ -285,7 +292,6 @@
 
   .goods-list .img-box{
     width: 100%;
-    height: 17rem;
     border: 1px solid #aaa;
     position: relative;
     overflow: hidden;
