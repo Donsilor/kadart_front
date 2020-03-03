@@ -125,8 +125,6 @@
     created() {
       var that = this;
       Bus.$on('send', function(val) {
-        console.log(1111)
-        console.log(val)
         that.ifShowMessage = val;
         that.is_login();
       })
