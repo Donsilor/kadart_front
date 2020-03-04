@@ -10,12 +10,15 @@
                <img :src="bigImg[index_k]">
             </div>
           </div>
-          <div class="swiper-pagination swiper-pagination-bullets"></div>
         </div>
+
+        <div class="button-prev" @click="toLeft"></div>
+        <div class="button-next" @click="toRight"></div>
       </div>
+
       <div class="small-img-box">
         <div class="img-scroll">
-          <div class="small-img" v-for="(item, index) in smallImg" @click="chooseImg(index)">
+          <div class="small-img" :class="index_k == index ?'active' : ''" v-for="(item, index) in smallImg" @click="chooseImg(index)">
             <a :href="item.url">
               <img :src="item" alt="">
             </a>
@@ -62,7 +65,7 @@
       <div v-swiper:myaSwiper="swiperOptionTh">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(item, index) in goodsRecommend" :key="index">
-            <div class="swiper-img">
+            <div class="swiper-img" :style="{height: recImgHei + 'px'}">
               <img :src="item.style_image">
             </div>
             <div class="swiper-text">Reference price</div>
@@ -73,7 +76,7 @@
       </div>
     </div>
 
-    <div class="goods-detail" v-if="0">
+    <div class="goods-detail" v-if="1">
       <div class="tit-box">
         <div class="title">COMMODITYD DETAILS</div>
       </div>
@@ -132,7 +135,8 @@
         bigImg: [],
         index_k: 0,
         goodsRecommend: [],
-        imgHeight: ''
+        imgHeight: '',
+        recImgHei: ''
       }
     },
     mounted(){
@@ -178,11 +182,24 @@
 
       var heig = document.body.clientWidth;
       that.imgHeight = Math.round(heig*0.8);
+      that.recImgHei = Math.round((heig*0.9 - 20) * 0.333);
+      console.log(that.recImgHei)
     },
     methods:{
       chooseImg(k) {
         this.index_k = k
       },
+      toLeft(){
+        var img_num = this.smallImg.length;
+        this.index_k --;
+        this.index_k = Math.abs(this.index_k+4);
+        this.index_k %= img_num;
+      },
+      toRight(){
+        var img_num = this.smallImg.length;
+        this.index_k ++;
+        this.index_k %= img_num;
+      }
     }
   }
 </script>
@@ -190,7 +207,7 @@
 <style scoped>
   .goods-info{
     width: 80%;
-    margin: 3rem auto 0;
+    margin: 2rem auto 0;
   }
 
   .goods-tit{
@@ -221,6 +238,32 @@
     height: 24rem;
     border: 1px solid #c3c3c3;
     margin-top: 1.5rem;
+    position: relative;
+  }
+
+  .button-prev{
+    width: 1.8rem;
+    height: 3rem;
+    background: url(../../static/index/icon/left.png) no-repeat center;
+    background-size: 100% 100%;
+    position: absolute;
+    top: 50%;
+    left: 3%;
+    transform: translateY(-50%);
+    z-index: 66;
+    opacity: 0.38;
+  }
+  .button-next{
+    width: 1.8rem;
+    height: 3rem;
+    background: url(../../static/index/icon/right.png) no-repeat center;
+    background-size: 100% 100%;
+    position: absolute;
+    top: 50%;
+    right: 3%;
+    transform: translateY(-50%);
+    z-index: 66;
+    opacity: 0.38;
   }
 
   .small-img-box{
@@ -237,6 +280,12 @@
     width: 5rem;
     height: 5rem;
     border: 1px solid #c3c3c3;
+  }
+  .small-img:not(:last-child){
+    margin-right: 6px;
+  }
+  .small-img.active{
+    border: 2px solid #313131;
   }
 
   .share-box{
@@ -297,6 +346,7 @@
     font-family: FZFYSJW;
     font-size: 1.9rem;
     color: #000;
+    font-weight: bold;
     margin-top: 0.5rem;
   }
 
@@ -375,7 +425,7 @@
 
   .other{
     width: 100%;
-    padding: 3rem 5%;
+    padding: 3rem 5% 2rem;
   }
 
   .other .swiper-container{
@@ -392,7 +442,7 @@
     width: 100%;
     height: 7rem;
     border: 1px solid #ccc;
-    margin-bottom: 0.4rem;
+    margin-bottom: 1rem;
   }
 
   .swiper-slide img{
@@ -410,6 +460,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    margin-bottom: 0.4rem;
   }
 
   .goods-detail{

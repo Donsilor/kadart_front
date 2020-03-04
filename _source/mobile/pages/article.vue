@@ -4,20 +4,20 @@
 
     <div class="about-box">
       <div class="title">
-        <i class="icon"></i>
+        <i class="icon" @click="goBack"></i>
         <span>About Us</span>
       </div>
 
       <div>
         <div class="list">
-          <div class="list-tit">1.Who is KAD ART ?</div>
+          <div class="list-tit">Who is KAD ART ?</div>
           <div class="list-text">
             <div class="list-child">KAD ART, we are a global jewelry manufacture enterprise. It is aiming at hiring domestic and overseas experienced jewelry craftsman to produce high quality jewelry for the world.</div>
            </div>
         </div>
 
         <div class="list">
-          <div class="list-tit">2.How to find us?</div>
+          <div class="list-tit">How to find us?</div>
           <div class="list-text">
             <div class="list-child">Shenzhen office: 1306-1307 block a,IBC business jewelry building,shenzhen,guangdong province, china, Tel: +86 0755 25160872</div>
             <div class="list-child">Hong kong headquarters: room 04, 23 / F,environmental  trade center,3 abino road,central,Hong kong, Tel: +852 2165 3939</div>
@@ -26,7 +26,7 @@
         </div>
 
         <div class="list">
-          <div class="list-tit">3.Why you choose KAD ART?</div>
+          <div class="list-tit">Why you choose KAD ART?</div>
           <div class="list-text">
             <div class="list-child">We owned 3 branch offices and 9 factories which have 1200 technicians.</div>
             <div class="list-child">More than 50,000 square meters of self-built production workshop,set design,production,sales as one of the large jewelry manufacture enterprise in China,which monthly output up to 5 million pieces.</div>
@@ -37,7 +37,7 @@ The high quality  jewelry we showed is made by our practiced craftsman.</div>
         </div>
 
         <div class="list">
-          <div class="list-tit">4.Branches from Kad Art</div>
+          <div class="list-tit">Branches from Kad Art</div>
           <div class="list-text">
             <div class="list-child-tit">HENGDELI</div>
             <div class="list-child">HENGDELI is a luxury jewelry supplier, who focusing on jadeite, nephrite and precious stones. It is concentrating on producing the top class jewelry of Chinese traditional culture.</div>
@@ -54,6 +54,11 @@ The high quality  jewelry we showed is made by our practiced craftsman.</div>
 
 <script>
   export default{
+    methods:{
+      goBack(){
+        this.$router.go(-1)
+      }
+    }
   }
 </script>
 
@@ -68,6 +73,7 @@ The high quality  jewelry we showed is made by our practiced craftsman.</div>
     font-family: DFPYaSong;
     font-size: 1.55rem;
     color: #480f32;
+    font-weight: bold;
   }
   .about-box .title .icon{
     width: 1.6rem;
@@ -94,7 +100,7 @@ The high quality  jewelry we showed is made by our practiced craftsman.</div>
   .list .list-child{
     margin-top: 1rem;
     font-size: 1.3rem;
-    line-height: 1.95rem;
+    line-height: 1.5rem;
     padding-left: 3%;
   }
 

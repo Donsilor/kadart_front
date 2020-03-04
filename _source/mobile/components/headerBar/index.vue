@@ -14,7 +14,7 @@
     </div>
 
     <!-- 搜索 -->
-    <div class="search-box" v-if="ifShowSearch" ref = "searchBox">
+    <div class="search-box" v-if="ifShowSearch" ref="searchBox">
       <search @starsSearch="ifSearch"></search>
     </div>
   </div>
@@ -25,7 +25,7 @@
   import bus from '../../assets/js/bus.js'
 
   export default {
-    components:{
+    components: {
       search
     },
     data() {
@@ -33,27 +33,26 @@
         ifShowSearch: false
       }
     },
-    mounted(){
-    },
+    mounted() {},
     methods: {
-      showMenu(){
+      showMenu() {
         bus.$emit('showMenu', true)
       },
-      onSearch(){
+      onSearch() {
         this.searchFn()
       },
-      ifSearch(){
+      ifSearch() {
         var that = this;
         that.ifShowSearch = false;
       },
-      searchFn(){
+      searchFn() {
         var that = this;
         that.ifShowSearch = !that.ifShowSearch;
-        if(that.ifShowSearch){
-          var timer = setTimeout(function(){
+        if (that.ifShowSearch) {
+          var timer = setTimeout(function() {
             // console.log(that.$refs.searchBox)
             that.$refs.searchBox.classList.add('hei');
-          },20)
+          }, 20)
         }
       }
     }
@@ -61,7 +60,7 @@
 </script>
 
 <style scoped>
-  .header-box{
+  .header-box {
     position: relative;
   }
 
@@ -71,11 +70,11 @@
     height: 5.5rem;
     padding-top: 0.525rem;
     background-color: #fff;
-    /* border-bottom: 1px solid #480f32; */
+    border-bottom: 1px solid #480f32;
     z-index: 3;
   }
 
-  .icon-left{
+  .icon-left {
     position: absolute;
     left: 4.8%;
     top: 50%;
@@ -90,7 +89,7 @@
     background-size: 100% 100%;
   }
 
-  .icon-right{
+  .icon-right {
     position: absolute;
     right: 4.8%;
     top: 50%;
@@ -102,14 +101,14 @@
     height: 2.1rem;
   }
 
-  .icon-right-1{
+  .icon-right-1 {
     width: 2.1rem;
     height: 2.1rem;
     background: url(../../static/index/icon/icon-2.png) no-repeat center;
     background-size: 100% 100%;
   }
 
-  .icon-right-2{
+  .icon-right-2 {
     width: 2.1rem;
     height: 2.1rem;
     margin-left: 1.5rem;
@@ -117,13 +116,13 @@
     background-size: 110% 110%;
   }
 
-  .logo-box{
+  .logo-box {
     width: 2.9rem;
     height: 3.4rem;
     margin: 0 auto;
   }
 
-  .search-box{
+  .search-box {
     position: absolute;
     top: -100%;
     left: 0;
@@ -136,7 +135,7 @@
     transition: top 0.5s;
   }
 
-  .hei{
+  .hei {
     top: 5.5rem;
     transition: top ease-in 0.2s;
   }

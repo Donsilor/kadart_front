@@ -1,6 +1,6 @@
 <template>
   <div>
-    <slideShow></slideShow>
+    <!-- <slideShow></slideShow> -->
     <messagePage></messagePage>
   </div>
 </template>

@@ -52,7 +52,10 @@
 
     <img src="" alt="">
 
-    <div class="more">Load More</div>
+    <div class="more" @click="loadMore">
+      <span>Load More</span>
+      <i class="more-icon" v-if="ifLoad"></i>
+    </div>
   </div>
 </template>
 
@@ -72,11 +75,13 @@
         attrId: '',
         attrValue: '',
         priceRange: '',
-        pageId: '',
-        pageSize: 20,
+        pageId: 1,
+        pageSize: 6,
         filter: ['1_0', '1_1', '2_0', '2_1', '3_0', '3_1', '4_0', '4_1'],
         filter_index: -1,
-        listHeight: ''
+        listHeight: '',
+        goods_num: '',
+        ifLoad: false
       }
     },
     mounted(){
@@ -87,7 +92,6 @@
       this.analysisUrl();
       this.acquireData(this.typeId, this.keyword, '', this.attrId, this.attrValue, this.priceRange,this.pageId, this.pageSize);
 
-      console.log(that.listHeight)
     },
     methods:{
       // 排序筛选
@@ -178,8 +182,10 @@
           page: k_page,
           page_size: k_page_size
         }).then(res => {
-          this.loading = false;
+          that.ifLoad = false;
           that.commodityItem = res.data.data;
+          that.goods_num = res.data.data.total_count;
+
           // this.seo = that.commodityItem.seo;
           // this.currentPage1 = that.commodityItem.page;
           // console.log(that.commodityItem.data)
@@ -192,6 +198,14 @@
         }).catch(function(error) {
           // console.log(error);
         });
+      },
+      loadMore(){
+        if(this.pageSize < this.goods_num){
+          this.ifLoad = true;
+          this.pageSize += 6;
+          this.analysisUrl();
+          this.acquireData(this.typeId, this.keyword, this.filter[this.filter_index], this.attrId, this.attrValue, this.priceRange,this.pageId, this.pageSize);
+        }else{}
       }
     }
   }
@@ -226,11 +240,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 1rem 0 1rem;
+    padding: 0 1rem;
+    font-family: STKAITI;
+    font-size: 1.45rem;
+    color: #480f32;
     opacity: 0.5;
   }
   .filter-list:not(:last-child){
     border-right: 1px solid #aaa;
+  }
+
+  @media screen and (max-width: 350px) {
+    .filter-left{
+      padding-left: 0.4rem;
+    }
+    .filter-list{
+      min-width: 4.6rem;
+      padding: 0 0.5rem;
+    }
   }
 
   .filter-list.active{
@@ -280,7 +307,7 @@
   .goods-box{
     width: 100%;
     margin-top: 1.4rem;
-    padding: 0 1% 5rem;
+    padding: 0 1% 1rem;
   }
   .goods-list{
     width: 49%;
@@ -331,9 +358,6 @@
   }
 
   .more{
-    position: fixed;
-    left: 0;
-    bottom: 0;
     width: 100%;
     height: 5rem;
     background-color: #480f32;
@@ -341,5 +365,16 @@
     line-height: 5rem;
     font-size: 1.45rem;
     color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .more-icon{
+    width: 2rem;
+    height: 2rem;
+    margin-left: 1rem;
+    background: url(../../static/goods-list/load.gif) no-repeat center;
+    background-size: 100% 100%;
   }
 </style>

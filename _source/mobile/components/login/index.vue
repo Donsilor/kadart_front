@@ -34,7 +34,7 @@
         ifShowLogin: true,
         ifShowSuccess: false,
         username: '',
-        hintText: 'Login successful !'
+        hintText: 'LOGIN  SUCCESSFUL !'
       }
     },
     props:['ifLogin'],
@@ -42,11 +42,12 @@
       if(this.ifLogin !== true){
         this.ifShowLogin = false;
         this.ifShowSuccess = true;
+        this.hintText = 'ACCOUNT LOGOUT SUCCESSFUL !';
 
         var Timer = setTimeout(function(){
         		bus.$emit('closeLogin', true)
-            this.ifShowLogin = true;
             this.ifShowSuccess = false;
+            this.ifShowLogin = true;
         		clearTimeout(Timer);
         		Timer = null;
         },1500)
@@ -209,14 +210,23 @@
     -moz-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     -o-transform: translate(-50%, -50%);
-    height: 60px;
-    padding: 0 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    font-size: 16px;
-    color: #480f33;
+    min-width: 64%;
+    padding: 0 1rem;
+    height: 5.5rem;
+    background-color: #790e50;
+    border-radius: 4px;
+    font-family: STKAITI;
+    font-size: 1.55rem;
+    color: #fff;
     font-weight: bold;
     text-align: center;
-    line-height: 60px;
+    line-height: 5.5rem;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+  @media screen and (max-width: 350px) {
+      .popup .success {
+          font-size: 1.2rem;
+      }
   }
 </style>

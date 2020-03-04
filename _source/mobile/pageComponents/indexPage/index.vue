@@ -75,26 +75,6 @@
     <h3 class="h3">PRODUCT CATEGORIES</h3>
     <!-- <h4 class="h4">PRODUCT CATEGORIES</h4> -->
 
-    <!-- <div class="img-box-more">
-      <div class="img-box-scroll">
-        <div class="img-box-r">
-          <img src="../../static/index/01_19.jpg" alt="">
-        </div>
-        <div class="img-box-r">
-          <img src="../../static/index/01_19.jpg" alt="">
-        </div>
-        <div class="img-box-r">
-          <img src="../../static/index/01_19.jpg" alt="">
-        </div>
-        <div class="img-box-r">
-          <img src="../../static/index/01_19.jpg" alt="">
-        </div>
-        <div class="img-box-r">
-          <img src="../../static/index/01_19.jpg" alt="">
-        </div>
-      </div>
-    </div> -->
-
     <div class="img-box-more">
       <div v-swiper:myssSwiper="swiperOptionThr">
         <div class="swiper-wrapper">
@@ -151,10 +131,8 @@
           </div>
           <div class="list-right-icon"></div>
         </div>
-
       </div>
     </div>
-
   </div>
 </template>
 
@@ -251,7 +229,7 @@
         swiperOptionThr: {
           loop: true,
           slidesPerView: 'auto',
-          spaceBetween: 10,
+          spaceBetween: 5,
           navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
@@ -339,17 +317,17 @@
 <style scoped>
   .home_cid{
     width: 100%;
-    height: 9.2rem;
+    /* height: 9.2rem; */
   }
 
-  .swiper-container{
+  .home_cid .swiper-container{
     width: 100%;
-    height: 100%;
+    height: 9.6rem;
   }
 
   .home_cid .swiper-wrapper{
     width: 100%;
-    height: 100%;
+    height: 9.2rem;
   }
 
   .home_cid .swiper-slide{
@@ -435,6 +413,19 @@
     width: 10.5rem;
     height: 13.1rem;
   }
+
+  .img-box-more .swiper-button-next{
+    width: 2rem;
+    height: 3rem;
+    background: url(../../static/index/icon/right.png) no-repeat center;
+    background-size: 100% 100%;
+    position: absolute;
+    top: 6.1rem;
+    right: 5%;
+    transform: translateY(-50%);
+    margin: 0;
+  }
+
 
   .img-box-scroll{
     display: inline-block;
@@ -532,7 +523,7 @@
   /* 分页器容器 */
   .home_cid /deep/ .swiper-pagination {
     position: inherit;
-    margin-top: -10px;
+    margin-top: 0.3rem;
   }
 
   /* 分页器 */

@@ -1,5 +1,19 @@
 <template>
   <div>
+    <div class="home_cid">
+      <div v-if="this.banners && this.banners != 0" v-swiper:mySwiper="swiperOption">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide" v-for="banner in banners">
+            <a :href='banner.adv_url || "javascript:;"' target="_blank">
+              <img :src="banner.adv_image" class="no-stretch">
+            </a>
+            <!-- <img :src="banner" alt=""> -->
+          </div>
+        </div>
+        <div class="swiper-pagination swiper-pagination-bullets"></div>
+      </div>
+    </div>
+
     <div class="contact-send">
       <div class="contact-tit">CONTACT US</div>
       <div class="list list-address" :class="isShowHint_a == true ? 'empty' : ''">
@@ -19,7 +33,7 @@
       <div class="list list-message" :class="isShowHint_c == true ? 'empty' : ''">
         <i class="icon-left"></i>
         <i class="icon-right" @click="edit(3)"></i>
-        <input type="text" v-model="content" class="ipt" :placeholder="placeholder_c" @focus="onFocus(3)" @blur="onBlur(3)" ref="ipt_c">
+        <textarea type="text" v-model="content" class="textarea" :placeholder="placeholder_c" @focus="onFocus(3)" @blur="onBlur(3)" ref="ipt_c"></textarea>
         <div class="hint">Please fill in the correct content</div>
       </div>
 
@@ -40,6 +54,10 @@
         </div>
       </div>
     </div>
+
+    <div class="leave-message-pop" v-if="ifShowHint">
+      <div class="leave-pop-info">received! We will reply you though email.</div>
+    </div>
   </div>
 </template>
 
@@ -48,6 +66,12 @@
   export default{
     data(){
       return{
+        banners: [
+          {
+            adv_url: '',
+            adv_image: require('../../static/index/01_05.jpg')
+          }
+        ],
         username: '',
         page: 1,
         book_list: [],
@@ -60,7 +84,28 @@
         isShowHint_a: false,
         isShowHint_b: false,
         isShowHint_c: false,
-        ifEdit: false
+        ifEdit: false,
+
+        swiperOption: {
+          loop: true,
+          autoplay: {
+            stopOnLastSlide: true
+          },
+          slidesPerView: 'auto',
+          centeredSlides: true,
+          pagination: {
+            el: '.swiper-pagination'
+          },
+          on: {
+            slideChange() {
+              // console.log('onSlideChangeEnd', this);
+            },
+            tap() {
+              // console.log('onTap', this);
+            }
+          }
+        },
+        ifShowHint: false
       }
     },
     mounted(){
@@ -135,7 +180,7 @@
 
               var username = localStorage.getItem('bdd_user');
               if(username == null){
-                console.log(111)
+
               }
 
               localStorage.setItem('email_name', this.emailName)
@@ -143,22 +188,10 @@
               this.book_list = [];
               this.getUserBook();
 
-              // if (this.isLogin) {
-              //   setTimeout(() => {
-              //     this.ifShowMessage = false;
-              //     this.isShowHint2 = false;
-              //   }, 2000)
-              // } else {
-              //   bus.$emit('onlogin', this.emailName)
-              //   setTimeout(() => {
-              //     this.ifShowMessage = false;
-              //     this.ifPopHint = true;
-              //   }, 2000)
-              //   setTimeout(() => {
-              //     this.isShowHint2 = false;
-              //     this.ifPopHint = false;
-              //   }, 4000)
-              // }
+              this.ifShowHint = true;
+              setTimeout(()=>{
+                this.ifShowHint = false;
+              },1500)
 
             }
           }).catch(function(error) {
@@ -254,10 +287,13 @@
   .contact-send .list{
     width: 100%;
     height: 4.3rem;
-    background-color: rgb(192, 189, 197, 0.21);
+    background-color: rgba(192, 189, 197, 0.21);
     position: relative;
     box-sizing: border-box;
     border: 1px solid transparent;
+    font-family: STKAITI;
+    font-size: 1.5rem;
+    color: #000;
   }
   .contact-send .list:not(:first-child){
     margin-top: 2.7rem;
@@ -270,25 +306,15 @@
     width: 1.6rem;
     height: 1.6rem;
     position: absolute;
-    top: 50%;
+    top: 1.35rem;
     left: 4%;
-    transform: translateY(-50%);
-    -webkit-transform: translateY(-50%);
-    -moz-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    -o-transform: translateY(-50%);
   }
   .contact-send .icon-right{
     width: 1.3rem;
     height: 1.3rem;
     position: absolute;
-    top: 50%;
+    top: 1.35rem;
     right: 4%;
-    transform: translateY(-50%);
-    -webkit-transform: translateY(-50%);
-    -moz-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    -o-transform: translateY(-50%);
     background: url(../../static/send-message/message-icon-4.png) no-repeat center;
     background-size: 100% 100%;
   }
@@ -305,6 +331,24 @@
     background-size: 100% 100%;
   }
 
+  .contact-send .list.list-message{
+    height: 12rem;
+  }
+  .contact-send .list.list-message .textarea{
+    width: 76%;
+    border: 1px solid rgba(72, 15, 50, 0.3);
+    margin: 1rem 12%;
+    background-color: transparent;
+    line-height: 2rem;
+    padding: 0 0.8rem;
+    height: 10rem;
+  }
+
+  .list-message .icon-right{
+    top: inherit;
+    bottom: 1rem;
+  }
+
   .contact-send .ipt{
     width: 60%;
     height: 3.3rem;
@@ -314,7 +358,7 @@
 
   .contact-send .list .hint{
     position: absolute;
-    top: 4.3rem;
+    top: calc(100% + 0.3rem);
     left: 0;
     width: 100%;
     height: 2.4rem;
@@ -403,5 +447,93 @@
     padding: 0 1rem;
     background-color: rgba(182, 181, 181, 0.87);
     max-width: calc(100% - 6.8rem);
+  }
+
+  .leave-message-pop{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 67;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .leave-pop-info{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    min-width: 64%;
+    padding: 0 1rem;
+    height: 5.5rem;
+    background-color: #790e50;
+    border-radius: 4px;
+    font-family: STKAITI;
+    font-size: 1.55rem;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    line-height: 5.5rem;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+  @media screen and (max-width: 350px) {
+      .popup .success {
+          font-size: 1.2rem;
+      }
+  }
+
+  .home_cid{
+    width: 100%;
+    /* height: 9.2rem; */
+  }
+
+  .home_cid .swiper-container{
+    width: 100%;
+    height: 9.6rem;
+  }
+
+  .home_cid .swiper-wrapper{
+    width: 100%;
+    height: 9.2rem;
+  }
+
+  .home_cid .swiper-slide{
+    width: 100%;
+    height: 7.4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .swiper-slide img{
+    width: 100%;
+    height: 100%;
+  }
+
+  /* 分页器容器 */
+  .home_cid /deep/ .swiper-pagination {
+    position: inherit;
+    margin-top: 0.3rem;
+  }
+
+  /* 分页器 */
+  .home_cid /deep/ .swiper-pagination-bullet {
+    width: 4px;
+    height: 4px;
+    background-color: #fff;
+    border-radius: 12px;
+    opacity: 1;
+    border: 1px solid #480f33;
+    margin: 0 0.5rem;
+  }
+
+  /* 分页器选中 */
+  .home_cid /deep/ .swiper-pagination-bullet-active {
+    background-color: #480f33 !important;
   }
 </style>
