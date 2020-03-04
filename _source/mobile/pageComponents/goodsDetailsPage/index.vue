@@ -3,10 +3,10 @@
     <div class="goods-info">
       <div class="goods-tit">{{goodsDetail.style_name}}</div>
       <div class="goods-num">Style no:{{goodsDetail.style_sn}}</div>
-      <div class="goods-img-box">
+      <div class="goods-img-box" :style="{height: imgHeight + 'px'}">
         <div v-swiper:mybSwiper="swiperOptionFi">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide" v-for="banner in banners">
+          <div class="swiper-wrapper" :style="{height: imgHeight + 'px'}">
+            <div class="swiper-slide" v-for="banner in banners" :style="{height: (imgHeight - 2) + 'px'}">
                <img :src="bigImg[index_k]">
             </div>
           </div>
@@ -131,7 +131,8 @@
         smallImg: [],
         bigImg: [],
         index_k: 0,
-        goodsRecommend: []
+        goodsRecommend: [],
+        imgHeight: ''
       }
     },
     mounted(){
@@ -174,6 +175,9 @@
       }).catch(function(error) {
         console.log(error);
       });
+
+      var heig = document.body.clientWidth;
+      that.imgHeight = Math.round(heig*0.8);
     },
     methods:{
       chooseImg(k) {
@@ -433,5 +437,10 @@
   /* 分页器选中 */
   .other /deep/ .swiper-pagination-bullet-active {
     background-color: #480f33 !important;
+  }
+
+  .goods-img-box .swiper-container{
+    width: calc(100% -2px);
+    height: calc(100% -2px);
   }
 </style>

@@ -36,6 +36,18 @@
       bus.$on('onLogin', function(){
         that.ifShowLogin = true;
       })
+
+      var that = this;
+      var ifShowM = sessionStorage.getItem('ifShowM');
+      var username = localStorage.getItem('bdd_user')
+      if(ifShowM == undefined && !that.username){
+      	var Timer = setTimeout(function(){
+            that.ifShowLogin = true;
+      			clearTimeout(Timer);
+      			Timer = null;
+      			sessionStorage.setItem('ifShowM',true);
+      	},15000)
+      }
     },
     methods:{
       startLogin(){

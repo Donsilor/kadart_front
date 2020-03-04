@@ -52,18 +52,6 @@
         },1500)
       }
       this.is_login();
-
-      var that = this;
-			var ifShowM = sessionStorage.getItem('ifShowM');
-			if(ifShowM == undefined && !that.username){
-				var Timer = setTimeout(function(){
-						bus.$emit('onLogin', true)
-						clearTimeout(Timer);
-						Timer = null;
-						sessionStorage.setItem('ifShowM',true);
-				},15000)
-			}
-
     },
     methods:{
       // 关闭登录弹窗
