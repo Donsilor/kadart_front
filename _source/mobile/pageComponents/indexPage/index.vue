@@ -7,7 +7,6 @@
             <a :href='banner.adv_url || "javascript:;"' target="_blank">
               <img :src="banner.adv_image" class="no-stretch">
             </a>
-            <!-- <img :src="banner" alt=""> -->
           </div>
         </div>
         <div class="swiper-pagination swiper-pagination-bullets"></div>
@@ -60,7 +59,7 @@
       </div>
       <div class="img-box-67">
         <div class="img-box-6">
-          <a href="/">
+          <a href="/kadart-jewelry-factory">
             <img src="../../static/index/01_15.jpg" alt="">
           </a>
         </div>
@@ -104,7 +103,7 @@
 
         <div class="list-content">
           <div class="list-content-child">
-            Contact Us
+            <a href="/contact-kadart">Contact Us</a>
           </div>
         </div>
       </div>
@@ -142,10 +141,10 @@
             <a href="https://wap.kadart.bddia.com/category/RINGS/type_id=2">Online Shopping</a>
           </div>
           <div class="list-content-child">
-            <a href="/">Shipping Policy</a>
+            <a href="/kadart-jewelry-shipping-policy">Shipping Policy</a>
           </div>
           <div class="list-content-child">
-            <a href="/">Return Policy</a>
+            <a href="/kadart-jewelry-return-policy">Return Policy</a>
           </div>
         </div>
       </div>
@@ -164,10 +163,10 @@
     data () {
       return {
         banners: [
-          {
-            adv_url: '',
-            adv_image: require('../../static/index/01_01.png')
-          }
+          // {
+          //   adv_url: '',
+          //   adv_image: require('../../static/index/01_01.png')
+          // }
         ],
         bannersTwo: [
           {
@@ -228,9 +227,6 @@
         },
         swiperOptionTwo: {
           loop: true,
-          autoplay: {
-            stopOnLastSlide: true
-          },
           slidesPerView: 'auto',
           centeredSlides: true,
           on: {
@@ -264,17 +260,16 @@
     },
     mounted(){
       // 顶部轮播图
-      // this.$axios.get('/common/advert-images', {
-      //   params: {
-      //     'acdv_id': 11,
-      //   }
-      // }).then(res => {
-      //   this.banners = res.data.data;
-      //   // console.log(this.banners)
-      //   // this.getHeight(this.banners)
-      // }).catch(function(error) {
-      //   console.log(error);
-      // });
+      this.$axios.get('/common/advert-images', {
+        params: {
+          'acdv_id': 10,
+        }
+      }).then(res => {
+        this.banners = res.data.data;
+        // this.getHeight(this.banners)
+      }).catch(function(error) {
+        console.log(error);
+      });
 
       // banner图
       // this.$axios.get('/common/advert-images', {
@@ -364,6 +359,23 @@
     margin: 2rem 0 3rem;
     height: 32.6rem;
   }
+  .banner .swiper-container{
+    width: 100%;
+    height: 100%;
+  }
+
+  .banner .swiper-wrapper{
+    width: 100%;
+    height: 100%;
+  }
+
+  .banner .swiper-slide{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
   .h3{
     font-family: DFPYaSong;
     font-size: 1.55rem;

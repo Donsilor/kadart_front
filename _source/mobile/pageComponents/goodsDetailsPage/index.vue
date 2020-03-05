@@ -50,10 +50,13 @@
       </div>
 
       <div class="parameter-box">
-        <div class="parameter-list clf" v-if="index < 13" v-for="(item, index) in goodsDetail.style_attrs">
+        <div class="parameter-list clf" v-if="index < parameterList" v-for="(item, index) in goodsDetail.style_attrs">
           <div class="parameter-name fl">{{item.name}}</div>
           <div class="parameter-val fl">{{item.value}}</div>
         </div>
+
+        <div class="parameter-line"></div>
+        <div class="parameter-more" v-if="ifShowOther" @click="showOther"></div>
       </div>
     </div>
 
@@ -66,7 +69,9 @@
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(item, index) in goodsRecommend" :key="index">
             <div class="swiper-img" :style="{height: recImgHei + 'px'}">
-              <img :src="item.style_image">
+              <a :href="item.url">
+                <img :src="item.style_image">
+              </a>
             </div>
             <div class="swiper-text">Reference price</div>
             <div class="swiper-price">{{item.currency}}{{item.sale_price}}</div>
@@ -76,7 +81,7 @@
       </div>
     </div>
 
-    <div class="goods-detail" v-if="1">
+    <div class="goods-detail" v-if="0">
       <div class="tit-box">
         <div class="title">COMMODITYD DETAILS</div>
       </div>
@@ -87,6 +92,15 @@
 
 <script>
   export default{
+    head () {
+      return {
+        title: 'Best high quality jewelry with fine craftsmanship wholesale',
+        meta: [
+          { hid: 'description', name: 'description', content: 'KADArt manufacturer and wholesale top-end gold,silver, copper and alloy jewelry with precious,semi gems,crystal,zircon,rhinestone at good price'},
+          { hid: 'keywords', name: 'keywords', content: 'jewelry factory, jewelry supplier, jewelry manufacturer,jewelry wholesale,gold jewelry, silver jewelry, brass jewelry, high quality jewelry, best jewelry, stylish jewelry, fashion jewelry' }
+        ]
+      }
+    },
     data (){
       return{
         banners: [
@@ -136,7 +150,9 @@
         index_k: 0,
         goodsRecommend: [],
         imgHeight: '',
-        recImgHei: ''
+        recImgHei: '',
+        parameterList: 6,
+        ifShowOther: true
       }
     },
     mounted(){
@@ -199,6 +215,10 @@
         var img_num = this.smallImg.length;
         this.index_k ++;
         this.index_k %= img_num;
+      },
+      showOther(){
+        this.ifShowOther = false;
+        this.parameterList = 100;
       }
     }
   }
@@ -239,6 +259,7 @@
     border: 1px solid #c3c3c3;
     margin-top: 1.5rem;
     position: relative;
+    z-index: 2;
   }
 
   .button-prev{
@@ -250,7 +271,7 @@
     top: 50%;
     left: 3%;
     transform: translateY(-50%);
-    z-index: 66;
+    z-index: 6;
     opacity: 0.38;
   }
   .button-next{
@@ -262,7 +283,7 @@
     top: 50%;
     right: 3%;
     transform: translateY(-50%);
-    z-index: 66;
+    z-index: 6;
     opacity: 0.38;
   }
 
@@ -411,6 +432,9 @@
     font-size: 1.3rem;
     color: #1d003a;
     font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .parameter-val{
     width: 50%;
@@ -421,6 +445,26 @@
     opacity: 0.71;
     border-left: 1px solid #ccc;
     padding-left: 3%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .parameter-line{
+    width: 100%;
+    height: 1px;
+    background-color: #1d003a;
+    opacity: 0.6;
+    margin-top: 3rem;
+  }
+
+  .parameter-more{
+    width: 2rem;
+    height: 2rem;
+    background: url(../../static/index/icon/icon-7.png) no-repeat center;
+    background-size: 100% 100%;
+    margin: 1rem auto 0;
+    opacity: 0.6;
   }
 
   .other{

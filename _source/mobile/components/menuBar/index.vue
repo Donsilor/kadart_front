@@ -13,13 +13,13 @@
         <div class="menu-list" :class="navList[index].isShow == true ? 'active' : ''" v-for="(nav, index) in navList" :key="index">
           <div class="menu-list-content" @click.stop="showMenuOne(index)">
             <div class="menu-list-text">{{nav.title}}</div>
-            <div class="menu-list-icon"></div>
+            <div class="menu-list-icon" v-if="nav.items.length != 0"></div>
           </div>
 
           <div class="menu-list-two" :class="navTwo.isShowTwo == true ? 'on' : ''" v-for="(navTwo, idx) in nav.items" :key="idx">
             <div class="menu-list-two-content" @click.stop="showMenuTwo(index, idx)">
               <div class="menu-list-text">{{navTwo.title}}</div>
-              <div class="menu-list-icon"></div>
+              <div class="menu-list-icon" v-if="navTwo.items.length != 0"></div>
             </div>
 
             <div class="menu-child-box">
@@ -115,7 +115,6 @@
           params: {}
         }).then(res => {
           that.navList = res.data.data;
-
           that.judge();
           sessionStorage.setItem('navList',JSON.stringify(this.navList))
         }).catch(function(error) {

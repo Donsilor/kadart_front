@@ -81,7 +81,14 @@
         filter_index: -1,
         listHeight: '',
         goods_num: '',
-        ifLoad: false
+        ifLoad: false,
+        seo: {
+          "meta_title": '',
+          "meta_word": '',
+          "meta_desc": '',
+          'title': '',
+          'description': '',
+        },
       }
     },
     mounted(){
@@ -185,12 +192,8 @@
           that.ifLoad = false;
           that.commodityItem = res.data.data;
           that.goods_num = res.data.data.total_count;
-
-          // this.seo = that.commodityItem.seo;
-          // this.currentPage1 = that.commodityItem.page;
+          that.seo = that.commodityItem.seo;
           // console.log(that.commodityItem.data)
-          // this.totalNum = that.commodityItem.total_count - 0;
-          // this.totalPages = that.commodityItem.page_count - 0;
 
           // if (that.commodityItem.data[0] == undefined) {
             // this.ifShowText = true;
@@ -206,6 +209,24 @@
           this.analysisUrl();
           this.acquireData(this.typeId, this.keyword, this.filter[this.filter_index], this.attrId, this.attrValue, this.priceRange,this.pageId, this.pageSize);
         }else{}
+      }
+    },
+    head() {
+      return {
+        title: this.seo.meta_title || 'Quality gold,silver jewelry wholesale at factory price',
+        meta: [{
+            hid: 'description',
+            name: 'description',
+            content: this.seo.meta_desc ||
+              'KADArt design, manufacture and wholesale gold,silver,brass and alloy jewelry with diamond,ruby,sapphire,zircon,crystal and rhinestone at very good price.'
+          },
+          {
+            hid: 'keywords',
+            name: 'keywords',
+            content: this.seo.meta_word ||
+              'jewelry factory, jewelry supplier, jewelry manufacturer,China jewelry wholesale,gold jewelry, silver jewelry, brass jewelry,best jewelry, fashion jewelry '
+          }
+        ]
       }
     }
   }

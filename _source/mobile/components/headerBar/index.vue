@@ -4,7 +4,9 @@
       <div class="icon-left" @click="showMenu()"></div>
       <div class="icon-right clf">
         <div class="icon-right-1 fl" @click="onSearch()"></div>
-        <div class="icon-right-2 fl"></div>
+        <div class="icon-right-2 fl">
+          <a href="/leave-message"></a>
+        </div>
       </div>
       <div class="logo-box">
         <a href="/">
@@ -71,7 +73,7 @@
     padding-top: 0.525rem;
     background-color: #fff;
     border-bottom: 1px solid #480f32;
-    z-index: 3;
+    z-index: 80;
   }
 
   .icon-left {
@@ -114,6 +116,11 @@
     margin-left: 1.5rem;
     background: url(../../static/index/icon/icon-3.png) no-repeat center;
     background-size: 110% 110%;
+  }
+  .icon-right-2 a{
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 
   .logo-box {
