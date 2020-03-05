@@ -17,6 +17,19 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/index/icon/logo-1.png' }
+    ],
+    script: [
+      {
+        src: 'https://www.googletagmanager.com/gtag/js?id=UA-156158677-1',
+        type: 'text/javascript',
+        charset: 'utf-8',
+        async: true
+      },
+    	{
+    	  src: '/google-ga.js',
+    	  type: 'text/javascript',
+    	  charset: 'utf-8'
+    	}
     ]
   },
   /*

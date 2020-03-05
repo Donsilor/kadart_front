@@ -103,7 +103,9 @@
         </div>
 
         <div class="list-content">
-          <div class="list-content-child">Contact Us</div>
+          <div class="list-content-child">
+            Contact Us
+          </div>
         </div>
       </div>
 
@@ -118,7 +120,7 @@
 
         <div class="list-content">
           <div class="list-content-child">
-            <a href="/article">About Us</a>
+            <a href="/about-kadart">Brand Culture</a>
           </div>
         </div>
       </div>
@@ -130,6 +132,21 @@
             <div class="list-tit-text fl">Help</div>
           </div>
           <div class="list-right-icon"></div>
+        </div>
+
+        <div class="list-content">
+          <div class="list-content-child">
+            <a href="/leave-message">Message Board</a>
+          </div>
+          <div class="list-content-child">
+            <a href="https://wap.kadart.bddia.com/category/RINGS/type_id=2">Online Shopping</a>
+          </div>
+          <div class="list-content-child">
+            <a href="/">Shipping Policy</a>
+          </div>
+          <div class="list-content-child">
+            <a href="/">Return Policy</a>
+          </div>
         </div>
       </div>
     </div>
@@ -149,7 +166,7 @@
         banners: [
           {
             adv_url: '',
-            adv_image: require('../../static/index/01_05.jpg')
+            adv_image: require('../../static/index/01_01.png')
           }
         ],
         bannersTwo: [
@@ -161,11 +178,11 @@
         bannersThree: [
           {
             adv_url: '',
-            adv_image: require('../../static/index/01_03.jpg')
+            adv_image: require('../../static/index/01_07.jpg')
           },
           {
             adv_url: '',
-            adv_image: require('../../static/index/01_05.jpg')
+            adv_image: require('../../static/index/01_09.jpg')
           },
           {
             adv_url: '',
@@ -177,11 +194,11 @@
           },
           {
             adv_url: '',
-            adv_image: require('../../static/index/01_13.jpg')
+            adv_image: require('../../static/index/01_07.jpg')
           },
           {
             adv_url: '',
-            adv_image: require('../../static/index/01_15.jpg')
+            adv_image: require('../../static/index/01_09.jpg')
           }
         ],
         bannersFour: [
@@ -502,7 +519,7 @@
   }
 
   .list-content{
-    min-height: 5rem;
+    min-height: 4rem;
     padding-left: 3.8rem;
     display: none;
   }
