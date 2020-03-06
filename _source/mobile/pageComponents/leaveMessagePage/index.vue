@@ -67,10 +67,10 @@
     data(){
       return{
         banners: [
-          {
-            adv_url: '',
-            adv_image: require('../../static/index/01_05.jpg')
-          }
+          // {
+            // adv_url: '',
+            // adv_image: require('../../static/index/01_05.jpg')
+          // }
         ],
         username: '',
         page: 1,
@@ -110,6 +110,21 @@
     },
     mounted(){
       var that = this;
+
+      // 顶部轮播图
+      this.$axios.get('/common/advert-images', {
+        params: {
+          'acdv_id': 14,
+        }
+      }).then(res => {
+        that.banners = res.data.data;
+        if(that.banners.length == 1){
+          that.swiperOption.autoplay = false;
+        }
+      }).catch(function(error) {
+        console.log(error);
+      });
+
       this.getUserBook();
 
       bus.$on('userInfo', function(){

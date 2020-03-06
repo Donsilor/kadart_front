@@ -6,11 +6,11 @@
       </div>
       <div class="footer-email">@KADART.COM</div>
       <div class="footer-share">
-        <div class="share-icon share-icon-1"></div>
-        <div class="share-icon share-icon-2"></div>
-        <div class="share-icon share-icon-3"></div>
-        <div class="share-icon share-icon-4"></div>
-        <div class="share-icon share-icon-5"></div>
+        <!-- <div class="share-icon share-icon-1"></div> -->
+        <!-- <div class="share-icon share-icon-2"></div> -->
+        <!-- <div class="share-icon share-icon-3"></div> -->
+        <!-- <div class="share-icon share-icon-4"></div> -->
+        <!-- <div class="share-icon share-icon-5"></div> -->
       </div>
     </div>
     <div class="footer-bottom-box">

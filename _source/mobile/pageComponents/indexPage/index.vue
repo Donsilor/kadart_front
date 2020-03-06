@@ -163,10 +163,10 @@
     data () {
       return {
         banners: [
-          // {
-          //   adv_url: '',
-          //   adv_image: require('../../static/index/01_01.png')
-          // }
+          {
+            adv_url: '',
+            adv_image: require('../../static/index/01_01.png')
+          }
         ],
         bannersTwo: [
           {
@@ -260,16 +260,19 @@
     },
     mounted(){
       // 顶部轮播图
-      this.$axios.get('/common/advert-images', {
-        params: {
-          'acdv_id': 10,
-        }
-      }).then(res => {
-        this.banners = res.data.data;
-        // this.getHeight(this.banners)
-      }).catch(function(error) {
-        console.log(error);
-      });
+      // this.$axios.get('/common/advert-images', {
+      //   params: {
+      //     'acdv_id': 15,
+      //   }
+      // }).then(res => {
+      //   this.banners = res.data.data;
+      //   if(this.banners.length == 1){
+      //     this.swiperOption.autoplay = false;
+      //   }
+      //   // this.getHeight(this.banners)
+      // }).catch(function(error) {
+      //   console.log(error);
+      // });
 
       // banner图
       // this.$axios.get('/common/advert-images', {
@@ -334,7 +337,7 @@
 
   .home_cid .swiper-container{
     width: 100%;
-    height: 9.6rem;
+    height: 10rem;
   }
 
   .home_cid .swiper-wrapper{
@@ -356,7 +359,7 @@
 
   .banner{
     width: 100%;
-    margin: 2rem 0 3rem;
+    margin: 1rem 0 3rem;
     height: 32.6rem;
   }
   .banner .swiper-container{
@@ -552,7 +555,7 @@
   /* 分页器容器 */
   .home_cid /deep/ .swiper-pagination {
     position: inherit;
-    margin-top: 0.3rem;
+    margin-top: 0.4rem;
   }
 
   /* 分页器 */

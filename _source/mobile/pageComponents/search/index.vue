@@ -8,12 +8,12 @@
 
     <div class="search-recommended">
       <div class="search-recommended-tit">
-        <div class="search-recommended-tit-text">SEARCH IS RECOMMENDED</div>
+        <div class="search-recommended-tit-text">Quick Search</div>
       </div>
       <div class="search-recommended-content">
-        <div class="search-recommended-list">Search is recommended</div>
-        <div class="search-recommended-list">Search is recommended</div>
-        <div class="search-recommended-list">Search is recommended</div>
+        <div class="search-recommended-list">Wedding Ring</div>
+        <div class="search-recommended-list">NeckLack</div>
+        <div class="search-recommended-list">Earring</div>
         <div class="closeSearch" @click="$emit('starsSearch', true)"></div>
       </div>
     </div>
@@ -54,7 +54,7 @@
 <style scoped>
   .search-box-r{
     width: 100%;
-    height: 2.6rem;
+    height: 3.6rem;
     background-color: rgba(229, 229, 229, 0.8);
     position: relative;
   }
@@ -68,8 +68,8 @@
     -moz-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     -o-transform: translateY(-50%);
-    width: 1rem;
-    height: 1rem;
+    width: 1.3rem;
+    height: 1.3rem;
     background: url(../../static/index/icon/icon-2.png) no-repeat center;
     background-size: 100% 100%;
   }
@@ -83,15 +83,17 @@
     -moz-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     -o-transform: translateY(-50%);
-    width: 0.8rem;
-    height: 0.8rem;
-    background: url(../../static/index/icon/error.png) no-repeat center;
-    background-size: 100% 100%;
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    background: #f2f2f2 url(../../static/index/icon/error.png) no-repeat center center;
+    background-size: 56% 56%;
   }
   .search-ipt{
-    height: 2.4rem;
+    height: 3.6rem;
     width: 88%;
-    margin: 0.1rem 0 0 8%;
+    margin: 0 0 0 9%;
     background-color: transparent;
   }
 
@@ -113,7 +115,7 @@
   }
   .search-recommended-tit-text{
     font-family: STKAITI;
-    font-size: 1rem;
+    font-size: 1.4rem;
     font-weight: bold;
     color: #333;
   }
@@ -124,15 +126,15 @@
     background-size: 100% 100%;
   }
   .search-recommended-content{
-    padding: 0.4rem 0 2rem 7.6%;
+    padding: 0.4rem 0 1rem 7.6%;
   }
   .search-recommended-list{
     font-family: STKAITI;
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: #000;
     opacity: 0.5;
     /* margin-bottom: 0.6rem; */
-    line-height: 2rem;
+    line-height: 2.8rem;
   }
   .closeSearch{
     position: absolute;

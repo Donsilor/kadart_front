@@ -27,11 +27,11 @@
       </div>
       <div class="share-box clf">
         <div class="fr clf">
-          <div class="share-icon share-share-1 fl"></div>
-          <div class="share-icon share-share-2 fl"></div>
-          <div class="share-icon share-share-3 fl"></div>
-          <div class="share-icon share-share-4 fl"></div>
-          <div class="share-icon share-share-5 fl"></div>
+          <!-- <div class="share-icon share-share-1 fl"></div> -->
+          <!-- <div class="share-icon share-share-2 fl"></div> -->
+          <!-- <div class="share-icon share-share-3 fl"></div> -->
+          <!-- <div class="share-icon share-share-4 fl"></div> -->
+          <!-- <div class="share-icon share-share-5 fl"></div> -->
         </div>
       </div>
       <div class="contact-box">
@@ -39,7 +39,9 @@
           <div class="contact-price">Reference price</div>
           <div class="contact-num">{{goodsDetail.currency}}{{goodsDetail.sale_price}}</div>
         </div>
-        <div class="contact-box-btn">CONTACT US</div>
+        <div class="contact-box-btn">
+          <a href="/leave-message">CONTACT US</a>
+        </div>
       </div>
       <div class="contact-us">*Please contact us for more ring size information.</div>
     </div>

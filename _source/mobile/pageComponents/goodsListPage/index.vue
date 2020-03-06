@@ -34,10 +34,10 @@
           </div>
         </div>
       </div>
-      <div class="filter-right"></div>
+      <div class="filter-right" style="display: none;"></div>
     </div>
 
-    <div class="goods-box clf">
+    <div class="goods-box clf" v-if="goods_num > 0">
       <div class="goods-list fl" v-for="(item, index) in commodityItem.data" :key="index">
         <div class="img-box" :style="{height : listHeight+'px'}">
           <a :href="commodityItem.data[index].url">
@@ -50,11 +50,14 @@
       </div>
     </div>
 
-    <img src="" alt="">
-
-    <div class="more" @click="loadMore">
+    <div class="more" v-if="ifShowLoad" @click="loadMore">
       <span>Load More</span>
       <i class="more-icon" v-if="ifLoad"></i>
+    </div>
+
+    <div v-if="goods_num == 0">
+      <div class="no-more"></div>
+      <div class="no-more-text">No results, try another keyword.</div>
     </div>
   </div>
 </template>
@@ -68,8 +71,7 @@
         // 正序反序
         sortType: 1,
         // 获取数据
-        commodityItem: [],
-
+        commodityItem: {},
         typeId: '',
         keyword: '',
         attrId: '',
@@ -82,6 +84,7 @@
         listHeight: '',
         goods_num: '',
         ifLoad: false,
+        ifShowLoad: true,
         seo: {
           "meta_title": '',
           "meta_word": '',
@@ -98,7 +101,6 @@
 
       this.analysisUrl();
       this.acquireData(this.typeId, this.keyword, '', this.attrId, this.attrValue, this.priceRange,this.pageId, this.pageSize);
-
     },
     methods:{
       // 排序筛选
@@ -193,7 +195,11 @@
           that.commodityItem = res.data.data;
           that.goods_num = res.data.data.total_count;
           that.seo = that.commodityItem.seo;
-          // console.log(that.commodityItem.data)
+          console.log(that.commodityItem)
+
+          if(that.goods_num < 7){
+            that.ifShowLoad = false;
+          }
 
           // if (that.commodityItem.data[0] == undefined) {
             // this.ifShowText = true;
@@ -208,7 +214,11 @@
           this.pageSize += 6;
           this.analysisUrl();
           this.acquireData(this.typeId, this.keyword, this.filter[this.filter_index], this.attrId, this.attrValue, this.priceRange,this.pageId, this.pageSize);
-        }else{}
+        }
+
+        if(this.pageSize >= this.goods_num){
+          this.ifShowLoad = false;
+        }
       }
     },
     head() {
@@ -397,5 +407,19 @@
     margin-left: 1rem;
     background: url(../../static/goods-list/load.gif) no-repeat center;
     background-size: 100% 100%;
+  }
+
+  .no-more{
+    width: 4rem;
+    height: 4rem;
+    margin: 5rem auto 2rem;
+    background: url(../../static/index/icon/search-2.png) no-repeat center;
+    background-size: 100% 100%;
+  }
+  .no-more-text{
+    font-family: STKAITI;
+    font-size: 1.8rem;
+    color: #d2b8c7;
+    text-align: center;
   }
 </style>

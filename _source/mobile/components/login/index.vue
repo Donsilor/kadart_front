@@ -197,7 +197,7 @@
     font-size: 14px;
     color: #fff;
     text-align: center;
-    line-height: 40px;
+    line-height: 3rem;
     cursor: pointer;
   }
 

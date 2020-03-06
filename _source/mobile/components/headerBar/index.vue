@@ -73,6 +73,7 @@
     padding-top: 0.525rem;
     background-color: #fff;
     border-bottom: 1px solid #480f32;
+    /* transform: rotateY(50); */
     z-index: 80;
   }
 
