@@ -43,11 +43,11 @@
     <div class="contact-log-box" v-if="username != '' && book_list.length != 0">
       <div class="contact-log-tit">HISTORICAL MESSAGE</div>
       <div class="contact-log">
-        <div class="log-time">12:23</div>
-        <div class="message-list message-left">
+        <!-- <div class="message-list message-left">
           <i class="message-icon"></i>
           <i class="message-text">00 0000 011110000  000000 00000 00000 000000 00 000 000000 0000 0000 000 0000 0000000 00000000000</i>
-        </div>
+        </div> -->
+        <!-- <div class="log-time">12:23</div> -->
         <div class="message-list message-right" v-for="(item, index) in book_list" :key="index">
           <i class="message-icon"></i>
           <i class="message-text">{{item.content}}</i>

@@ -18,7 +18,7 @@ export default function({
     }
     // return
 
-     头部host
+     // 头部host
       let headerHost = req.headers['host']
 
     //生产环境

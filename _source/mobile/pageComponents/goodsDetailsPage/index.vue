@@ -69,7 +69,7 @@
 
       <div v-swiper:myaSwiper="swiperOptionTh">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="(item, index) in goodsRecommend" :key="index">
+          <div class="swiper-slide" v-if="index < 6" v-for="(item, index) in goodsRecommend" :key="index">
             <div class="swiper-img" :style="{height: recImgHei + 'px'}">
               <a :href="item.url">
                 <img :src="item.style_image">
@@ -193,7 +193,7 @@
         }
       }).then(res => {
         this.goodsRecommend = res.data.data;
-        // console.log(this.goodsRecommend)
+        console.log(221,this.goodsRecommend)
       }).catch(function(error) {
         console.log(error);
       });
@@ -428,7 +428,7 @@
   }
 
   .parameter-name{
-    width: 50%;
+    width: 45%;
     height: 100%;
     font-family: STKAITI;
     font-size: 1.3rem;
@@ -439,7 +439,7 @@
     white-space: nowrap;
   }
   .parameter-val{
-    width: 50%;
+    width: 55%;
     height: 100%;
     font-family: STKAITI;
     font-size: 1.3rem;

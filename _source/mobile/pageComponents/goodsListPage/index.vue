@@ -391,7 +391,7 @@
   .more{
     width: 100%;
     height: 5rem;
-    background-color: #480f32;
+    background-color: #916F84;
     text-align: center;
     line-height: 5rem;
     font-size: 1.45rem;
@@ -399,6 +399,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    /* opacity: 0.6; */
   }
 
   .more-icon{

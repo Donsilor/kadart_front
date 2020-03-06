@@ -37,6 +37,7 @@
 .list .list-child {
   margin-top: 1rem;
   font-size: 1.3rem;
+  color: #888;
   line-height: 1.5rem;
   padding-left: 3%;
 }
