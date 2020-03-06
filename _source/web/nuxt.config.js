@@ -116,6 +116,7 @@ module.exports = {
     vendor: ['element-ui']
   },
   router: {
+    middleware: ['pcToWap'],
     extendRoutes(routes) {
       //商品详情
       routes.push({
