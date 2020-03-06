@@ -10,9 +10,8 @@ export default function({
     return !u.match(/AppleWebKit.*Mobile.*/)
   }
 
-  if (process.server) {
-
-    let u = req.headers['user-agent']
+  if (process.server && req) {
+		let u = req.headers['user-agent']
 
     // console.log('headerHost',headerHost);
 
@@ -22,7 +21,8 @@ export default function({
     // return
 
     //头部host
-    let headerHost = req.headers['host']
+		let headerHost = req.headers['host']
+
     //生产环境
     let host = 'https://wap.kadart.bddia.com';
     if (!(/bddia\.com/).test(headerHost)) {
