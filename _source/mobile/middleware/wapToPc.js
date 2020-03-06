@@ -10,27 +10,17 @@ export default function({
     return !!u.match(/AppleWebKit.*Mobile.*/)
   }
 
-  if (process.server) {
-
-    if(req){
-      let u = req.headers['user-agent']
-    }else{
-      return
-    }
-
-    // console.log('headerHost',headerHost);
+  if (process.server && req) {
+    let u = req.headers['user-agent'];
 
     if (isWap(u)) {
       return
     }
     // return
 
-    //头部host
-    if(req){
+     头部host
       let headerHost = req.headers['host']
-    }else{
-      return
-    }
+
     //生产环境
     let host = 'https://www.kadart.com';
     if (!(/kadart\.com/).test(headerHost)) {

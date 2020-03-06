@@ -84,10 +84,9 @@ export default {
    //prefix: 'https://api.kadart.com/index.php/v1',
    // proxy: true // Can be also an object with default options
    // 线上api
-  // baseURL: 'https://api.kadart.com/index.php/v1',
+  baseURL: 'https://api.kadart.com/index.php/v1',
    // 测试api
-  baseURL: 'https://kadart.bddia.com/api/index.php/v1'
-
+  // baseURL: 'https://kadart.bddia.com/api/index.php/v1'
 
   },
   /*
