@@ -1,5 +1,7 @@
 <template>
   <div class="menu-box" v-if="ifShow" ref="menuBox">
+    <div class="mask-layer" @click="openPop"></div>
+
     <div class="menu">
       <div class="menu-top">
         <div class="icon-back" @click="ifShow = false"></div>
@@ -61,7 +63,7 @@
               <span>{{userAccount == '' ? 'Sign In' : 'Log out'}}</span>
             </div>
 
-            <a class="sign-child" href="/leave-message">
+            <a class="sign-child" href="/about-kadart">
                 <i class="sign-child-icon"></i>
                 <span>About Us</span>
             </a>
@@ -155,6 +157,19 @@
       },
       showMenuOne(k){
         this.navList[k].isShow = !this.navList[k].isShow;
+        if(k == 0){
+          this.$router.push("/about-kadart");
+          this.ifShow = false;
+        }else if(k == 8){
+          this.$router.push("/pages/kad-art-jewelry-timeline");
+          this.ifShow = false;
+        }else if(k == 9){
+          // let routeUrl = this.$router.resolve({
+              // path: "https://wap.bddco.com/",
+          // });
+          window.open("https://wap.bddco.com/", '_blank');
+          this.ifShow = false;
+        }
       },
       showMenuTwo(i,j){
         this.navList[i].items[j].isShowTwo = !this.navList[i].items[j].isShowTwo;
@@ -192,7 +207,10 @@
           that.$emit('onQuit', false)
           bus.$emit('closeUserInfo', true)
         }
-      }
+      },
+      openPop(){
+        this.ifShow = false;
+      },
     }
   }
 </script>
@@ -214,6 +232,7 @@
     left: -80%;
     width: 80%;
     height: 100%;
+    z-index: 3;
   }
 
   .menu-box.on{
@@ -402,8 +421,8 @@
     width: 80%;
   }
   .search-icon{
-    width: 1rem;
-    height: 1rem;
+    width: 2rem;
+    height: 2rem;
     background: url(../../static/index/icon/icon-2.png) no-repeat center;
     background-size: 100% 100%;
   }
@@ -412,16 +431,17 @@
     height: 60%;
     background-color: transparent;
     margin-left: 5%;
+    font-size: 1.6rem;
   }
   .search-box-right{
-    width: 1rem;
-    height: 1rem;
+    width: 1.6rem;
+    height: 1.6rem;
     background: url(../../static/menu/error.png) no-repeat center;
     background-size: 100% 100%;
   }
   .search-line{
     position: absolute;
-    top: 80%;
+    top: 90%;
     left: 3%;
     width: 94%;
     height: 1px;
@@ -474,5 +494,13 @@
   .sign-child:last-child .sign-child-icon{
     background: url(../../static/menu/about-us.png) no-repeat center;
     background-size: 100% 100%;
+  }
+  .mask-layer{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
   }
 </style>

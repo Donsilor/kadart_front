@@ -56,7 +56,7 @@
     </div>
 
     <div class="leave-message-pop" v-if="ifShowHint">
-      <div class="leave-pop-info">received! We will reply you though email.</div>
+      <div class="leave-pop-info">Received! We will reply you though email.</div>
     </div>
   </div>
 </template>
@@ -306,8 +306,6 @@
     position: relative;
     box-sizing: border-box;
     border: 1px solid transparent;
-    font-family: STKAITI;
-    font-size: 1.5rem;
     color: #000;
   }
   .contact-send .list:not(:first-child){
@@ -325,13 +323,16 @@
     left: 4%;
   }
   .contact-send .icon-right{
-    width: 1.3rem;
-    height: 1.3rem;
     position: absolute;
-    top: 1.35rem;
+    top: calc(1.35rem - 1px);
     right: 4%;
-    background: url(../../static/send-message/message-icon-4.png) no-repeat center;
-    background-size: 100% 100%;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    background: #f2f2f2 url(../../static/index/icon/error.png) no-repeat center center;
+    background-size: 56% 56%;
+    box-sizing: content-box;
   }
   .list-address .icon-left{
     background: url(../../static/send-message/message-icon-1.png) no-repeat center;
@@ -350,7 +351,7 @@
     height: 12rem;
   }
   .contact-send .list.list-message .textarea{
-    width: 76%;
+    width: 74%;
     border: 1px solid rgba(72, 15, 50, 0.3);
     margin: 1rem 12%;
     background-color: transparent;
@@ -369,6 +370,13 @@
     height: 3.3rem;
     margin: 0.5rem 14%;
     background-color: transparent;
+    font-family: STKAITI;
+    font-size: 1.85rem;
+  }
+
+  .contact-send .textarea{
+    font-family: STKAITI;
+    font-size: 1.85rem;
   }
 
   .contact-send .list .hint{
@@ -390,14 +398,14 @@
 
   .contact-send .send{
     width: 100%;
-    height: 3.25rem;
+    height: 4.3rem;
     background-color: #480f32;
     margin-top: 4rem;
     font-family: DFPYaSong;
-    font-size: 1.45rem;
+    font-size: 1.6rem;
     color: #fff;
     text-align: center;
-    line-height: 3.25rem;
+    line-height: 4.3rem;
   }
 
   .contact-log-box{
@@ -489,7 +497,7 @@
     background-color: #790e50;
     border-radius: 4px;
     font-family: STKAITI;
-    font-size: 1.55rem;
+    font-size: 1.3rem;
     color: #fff;
     font-weight: bold;
     text-align: center;

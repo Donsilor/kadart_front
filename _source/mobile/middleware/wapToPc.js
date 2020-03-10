@@ -9,7 +9,6 @@ export default function({
     // var u = navigator.userAgent, app = navigator.appVersion;
     return !!u.match(/AppleWebKit.*Mobile.*/)
   }
-
   if (process.server && req) {
     let u = req.headers['user-agent'];
 
@@ -19,7 +18,7 @@ export default function({
     // return
 
      // 头部host
-      let headerHost = req.headers['host']
+      let headerHost = req.headers['host'];
 
     //生产环境
     let host = 'https://www.kadart.com';
@@ -28,8 +27,11 @@ export default function({
       host = 'http://www.kadart.bddia.com';
     }
     const toWapUrl = path => {
-      host = host + path;
-
+      // console.log('path',path)
+      if(path == '/leave-message'){
+      }else{
+        host = host + path;
+      }
       redirect(host)
       return
     }

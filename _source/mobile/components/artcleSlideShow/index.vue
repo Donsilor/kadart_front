@@ -1,9 +1,11 @@
 <template>
   <div class="menu">
-    <div v-swiper:mySwiper="swiperOptionR" class="swiper-box">
+    <div v-swiper:myzSwiper="swiperOptionN" class="swiper-box">
       <div class="swiper-wrapper">
         <div class="swiper-slide" v-for="banner in banners">
-          <img class="no-stretch" :src="banner">
+          <a :href="banner.adv_url">
+            <img class="no-stretch" :src="banner.adv_image">
+          </a>
         </div>
       </div>
 
@@ -19,9 +21,9 @@
     data(){
       return{
         banners: [
-          '/index/01_03.jpg',
+          // '/index/01_03.jpg',
         ],
-        swiperOptionR: {
+        swiperOptionN: {
           loop: true,
           autoplay: {
             stopOnLastSlide: true
@@ -48,19 +50,19 @@
     },
     mounted(){
       // // 顶部轮播图
-      // this.$axios.get('/common/advert-images', {
-      //   params: {
-      //     'acdv_id': 15,
-      //   }
-      // }).then(res => {
-      //   this.banners = res.data.data;
-      //   if(this.banners.length == 1){
-      //     this.swiperOption.autoplay = false;
-      //   }
-      //   // this.getHeight(this.banners)
-      // }).catch(function(error) {
-      //   console.log(error);
-      // });
+      this.$axios.get('/common/advert-images', {
+        params: {
+          'acdv_id': 18,
+        }
+      }).then(res => {
+        this.banners = res.data.data;
+        if(this.banners.length == 1){
+          this.swiperOptionN.autoplay = false;
+        }
+        // this.getHeight(this.banners)
+      }).catch(function(error) {
+        console.log(error);
+      });
     }
   }
 </script>

@@ -27,6 +27,7 @@
       }
     },
     mounted(){
+      document.documentElement.scrollTop = document.body.scrollTop = 0;
       var that = this;
 
       bus.$on('closeLogin', function(){
@@ -48,6 +49,8 @@
       			sessionStorage.setItem('ifShowM',true);
       	},15000)
       }
+
+      // alert(navigator)
     },
     methods:{
       startLogin(){

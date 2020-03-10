@@ -43,7 +43,9 @@
           <a href="/leave-message">CONTACT US</a>
         </div>
       </div>
-      <div class="contact-us">*Please contact us for more ring size information.</div>
+      <div class="contact-us">
+        <a href="/leave-message">*Please contact us for more ring size information.</a>
+      </div>
     </div>
 
     <div class="goods-parameter">
@@ -193,7 +195,6 @@
         }
       }).then(res => {
         this.goodsRecommend = res.data.data;
-        console.log(221,this.goodsRecommend)
       }).catch(function(error) {
         console.log(error);
       });
@@ -201,7 +202,6 @@
       var heig = document.body.clientWidth;
       that.imgHeight = Math.round(heig*0.8);
       that.recImgHei = Math.round((heig*0.9 - 20) * 0.333);
-      console.log(that.recImgHei)
     },
     methods:{
       chooseImg(k) {
@@ -265,10 +265,10 @@
   }
 
   .button-prev{
-    width: 1.8rem;
-    height: 3rem;
+    width: 3rem;
+    height: 3.4rem;
     background: url(../../static/index/icon/left.png) no-repeat center;
-    background-size: 100% 100%;
+    background-size: 60% 80%;
     position: absolute;
     top: 50%;
     left: 3%;
@@ -277,10 +277,10 @@
     opacity: 0.38;
   }
   .button-next{
-    width: 1.8rem;
-    height: 3rem;
+    width: 3rem;
+    height: 3.4rem;
     background: url(../../static/index/icon/right.png) no-repeat center;
-    background-size: 100% 100%;
+    background-size: 60% 80%;
     position: absolute;
     top: 50%;
     right: 3%;

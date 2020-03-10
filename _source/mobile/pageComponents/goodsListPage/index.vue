@@ -64,6 +64,24 @@
 
 <script>
   export default{
+    head() {
+      return {
+        title: this.seo.meta_title || 'Quality gold,silver jewelry wholesale at factory price',
+        meta: [{
+            hid: 'description',
+            name: 'description',
+            content: this.seo.meta_desc ||
+              'KADArt design, manufacture and wholesale gold,silver,brass and alloy jewelry with diamond,ruby,sapphire,zircon,crystal and rhinestone at very good price.'
+          },
+          {
+            hid: 'keywords',
+            name: 'keywords',
+            content: this.seo.meta_word ||
+              'jewelry factory, jewelry supplier, jewelry manufacturer,China jewelry wholesale,gold jewelry, silver jewelry, brass jewelry,best jewelry, fashion jewelry '
+          }
+        ]
+      }
+    },
     data (){
       return{
         // 排序类型
@@ -195,8 +213,8 @@
           that.commodityItem = res.data.data;
           that.goods_num = res.data.data.total_count;
           that.seo = that.commodityItem.seo;
-          console.log(that.commodityItem)
-
+          // console.log(that.commodityItem)
+          
           if(that.goods_num < 7){
             that.ifShowLoad = false;
           }
@@ -219,24 +237,6 @@
         if(this.pageSize >= this.goods_num){
           this.ifShowLoad = false;
         }
-      }
-    },
-    head() {
-      return {
-        title: this.seo.meta_title || 'Quality gold,silver jewelry wholesale at factory price',
-        meta: [{
-            hid: 'description',
-            name: 'description',
-            content: this.seo.meta_desc ||
-              'KADArt design, manufacture and wholesale gold,silver,brass and alloy jewelry with diamond,ruby,sapphire,zircon,crystal and rhinestone at very good price.'
-          },
-          {
-            hid: 'keywords',
-            name: 'keywords',
-            content: this.seo.meta_word ||
-              'jewelry factory, jewelry supplier, jewelry manufacturer,China jewelry wholesale,gold jewelry, silver jewelry, brass jewelry,best jewelry, fashion jewelry '
-          }
-        ]
       }
     }
   }
@@ -370,21 +370,22 @@
   }
 
   .goods-list .img-tit{
-    height: 3rem;
-    line-height: 3.4rem;
+    height: 2.4rem;
+    line-height: 2.8rem;
     font-family: STKAITI;
     font-size: 1.25rem;
     color: #480f32;
     opacity: 0.52;
     overflow: hidden;
     white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .goods-list .img-text,
   .goods-list .img-price{
     height: 1.4rem;
     line-height: 1.4rem;
     font-family: STKAITI;
-    font-size: 0.145rem;
+    font-size: 1.2rem;
     color: #3f3d3e;
   }
 

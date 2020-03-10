@@ -2,9 +2,13 @@
   <div class="footer">
     <div class="footer-top-box">
       <div class="footer-logo">
-        <img src="../../static/index/icon/logo-1.png" alt="">
+        <a href="/">
+          <img src="../../static/index/icon/logo-1.png" alt="">
+        </a>
       </div>
-      <div class="footer-email">@KADART.COM</div>
+      <div class="footer-email">
+        <a href="/">@KADART.COM</a>
+      </div>
       <div class="footer-share">
         <!-- <div class="share-icon share-icon-1"></div> -->
         <!-- <div class="share-icon share-icon-2"></div> -->
@@ -14,11 +18,11 @@
       </div>
     </div>
     <div class="footer-bottom-box">
-      <a href="/" target="_blank">PRIVACY POLICY </a>
+      <!-- <a href="/" target="_blank">PRIVACY POLICY </a>
       <div class="footer-bottom-line"></div>
       <a href="/" target="_blank">TERMS AND CONDITIONS</a>
       <div class="footer-bottom-line"></div>
-      <a href="/" target="_blank">SITEMAP</a>
+      <a href="/" target="_blank">SITEMAP</a> -->
     </div>
   </div>
 </template>
@@ -102,7 +106,8 @@
 
   .footer-bottom-box {
     width: 100%;
-    height: 6.3rem;
+    /* height: 6.3rem; */
+    height: 3rem;
     background-color: #fff;
     padding: 0 4.8%;
     display: flex;

@@ -30,19 +30,19 @@
     <!-- <h4 class="h4">POPULAR COLLECTION</h4> -->
 
     <div class="img-box-2">
-      <a href="/">
+      <a href="https://wap.kadart.com/category/RINGS/type_id=2">
         <img src="../../static/index/01_05.jpg" alt="">
       </a>
     </div>
 
     <div class="img-box-34 clf">
       <div class="img-box-3 fl">
-        <a href="/">
+        <a href="https://wap.kadart.com/category/NECKLACES/type_id=4">
           <img src="../../static/index/01_07.jpg" alt="">
         </a>
       </div>
       <div class="img-box-4 fr">
-        <a href="/">
+        <a href="https://wap.kadart.com/category/NECKLACES/type_id=6">
           <img src="../../static/index/01_09.jpg" alt="">
         </a>
       </div>
@@ -53,7 +53,7 @@
 
     <div class="img-box-567">
       <div class="img-box-5">
-        <a href="/">
+        <a href="/about-kadart">
           <img src="../../static/index/01_13.jpg" alt="">
         </a>
       </div>
@@ -64,7 +64,7 @@
           </a>
         </div>
         <div class="img-box-7">
-          <a href="/">
+          <a href="https://wap.kadart.com/category/NECKLACES/type_id=6">
             <img src="../../static/index/01_19.jpg" alt="">
           </a>
         </div>
@@ -74,18 +74,29 @@
     <h3 class="h3">PRODUCT CATEGORIES</h3>
     <!-- <h4 class="h4">PRODUCT CATEGORIES</h4> -->
 
-    <div class="img-box-more">
+    <div class="img-box-more" v-if="bannersThree.length > 0">
       <div v-swiper:myssSwiper="swiperOptionThr">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="banner in bannersThree">
-            <img :src="banner.adv_image">
+            <a :href="banner.adv_url">
+              <img :src="banner.adv_image">
+            </a>
           </div>
         </div>
-        <div class="swiper-button-next fl"></div>
+        <div class="swiper-button-next"></div>
       </div>
     </div>
 
     <div class="img-box-8">
+
+      <!-- <div v-swiper:mysnSwiper="swiperOptionThk">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide" v-for="bannerr in bannersFour">
+            <img :src="bannerr.adv_image">
+          </div>
+        </div>
+      </div> -->
+
       <a :href="bannersFour[0].adv_url">
         <img :src="bannersFour[0].adv_image" alt="">
       </a>
@@ -138,7 +149,7 @@
             <a href="/leave-message">Message Board</a>
           </div>
           <div class="list-content-child">
-            <a href="https://wap.kadart.bddia.com/category/RINGS/type_id=2">Online Shopping</a>
+            <a href="https://wap.kadart.com/category/RINGS/type_id=2">Online Shopping</a>
           </div>
           <div class="list-content-child">
             <a href="/kadart-jewelry-shipping-policy">Shipping Policy</a>
@@ -162,48 +173,12 @@
     },
     data () {
       return {
-        banners: [
-          {
-            adv_url: '',
-            adv_image: require('../../static/index/01_01.png')
-          }
-        ],
-        bannersTwo: [
-          {
-            adv_url: '',
-            adv_image: require('../../static/index/01_03.jpg')
-          }
-        ],
-        bannersThree: [
-          {
-            adv_url: '',
-            adv_image: require('../../static/index/01_07.jpg')
-          },
-          {
-            adv_url: '',
-            adv_image: require('../../static/index/01_09.jpg')
-          },
-          {
-            adv_url: '',
-            adv_image: require('../../static/index/01_07.jpg')
-          },
-          {
-            adv_url: '',
-            adv_image: require('../../static/index/01_09.jpg')
-          },
-          {
-            adv_url: '',
-            adv_image: require('../../static/index/01_07.jpg')
-          },
-          {
-            adv_url: '',
-            adv_image: require('../../static/index/01_09.jpg')
-          }
-        ],
+        banners: [],
+        bannersTwo: [],
+        bannersThree: [],
         bannersFour: [
           {
-            adv_url: '',
-            adv_image: require('../../static/index/01_21.jpg')
+            adv_image: ''
           }
         ],
         swiperOption: {
@@ -244,8 +219,7 @@
           slidesPerView: 'auto',
           spaceBetween: 5,
           navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
+            nextEl: '.swiper-button-next'
           },
           on: {
             slideChange() {
@@ -260,62 +234,57 @@
     },
     mounted(){
       // 顶部轮播图
-      // this.$axios.get('/common/advert-images', {
-      //   params: {
-      //     'acdv_id': 15,
-      //   }
-      // }).then(res => {
-      //   this.banners = res.data.data;
-      //   if(this.banners.length == 1){
-      //     this.swiperOption.autoplay = false;
-      //   }
-      //   // this.getHeight(this.banners)
-      // }).catch(function(error) {
-      //   console.log(error);
-      // });
+      this.$axios.get('/common/advert-images', {
+        params: {
+          'acdv_id': 15,
+        }
+      }).then(res => {
+        this.banners = res.data.data;
+        if(this.banners.length == 1){
+          this.swiperOption.autoplay = false;
+        }
+      }).catch(function(error) {
+        console.log(error);
+      });
 
       // banner图
-      // this.$axios.get('/common/advert-images', {
-      //   params: {
-      //     'acdv_id': 10,
-      //   }
-      // }).then(res => {
-      //   this.bannersTwo = res.data.data;
-      //   // console.log(this.bannersTwo)
-      //   // this.getHeight(this.bannersTwo)
-      // }).catch(function(error) {
-      //   console.log(error);
-      // });
+      this.$axios.get('/common/advert-images', {
+        params: {
+          'acdv_id': 16,
+        }
+      }).then(res => {
+        this.bannersTwo = res.data.data;
+      }).catch(function(error) {
+        console.log(error);
+      });
 
       // 分类小图，6张
-      // this.$axios.get('/common/advert-images', {
-      //   params: {
-      //     'acdv_id': 13,
-      //   }
-      // }).then(res => {
-      //    var that = this;
-      //    that.bannersThree = res.data.data;
-      //    // console.log(that.bannersThree)
+      this.$axios.get('/common/advert-images', {
+        params: {
+          'acdv_id': 19,
+        }
+      }).then(res => {
+         var that = this;
+         that.bannersThree = res.data.data;
+         // console.log(that.bannersThree)
 
-      //    // that.imgUrl = that.classifyImg[0].adv_image;
-
-      //    // that.getSeriesHeight()
-
-      // }).catch(function(error) {
-      //   console.log(error);
-      // });
+         // that.imgUrl = that.classifyImg[0].adv_image;
+         // that.getSeriesHeight()
+      }).catch(function(error) {
+        console.log(error);
+      });
 
       // 底部新品预告图
-      // this.$axios.get('/common/advert-images', {
-      //   params: {
-      //     'acdv_id': 14,
-      //   }
-      // }).then(res => {
-      //   this.bannersFour = res.data.data;
-      //   console.log(this.bannersFour)
-      // }).catch(function(error) {
-      //   console.log(error);
-      // });
+      this.$axios.get('/common/advert-images', {
+        params: {
+          'acdv_id': 20,
+        }
+      }).then(res => {
+        this.bannersFour = res.data.data;
+        // console.log(this.bannersFour)
+      }).catch(function(error) {
+        console.log(error);
+      });
     },
     methods: {
       contactOption(k){
@@ -418,6 +387,7 @@
   }
   .img-box-5{
     width: 49.5%;
+    height: 100%;
   }
 
   .img-box-67{
@@ -574,6 +544,8 @@
     background-color: #480f33 !important;
   }
 
-
+  .swiper-button-next:focus{
+    outline: none;
+  }
 
 </style>

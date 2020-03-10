@@ -23,7 +23,7 @@
           <div class="list-tit">KAD ART Limited (HK)</div>
           <div class="list-text">
             <div class="list-child">Tel: +852 2165 3939</div>
-            <div class="list-child">Unit 4, 23/F, Universal Trade Centre, 3 Arubuthnot RD,Centreal,HK</div>
+            <div class="list-child">Unit 4, 23/F, Universal Trade Centre, 3 Arbuthnot Rd, Central, HK</div>
           </div>
         </div>
 

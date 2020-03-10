@@ -15,13 +15,6 @@
             <div class="list-child">Usually we are not accept any returns unless customer can provide an offical certification of quality defect. Our policy lasts 30 days. If 30 days have gone by since your purchase, unfortunately we can't offer you a refund or exchange any more.</div>
           </div>
         </div>
-
-        <div class="list">
-          <div class="list-tit">Contact Us</div>
-          <div class="list-text">
-            <div class="list-child">If you have any questions about delivery, please contact us via ben@kadart.com</div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
