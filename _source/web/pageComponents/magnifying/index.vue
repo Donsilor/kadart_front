@@ -114,8 +114,7 @@
         this.isPC = false;
 
       } else {
-        console.log('PC端')
-
+        // console.log('PC端')
       }
 
       this.getAttr();

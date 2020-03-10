@@ -1,7 +1,7 @@
 <template>
   <div class="kad-art">
       <div id="page-header">
-        <h1 id="page-title">Kad Art Silver Factory is open to accept all ODM OEM orders!</h1>
+        <h1 id="page-title">Kad Art Factory is open to accept all ODM OEM orders!</h1>
       </div>
 
       <div id="col-main" class="col-md-24 normal-page clearfix">
@@ -9,7 +9,7 @@
         <p>&nbsp;</p>
       <p>We are back to work on Feb 10th, 2020!&nbsp;</p>
       <ul>
-      <li>KadArt silver&nbsp;is&nbsp;<strong>resumed</strong> <strong>regular operation</strong> without being affected by the Corona Virus; our staffs and factories have <strong>returned from the holiday</strong> and the production capacity is getting <strong>recovered</strong>.</li>
+      <li>KadArt is <strong>resumed</strong> <strong>regular operation</strong> without being affected by the Corona Virus; our staffs and factories have <strong>returned from the holiday</strong> and the production capacity is getting <strong>recovered</strong>.</li>
       <li>We are promising there <strong>will not be any delay</strong> for the order or the shipping schedule, <strong>sample order: 10 days</strong>, <strong>mass production order: 20 days</strong> after down payment;</li>
       <li>
       <strong>Quality and Safety Guaranteed</strong>:&nbsp;Strict QC standard as we always applied;</li>
@@ -21,9 +21,8 @@
       <div style="text-align: left;"></div>
       <div style="margin-bottom: 8px;"><img src="../../static/kad-art-silver/Kadart-QCS-2.webp" alt="Kadart-disinfection-each-piece-of-jewelry-by-alcohol"></div>
       <p>You can <strong><a href="mailto:james@kadart.com" title="email">email us</a></strong>&nbsp;with your specific inquiry files or drawings, we will quote you within 24 hours and ship as above.</p>
-      <p><a href="">Y2020 Mother's Day Jewelry Collection</a> for your reference.</p>
-      <p>14K, 18K and <a href=""></a>, diamond jewelry and brass jewerlry are available on <a href="https://www.kadart.com">Kadart.com</a> - our parent company.</p>
-      <p>We appreciate your trust and enjoy your wonderful experience with KadArt Silver.</p>
+      <p>14K, 18K and <a href=""></a>, diamond jewelry and brass jewerlry are available on <a href="https://www.kadart.com">Kadart.com.</a></p>
+      <p>We appreciate your trust and enjoy your wonderful experience with KadArt.</p>
         </div>
       </div>
   </div>

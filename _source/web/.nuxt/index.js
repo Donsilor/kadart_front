@@ -17,6 +17,7 @@ import nuxt_plugin_ElementUI_2318970e from 'nuxt_plugin_ElementUI_2318970e' // S
 import nuxt_plugin_vueswiper_6a7b4f42 from 'nuxt_plugin_vueswiper_6a7b4f42' // Source: ..\\plugins\\vue-swiper.js (mode: 'client')
 import nuxt_plugin_axios_3566aa80 from 'nuxt_plugin_axios_3566aa80' // Source: ..\\plugins\\axios (mode: 'all')
 import nuxt_plugin_vuecomponents_61302338 from 'nuxt_plugin_vuecomponents_61302338' // Source: ..\\plugins\\vue-components.js (mode: 'all')
+import nuxt_plugin_pcToWap_60aabeb5 from 'nuxt_plugin_pcToWap_60aabeb5' // Source: ..\\plugins\\pcToWap.js (mode: 'all')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -191,6 +192,10 @@ async function createApp (ssrContext) {
 
   if (typeof nuxt_plugin_vuecomponents_61302338 === 'function') {
     await nuxt_plugin_vuecomponents_61302338(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_pcToWap_60aabeb5 === 'function') {
+    await nuxt_plugin_pcToWap_60aabeb5(app.context, inject)
   }
 
   // If server-side, wait for async component to be resolved first

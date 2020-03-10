@@ -84,7 +84,9 @@
       <div class="commodity-right fl" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0)">
         <div class="filtrate clf">
-          <div class="filtrate-text fl"><span class="bold">{{totalNum}} Items found for </span>{{nav_text}}</div>
+          <div class="filtrate-text fl">
+            <div class="bold">{{totalNum}} Items found for </div>{{nav_text}}
+          </div>
 
           <div class="filtrate-condition fr clf">
             <div class="filtrate-child fl" :class="[filter_index == 0 || filter_index == 1 ? 'active' : '']" @click="sort(1)">
@@ -420,8 +422,6 @@
         }
       }
 
-      console.log('asdfsf',this.typeId)
-
       this.acquireData(this.keyword, '', this.pageId, this.typeId, this.attrId, this.attrValue, this.priceRange, this.pageSize);
 
       var self = this;
@@ -483,24 +483,24 @@
         } else {
           this.searchId = key_word;
         }
-        
+
         var urlData = location.search;
-        
+
         if (urlData.indexOf('?') == -1) {
           urlData = location.pathname;
           var num = urlData.lastIndexOf('/');
-        
+
           if(urlData.indexOf('search') != -1){
             this.searchId = urlData.slice(num + 1)
             this.nav_text = urlData.slice(num + 1)
           }else{
             urlData = urlData.slice(num + 1);
-        
+
             var urlArr = urlData.split(/&/);
-        
+
             for (var i = 0; i < urlArr.length; i++) {
               var arrVal = urlArr[i].split(/=/);
-        
+
               if (arrVal[0] == 'type_id') {
                 this.typeId = arrVal[1]
               } else if (arrVal[0] == 'attr_id') {

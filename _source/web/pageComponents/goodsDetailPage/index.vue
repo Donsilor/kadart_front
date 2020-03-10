@@ -221,8 +221,6 @@
       }
     },
     mounted() {
-      console.log(this.$store.state.winWid)
-
       var goodsDetailId = this.$route.query.id;
 
       if(goodsDetailId == undefined){
