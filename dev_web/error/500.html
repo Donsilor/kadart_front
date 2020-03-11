@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1, user-scalable=no">
 		<title></title>
 
 		<style>
@@ -9,32 +10,14 @@
 				margin: 0;
 				padding: 0;
 			}
+      html{
+        font-size: 16px;
+      }
 			body{
-				font-family: "microsoft yahei"
+				font-family: "microsoft yahei";
 			}
 			a{
 				color: inherit;
-			}
-
-			@font-face {
-			  font-family: AdobeHeitiStd-R;
-			  src: url(../font/AdobeHeitiStd-Regular.otf);
-			}
-			
-			@font-face {
-			  font-family: tw-cen-mt;
-			  src: url(../font/tw-cen-mt.ttf);
-			}
-			
-			.popup {
-				position: fixed;
-				top: 0;
-				left: 0;
-				z-index: 20;
-				width: 100%;
-				height: 100%;
-				background-color: rgba(0, 0, 0, 0.3);
-				z-index: 14;
 			}
 
 			.background-box {
@@ -60,25 +43,28 @@
 				-moz-transform: translate(-50%, -50%);
 				-ms-transform: translate(-50%, -50%);
 				-o-transform: translate(-50%, -50%);
-				font-size: 24px;
+				font-size: 1.5rem;
 				color: #480f33;
+        text-align: center;
+        width: 80%;
 			}
 			.error-text .text{
-				font-family: AdobeHeitiStd-R;
+        font-family: STKAITI;
 			}
 
 			.error-type {
-				font-family: tw-cen-mt;
-				font-size: 300px;
+        font-family: FZFYSJW;
+				font-size: 9rem;
 				color: #480f33;
 				font-style: italic;
-				margin: -10px 0 0 -80px;
+				margin: -1rem 0 0 -10%;
 			}
 
 			.error-operation {
-				font-size: 18px;
+				font-size: 1rem;
 				color: #999;
 				font-weight: bold;
+        text-align: center;
 			}
 
 			.goBack,
@@ -87,14 +73,13 @@
 				color: #480f33;
 			}
 		</style>
-		
 	</head>
 	<body>
 		<div class="background-box">
 			<div class="error-text">
 				<div class="text">Sorry, the page can not be found</div>
 				<div class="error-type">500</div>
-				<div class="error-operation">You can go <a class="goBack" href="javascript :history.back(-1)">back</a> or go to <a class="goHome" href="http://www.kadart.bddia.com/">home</a> page</div>
+				<div class="error-operation">You can go <a class="goBack" onclick="window.history.back(-1)">back</a> or go to <a class="goHome" href="http://wap.kadart.bddia.com/">home</a> page</div>
 			</div>
 		</div>
 	</body>
