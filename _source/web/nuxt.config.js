@@ -1,7 +1,7 @@
 module.exports = {
   mode: 'universal',
   server: {
-    port: 3001, // default: 3000
+    port: 3002, // default: 3000
     host: '0.0.0.0' // default: localhost 0.0.0.0
   },
   /*
@@ -60,9 +60,9 @@ module.exports = {
     //prefix: 'https://api.kadart.com/index.php/v1',
     // proxy: true // Can be also an object with default options
     // 线上api
-  	baseURL: 'https://api.kadart.com/index.php/v1',
+  	// baseURL: 'https://api.kadart.com/index.php/v1',
     // 测试api
-  	// baseURL: 'https://kadart.bddia.com/api/index.php/v1'
+  	baseURL: 'https://kadart.bddia.com/api/index.php/v1'
 
 
   },
