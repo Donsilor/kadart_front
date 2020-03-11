@@ -300,6 +300,9 @@
   .menu-list{
     /* background-color: #fff; */
   }
+  .menu-list:nth-last-of-type(2){
+    border: 0;
+  }
   .menu-list:not(:last-child){
     border-bottom: 1px solid #fff;
   }
@@ -395,6 +398,7 @@
   .menu-bottom{
     width: 100%;
     background-color: #fff;
+    border-top: 0.5rem solid #d6d6d6;
   }
   .menu-bottom .list{
     height: 5rem;
@@ -445,7 +449,7 @@
     left: 3%;
     width: 94%;
     height: 1px;
-    background-color: #626262;
+    background-color: #a3a3a3;
   }
 
   .contact-us{

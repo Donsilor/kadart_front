@@ -49,8 +49,6 @@
       			sessionStorage.setItem('ifShowM',true);
       	},15000)
       }
-
-      // alert(navigator)
     },
     methods:{
       startLogin(){

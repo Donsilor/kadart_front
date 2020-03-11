@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1, user-scalable=no">
 		<title></title>
 
 		<style>
@@ -9,8 +10,11 @@
 				margin: 0;
 				padding: 0;
 			}
+      html{
+        font-size: 16px;
+      }
 			body{
-				font-family: "microsoft yahei"
+				font-family: "microsoft yahei";
 			}
 			a{
 				color: inherit;
@@ -39,7 +43,7 @@
 				-moz-transform: translate(-50%, -50%);
 				-ms-transform: translate(-50%, -50%);
 				-o-transform: translate(-50%, -50%);
-				font-size: 3rem;
+				font-size: 1.5rem;
 				color: #480f33;
         text-align: center;
         width: 80%;
@@ -50,14 +54,14 @@
 
 			.error-type {
         font-family: FZFYSJW;
-				font-size: 18rem;
+				font-size: 9rem;
 				color: #480f33;
 				font-style: italic;
-				margin: -10px 0 0 -80px;
+				margin: -1rem 0 0 -10%;
 			}
 
 			.error-operation {
-				font-size: 2rem;
+				font-size: 1rem;
 				color: #999;
 				font-weight: bold;
         text-align: center;
@@ -75,7 +79,7 @@
 			<div class="error-text">
 				<div class="text">Sorry, the page can not be found</div>
 				<div class="error-type">404</div>
-				<div class="error-operation">You can go <a class="goBack" href="javascript :history.back(-1)">back</a> or go to <a class="goHome" href="http://wap.kadart.bddia.com/">home</a> page</div>
+				<div class="error-operation">You can go <a class="goBack" onclick="window.history.back(-1)">back</a> or go to <a class="goHome" href="http://wap.kadart.bddia.com/">home</a> page</div>
 			</div>
 		</div>
 	</body>

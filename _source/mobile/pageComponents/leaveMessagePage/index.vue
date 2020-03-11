@@ -370,13 +370,13 @@
     height: 3.3rem;
     margin: 0.5rem 14%;
     background-color: transparent;
-    font-family: STKAITI;
-    font-size: 1.85rem;
+    font-family: "microsoft yahei";
+    font-size: 1.7rem;
   }
 
   .contact-send .textarea{
-    font-family: STKAITI;
-    font-size: 1.85rem;
+    font-family: "microsoft yahei";
+    font-size: 1.7rem;
   }
 
   .contact-send .list .hint{
