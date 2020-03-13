@@ -295,9 +295,8 @@
             'list': '$4000 - $5000 (221)'
           }
         ],
-        keyword: '',
         typeId: '',
-        searchId: '',
+        keyword: '',
         sortId: '',
         attrId: '',
         attrValue: '',
@@ -319,115 +318,117 @@
     mounted() {
       window.addEventListener('scroll', this.scrollToTop);
 
-      var goods_id = localStorage.getItem('goods_id');
-      var now_page = localStorage.getItem('now_page');
-      var sort_id = localStorage.getItem('sort_id');
+      // var goods_id = localStorage.getItem('goods_id');
+      // var now_page = localStorage.getItem('now_page');
+      // var sort_id = localStorage.getItem('sort_id');
 
-      var type_id = this.$route.query.type_id;
-      this.keyword = this.$route.query.keyword;
+      // var type_id = this.$route.query.type_id;
+      // this.keyword = this.$route.query.keyword;
 
-      if (this.keyword == undefined) {
-        var keywordId = location.pathname;
-        if (keywordId.indexOf('keyword') != -1) {
-          var num = keywordId.lastIndexOf('/');
-          this.keyword = keywordId.slice(num + 1);
-        }
-      }
+      // if (this.keyword == undefined) {
+      //   var path = location.pathname;
+      //   if (keywordId.indexOf('keyword') != -1) {
+      //     var num = keywordId.lastIndexOf('/');
+      //     this.keyword = keywordId.slice(num + 1);
+      //   }
+      // }
 
-      if (this.keyword != undefined) {
-        this.loading = true;
+      // if (this.keyword != undefined) {
+      //   this.loading = true;
 
-        this.nav_text = this.keyword;
-      } else {
-        var nav_t = localStorage.getItem('nav_text');
-        if (nav_t) {
-          this.nav_text = nav_t
-        }
-      }
+      //   this.nav_text = this.keyword;
+      // } else {
+      //   var nav_t = localStorage.getItem('nav_text');
+      //   if (nav_t) {
+      //     this.nav_text = nav_t
+      //   }
+      // }
 
-      if (type_id) {
-        this.line_id = type_id;
-        localStorage.setItem('line_id', this.line_id);
-      } else {
-        localStorage.setItem('line_id', this.line_id);
-      }
+      // if (type_id) {
+      //   this.line_id = type_id;
+      //   localStorage.setItem('line_id', this.line_id);
+      // } else {
+      //   localStorage.setItem('line_id', this.line_id);
+      // }
 
-      if (type_id == 2) {
-        this.ifShowDescribe = true;
-      } else if (type_id == 4) {
-        this.ifShowDescribe = true;
-      } else if (type_id == 6) {
-        this.ifShowDescribe = true;
-      } else if (type_id == 8) {
-        this.ifShowDescribe = true;
-      } else if (type_id == 15) {
-        this.ifShowDescribe = true;
-      }
+      // if (type_id == 2) {
+      //   this.ifShowDescribe = true;
+      // } else if (type_id == 4) {
+      //   this.ifShowDescribe = true;
+      // } else if (type_id == 6) {
+      //   this.ifShowDescribe = true;
+      // } else if (type_id == 8) {
+      //   this.ifShowDescribe = true;
+      // } else if (type_id == 15) {
+      //   this.ifShowDescribe = true;
+      // }
 
-      if (goods_id == null) {
-        this.searchId = ''
-      } else {
-        this.searchId = goods_id;
-      }
+      // if (goods_id == null) {
+      //   this.searchId = ''
+      // } else {
+      //   this.searchId = goods_id;
+      // }
 
-      if (sort_id == null) {
-        this.sortId = '';
-      } else {
-        this.sortId = sort_id;
-      }
+      // if (sort_id == null) {
+      //   this.sortId = '';
+      // } else {
+      //   this.sortId = sort_id;
+      // }
 
-      if (now_page == null) {
-        this.pageId = ''
-      } else {
-        this.pageId = now_page;
-        this.currentPage1 = now_page - 0
-      }
+      // if (now_page == null) {
+      //   this.pageId = ''
+      // } else {
+      //   this.pageId = now_page;
+      //   this.currentPage1 = now_page - 0
+      // }
 
-      var urlData = location.search;
+      // var urlData = location.search;
 
-      if (urlData.indexOf('?') == -1) {
-        urlData = location.pathname;
-        var num = urlData.lastIndexOf('/');
+      // if (urlData.indexOf('?') == -1) {
+      //   urlData = location.pathname;
+      //   var num = urlData.lastIndexOf('/');
 
-        if(urlData.indexOf('search') != -1){
-          this.keyword = urlData.slice(num + 1)
-          this.nav_text = urlData.slice(num + 1)
-        }else{
-          urlData = urlData.slice(num + 1);
+      //   if(urlData.indexOf('search') != -1){
+      //     this.keyword = urlData.slice(num + 1)
+      //     this.nav_text = urlData.slice(num + 1)
+      //   }else{
+      //     urlData = urlData.slice(num + 1);
 
-          var urlArr = urlData.split(/&/);
+      //     var urlArr = urlData.split(/&/);
 
-          for (var i = 0; i < urlArr.length; i++) {
-            var arrVal = urlArr[i].split(/=/);
+      //     for (var i = 0; i < urlArr.length; i++) {
+      //       var arrVal = urlArr[i].split(/=/);
 
-            if (arrVal[0] == 'type_id') {
-              this.typeId = arrVal[1]
-            } else if (arrVal[0] == 'attr_id') {
-              this.attrId = arrVal[1]
-            } else if (arrVal[0] == 'attr_value') {
-              this.attrValue = arrVal[1]
-            } else if (arrVal[0] == 'price_range') {
-              this.priceRange = arrVal[1]
-            }
-          }
-        }
-      } else {
-        var urlArr = urlData.split(/[?=&]/);
-        urlArr.shift();
-        for (var i = 0; i < urlArr.length; i += 2) {
-          if (urlArr[i] == 'type_id') {
-            this.typeId = urlArr[i + 1]
-          } else if (urlArr[i] == 'attr_id') {
-            this.attrId = urlArr[i + 1]
-          } else if (urlArr[i] == 'attr_value') {
-            this.attrValue = urlArr[i + 1]
-          } else if (urlArr[i] == 'price_range') {
-            this.priceRange = urlArr[i + 1]
-          }
-        }
-      }
+      //       if (arrVal[0] == 'type_id') {
+      //         this.typeId = arrVal[1]
+      //       } else if (arrVal[0] == 'attr_id') {
+      //         this.attrId = arrVal[1]
+      //       } else if (arrVal[0] == 'attr_value') {
+      //         this.attrValue = arrVal[1]
+      //       } else if (arrVal[0] == 'price_range') {
+      //         this.priceRange = arrVal[1]
+      //       }
+      //     }
+      //   }
+      // } else {
+      //   var urlArr = urlData.split(/[?=&]/);
+      //   urlArr.shift();
+      //   for (var i = 0; i < urlArr.length; i += 2) {
+      //     if (urlArr[i] == 'type_id') {
+      //       this.typeId = urlArr[i + 1]
+      //     } else if (urlArr[i] == 'attr_id') {
+      //       this.attrId = urlArr[i + 1]
+      //     } else if (urlArr[i] == 'attr_value') {
+      //       this.attrValue = urlArr[i + 1]
+      //     } else if (urlArr[i] == 'price_range') {
+      //       this.priceRange = urlArr[i + 1]
+      //     }
+      //   }
+      // }
 
-      this.acquireData(this.keyword, '', this.pageId, this.typeId, this.attrId, this.attrValue, this.priceRange, this.pageSize);
+      this.getData();
+
+      this.acquireData(this.typeId, this.keyword, this.sortId, this.attrId, this.attrValue, this.priceRange, this.pageId, this.pageSize);
 
       var self = this;
       Bus.$on('sendPriceVal', function(val) {
@@ -437,16 +438,16 @@
 
     },
     methods: {
-      acquireData(k_id, k_filter, k_page, k_type_id, K_attr_id, k_attr_value, k_price_range, k_page_size) {
+      acquireData(k_type_id, k_keyword, k_filter, K_attr_id, k_attr_value, k_price_range, k_page, k_page_size) {
         var _self = this;
         _self.$axios.post('/goods/style/search', {
-          keyword: k_id,
-          sort: k_filter,
-          page: k_page,
           type_id: k_type_id,
+          keyword: k_keyword,
+          sort: k_filter,
           attr_id: K_attr_id,
           attr_value: k_attr_value,
           price_range: k_price_range,
+          page: k_page,
           page_size: k_page_size
         }).then(res => {
           this.loading = false;
@@ -467,41 +468,44 @@
         });
       },
       getData() {
-        var type_id = this.$route.query.type_id;
-        var attr_id = this.$route.query.attr_id;
-        var key_word = this.$route.query.keyword;
+        // var type_id = this.$route.query.type_id;
+        // var attr_id = this.$route.query.attr_id;
+        // var key_word = this.$route.query.keyword;
 
-        if (type_id == undefined) {
-          this.typeId = ''
-        } else {
-          this.typeId = type_id;
-        }
+        // if (type_id == undefined) {
+        //   this.typeId = ''
+        // } else {
+        //   this.typeId = type_id;
+        // }
 
-        if (attr_id == undefined) {
-          this.attrId = ''
-        } else {
-          this.attrId = attr_id;
-        }
+        // if (attr_id == undefined) {
+        //   this.attrId = ''
+        // } else {
+        //   this.attrId = attr_id;
+        // }
 
-        if (key_word == undefined) {
-          this.searchId = ''
-        } else {
-          this.searchId = key_word;
-        }
+        // if (key_word == undefined) {
+        //   this.searchId = ''
+        // } else {
+        //   this.searchId = key_word;
+        // }
 
-        var urlData = location.search;
+        var path = location.href;
 
-        if (urlData.indexOf('?') == -1) {
-          urlData = location.pathname;
-          var num = urlData.lastIndexOf('/');
+        if (path.indexOf('?') == -1) {
+          var pathVal = location.pathname.slice(1);
 
-          if(urlData.indexOf('search') != -1){
-            this.searchId = urlData.slice(num + 1)
-            this.nav_text = urlData.slice(num + 1)
+          console.log(pathVal)
+
+          var num = 0;
+
+          if(path.indexOf('search') != -1){
+            this.searchId = path.slice(num + 1)
+            this.nav_text = path.slice(num + 1)
           }else{
-            urlData = urlData.slice(num + 1);
+            path = path.slice(num + 1);
 
-            var urlArr = urlData.split(/&/);
+            var urlArr = path.split(/&/);
 
             for (var i = 0; i < urlArr.length; i++) {
               var arrVal = urlArr[i].split(/=/);
@@ -518,7 +522,7 @@
             }
           }
         } else {
-          var urlArr = urlData.split(/[?=&]/);
+          var urlArr = path.split(/[?=&]/);
           urlArr.shift();
           for (var i = 0; i < urlArr.length; i += 2) {
             if (urlArr[i] == 'type_id') {
@@ -545,10 +549,9 @@
 
         this.getData();
 
-        this.acquireData(this.searchId, this.sortId, val, this.typeId, this.attrId, this.attrValue, this.priceRange,
-          this.pageSize)
+        this.acquireData(this.searchId, this.sortId, val, this.typeId, this.attrId, this.attrValue, this.priceRange, this.pageSize)
 
-        console.log(`当前页: ${val}`);
+        // console.log(`当前页: ${val}`);
       },
       ifShowF(k) {
         this.dataItem[k].isShowT = !this.dataItem[k].isShowT
