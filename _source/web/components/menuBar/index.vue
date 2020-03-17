@@ -1,7 +1,11 @@
 <template>
   <div class="menu clf">
     <div class="menu-left fl">
-      <span class="menu-list fl">1-800-311-5393</span>
+      <!-- <span class="menu-list fl">1-800-311-5393</span> -->
+      <span class="menu-list fl">
+         <a href="/Contact-Us">1-800-311-5393</a>
+         <!-- <a href="/CeShi-1">1-800-311-5393</a> -->
+      </span>
       <a class="menu-list fl" href="/contact-kadart">Contact Us</a>
     </div>
     <div class="menu-right fr">

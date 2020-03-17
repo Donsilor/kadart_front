@@ -8,16 +8,20 @@ const _2fae2aca = () => interopDefault(import('..\\pages\\contact-kadart.vue' /*
 const _ce89533e = () => interopDefault(import('..\\pages\\goods-detail.vue' /* webpackChunkName: "pages_goods-detail" */))
 const _2dbb9e2e = () => interopDefault(import('..\\pages\\goods-list.vue' /* webpackChunkName: "pages_goods-list" */))
 const _f25599f0 = () => interopDefault(import('..\\pages\\kadart-jewelry-factory.vue' /* webpackChunkName: "pages_kadart-jewelry-factory" */))
+const _4de12f09 = () => interopDefault(import('..\\pages\\kadart-jewelry-privacy-policy.vue' /* webpackChunkName: "pages_kadart-jewelry-privacy-policy" */))
 const _420dff6d = () => interopDefault(import('..\\pages\\kadart-jewelry-return-policy.vue' /* webpackChunkName: "pages_kadart-jewelry-return-policy" */))
 const _0ae73aa2 = () => interopDefault(import('..\\pages\\kadart-jewelry-shipping-policy.vue' /* webpackChunkName: "pages_kadart-jewelry-shipping-policy" */))
 const _7305bd55 = () => interopDefault(import('..\\pages\\article\\article-detail.vue' /* webpackChunkName: "pages_article_article-detail" */))
 const _fcc99bbc = () => interopDefault(import('..\\pages\\article\\article-list.vue' /* webpackChunkName: "pages_article_article-list" */))
+const _f8aa3836 = () => interopDefault(import('..\\pages\\article\\article-list.1.vue' /* webpackChunkName: "pages_article_article-list.1" */))
 const _1fee5ae2 = () => interopDefault(import('..\\pages\\pages\\celebrate-womensday-with-kadart-jewelry.vue' /* webpackChunkName: "pages_pages_celebrate-womensday-with-kadart-jewelry" */))
 const _c3d3c170 = () => interopDefault(import('..\\pages\\pages\\kad-art-jewelry-timeline.vue' /* webpackChunkName: "pages_pages_kad-art-jewelry-timeline" */))
 const _62659f4c = () => interopDefault(import('..\\pages\\pages\\white-valentines-day-jewelry-wishlist.vue' /* webpackChunkName: "pages_pages_white-valentines-day-jewelry-wishlist" */))
 const _c56ac72e = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
 const _5de19fa1 = () => interopDefault(import('..\\pages\\goods-detail.vue' /* webpackChunkName: "" */))
 const _7e63376e = () => interopDefault(import('..\\pages\\goods-list.vue' /* webpackChunkName: "" */))
+const _268dfef2 = () => interopDefault(import('..\\pages\\article\\article-list.vue' /* webpackChunkName: "" */))
+const _e42cf30c = () => interopDefault(import('..\\pages\\article\\article-detail.vue' /* webpackChunkName: "" */))
 
 // TODO: remove in Nuxt 3
 const emptyFn = () => {}
@@ -56,6 +60,10 @@ export const routerOptions = {
     component: _f25599f0,
     name: "kadart-jewelry-factory"
   }, {
+    path: "/kadart-jewelry-privacy-policy",
+    component: _4de12f09,
+    name: "kadart-jewelry-privacy-policy"
+  }, {
     path: "/kadart-jewelry-return-policy",
     component: _420dff6d,
     name: "kadart-jewelry-return-policy"
@@ -71,6 +79,10 @@ export const routerOptions = {
     path: "/article/article-list",
     component: _fcc99bbc,
     name: "article-article-list"
+  }, {
+    path: "/article/article-list.1",
+    component: _f8aa3836,
+    name: "article-article-list.1"
   }, {
     path: "/pages/celebrate-womensday-with-kadart-jewelry",
     component: _1fee5ae2,
@@ -102,6 +114,16 @@ export const routerOptions = {
     component: _7e63376e,
     alias: "/search/:p",
     name: "search"
+  }, {
+    path: "/article/article-list",
+    component: _268dfef2,
+    alias: "/:p",
+    name: "article-list"
+  }, {
+    path: "/article/article-detail",
+    component: _e42cf30c,
+    alias: "/:s/:p",
+    name: "article-detail"
   }],
 
   fallback: false

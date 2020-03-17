@@ -7,7 +7,7 @@
         <div>
           <div class="article-left-tit">News</div>
           <div class="article-left-box">
-            <div class="article-left-list" :class="active_idx == index ? 'active' : ''" v-for="(item, index) in articleTitle" :key="index" @click="chooseItem(index)" ref = 'list'>
+            <div class="article-left-list" :class="active_idx == index ? 'active' : 'sd'" v-for="(item, index) in articleTitle" :key="index" @click="chooseItem(index)" ref = 'list'>
               <i class="article-left-icon fl"></i>
               <span>{{item.title}}</span></div>
           </div>
@@ -15,7 +15,7 @@
       </div>
 
       <div class="article-right fr">
-        <div class="article-right-tit">{{articleTitle[active_idx].title}}</div>
+        <div class="article-right-tit">Express Method</div>
         <div class="article-right-box">
           <div class="article-right-list" v-for="(ite, index) in articleItem" @click="intoDetail(index)">
             <div class="img-box">
@@ -59,14 +59,11 @@ export default {
   data() {
     return{
       active_idx: 0,
-      articleTitle:[
-        {title: ''}
-      ],
+      articleTitle:[],
       articleItem: [],
       article_pid: 0,
       a: 0,
       b: 0,
-      detailUrl: ''
     }
   },
   mounted() {
@@ -97,11 +94,12 @@ export default {
               that.b = j;
               that.active_idx = k;
               that.article_pid = list.id;
+              console.log('thatA',that.a,that.b)
               flag = true;
               break;
             }else{
               // 跳转404
-              // console.log(222)
+              console.log(222)
             }
           }
 
@@ -117,8 +115,6 @@ export default {
 
       this.articleTitle = res.data.data.lists[this.a]['-'][this.b]['-'];
 
-      // console.log(this.articleTitle)
-
       this.getList()
       // console.log(this.articleTitle)
     }).catch(function(error) {
@@ -128,11 +124,12 @@ export default {
   },
   methods:{
     intoDetail(k){
-      // var that = this;
-      // localStorage.setItem('articleId', that.articleItem[k].id)
+      var that = this;
+      localStorage.setItem('articleId', that.articleItem[k].id)
       // location.pathname = '/article/article-detail';
-
-      location.pathname = this.articleItem[k].url;
+      var pathA = this.articleTitle[this.a];
+      console.log(pathA)
+      console.log(k)
     },
 
     chooseItem(k, n){
@@ -154,7 +151,6 @@ export default {
       }).then(res => {
         this.articleItem = res.data.data.data;
         // console.log(res)
-
         // console.log(this.articleItem)
       }).catch(function(error) {
         console.log(error);
@@ -165,12 +161,65 @@ export default {
 </script>
 
 <style scoped>
+  .article-right-tit {
+    width: 100%;
+    height: 74px;
+    line-height: 80px;
+    border-bottom: 1px solid #808080;
+    font-size: 30px;
+    color: #000;
+    font-weight: bold;
+    box-sizing: border-box;
+  }
+
+  .article-right-box {
+    margin: 10px 0 200px 0;
+    width: 100%;
+    padding: 0 40px;
+    box-sizing: border-box;
+  }
+
+  .article-right-list-title {
+    font-size: 24px;
+    color: #470e30;
+    font-weight: bold;
+    text-align: left;
+  }
+
   .article-right-list-text {
+    font-size: 14px;
+    line-height: 24px;
+    color: #666;
+    text-align: left;
+    word-break: break-all;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
     overflow: hidden;
   }
+
+  /* .article-detail {
+    width: 640px;
+    margin: 20px auto;
+    text-align: left;
+  } */
+
+  /* .article-img {
+    width: 100%;
+    height: 200px;
+  } */
+
+  /* .article-detail-tit {
+    font-size: 18px;
+    color: #470e30;
+    text-align: center;
+    margin-top: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: bold;
+    text-align: left;
+  } */
 
   .article-detail-box p {
     font-size: 14px;
@@ -184,9 +233,22 @@ export default {
     margin: 30px 0;
   }
 
+  .smtit {
+    color: #470e30;
+    font-weight: bold;
+  }
+
+  .mylivechat_buttonround{
+    width: 140px !important;
+  }
+  .mylivechat_buttonround img{
+    width: 30px !important;
+    height: 30px !important;
+  }
+
   .article-right .img-box{
-    width: 140px;
-    height: 140px;
+    width: 120px;
+    height: 120px;
     position: relative;
     overflow: hidden;
     flex-shrink: 0;
@@ -205,14 +267,16 @@ export default {
     align-items: center;
     padding: 30px 0;
   }
-
+  .article-right-list:not(:first-child) {
+    border-top: 1px solid #808080;
+  }
   .article-right-r{
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin-left: 20px;
-    height: 140px;
+    height: 120px;
     padding: 3px 0;
     box-sizing: border-box;
   }

@@ -143,7 +143,20 @@ module.exports = {
         component: 'pages/goods-list.vue',
         alias: '/search/:p'
       })
-
+      //文章列表
+      routes.push({
+        name: 'article-list',
+        path: '/article/article-list',
+        component: 'pages/article/article-list.vue',
+        alias: '/:p'
+      })
+      //文章详情
+      routes.push({
+        name: 'article-detail',
+        path: '/article/article-detail',
+        component: 'pages/article/article-detail.vue',
+        alias: '/:s/:p'
+      })
     }
   }
 }
