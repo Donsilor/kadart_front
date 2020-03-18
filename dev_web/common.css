@@ -186,7 +186,7 @@ table {
   height: 58px;
   margin: 0 auto;
   line-height: 60px;
-  border-bottom: 1px solid #c2c2c2;
+  border-bottom: 1px solid #808080;
   font-size: 18px;
   color: #333;
 }
@@ -223,13 +223,14 @@ table {
 
 .article-right {
   width: 70%;
+  padding: 10px 0 200px;
 }
 
 .article-right-tit {
   width: 100%;
   height: 74px;
   line-height: 80px;
-  border-bottom: 1px solid #c2c2c2;
+  border-bottom: 1px solid #808080;
   font-size: 30px;
   color: #000;
   font-weight: bold;
@@ -237,16 +238,13 @@ table {
 }
 
 .article-right-box {
-  margin: 10px 0 200px 0;
   width: 100%;
   padding: 0 40px;
   box-sizing: border-box;
-  text-align: center;
 }
 
 .article-right-list {
-  /* margin-bottom: 20px; */
-  padding-top: 30px;
+  padding: 30px 0 20px;
 }
 
 .article-right-list:not(:first-child) {
@@ -254,7 +252,7 @@ table {
 }
 
 .article-right-list-title {
-  font-size: 22px;
+  font-size: 24px;
   color: #470e30;
   font-weight: bold;
   text-align: left;
@@ -266,6 +264,7 @@ table {
   color: #666;
   margin-top: 20px;
   text-align: left;
+  word-break: break-all;
 }
 
 .article-detail {
@@ -301,12 +300,15 @@ table {
   text-align: left;
 }
 
-.article-right-box img {
-  max-width: 700px;
-  margin: 28px 0;
-}
-
 .smtit {
   color: #470e30;
   font-weight: bold;
+}
+
+.mylivechat_buttonround{
+  width: 140px !important;
+}
+.mylivechat_buttonround img{
+  width: 30px !important;
+  height: 30px !important;
 }
