@@ -107,7 +107,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   img {
   	width: 100%;
   	height: 100%;
@@ -147,4 +147,5 @@ export default {
   .article-right-list-text:first-child{
     margin-top: 0;
   }
+
 </style>

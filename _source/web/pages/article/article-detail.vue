@@ -155,6 +155,7 @@ export default {
         }
       }).then(res => {
         this.articleDetail = res.data.data;
+
         // console.log(this.articleDetail)
       }).catch(function(error) {
         console.log(error);
@@ -165,26 +166,22 @@ export default {
 </script>
 
 <style scoped>
-.article-right-box p{
-  border: 1px solid red;
-}
-
-  .article-detail-box img {
-    width: 640px;
-    margin: 20px auto;
-    /* text-align: left; */
-  }
-
-  .article-right-box p {
+  .article-right-box{
     font-size: 14px;
     line-height: 24px;
     color: #666;
-    margin-top: 20px;
     text-align: left;
     word-break: break-all;
   }
-  img{
-    width: 100px;
-    height: 100px !important;
+
+  .article-right-box >>> p{
+    margin-top: 10px;
   }
+
+  .article-detail-box >>> img {
+    max-width: 640px;
+    margin: 20px 0;
+  }
+
+
 </style>

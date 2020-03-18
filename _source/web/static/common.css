@@ -223,6 +223,7 @@ table {
 
 .article-right {
   width: 70%;
+  padding: 10px 0 200px;
 }
 
 .article-right-tit {
@@ -237,7 +238,6 @@ table {
 }
 
 .article-right-box {
-  margin: 10px 0 200px 0;
   width: 100%;
   padding: 0 40px;
   box-sizing: border-box;
@@ -312,4 +312,3 @@ table {
   width: 30px !important;
   height: 30px !important;
 }
-
