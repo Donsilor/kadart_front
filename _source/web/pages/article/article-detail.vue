@@ -9,7 +9,7 @@
           <div class="article-left-box">
             <div class="article-left-list" :class="active_idx == index ? 'active' : ''" v-for="(item, index) in articleItem" :key="index">
               <i class="article-left-icon fl"></i>
-              <a :href="item.url">{{item.title}}</a>
+              <a :href="'/'+item.url">{{item.title}}</a>
             </div>
           </div>
         </div>
@@ -78,9 +78,9 @@ export default {
       var flag = false;
 
       for(var i=0; i<articleList.length; i++){
-        for(var j=0; j<articleList[i]['-'].length; j++){
-          for(var k=0; k<articleList[i]['-'][j]['-'].length; k++){
-            var list = articleList[i]['-'][j]['-'][k];
+        for(var j=0; j<articleList[i].items.length; j++){
+          for(var k=0; k<articleList[i].items[j].items.length; k++){
+            var list = articleList[i].items[j].items[k];
             // console.log(list.title)
 
             if(list.title == this.detailUrl){

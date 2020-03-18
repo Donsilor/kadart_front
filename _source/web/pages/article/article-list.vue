@@ -87,10 +87,10 @@ export default {
       var flag = false;
 
       for(var i=0; i<articleList.length; i++){
-        for(var j=0; j<articleList[i]['-'].length; j++){
-          for(var k=0; k<articleList[i]['-'][j]['-'].length; k++){
-            var list = articleList[i]['-'][j]['-'][k];
-            // console.log(list.title)
+        for(var j=0; j<articleList[i].items.length; j++){
+          for(var k=0; k<articleList[i].items[j].items.length; k++){
+            var list = articleList[i].items[j].items[k];
+            // console.log(list)
 
             if(list.title == url){
               that.a = i;
@@ -115,7 +115,7 @@ export default {
         }
       }
 
-      this.articleTitle = res.data.data.lists[this.a]['-'][this.b]['-'];
+      this.articleTitle = res.data.data.lists[this.a].items[this.b].items;
 
       // console.log(this.articleTitle)
 
