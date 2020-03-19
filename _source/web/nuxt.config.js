@@ -148,14 +148,14 @@ module.exports = {
         name: 'article-list',
         path: '/article/article-list',
         component: 'pages/article/article-list.vue',
-        alias: '/:s/:p'
+        alias: '/news-:s/:p'
       })
       //文章详情
       routes.push({
         name: 'article-detail',
         path: '/article/article-detail',
         component: 'pages/article/article-detail.vue',
-        alias: '/:s/:t/:p'
+        alias: '/news-:s/:t/:p'
       })
     }
   }

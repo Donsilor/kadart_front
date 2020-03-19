@@ -122,12 +122,12 @@ export const routerOptions = {
   }, {
     path: "/article/article-list",
     component: _268dfef2,
-    alias: "/:s/:p",
+    alias: "/news-:s/:p",
     name: "article-list"
   }, {
     path: "/article/article-detail",
     component: _e42cf30c,
-    alias: "/:s/:t/:p",
+    alias: "/news-:s/:t/:p",
     name: "article-detail"
   }],
 
