@@ -189,6 +189,9 @@ table {
   border-bottom: 1px solid #808080;
   font-size: 18px;
   color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .article-left-box {
@@ -205,6 +208,12 @@ table {
   margin-bottom: 10px;
   cursor: pointer;
 }
+.article-left-list a,
+.article-left-list span{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 .article-left-list.active {
   color: #b64d52;
@@ -214,6 +223,7 @@ table {
 .article-left-icon {
   width: 12%;
   height: 20px;
+  flex-shrink: 0;
 }
 
 .article-left-list.active .article-left-icon {
