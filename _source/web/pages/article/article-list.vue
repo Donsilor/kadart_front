@@ -81,7 +81,7 @@
         params: {}
       }).then(res => {
         var result = {
-          url: route.path,
+          url: route.fullPath,
           id: route.query.id
         }
 
@@ -93,14 +93,11 @@
         // error(params)
       })
     },
-    created() {
+    mounted() {
+      document.documentElement.scrollTop = document.body.scrollTop = 0;
+
        var that = this;
-       var url_id;
-       if(this.result.id == undefined){
-         url_id = this.result.url.split('=')[1]
-       }else{
-         url_id = this.result.id
-       }
+       var url_id = location.href.split('=')[1];
 
       // 文章分类
       if('info' in this.result == true){
@@ -122,9 +119,9 @@
               that.active_idx = k;
               that.article_pid = list.id;
               that.title = articleList[i].items[j].items[k].title,
-                that.tittle = articleList[i].title;
+              that.tittle = articleList[i].title;
               that.description = articleList[i].items[j].items[k].sseConnect,
-                flag = true;
+              flag = true;
               break;
             } else {
               // 跳转404
@@ -144,9 +141,6 @@
 
       this.articleTitle = articleList[this.a].items[this.b].items;
       // console.log(this.articleTitle)
-    },
-    mounted() {
-      document.documentElement.scrollTop = document.body.scrollTop = 0;
 
       this.getList()
     },

@@ -84,17 +84,19 @@ export default {
       // error(params)
     })
   },
-  mounted(){
-   document.documentElement.scrollTop = document.body.scrollTop = 0;
+  created() {
+   var that = this;
    var url_id;
-   var path = location.href;
-   if(path.indexOf('?') != -1){
-     url_id = path.split('=')[1];
+   if(this.result.id == undefined){
+     url_id = this.result.url.split('=')[1]
    }else{
-     url_id = path.split('_')[1];
+     url_id = this.result.id
    }
 
    this.getDetail(url_id);
+  },
+  mounted(){
+    document.documentElement.scrollTop = document.body.scrollTop = 0;
   },
   methods:{
     // 文章详情
