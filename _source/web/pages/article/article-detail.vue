@@ -8,7 +8,7 @@
         <div class="article-left-box">
           <div class="article-left-list" :class="active_idx == index ? 'active' : ''" v-for="(item, index) in articleItem" :key="index">
             <i class="article-left-icon fl"></i>
-            <a :href="'/'+item.url">{{item.title}}</a>
+            <a :href="item.url">{{item.title}}</a>
           </div>
         </div>
       </div>

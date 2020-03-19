@@ -111,7 +111,7 @@
         for (var j = 0; j < articleList[i].items.length; j++) {
           for (var k = 0; k < articleList[i].items[j].items.length; k++) {
             var list = articleList[i].items[j].items[k];
-            // console.log(list)
+            console.log(list)
 
             if (list.id == url_id) {
               that.a = i;
@@ -148,9 +148,10 @@
       intoDetail(k) {
         // var that = this;
         // localStorage.setItem('articleId', that.articleItem[k].id)
-        // location.pathname = '/article/article-detail';
+        // location.href = '/article/article-detail';
 
-        location.pathname = this.articleItem[k].url;
+        // console.log(this.articleItem[k].url)
+        location.href = this.articleItem[k].url;
       },
 
       // chooseItem(k) {
@@ -159,7 +160,7 @@
         // this.getList();
 
         // var urlA = this.$refs.list[k].getElementsByTagName('span')[0].innerText.replace(' ', '-');
-        // location.pathname = '/' + urlA;
+        // location.href = '/' + urlA;
         // console.log(urlA)
       // },
 
