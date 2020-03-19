@@ -7,11 +7,10 @@
         <div>
           <div class="article-left-tit">{{tittle}}</div>
           <div class="article-left-box">
-            <a :href="item.url" class="article-left-list" :class="active_idx == index ? 'active' : ''" v-for="(item, index) in articleTitle"
-              :key="index">
+            <div class="article-left-list" :class="active_idx == index ? 'active' : ''" v-for="(item, index) in articleTitle"
+              :key="index" @click="chooseItem(index)" ref='list'>
               <i class="article-left-icon fl"></i>
-              <span>{{item.title}}</span>
-            </a>
+              <span>{{item.title}}</span></div>
           </div>
         </div>
       </div>
@@ -81,8 +80,7 @@
         params: {}
       }).then(res => {
         var result = {
-          url: route.path,
-          id: route.query.id
+          url: route.path
         }
 
         if(Object.prototype.toString.call(res.data.data) === "[object Object]"){
@@ -94,61 +92,116 @@
       })
     },
     created() {
-       var that = this;
-       var url_id;
-       if(this.result.id == undefined){
-         url_id = this.result.url.split('=')[1]
-       }else{
-         url_id = this.result.id
-       }
+      var url = this.result.url.slice(1).replace('-', ' ');
 
-      // 文章分类
-      if('info' in this.result == true){
-        var articleList = this.result.info;
-      }else{
-        return
-      }
-      var flag = false;
+      var that = this;
 
-      for (var i = 0; i < articleList.length; i++) {
-        for (var j = 0; j < articleList[i].items.length; j++) {
-          for (var k = 0; k < articleList[i].items[j].items.length; k++) {
-            var list = articleList[i].items[j].items[k];
-            // console.log(list)
+      console.log(this.result)
 
-            if (list.id == url_id) {
-              that.a = i;
-              that.b = j;
-              that.active_idx = k;
-              that.article_pid = list.id;
-              that.title = articleList[i].items[j].items[k].title,
-                that.tittle = articleList[i].title;
-              that.description = articleList[i].items[j].items[k].sseConnect,
-                flag = true;
-              break;
-            } else {
-              // 跳转404
-              // console.log(222)
-            }
-          }
+      // // 文章分类
+      // if(this.resule.info){
+      //   var articleList = this.resule.info;
+      //   // console.log(articleList)
+      // }else{
+      //   return
+      // }
+      // var flag = false;
+      // console.log(123)
 
-          if (flag) {
-            break;
-          }
-        }
+      // for (var i = 0; i < articleList.length; i++) {
+      //   for (var j = 0; j < articleList[i].items.length; j++) {
+      //     for (var k = 0; k < articleList[i].items[j].items.length; k++) {
+      //       var list = articleList[i].items[j].items[k];
+      //       // console.log(list)
 
-        if (flag) {
-          break;
-        }
-      }
+      //       if (list.title == url) {
+      //         that.a = i;
+      //         that.b = j;
+      //         that.active_idx = k;
+      //         that.article_pid = list.id;
+      //         that.title = articleList[i].items[j].items[k].title,
+      //           that.tittle = articleList[i].title;
+      //         that.description = articleList[i].items[j].items[k].sseConnect,
+      //           flag = true;
+      //         break;
+      //       } else {
+      //         // 跳转404
+      //         // console.log(222)
+      //       }
+      //     }
 
-      this.articleTitle = articleList[this.a].items[this.b].items;
+      //     if (flag) {
+      //       break;
+      //     }
+      //   }
+
+      //   if (flag) {
+      //     break;
+      //   }
+      // }
+
+      // this.articleTitle = articleList[this.a].items[this.b].items;
       // console.log(this.articleTitle)
+
     },
     mounted() {
       document.documentElement.scrollTop = document.body.scrollTop = 0;
 
-      this.getList()
+      //     var url = location.pathname.slice(1).replace('-', ' ');
+      //     // console.log(url)
+      //
+      //     var that = this;
+      //
+      //     // 文章分类
+      //     this.$axios.get('/article/article-cate/index', {
+      //       params: {}
+      //     }).then(res => {
+      // 			// that.tdk.title = '456';
+      //       // console.log(res)
+      //       var articleList = res.data.data.lists;
+      //       // console.log(articleList)
+      //       var flag = false;
+      //
+      //       for(var i=0; i<articleList.length; i++){
+      //         for(var j=0; j<articleList[i].items.length; j++){
+      //           for(var k=0; k<articleList[i].items[j].items.length; k++){
+      //             var list = articleList[i].items[j].items[k];
+      //             // console.log(list)
+      //
+      //             if(list.title == url){
+      //               that.a = i;
+      //               that.b = j;
+      //               that.active_idx = k;
+      //               that.article_pid = list.id;
+      //               flag = true;
+      //               break;
+      //             }else{
+      //               // 跳转404
+      //               // console.log(222)
+      //             }
+      //           }
+      //
+      //           if(flag){
+      //             break;
+      //           }
+      //         }
+      //
+      //         if(flag){
+      //           break;
+      //         }
+      //       }
+      //
+      //       this.articleTitle = res.data.data.lists[this.a].items[this.b].items;
+      //
+      //       // console.log(this.articleTitle)
+      //
+      //       // console.log(this.articleTitle)
+      //     }).catch(function(error) {
+      //       console.log(error);
+      //     });
+
+      // this.getList()
+
     },
     methods: {
       intoDetail(k) {
@@ -159,15 +212,15 @@
         location.pathname = this.articleItem[k].url;
       },
 
-      // chooseItem(k) {
+      chooseItem(k, n) {
         // this.active_idx = k;
         // this.article_pid = this.articleTitle[k].id;
         // this.getList();
 
-        // var urlA = this.$refs.list[k].getElementsByTagName('span')[0].innerText.replace(' ', '-');
-        // location.pathname = '/' + urlA;
+        var urlA = this.$refs.list[k].getElementsByTagName('span')[0].innerText.replace(' ', '-');
+        location.pathname = '/' + urlA;
         // console.log(urlA)
-      // },
+      },
 
       // 文章列表
       getList() {

@@ -13,6 +13,7 @@ const _420dff6d = () => interopDefault(import('..\\pages\\kadart-jewelry-return-
 const _0ae73aa2 = () => interopDefault(import('..\\pages\\kadart-jewelry-shipping-policy.vue' /* webpackChunkName: "pages_kadart-jewelry-shipping-policy" */))
 const _7305bd55 = () => interopDefault(import('..\\pages\\article\\article-detail.vue' /* webpackChunkName: "pages_article_article-detail" */))
 const _fcc99bbc = () => interopDefault(import('..\\pages\\article\\article-list.vue' /* webpackChunkName: "pages_article_article-list" */))
+const _7d574162 = () => interopDefault(import('..\\pages\\article\\article-list1111.vue' /* webpackChunkName: "pages_article_article-list1111" */))
 const _1fee5ae2 = () => interopDefault(import('..\\pages\\pages\\celebrate-womensday-with-kadart-jewelry.vue' /* webpackChunkName: "pages_pages_celebrate-womensday-with-kadart-jewelry" */))
 const _c3d3c170 = () => interopDefault(import('..\\pages\\pages\\kad-art-jewelry-timeline.vue' /* webpackChunkName: "pages_pages_kad-art-jewelry-timeline" */))
 const _0bdbac3e = () => interopDefault(import('..\\pages\\pages\\kad-art-silver-factory-is-open-to-accept-all-odm-oem-orders.vue' /* webpackChunkName: "pages_pages_kad-art-silver-factory-is-open-to-accept-all-odm-oem-orders" */))
@@ -80,6 +81,10 @@ export const routerOptions = {
     component: _fcc99bbc,
     name: "article-article-list"
   }, {
+    path: "/article/article-list1111",
+    component: _7d574162,
+    name: "article-article-list1111"
+  }, {
     path: "/pages/celebrate-womensday-with-kadart-jewelry",
     component: _1fee5ae2,
     name: "pages-celebrate-womensday-with-kadart-jewelry"
@@ -117,12 +122,12 @@ export const routerOptions = {
   }, {
     path: "/article/article-list",
     component: _268dfef2,
-    alias: "/:p",
+    alias: "/:s/:p",
     name: "article-list"
   }, {
     path: "/article/article-detail",
     component: _e42cf30c,
-    alias: "/:s/:p",
+    alias: "/:s/:t/:p",
     name: "article-detail"
   }],
 

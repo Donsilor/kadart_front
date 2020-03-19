@@ -264,7 +264,6 @@
     },
     methods: {
       sendMsg() {
-        console.log(123)
         Bus.$emit('send', true)
       },
       chooseImg(k) {

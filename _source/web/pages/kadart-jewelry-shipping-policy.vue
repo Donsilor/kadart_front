@@ -12,7 +12,7 @@
               <a href="/kadart-jewelry-return-policy">Return Policy</a>
             </div>
             <div class="article-left-list">
-              <a href="/kadart-jewelry-privacy-policy">privacy Policy</a>
+              <a href="/kadart-jewelry-privacy-policy">Privacy Policy</a>
             </div>
           </div>
         </div>
