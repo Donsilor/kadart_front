@@ -57,7 +57,7 @@
         meta: [{
           hid: 'description',
           name: 'description',
-          content: this.description
+          content: ''
         }]
       }
     },
@@ -76,7 +76,6 @@
         b: 0,
         detailUrl: '',
         title: '',
-        description: '',
         tittle: '',
         currentPage1: 1,
         page_count: 0,
@@ -109,7 +108,7 @@
         }else{
           url_id = path.slice(path.lastIndexOf('/')+1);
         }
-        
+
 
         // 文章分类
         var articleList = this.result;
@@ -127,8 +126,7 @@
                 that.active_idx = k;
                 that.article_pid = list.id;
                 that.title = articleList[i].items[j].items[k].title,
-                that.tittle = articleList[i].title;
-                that.description = articleList[i].items[j].items[k].sseConnect,
+                that.tittle = articleList[i].items[j].title;
                 flag = true;
                 break;
               } else {
@@ -186,7 +184,7 @@
           this.total_count = res.data.data.total_count;
           this.page_count = res.data.data.page_count;
 
-          // console.log(this.articleItem)
+          console.log(this.articleItem)
         }).catch(function(error) {
           console.log(error);
         });
@@ -272,7 +270,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 50px;
+    margin-top: 120px;
   }
   .totle{
     margin-right: 24px;
