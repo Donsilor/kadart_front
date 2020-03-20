@@ -80,7 +80,6 @@
       return $axios.get('/article/article-cate/index', {
         params: {}
       }).then(res => {
-        console.log(route)
         var result = {
           url: route.fullPath,
           id: route.query.id
@@ -99,11 +98,11 @@
        var url_id;
 
        if(this.result.id == undefined){
-         console.log(311)
-         console.log(8,this.result.url)
+         // console.log(311)
+         // console.log(8,this.result.url)
          url_id = this.result.url.split('=')[1]
        }else{
-         console.log(322)
+         // console.log(322)
          url_id = this.result.id
        }
 

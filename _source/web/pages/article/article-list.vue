@@ -29,6 +29,18 @@
             </div>
           </div>
         </div>
+
+        <div class="pages" v-if="page_count > 1">
+          <div class="totle" v-if="total_count != 0"><span>total</span>{{total_count}}</div>
+          <el-pagination
+            :total="page_count"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page.sync="currentPage1"
+            :page-size="1"
+            layout="prev, pager, next, jumper">
+          </el-pagination>
+        </div>
       </div>
 
     </div>
@@ -54,9 +66,6 @@
     },
     data() {
       return {
-        tdk: {
-          title: ''
-        },
         active_idx: 0,
         articleTitle: [{
           title: ''
@@ -69,7 +78,9 @@
         title: '',
         description: '',
         tittle: '',
-
+        currentPage1: 1,
+        page_count: 0,
+        total_count: 0
       }
     },
     asyncData({
@@ -96,36 +107,53 @@
     mounted() {
       document.documentElement.scrollTop = document.body.scrollTop = 0;
 
-       var that = this;
-       var url_id = location.href.split('=')[1];
+      this.gitClassify()
 
-      // 文章分类
-      if('info' in this.result == true){
-        var articleList = this.result.info;
-      }else{
-        return
-      }
-      var flag = false;
+      this.getList()
+    },
+    methods: {
+      gitClassify(){
+        var that = this;
+        
+        var url_id,path = location.href;
+        if(path.indexOf('?') != -1){
+          url_id = path.split('=')[1];
+        }else{
+          url_id = path.slice(path.lastIndexOf('/')+1);
+        }
 
-      for (var i = 0; i < articleList.length; i++) {
-        for (var j = 0; j < articleList[i].items.length; j++) {
-          for (var k = 0; k < articleList[i].items[j].items.length; k++) {
-            var list = articleList[i].items[j].items[k];
-            console.log(list)
+        // 文章分类
+        if('info' in this.result == true){
+          var articleList = this.result.info;
+        }else{
+          return
+        }
+        var flag = false;
 
-            if (list.id == url_id) {
-              that.a = i;
-              that.b = j;
-              that.active_idx = k;
-              that.article_pid = list.id;
-              that.title = articleList[i].items[j].items[k].title,
-              that.tittle = articleList[i].title;
-              that.description = articleList[i].items[j].items[k].sseConnect,
-              flag = true;
+        for (var i = 0; i < articleList.length; i++) {
+          for (var j = 0; j < articleList[i].items.length; j++) {
+            for (var k = 0; k < articleList[i].items[j].items.length; k++) {
+              var list = articleList[i].items[j].items[k];
+              // console.log(list)
+
+              if (list.id == url_id) {
+                that.a = i;
+                that.b = j;
+                that.active_idx = k;
+                that.article_pid = list.id;
+                that.title = articleList[i].items[j].items[k].title,
+                that.tittle = articleList[i].title;
+                that.description = articleList[i].items[j].items[k].sseConnect,
+                flag = true;
+                break;
+              } else {
+                // 跳转404
+                // console.log(222)
+              }
+            }
+
+            if (flag) {
               break;
-            } else {
-              // 跳转404
-              // console.log(222)
             }
           }
 
@@ -134,17 +162,8 @@
           }
         }
 
-        if (flag) {
-          break;
-        }
-      }
-
-      this.articleTitle = articleList[this.a].items[this.b].items;
-      // console.log(this.articleTitle)
-
-      this.getList()
-    },
-    methods: {
+        this.articleTitle = articleList[this.a].items[this.b].items;
+      },
       intoDetail(k) {
         // var that = this;
         // localStorage.setItem('articleId', that.articleItem[k].id)
@@ -165,20 +184,35 @@
       // },
 
       // 文章列表
-      getList() {
+      getList(k) {
         var that = this;
+        var i = 1;
+        if(k){
+          i = k;
+        }
         this.$axios.get('/article/article/search', {
           params: {
-            'pid': that.article_pid
+            'pid': that.article_pid,
+            'page_size': 5,
+            'page': i
           }
         }).then(res => {
           this.articleItem = res.data.data.data;
-          // console.log(res)
+          this.total_count = res.data.data.total_count;
+          this.page_count = res.data.data.page_count;
 
           // console.log(this.articleItem)
         }).catch(function(error) {
           console.log(error);
         });
+      },
+      handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+      },
+      handleCurrentChange(val) {
+        console.log(`当前页: ${val}`);
+
+        this.getList(val)
       }
     }
   }
@@ -247,5 +281,20 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  .pages{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+  }
+  .totle{
+    margin-right: 24px;
+    font-weight: 400;
+    color: #606266;
+  }
+  .totle span{
+    margin-right: 14px;
   }
 </style>

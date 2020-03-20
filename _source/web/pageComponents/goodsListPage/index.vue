@@ -438,6 +438,7 @@
     },
     methods: {
       acquireData(k_id, k_filter, k_page, k_type_id, K_attr_id, k_attr_value, k_price_range, k_page_size) {
+        k_id = unescape(k_id);
         var _self = this;
         _self.$axios.post('/goods/style/search', {
           keyword: k_id,
