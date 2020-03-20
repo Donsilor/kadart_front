@@ -25,11 +25,9 @@ export default {
     data() {
       return {
         articleDetail: {},
+        title: '',
         description: '',
         pid: '',
-        title: '',
-        active_idx: 0,
-        articleItem: [],
         result: ''
       }
     },
