@@ -5,7 +5,7 @@
 
     <div class="components-box clf">
       <!-- 左侧选择区 -->
-      <div class="commodity-left fl" v-if="1">
+      <div class="commodity-left fl" v-if="0">
         <div class="refinements">Refinements</div>
         <div class="classify-box" v-bind:class="{'pack-up': ifOpenA}">
           <div class="tit clf">
@@ -337,12 +337,11 @@
 
       if (this.keyword != undefined) {
         this.loading = true;
-
-        this.nav_text = this.keyword;
+        this.nav_text = unescape(this.keyword);
       } else {
         var nav_t = localStorage.getItem('nav_text');
         if (nav_t) {
-          this.nav_text = nav_t
+          this.nav_text = unescape(nav_t);
         }
       }
 
@@ -392,7 +391,7 @@
 
         if(urlData.indexOf('search') != -1){
           this.keyword = urlData.slice(num + 1)
-          this.nav_text = urlData.slice(num + 1)
+          this.nav_text = unescape(urlData.slice(num + 1))
         }else{
           urlData = urlData.slice(num + 1);
 
@@ -831,7 +830,7 @@
   .search-scope .ipt:last-of-type {
     border-radius: 4px 0 0 4px;
   }
-  
+
   .search-scope i{
     margin: 0 10px;
   }
@@ -857,8 +856,9 @@
   }
 
   .commodity-right {
-    width: calc(100% - 350px);
-    margin-left: 20px;
+    /* width: calc(100% - 350px); */
+    /* margin-left: 20px; */
+    width: 100%;
   }
 
   .filtrate {
