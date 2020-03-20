@@ -19,8 +19,8 @@
 </template>
 
 <script>
-	import Bus from '../../components/Bus.js'
-	
+  import Bus from '../../components/Bus.js'
+
   export default {
     name: 'blog-header',
     data() {
@@ -33,24 +33,24 @@
         left: 0, //marks左移位置
         top: 0, //marks下移位置
         leftLgImg: 0, //大图lgImg移动的位置
-        topLgImg: 0 ,//大图lgImg移动的位置
+        topLgImg: 0, //大图lgImg移动的位置
         widthA: 0,
         heightA: 0,
-				ratio: 0
+        ratio: 0
       }
 
     },
     methods: {
       // 获取图片宽高
-      getAttr(){
+      getAttr() {
         this.widthA = this.$refs.mdImg.offsetWidth;
         this.heightA = this.$refs.mdImg.offsetHeight;
-				
-				this.ratio = (1520/this.widthA).toFixed(3);			
-				
-				if(this.widthA > 500){
-					this.widthA = 500
-				}
+
+        this.ratio = (1520 / this.widthA).toFixed(3);
+
+        if (this.widthA > 500) {
+          this.widthA = 500
+        }
       },
       //鼠标进入和离开
       enter() {
@@ -79,10 +79,10 @@
           }
 
           //大d图片除以小的图片的宽高
-          this.leftLgImg = -this.left*this.ratio+100;
+          this.leftLgImg = -this.left * this.ratio + 100;
           // this.leftLgImg = -200;
           // this.topLgImg = -200;
-          this.topLgImg = -this.top*2+200;
+          this.topLgImg = -this.top * 2 + 200;
         } else {
           //移动端
           this.left = e.changedTouches[0].clientX - marksWidth / 2;
@@ -103,12 +103,9 @@
           this.leftLgImg = -this.left * 320 / 160;
           this.topLgImg = -this.top * 181 / 91;
 
-
         }
-
-
       },
-      sub(){}
+      sub() {}
     },
     mounted() {
       if (navigator.userAgent.match(
@@ -117,21 +114,20 @@
         this.isPC = false;
 
       } else {
-        console.log('PC端')
-
+        // console.log('PC端')
       }
 
       this.getAttr();
-			
-			var that = this;
-			Bus.$on('scrollFn', function(val) {
-			  that.getAttr();
-			})
+
+      var that = this;
+      Bus.$on('scrollFn', function(val) {
+        that.getAttr();
+      })
 
     },
-    props:['msg'],
-    watch:{
-      msg(val){
+    props: ['msg'],
+    watch: {
+      msg(val) {
         this.qall = this.msg;
         this.qallBig = this.msg;
       }
@@ -140,55 +136,58 @@
 </script>
 
 <style scoped>
-      .productLeft{
-        width:100%;
-        height: 100%;
-        position: relative;
-      }
-      /* 左侧中图 */
-      .mdImg{
-          width:100%;
-          height:560px;
-          position: relative;
-          overflow: hidden;
-      }
-      /*遮罩层superMarks */
-      .superMarks{
-          width:100%;
-          height:100%;
-          background-color:rgba(220, 220, 220, 0);
-          position:absolute;
-          top:0px;
-          left:0px;
-      }
-      /* 遮罩层 */
-      .marks{
-          width:100px;
-          height:100px;
-          position:absolute;
-          background-color:rgba(220, 220, 220, 0.5);
-          /*top:0px;  //内联设置了动态的top，left
-          left:0px;*/
-      }
+  .productLeft {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
 
-      /* 左侧隐藏大图 */
-      .lgImg{
-          max-width:560px;
-          height: 560px;
-          overflow: hidden;
-          position:absolute;
-          top:0;
-          left:100%;
-          margin-left: 20px;
-          border:1px solid #A096B4;
-          background-color:#fff;
-          box-sizing: border-box;
-      }
-      .lgImg img{
-          width:1520px;
-          height:1120px;
-          position:absolute;
-          /*top:100px;
-          left:100px;*/
-      }
+  /* 左侧中图 */
+  .mdImg {
+    width: 100%;
+    height: 560px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /*遮罩层superMarks */
+  .superMarks {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(220, 220, 220, 0);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  }
+
+  /* 遮罩层 */
+  .marks {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    background-color: rgba(220, 220, 220, 0.5);
+    /*top:0px;  //内联设置了动态的top，left
+          left:0px;*/
+  }
+
+  /* 左侧隐藏大图 */
+  .lgImg {
+    max-width: 560px;
+    height: 560px;
+    overflow: hidden;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 100%;
+    margin-left: 20px;
+    border: 1px solid #A096B4;
+    background-color: #fff;
+    box-sizing: border-box;
+  }
+
+  .lgImg img {
+    width: 1520px;
+    height: 1120px;
+    position: absolute;
+  }
 </style>

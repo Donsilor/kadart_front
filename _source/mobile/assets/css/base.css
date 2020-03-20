@@ -1,0 +1,187 @@
+
+/* reset */
+
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+input,
+button,
+textarea,
+p,
+th,
+td {
+	margin: 0;
+	padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+	background: #fff;
+	color: #555;
+	font-size: 14px;
+	font-family: "NotoSans","Microsoft YaHei","NotoSansBold","Gadugi","ArialMT","ArialMTBold";
+}
+
+td,
+th,
+caption {
+	font-size: 14px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: normal;
+	font-size: 100%;
+}
+
+em,
+strong,
+i {
+	font-style: normal;
+	font-weight: normal;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+#companyForm a{
+	display: inline;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+	border: none;
+	vertical-align: middle;
+}
+
+ol,
+ul,
+li {
+	list-style: none;
+}
+
+input,
+textarea,
+option,
+section {
+	border: 0;
+	outline: none;
+}
+input::placeholder,
+textarea::placeholder{
+	color: #999;
+}
+button {
+	cursor: pointer;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0
+}
+
+.fl{
+  float: left;
+}
+
+.fr{
+  float: right;
+}
+
+.clf:before,
+.clf:after {
+	content: " ";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.clf {
+	*zoom: 1;
+}
+
+html, body{
+  width: 100%;
+  max-width: 500px;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  margin: 0 auto;
+  font-size: 10px;
+}
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
+.flex-splice{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@font-face {
+  font-family: DFPYaSong;
+  src: url('../font/DFPYaSong.TTf');
+}
+
+@font-face {
+  font-family: STKAITI;
+  src: url('../font/STKAITI.TTF');
+}
+
+@font-face {
+  font-family: FZFYSJW;
+  src: url('../font/FZFYSJW.TTF');
+}
+
+.no-stretch {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	max-width: 100%;
+	min-height: 100%;
+  width: auto !important;
+  height: auto !important;
+}
+
+.mylivechat_buttonround{
+  top: 12px !important;
+  width: 148px !important;
+}
+
+.mylivechat_inline.mylivechat_template1{
+  top: inherit !important;
+  bottom: 50px;
+}

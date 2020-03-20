@@ -221,8 +221,6 @@
       }
     },
     mounted() {
-      console.log(this.$store.state.winWid)
-
       var goodsDetailId = this.$route.query.id;
 
       if(goodsDetailId == undefined){
@@ -263,8 +261,6 @@
       }).catch(function(error) {
         console.log(error);
       });
-
-
     },
     methods: {
       sendMsg() {
@@ -445,7 +441,7 @@
 		position: absolute;
 		right: 0;
 		top: 0;
-		z-index: -2;
+		z-index: 0;
   }
 
   .commodity-right .price {

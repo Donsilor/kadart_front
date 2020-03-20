@@ -5,7 +5,7 @@
 
     <div class="components-box clf">
       <!-- 左侧选择区 -->
-      <div class="commodity-left" v-if="0">
+      <div class="commodity-left fl" v-if="0">
         <div class="refinements">Refinements</div>
         <div class="classify-box" v-bind:class="{'pack-up': ifOpenA}">
           <div class="tit clf">
@@ -52,7 +52,8 @@
             <div class="child-c" :class="index_c == index ? 'active' : ''" v-for="(item, index) in priceList" @click="clickC(index)">{{item.list}}</div>
 
             <div class="search-scope">
-              <span class="color">$</span><input type="text" class="ipt" placeholder="low"> -
+              <span class="color">$</span><input type="text" class="ipt" placeholder="low">
+              <i>-</i>
               <span class="color">$</span><input type="text" class="ipt" placeholder="high">
               <div class="search-btn">GO</div>
             </div>
@@ -84,7 +85,9 @@
       <div class="commodity-right fl" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0)">
         <div class="filtrate clf">
-          <div class="filtrate-text fl"><span class="bold">{{totalNum}} Items found for </span>{{nav_text}}</div>
+          <div class="filtrate-text fl">
+            <span class="bold">{{totalNum}} Items found for </span>{{nav_text}}
+          </div>
 
           <div class="filtrate-condition fr clf">
             <div class="filtrate-child fl" :class="[filter_index == 0 || filter_index == 1 ? 'active' : '']" @click="sort(1)">
@@ -178,7 +181,6 @@
   export default {
     data() {
       return {
-        aaa: 'sf',
         loading: false,
         // fullscreenLoading: true,
         currentPage1: 1,
@@ -264,28 +266,34 @@
         index_r: 0, // 筛选第几个
         commodityItem: [],
         priceList: [{
-            'list': 'Under $50 (1)'
+            'list': 'Under $50 (3)'
           },
           {
-            'list': 'Under $50 (1)'
+            'list': '$50 - $100 (135)'
           },
           {
-            'list': 'Under $50 (1)'
+            'list': '$100 - $250 (13)'
           },
           {
-            'list': 'Under $50 (1)'
+            'list': '$250 - $500 (13)'
           },
           {
-            'list': 'Under $50 (1)'
+            'list': '$500 - $750 (486)'
           },
           {
-            'list': 'Under $50 (1)'
+            'list': '$750 - $1000 (84)'
           },
           {
-            'list': 'Under $50 (1)'
+            'list': '$1000 - $2000 (8)'
           },
           {
-            'list': 'Under $50 (1)'
+            'list': '$2000 - $3000 (513)'
+          },
+          {
+            'list': '$3000 - $4000 (456)'
+          },
+          {
+            'list': '$4000 - $5000 (221)'
           }
         ],
         keyword: '',
@@ -329,12 +337,11 @@
 
       if (this.keyword != undefined) {
         this.loading = true;
-
-        this.nav_text = this.keyword;
+        this.nav_text = unescape(this.keyword);
       } else {
         var nav_t = localStorage.getItem('nav_text');
         if (nav_t) {
-          this.nav_text = nav_t
+          this.nav_text = unescape(nav_t);
         }
       }
 
@@ -384,7 +391,7 @@
 
         if(urlData.indexOf('search') != -1){
           this.keyword = urlData.slice(num + 1)
-          this.nav_text = urlData.slice(num + 1)
+          this.nav_text = unescape(urlData.slice(num + 1))
         }else{
           urlData = urlData.slice(num + 1);
 
@@ -431,6 +438,9 @@
     },
     methods: {
       acquireData(k_id, k_filter, k_page, k_type_id, K_attr_id, k_attr_value, k_price_range, k_page_size) {
+        if(k_id != undefined){
+          k_id = unescape(k_id);
+        }
         var _self = this;
         _self.$axios.post('/goods/style/search', {
           keyword: k_id,
@@ -480,6 +490,50 @@
           this.searchId = ''
         } else {
           this.searchId = key_word;
+        }
+
+        var urlData = location.search;
+
+        if (urlData.indexOf('?') == -1) {
+          urlData = location.pathname;
+          var num = urlData.lastIndexOf('/');
+
+          if(urlData.indexOf('search') != -1){
+            this.searchId = urlData.slice(num + 1)
+            this.nav_text = urlData.slice(num + 1)
+          }else{
+            urlData = urlData.slice(num + 1);
+
+            var urlArr = urlData.split(/&/);
+
+            for (var i = 0; i < urlArr.length; i++) {
+              var arrVal = urlArr[i].split(/=/);
+
+              if (arrVal[0] == 'type_id') {
+                this.typeId = arrVal[1]
+              } else if (arrVal[0] == 'attr_id') {
+                this.attrId = arrVal[1]
+              } else if (arrVal[0] == 'attr_value') {
+                this.attrValue = arrVal[1]
+              } else if (arrVal[0] == 'price_range') {
+                this.priceRange = arrVal[1]
+              }
+            }
+          }
+        } else {
+          var urlArr = urlData.split(/[?=&]/);
+          urlArr.shift();
+          for (var i = 0; i < urlArr.length; i += 2) {
+            if (urlArr[i] == 'type_id') {
+              this.typeId = urlArr[i + 1]
+            } else if (urlArr[i] == 'attr_id') {
+              this.attrId = urlArr[i + 1]
+            } else if (urlArr[i] == 'attr_value') {
+              this.attrValue = urlArr[i + 1]
+            } else if (urlArr[i] == 'price_range') {
+              this.priceRange = urlArr[i + 1]
+            }
+          }
         }
       },
 
@@ -755,6 +809,8 @@
   .search-scope {
     height: 32px;
     margin: 10px 0;
+    display: flex;
+    align-items: center;
   }
 
   .search-scope .color {
@@ -762,7 +818,7 @@
   }
 
   .search-scope .ipt {
-    width: 98px;
+    width: 90px;
     height: 32px;
     border: 1px solid #480f33;
     border-radius: 4px;
@@ -775,8 +831,11 @@
     border-radius: 4px 0 0 4px;
   }
 
+  .search-scope i{
+    margin: 0 10px;
+  }
+
   .search-scope .search-btn {
-    display: inline-block;
     width: 42px;
     height: 32px;
     border: 3px solid #480f33;
@@ -784,9 +843,9 @@
     text-align: center;
     line-height: 28px;
     color: #808080;
-    vertical-align: top;
     border-radius: 0 4px 4px 0;
     cursor: pointer;
+    box-sizing: border-box;
   }
 
   .more {
@@ -797,6 +856,8 @@
   }
 
   .commodity-right {
+    /* width: calc(100% - 350px); */
+    /* margin-left: 20px; */
     width: 100%;
   }
 

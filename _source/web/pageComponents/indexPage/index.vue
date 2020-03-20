@@ -80,13 +80,15 @@
 
       <div class="classify clf">
         <div class="classify-left fl">
-          <a href="/article" target="_blank">
+          <a href="/about-kadart" target="_blank">
             <img src="../../static/index/home-16.jpg" alt="">
           </a>
         </div>
         <div class="classify-right fr">
-          <div class="classif-list" @click="toArticle(3)">
+          <div class="classif-list">
+            <a href="/kadart-jewelry-factory" target="_blank">
               <img src="../../static/index/home-14.jpg" alt="">
+            </a>
           </div>
           <div class="classif-list">
             <a href="https://www.kadart.com/category/EARRINGS/type_id=6" target="_blank">
@@ -102,7 +104,7 @@
             <div class="cover-but" @click="onPlay()"></div>
             <img src="../../static/index/video.jpg" alt="">
           </div>
-          <video width="100%" height="100%" controls="controls" :autoplay="false" @ended="endedEd()">
+          <video width="100%" height="100%" controls="controls" :autoplay="false" ref="video" @ended="endedEd()">
             <source src="https://cloud.video.taobao.com//play/u/2200750399716/p/1/e/6/t/1/248174688205.mp4" type="video/mp4">
             <source src="https://cloud.video.taobao.com//play/u/2200750399716/p/1/e/1/t/1/248174688205.swf" type="audio/mp4">
           </video>
@@ -112,14 +114,14 @@
       <h3 class="tit">PRODUCT CATEGORIES</h3>
       <h4 class="subheading">
         <!-- <span>PRODUCT CATEGORIES</span> -->
-      </h4 ref="series">
+      </h4>
 
-      <div class="series">
-        <el-carousel indicator-position="" :autoplay='auto' class="swiper" style="height: 60px;" :style="{'height': bannerHeightC+'px'}">
-          <el-carousel-item v-for="item in 4" :key="item" class="swiper-item" :style="{'height': bannerHeightC+'px'}">
-            <div class="swiper-item-box" :style="{'height': bannerHeightC+'px'}">
+      <div class="series" ref="series" :style="{'height': seriesHeight+'px'}">
+        <el-carousel indicator-position="" :autoplay='auto' class="swiper" :style="{'height': seriesHeight+'px !important'}">
+          <el-carousel-item class="swiper-item" :style="{'height': seriesHeight+'px'}">
+            <div class="swiper-item-box" :style="{'height': seriesHeight+'px'}">
               <a :href="sixUrl[index]" v-for="(item,index) in classifyImg" target="_blank">
-                <img :src="item.adv_image" ref="series" alt="" class="swiper-img">
+                <img :src="item.adv_image" alt="" class="swiper-img">
               </a>
             </div>
           </el-carousel-item>
@@ -137,6 +139,8 @@
 </template>
 
 <script>
+  import Bus from '../../components/Bus.js'
+
   export default {
     data() {
       return {
@@ -196,7 +200,9 @@
         imgUrl:'',
         bannerHeightA: '',
         bannerHeightB: '',
-        bannerHeightC: ''
+        bannerHeightC: '',
+        imgUrl: '',
+        seriesHeight: 320
       }
     },
     created() {
@@ -224,18 +230,6 @@
         console.log(error);
       });
 
-      // 分类小图，6张
-      this.$axios.get('/common/advert-images', {
-        params: {
-          'acdv_id': 13,
-        }
-      }).then(res => {
-        this.classifyImg = res.data.data;
-        // this.getHeight(this.classifyImg)
-      }).catch(function(error) {
-        console.log(error);
-      });
-
       // 底部新品预告图
       this.$axios.get('/common/advert-images', {
         params: {
@@ -248,18 +242,41 @@
       });
     },
     mounted(){
-      // const _this = this
-      // _this.$nextTick(() => {
-      //   window.onresize = function(){
-         // _this.onresizeHei();
-      //   }
-      // })
+      // 分类小图，6张
+      this.$axios.get('/common/advert-images', {
+        params: {
+          'acdv_id': 13,
+        }
+      }).then(res => {
+         var that = this;
+         that.classifyImg = res.data.data;
 
-      console.log(1111)
-      console.log(this.$refs)
+         that.imgUrl = that.classifyImg[0].adv_image;
+
+         that.getSeriesHeight()
+
+      }).catch(function(error) {
+        console.log(error);
+      });
+
+      var that = this;
+      Bus.$on('scrollFn', function(val){
+      	that.getSeriesHeight()
+      })
 
     },
     methods: {
+      getSeriesHeight(){
+       // 获取图片高度
+       var that = this
+       var image = new Image();
+       image.src = that.imgUrl;
+       image.onload = function(){
+         var seriesWidth = that.$refs.series.clientWidth;
+         that.seriesHeight = ((image.height/image.width)*(seriesWidth/6*0.98)).toFixed(2);
+       }
+      },
+
       // onresizeHei(){
       //   var that = this;
       //   this.getHeight(that.bannersTwo, that.bannerHeightB);
@@ -423,8 +440,7 @@
   }
 
   .series .el-carousel__container {
-    /* height: 320px; */
-    /* height: auto; */
+    height: 100%;
   }
 
   .series .swiper {

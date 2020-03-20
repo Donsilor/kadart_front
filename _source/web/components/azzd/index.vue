@@ -59,7 +59,7 @@
             }
           }
         },
-        bannerHeightA:''
+        bannerHeightA: ''
       }
     },
     mounted(){
