@@ -1,6 +1,6 @@
 <template>
   <div class="menu">
-    <div v-swiper:myzSwiper="swiperOptionN" class="swiper-box">
+    <div v-if="banners.length != 0" v-swiper:myzSwiper="swiperOptionN" class="swiper-box">
       <div class="swiper-wrapper">
         <div class="swiper-slide" v-for="banner in banners">
           <a :href="banner.adv_url">
@@ -49,20 +49,27 @@
       }
     },
     mounted(){
-      // // 顶部轮播图
-      this.$axios.get('/common/advert-images', {
-        params: {
-          'acdv_id': 18,
-        }
-      }).then(res => {
-        this.banners = res.data.data;
-        if(this.banners.length == 1){
-          this.swiperOptionN.autoplay = false;
-        }
-        // this.getHeight(this.banners)
-      }).catch(function(error) {
-        console.log(error);
-      });
+      var artcleImg = JSON.parse(sessionStorage.getItem('artcleImg'));
+      if(artcleImg){
+        this.banners = artcleImg;
+      }else{
+        // 顶部轮播图
+        this.$axios.get('/common/advert-images', {
+          params: {
+            'acdv_id': 18,
+          }
+        }).then(res => {
+          this.banners = res.data.data;
+          sessionStorage.setItem('artcleImg', JSON.stringify(this.banners));
+
+          if(this.banners.length == 1){
+            this.swiperOptionN.autoplay = false;
+          }
+          // this.getHeight(this.banners)
+        }).catch(function(error) {
+          console.log(error);
+        });
+      }
     }
   }
 </script>

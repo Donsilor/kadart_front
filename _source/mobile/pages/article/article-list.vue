@@ -1,0 +1,277 @@
+<template>
+  <div class="container">
+    <artcleSlideShow></artcleSlideShow>
+
+    <div class="nav-box">
+      <div class="scroll">
+        <a :href="item.url" class="list" :class="active_idx == index ? 'active' : ''" v-for="(item, index) in articleTitle"
+          :key="index">
+          {{item.title}}
+        </a>
+      </div>
+    </div>
+
+    <div class="article-wrap">
+      <div class="article-right-box">
+        <div class="article-right-list" v-for="(ite, index) in articleItem" @click="intoDetail(index)">
+          <div class="article-right-r">
+            <div class="article-right-list-title">{{ite.title}}</div>
+            <div class="article-right-list-text">{{ite.seo_content}}</div>
+          </div>
+          <div class="img-box">
+            <img :src="ite.img" alt="">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="more" v-if="ifShowLoad" @click="loadMore">
+      <span>Load More</span>
+      <i class="more-icon" v-if="ifLoad"></i>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    head() {
+      return {
+        title: this.title,
+        meta: [{
+          hid: 'description',
+          name: 'description',
+          content: ''
+        }]
+      }
+    },
+    data() {
+      return {
+        tdk: {
+          title: ''
+        },
+        active_idx: 0,
+        articleTitle: [{
+          title: ''
+        }],
+        articleItem: [],
+        article_pid: 0,
+        a: 0,
+        b: 0,
+        detailUrl: '',
+        title: '',
+        tittle: '',
+        ifShowLoad: false,
+        ifLoad: false,
+        page_size: 5,
+        total_count: 0,
+        result: ''
+      }
+    },
+    mounted() {
+      document.documentElement.scrollTop = document.body.scrollTop = 0;
+
+      var that = this;
+
+      this.$axios.get('/article/article-cate/index', {
+        params: {}
+      }).then(res => {
+        this.result = res.data.data.lists;
+
+        this.getClassify();
+        this.getList()
+      }).catch(function(error) {
+        console.log(error);
+      });
+
+    },
+    methods: {
+      intoDetail(k) {
+        // var that = this;
+        // localStorage.setItem('articleId', that.articleItem[k].id)
+        // location.href = '/article/article-detail';
+
+        // console.log(this.articleItem[k].url)
+        location.href = this.articleItem[k].url;
+      },
+
+      // 文章分类
+      getClassify() {
+        var that = this;
+
+        var url_id, path = location.href;
+        if (path.indexOf('?') != -1) {
+          url_id = path.split('=')[1];
+        } else {
+          url_id = path.slice(path.lastIndexOf('/') + 1);
+        }
+
+        var articleList = this.result;
+        var flag = false;
+
+        for (var i = 0; i < articleList.length; i++) {
+          for (var j = 0; j < articleList[i].items.length; j++) {
+            for (var k = 0; k < articleList[i].items[j].items.length; k++) {
+              var list = articleList[i].items[j].items[k];
+              // console.log(list)
+
+              if (list.id == url_id) {
+                that.a = i;
+                that.b = j;
+                that.active_idx = k;
+                that.article_pid = list.id;
+                that.title = articleList[i].items[j].items[k].title,
+                  that.tittle = articleList[i].title;
+                flag = true;
+                break;
+              } else {
+                // 跳转404
+                // console.log(222)
+              }
+            }
+
+            if (flag) {
+              break;
+            }
+          }
+
+          if (flag) {
+            break;
+          }
+        }
+
+        this.articleTitle = articleList[this.a].items[this.b].items;
+        // console.log(123, this.articleTitle)
+      },
+
+      // 文章列表
+      getList(k) {
+        var that = this;
+        if (k) {
+          this.page_size += k;
+        }
+        this.$axios.get('/article/article/search', {
+          params: {
+            'pid': that.article_pid,
+            'page_size': this.page_size
+          }
+        }).then(res => {
+          this.articleItem = res.data.data.data;
+          // console.log(res.data.data)
+          if (res.data.data.total_count > 5 && this.page_size < res.data.data.total_count) {
+            this.ifShowLoad = true;
+          } else {
+            this.ifShowLoad = false;
+          }
+          this.ifLoad = false;
+
+          // console.log(this.articleItem)
+        }).catch(function(error) {
+          console.log(error);
+        });
+      },
+      loadMore() {
+        this.ifLoad = true;
+        this.getList(5);
+      }
+    }
+  }
+</script>
+
+<style scoped>
+  .nav-box {
+    width: 100%;
+    height: 3.7rem;
+    padding-left: 3%;
+    overflow-x: scroll;
+    border-bottom: 0.05rem solid #e5e5e5;
+  }
+
+  .nav-box .scroll {
+    display: inline-block;
+    white-space: nowrap;
+    height: 100%;
+    font-size: 0;
+    padding-right: 5%;
+  }
+
+  .nav-box .scroll .list {
+    min-width: 5rem;
+    height: 100%;
+    box-sizing: border-box;
+    display: inline-block;
+    margin-right: 1.4rem;
+    font-size: 1.1rem;
+    color: #8d8d8d;
+    line-height: 3.7rem;
+    border-bottom: 0.2rem solid transparent;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .nav-box .scroll .list:last-child {
+    margin-right: 0;
+  }
+
+  .nav-box .scroll .list.active {
+    font-size: 1.3rem;
+    color: #480f32;
+    border-color: #480f32;
+  }
+
+  .article-right-box {
+    padding-bottom: 5rem;
+  }
+
+  .article-right-list {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 1.5rem 5%;
+  }
+
+  .article-right-list:not(:last-child) {
+    border-bottom: 1px solid #f6f6f6;
+  }
+
+  .article-right-r {
+    flex: 1;
+    width: calc(100% - 12.5rem);
+    height: 7rem;
+    padding: 3px 0;
+    box-sizing: border-box;
+    margin-right: 2rem;
+  }
+
+  .article-right-list .img-box {
+    width: 10.5rem;
+    height: 7rem;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .article-right-list-title {
+    font-size: 1.65rem;
+    color: #333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .article-right-list-text {
+    font-size: 1.1rem;
+    line-height: 1.5rem;
+    color: #999;
+    margin: 0.4rem 5% 0 3%;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    word-break: break-all;
+  }
+
+  .more {
+    margin-top: 0;
+  }
+</style>
