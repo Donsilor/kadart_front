@@ -1,9 +1,8 @@
 <template>
   <div class="container">
-    <artcleSlideShow></artcleSlideShow>
-
     <div class="article-wrap">
       <div class="article-right-box">
+        <div class="title">{{articleDetail.title}}</div>
         <div class="synopsis">{{articleDetail.seo_content}}</div>
         <div class="article-detail-box" v-html="articleDetail.content"></div>
       </div>
@@ -53,18 +52,18 @@
         params: {}
       }).then(res => {
         this.result = res.data.data.lists;
+
+        var url_id, path = location.href;
+        if (path.indexOf('?') != -1) {
+          url_id = path.split('=')[1];
+        } else {
+          url_id = path.slice(path.lastIndexOf('/') + 1);
+        }
+
+        this.getDetail(url_id);
       }).catch(function(error) {
         console.log(error);
-      });
-
-      var url_id, path = location.href;
-      if (path.indexOf('?') != -1) {
-        url_id = path.split('=')[1];
-      } else {
-        url_id = path.slice(path.lastIndexOf('/') + 1);
-      }
-
-      this.getDetail(url_id);
+      })
     },
     methods: {
       // 文章详情
@@ -78,6 +77,7 @@
           this.articleDetail = res.data.data;
           this.description = res.data.data.seo_content;
           this.pid = res.data.data.cate_id;
+          // console.log(12,this.articleDetail)
 
           that.getClassify();
           that.getList();
@@ -120,10 +120,8 @@
             for (var k = 0; k < articleList[i].items[j].items.length; k++) {
               var list = articleList[i].items[j].items[k];
 
-              if (list.id == this.pid) {
+              if (list.id == that.pid) {
                 that.title = list.title;
-
-                // that.tittle = articleList[i].title;
                 flag = true;
                 break;
               } else {
@@ -154,7 +152,7 @@
     color: #666;
     text-align: left;
     word-break: break-all;
-    padding: 0 5%;
+    padding: 1rem 5% 5rem;
   }
 
   .article-right-box>>>p {
@@ -164,5 +162,13 @@
   .article-detail-box>>>img {
     max-width: 100%;
     margin: 1rem 0;
+  }
+
+  .title{
+    font-size: 1.7rem;
+    color: #480f32;
+    line-height: 2.6rem;
+    text-align: center;
+    margin-bottom: 1rem;
   }
 </style>

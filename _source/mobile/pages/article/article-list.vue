@@ -200,8 +200,8 @@
     height: 100%;
     box-sizing: border-box;
     display: inline-block;
-    margin-right: 1.4rem;
-    font-size: 1.1rem;
+    margin-right: 2rem;
+    font-size: 1.5rem;
     color: #8d8d8d;
     line-height: 3.7rem;
     border-bottom: 0.2rem solid transparent;
@@ -214,7 +214,6 @@
   }
 
   .nav-box .scroll .list.active {
-    font-size: 1.3rem;
     color: #480f32;
     border-color: #480f32;
   }
@@ -227,25 +226,25 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-    padding: 1.5rem 5%;
+    padding: 1.5rem 7%;
   }
 
   .article-right-list:not(:last-child) {
-    border-bottom: 1px solid #f6f6f6;
+    border-bottom: 4px solid #f6f6f6;
   }
 
   .article-right-r {
     flex: 1;
-    width: calc(100% - 12.5rem);
-    height: 7rem;
-    padding: 3px 0;
+    width: calc(100% - 10rem);
+    height: 9rem;
+    padding: 8px 0;
     box-sizing: border-box;
-    margin-right: 2rem;
+    margin-right: 1rem;
   }
 
   .article-right-list .img-box {
-    width: 10.5rem;
-    height: 7rem;
+    width: 9rem;
+    height: 9rem;
     position: relative;
     overflow: hidden;
     flex-shrink: 0;
@@ -263,10 +262,10 @@
     font-size: 1.1rem;
     line-height: 1.5rem;
     color: #999;
-    margin: 0.4rem 5% 0 3%;
+    margin: 1rem 5% 0 5%;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     overflow: hidden;
     word-break: break-all;
   }
