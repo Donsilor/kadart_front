@@ -5,7 +5,7 @@
 
     <div class="components-box clf">
       <!-- 左侧选择区 -->
-      <div class="commodity-left fl" v-if="1">
+      <div class="commodity-left fl" v-if="0">
         <div class="refinements">Refinements</div>
         <div class="classify-box" v-bind:class="{'pack-up': ifOpenA}">
           <div class="tit clf">
@@ -52,8 +52,7 @@
             <div class="child-c" :class="index_c == index ? 'active' : ''" v-for="(item, index) in priceList" @click="clickC(index)">{{item.list}}</div>
 
             <div class="search-scope">
-              <span class="color">$</span><input type="text" class="ipt" placeholder="low">
-              <i>-</i>
+              <span class="color">$</span><input type="text" class="ipt" placeholder="low"> -
               <span class="color">$</span><input type="text" class="ipt" placeholder="high">
               <div class="search-btn">GO</div>
             </div>
@@ -810,8 +809,6 @@
   .search-scope {
     height: 32px;
     margin: 10px 0;
-    display: flex;
-    align-items: center;
   }
 
   .search-scope .color {
@@ -819,7 +816,7 @@
   }
 
   .search-scope .ipt {
-    width: 90px;
+    width: 98px;
     height: 32px;
     border: 1px solid #480f33;
     border-radius: 4px;
@@ -831,12 +828,9 @@
   .search-scope .ipt:last-of-type {
     border-radius: 4px 0 0 4px;
   }
-  
-  .search-scope i{
-    margin: 0 10px;
-  }
 
   .search-scope .search-btn {
+    display: inline-block;
     width: 42px;
     height: 32px;
     border: 3px solid #480f33;
@@ -844,9 +838,9 @@
     text-align: center;
     line-height: 28px;
     color: #808080;
+    vertical-align: top;
     border-radius: 0 4px 4px 0;
     cursor: pointer;
-    box-sizing: border-box;
   }
 
   .more {
@@ -857,8 +851,7 @@
   }
 
   .commodity-right {
-    width: calc(100% - 350px);
-    margin-left: 20px;
+    width: 100%;
   }
 
   .filtrate {
