@@ -61,31 +61,20 @@ export default {
       detailId: -1,
       a: '',
       b: '',
+      result: ''
     }
-  },
-  asyncData({
-    $axios,
-    params,
-    route
-  }) {
-    return $axios.get('/article/article-cate/index', {
-      params: {}
-    }).then(res => {
-      var result = {
-        url: route.path,
-        id: route.query.id
-      }
-
-      if(Object.prototype.toString.call(res.data.data) === "[object Object]"){
-        result.info = res.data.data.lists
-      }
-
-      return {result:result}
-      // error(params)
-    })
   },
   mounted(){
    document.documentElement.scrollTop = document.body.scrollTop = 0;
+   
+   this.$axios.get('/article/article-cate/index', {
+     params: {}
+   }).then(res => {
+      this.result = res.data.data.lists
+   }).catch(function(error) {
+     console.log(error);
+   });
+   
    var url_id,path = location.href;
    if(path.indexOf('?') != -1){
      url_id = path.split('=')[1];
@@ -141,11 +130,7 @@ export default {
     getClassify(){
       var that = this;
 
-      if('info' in this.result == true){
-        var articleList = this.result.info;
-      }else{
-        return
-      }
+      var articleList = this.result;
       var flag = false;
 
       for (var i = 0; i < articleList.length; i++) {
