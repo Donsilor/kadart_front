@@ -61,39 +61,28 @@ export default {
       detailId: -1,
       a: '',
       b: '',
+      result: '',
     }
-  },
-  asyncData({
-    $axios,
-    params,
-    route
-  }) {
-    return $axios.get('/article/article-cate/index', {
-      params: {}
-    }).then(res => {
-      var result = {
-        url: route.path,
-        id: route.query.id
-      }
-
-      if(Object.prototype.toString.call(res.data.data) === "[object Object]"){
-        result.info = res.data.data.lists
-      }
-
-      return {result:result}
-      // error(params)
-    })
   },
   mounted(){
    document.documentElement.scrollTop = document.body.scrollTop = 0;
-   var url_id,path = location.href;
-   if(path.indexOf('?') != -1){
-     url_id = path.split('=')[1];
-   }else{
-     url_id = path.slice(path.lastIndexOf('/')+1);
-   }
 
-   this.getDetail(url_id);
+   this.$axios.get('/article/article-cate/index', {
+     params: {}
+   }).then(res => {
+      this.result = res.data.data.lists;
+
+      var url_id,path = location.href;
+      if(path.indexOf('?') != -1){
+        url_id = path.split('=')[1];
+      }else{
+        url_id = path.slice(path.lastIndexOf('/')+1);
+      }
+
+      this.getDetail(url_id);
+   }).catch(function(error) {
+     console.log(error);
+   })
   },
   methods:{
     // 文章详情
@@ -137,26 +126,19 @@ export default {
       });
     },
 
-      // 文章分类
+    // 文章分类
     getClassify(){
       var that = this;
 
-      if('info' in this.result == true){
-        var articleList = this.result.info;
-      }else{
-        return
-      }
+      var articleList = this.result;
       var flag = false;
 
       for (var i = 0; i < articleList.length; i++) {
         for (var j = 0; j < articleList[i].items.length; j++) {
           for (var k = 0; k < articleList[i].items[j].items.length; k++) {
             var list = articleList[i].items[j].items[k];
-
-            if (list.id == this.pid) {
-                that.title = list.title;
-
-              // that.tittle = articleList[i].title;
+            if (list.id == that.pid) {
+              that.title = list.title;
               flag = true;
               break;
             } else {

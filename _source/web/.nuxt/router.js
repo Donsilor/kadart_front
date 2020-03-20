@@ -12,9 +12,7 @@ const _4de12f09 = () => interopDefault(import('..\\pages\\kadart-jewelry-privacy
 const _420dff6d = () => interopDefault(import('..\\pages\\kadart-jewelry-return-policy.vue' /* webpackChunkName: "pages_kadart-jewelry-return-policy" */))
 const _0ae73aa2 = () => interopDefault(import('..\\pages\\kadart-jewelry-shipping-policy.vue' /* webpackChunkName: "pages_kadart-jewelry-shipping-policy" */))
 const _7305bd55 = () => interopDefault(import('..\\pages\\article\\article-detail.vue' /* webpackChunkName: "pages_article_article-detail" */))
-const _76c12350 = () => interopDefault(import('..\\pages\\article\\article-detail.1.vue' /* webpackChunkName: "pages_article_article-detail.1" */))
 const _fcc99bbc = () => interopDefault(import('..\\pages\\article\\article-list.vue' /* webpackChunkName: "pages_article_article-list" */))
-const _f8aa3836 = () => interopDefault(import('..\\pages\\article\\article-list.1.vue' /* webpackChunkName: "pages_article_article-list.1" */))
 const _1fee5ae2 = () => interopDefault(import('..\\pages\\pages\\celebrate-womensday-with-kadart-jewelry.vue' /* webpackChunkName: "pages_pages_celebrate-womensday-with-kadart-jewelry" */))
 const _c3d3c170 = () => interopDefault(import('..\\pages\\pages\\kad-art-jewelry-timeline.vue' /* webpackChunkName: "pages_pages_kad-art-jewelry-timeline" */))
 const _0bdbac3e = () => interopDefault(import('..\\pages\\pages\\kad-art-silver-factory-is-open-to-accept-all-odm-oem-orders.vue' /* webpackChunkName: "pages_pages_kad-art-silver-factory-is-open-to-accept-all-odm-oem-orders" */))
@@ -78,17 +76,9 @@ export const routerOptions = {
     component: _7305bd55,
     name: "article-article-detail"
   }, {
-    path: "/article/article-detail.1",
-    component: _76c12350,
-    name: "article-article-detail.1"
-  }, {
     path: "/article/article-list",
     component: _fcc99bbc,
     name: "article-article-list"
-  }, {
-    path: "/article/article-list.1",
-    component: _f8aa3836,
-    name: "article-article-list.1"
   }, {
     path: "/pages/celebrate-womensday-with-kadart-jewelry",
     component: _1fee5ae2,

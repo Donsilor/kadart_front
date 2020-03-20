@@ -57,7 +57,7 @@
         meta: [{
           hid: 'description',
           name: 'description',
-          content: this.description
+          content: ''
         }]
       }
     },
@@ -76,45 +76,32 @@
         b: 0,
         detailUrl: '',
         title: '',
-        description: '',
         tittle: '',
         currentPage1: 1,
         page_count: 0,
-        total_count: 0
+        total_count: 0,
+        result: ''
       }
-    },
-    asyncData({
-      $axios,
-      params,
-      route
-    }) {
-      return $axios.get('/article/article-cate/index', {
-        params: {}
-      }).then(res => {
-        var result = {
-          url: route.fullPath,
-          id: route.query.id
-        }
-
-        if(Object.prototype.toString.call(res.data.data) === "[object Object]"){
-          result.info = res.data.data.lists
-        }
-
-        return {result:result}
-        // error(params)
-      })
     },
     mounted() {
       document.documentElement.scrollTop = document.body.scrollTop = 0;
 
-      this.gitClassify()
+      this.$axios.get('/article/article-cate/index', {
+        params: {}
+      }).then(res => {
+        this.result = res.data.data.lists ;
 
-      this.getList()
+        this.gitClassify()
+        this.getList()
+
+      }).catch(function(error) {
+        console.log(error);
+      });
     },
     methods: {
       gitClassify(){
         var that = this;
-        
+
         var url_id,path = location.href;
         if(path.indexOf('?') != -1){
           url_id = path.split('=')[1];
@@ -122,12 +109,9 @@
           url_id = path.slice(path.lastIndexOf('/')+1);
         }
 
+
         // 文章分类
-        if('info' in this.result == true){
-          var articleList = this.result.info;
-        }else{
-          return
-        }
+        var articleList = this.result;
         var flag = false;
 
         for (var i = 0; i < articleList.length; i++) {
@@ -142,8 +126,7 @@
                 that.active_idx = k;
                 that.article_pid = list.id;
                 that.title = articleList[i].items[j].items[k].title,
-                that.tittle = articleList[i].title;
-                that.description = articleList[i].items[j].items[k].sseConnect,
+                that.tittle = articleList[i].items[j].title;
                 flag = true;
                 break;
               } else {
@@ -201,7 +184,7 @@
           this.total_count = res.data.data.total_count;
           this.page_count = res.data.data.page_count;
 
-          // console.log(this.articleItem)
+          console.log(this.articleItem)
         }).catch(function(error) {
           console.log(error);
         });
@@ -287,7 +270,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 50px;
+    margin-top: 120px;
   }
   .totle{
     margin-right: 24px;

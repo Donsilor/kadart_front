@@ -128,7 +128,20 @@ export default {
         component: 'pages/goods-list.vue',
         alias: '/search/:p'
       })
-
+      //文章列表
+      routes.push({
+        name: 'article-list',
+        path: '/article/article-list',
+        component: 'pages/article/article-list.vue',
+        alias: '/news-:s/:p'
+      })
+      //文章详情
+      routes.push({
+        name: 'article-detail',
+        path: '/article/article-detail',
+        component: 'pages/article/article-detail.vue',
+        alias: '/news-:s/:t/:p'
+      })
     }
   }
 }

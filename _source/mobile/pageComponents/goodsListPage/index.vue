@@ -198,6 +198,9 @@
       },
       // 获取列表数据
       acquireData(k_type_id, k_keyword, k_filter, K_attr_id, k_attr_value, k_price_range, k_page, k_page_size) {
+        if(k_id != undefined){
+          k_id = unescape(k_id);
+        }
         var that = this;
         that.$axios.post('/goods/style/search', {
           type_id: k_type_id,
@@ -389,39 +392,4 @@
     color: #3f3d3e;
   }
 
-  .more{
-    width: 100%;
-    height: 5rem;
-    background-color: #916F84;
-    text-align: center;
-    line-height: 5rem;
-    font-size: 1.45rem;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* opacity: 0.6; */
-  }
-
-  .more-icon{
-    width: 2rem;
-    height: 2rem;
-    margin-left: 1rem;
-    background: url(../../static/goods-list/load.gif) no-repeat center;
-    background-size: 100% 100%;
-  }
-
-  .no-more{
-    width: 4rem;
-    height: 4rem;
-    margin: 5rem auto 2rem;
-    background: url(../../static/index/icon/search-2.png) no-repeat center;
-    background-size: 100% 100%;
-  }
-  .no-more-text{
-    font-family: STKAITI;
-    font-size: 1.8rem;
-    color: #d2b8c7;
-    text-align: center;
-  }
 </style>
