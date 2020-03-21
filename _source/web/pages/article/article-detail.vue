@@ -190,6 +190,7 @@ export default {
   .synopsis{
     font-size: 14px;
     line-height: 24px;
-    color: #666;
+    color: #ad317d;
+		margin-bottom: 20px;
   }
 </style>
