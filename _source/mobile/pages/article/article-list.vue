@@ -237,9 +237,12 @@
     flex: 1;
     width: calc(100% - 10rem);
     height: 9rem;
-    padding: 8px 0;
+    padding-top: 1rem;
     box-sizing: border-box;
     margin-right: 1rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
   }
 
   .article-right-list .img-box {
@@ -259,10 +262,9 @@
   }
 
   .article-right-list-text {
-    font-size: 1.1rem;
-    line-height: 1.5rem;
+    font-size: 1.3rem;
+    line-height: 2rem;
     color: #999;
-    margin: 1rem 5% 0 5%;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;

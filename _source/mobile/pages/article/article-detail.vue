@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-    <div class="article-wrap">
+    <div class="article-wrap" v-if="ifShow">
       <div class="article-right-box">
         <div class="title">{{articleDetail.title}}</div>
         <div class="synopsis">{{articleDetail.seo_content}}</div>
-        <div class="article-detail-box" v-html="articleDetail.content"></div>
+				<div class="article-detail-box" v-html="articleDetail.content"></div>
       </div>
     </div>
   </div>
@@ -24,33 +24,37 @@ export default {
     },
     data() {
       return {
-        articleDetail: {},
+        articleDetail: {
+					title: '',
+					seo_content: '',
+					content: ''
+				},
         title: '',
         description: '',
         pid: '',
-        result: ''
+        result: '',
+				ifShow: false
       }
     },
     mounted() {
-      // document.documentElement.scrollTop = document.body.scrollTop = 0;
+      document.documentElement.scrollTop = document.body.scrollTop = 0;
 
-      // this.$axios.get('/article/article-cate/index', {
-      //   params: {}
-      // }).then(res => {
-      //   this.result = res.data.data.lists;
-
-      // }).catch(function(error) {
-      //   console.log(error);
-      // })
+      this.$axios.get('/article/article-cate/index', {
+        params: {}
+      }).then(res => {
+        this.result = res.data.data.lists;
+				
+				this.getDetail(url_id);
+      }).catch(function(error) {
+        console.log(error);
+      })
 
       var url_id, path = location.href;
       if (path.indexOf('?') != -1) {
         url_id = path.split('=')[1];
       } else {
         url_id = path.slice(path.lastIndexOf('/') + 1);
-      }
-
-      this.getDetail(url_id);
+      }			
 
     },
     methods: {
@@ -63,48 +67,53 @@ export default {
           }
         }).then(res => {
           this.articleDetail = res.data.data;
-          // this.description = res.data.data.seo_content;
-          // this.pid = res.data.data.cate_id;
+          this.description = res.data.data.seo_content;
+          this.pid = res.data.data.cate_id;
+					
+					if(this.articleDetail.title != '' || this.articleDetail.seo_content != '' || this.articleDetail.content != ''){
+						that.ifShow = true;
+					}
 
-          // that.getClassify();
+          that.getClassify();
         }).catch(function(error) {
           console.log(error);
         });
       },
+			
 
-      // // 文章分类
-      // getClassify() {
-      //   var that = this;
+      // 文章分类
+      getClassify() {
+        var that = this;
 
-      //   var articleList = that.result;
-      //   var flag = false;
+        var articleList = that.result;
+        var flag = false;
 
-      //   for (var i = 0; i < articleList.length; i++) {
-      //     for (var j = 0; j < articleList[i].items.length; j++) {
-      //       for (var k = 0; k < articleList[i].items[j].items.length; k++) {
-      //         var list = articleList[i].items[j].items[k];
+        for (var i = 0; i < articleList.length; i++) {
+          for (var j = 0; j < articleList[i].items.length; j++) {
+            for (var k = 0; k < articleList[i].items[j].items.length; k++) {
+              var list = articleList[i].items[j].items[k];
 
-      //         if (list.id == that.pid) {
-      //           that.title = list.title;
-      //           flag = true;
-      //           break;
-      //         } else {
-      //           // 跳转404
-      //           // console.log(222)
-      //         }
-      //       }
+              if (list.id == that.pid) {
+                that.title = list.title;
+                flag = true;
+                break;
+              } else {
+                // 跳转404
+                // console.log(222)
+              }
+            }
 
-      //       if (flag) {
-      //         break;
-      //       }
-      //     }
+            if (flag) {
+              break;
+            }
+          }
 
-      //     if (flag) {
-      //       break;
-      //     }
+          if (flag) {
+            break;
+          }
 
-      //   }
-      // }
+        }
+      }
     }
 }
 </script>
