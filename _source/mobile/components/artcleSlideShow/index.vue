@@ -49,7 +49,7 @@
       }
     },
     mounted(){
-      var artcleImg = JSON.parse(sessionStorage.getItem('artcleImg'));
+      var artcleImg = JSON.parse(localStorage.getItem('artcleImg'));
       if(artcleImg){
         this.banners = artcleImg;
       }else{
@@ -60,7 +60,7 @@
           }
         }).then(res => {
           this.banners = res.data.data;
-          sessionStorage.setItem('artcleImg', JSON.stringify(this.banners));
+          localStorage.setItem('artcleImg', JSON.stringify(this.banners));
 
           if(this.banners.length == 1){
             this.swiperOptionN.autoplay = false;

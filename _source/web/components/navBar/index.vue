@@ -87,12 +87,14 @@
           params: {}
         }).then(res => {
           this.navList = res.data.data;
+          console.log(this.navList)
           sessionStorage.setItem('navList',JSON.stringify(this.navList))
         }).catch(function(error) {
           console.log(error);
         });
       }else{
         this.navList = list;
+        console.log(this.navList)
       }
     },
     methods: {
@@ -141,7 +143,7 @@
             this.isShowText = false;
             break;
           case(9):
-            this.isShow = false;
+            this.isShow = true;
             this.isShowText = false;
             break;
         }
@@ -221,6 +223,7 @@
     background-color: #fff;
     padding: 30px 40px;
     box-sizing: border-box;
+    min-height: 500px;
   }
 
   .nav-box .nav-classify {

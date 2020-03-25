@@ -198,8 +198,8 @@
       },
       // 获取列表数据
       acquireData(k_type_id, k_keyword, k_filter, K_attr_id, k_attr_value, k_price_range, k_page, k_page_size) {
-        if(k_id != undefined){
-          k_id = unescape(k_id);
+        if(k_keyword != undefined){
+          k_keyword = unescape(k_keyword);
         }
         var that = this;
         that.$axios.post('/goods/style/search', {

@@ -31,90 +31,91 @@ export default {
 				},
         title: '',
         description: '',
-        pid: '',
-        result: '',
-				ifShow: false
+				ifShow: false,
       }
     },
-    mounted() {
-      document.documentElement.scrollTop = document.body.scrollTop = 0;
+    created(){
+    if(this.articleDetail.title != '' || this.articleDetail.seo_content != '' || this.articleDetail.content != ''){
+              this.ifShow = true;
+     }
+     this.description = this.articleDetail.seo_content;
+      console.log(8888,this.articleDetail)
+      // var url_id,that = this;
+      // var path = this.$route.fullPath;
 
-      this.$axios.get('/article/article-cate/index', {
-        params: {}
-      }).then(res => {
-        this.result = res.data.data.lists;
-				
-				this.getDetail(url_id);
-      }).catch(function(error) {
-        console.log(error);
-      })
+      // if(path.indexOf('?') == -1){
+      //   url_id = path.slice(path.lastIndexOf('/')+1)
+      // }else{
+      //   url_id = path.slice(path.lastIndexOf('=')+1)
+      // }
 
-      var url_id, path = location.href;
-      if (path.indexOf('?') != -1) {
-        url_id = path.split('=')[1];
-      } else {
-        url_id = path.slice(path.lastIndexOf('/') + 1);
-      }			
+      // console.log(url_id)
+      // this.description = 123
 
-    },
-    methods: {
       // 文章详情
-      getDetail(k) {
-        var that = this;
-        this.$axios.get('/article/article/detail', {
-          params: {
-            'id': k,
-          }
-        }).then(res => {
-          this.articleDetail = res.data.data;
-          this.description = res.data.data.seo_content;
-          this.pid = res.data.data.cate_id;
-					
-					if(this.articleDetail.title != '' || this.articleDetail.seo_content != '' || this.articleDetail.content != ''){
-						that.ifShow = true;
-					}
+      // this.$axios.get('/article/article/detail', {
+      //   params: {
+      //     'id': url_id,
+      //   }
+      // }).then(res => {
+      //   that.articleDetail = res.data.data;
+      //   this.description = res.data.data.seo_content;
+      //   that.title = res.data.data.title;
 
-          that.getClassify();
-        }).catch(function(error) {
-          console.log(error);
-        });
-      },
-			
+      //   console.log(123,this.description)
 
-      // 文章分类
-      getClassify() {
-        var that = this;
+      //   if(this.articleDetail.title != '' || this.articleDetail.seo_content != '' || this.articleDetail.content != ''){
+      //     this.ifShow = true;
+      //   }
+      // }).catch(function(error) {
+      //   console.log(error);
+      // });
+    },
 
-        var articleList = that.result;
-        var flag = false;
-
-        for (var i = 0; i < articleList.length; i++) {
-          for (var j = 0; j < articleList[i].items.length; j++) {
-            for (var k = 0; k < articleList[i].items[j].items.length; k++) {
-              var list = articleList[i].items[j].items[k];
-
-              if (list.id == that.pid) {
-                that.title = list.title;
-                flag = true;
-                break;
-              } else {
-                // 跳转404
-                // console.log(222)
-              }
-            }
-
-            if (flag) {
-              break;
-            }
-          }
-
-          if (flag) {
-            break;
-          }
-
-        }
-      }
+asyncData({ app, $axios, route, store }) {
+    var url_id,path = route.fullPath;
+    if(path.indexOf('?') == -1){
+      url_id = path.slice(path.lastIndexOf('/')+1)
+    }else{
+      url_id = path.slice(path.lastIndexOf('=')+1)
     }
+    return $axios({
+      method: `get`,
+      url: `/article/article/detail`,
+      params: {
+        'id': url_id,
+      }
+    })
+      .then(res => {
+        const infos = res.data.data;
+        return {
+          articleDetail: infos,
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  },
+
+
+   //  fetch ({ $axios, params, route, context }) {
+   //    console.log(11,this.$axios)
+   //     var url_id,path = route.fullPath;
+   //      if(path.indexOf('?') == -1){
+   //        url_id = path.slice(path.lastIndexOf('/')+1)
+   //      }else{
+   //        url_id = path.slice(path.lastIndexOf('=')+1)
+   //      }
+   //      return this.$axios.get('/article/article/detail', {
+   //      params: {
+   //        'id': url_id,
+   //      }
+   //    }).then(res => {
+   //      store.commit('setData', res.data.data)
+   //    }).catch(function(error) {
+   //      console.log(error);
+   //    });
+   // }
 }
 </script>
 
