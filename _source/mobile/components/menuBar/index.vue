@@ -55,7 +55,7 @@
           <div class="list contact-us">
             <i class="contact-icon"></i>
             <span class="contact-text">Contadct us</span>
-            <span>1-800-311-5393</span>
+            <span>0086-186-6561-9485</span>
           </div>
           <div class="list sign-box">
             <div class="sign-child" :class="userAccount != '' ? 'active' : ''" @click="loginOrQuit">
@@ -162,12 +162,6 @@
           this.ifShow = false;
         }else if(k == 8){
           this.$router.push("/pages/kad-art-jewelry-timeline");
-          this.ifShow = false;
-        }else if(k == 9){
-          // let routeUrl = this.$router.resolve({
-              // path: "https://wap.bddco.com/",
-          // });
-          window.open("https://wap.bddco.com/", '_blank');
           this.ifShow = false;
         }
       },
