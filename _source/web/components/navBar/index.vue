@@ -87,14 +87,12 @@
           params: {}
         }).then(res => {
           this.navList = res.data.data;
-          console.log(this.navList)
           sessionStorage.setItem('navList',JSON.stringify(this.navList))
         }).catch(function(error) {
           console.log(error);
         });
       }else{
         this.navList = list;
-        console.log(this.navList)
       }
     },
     methods: {
