@@ -35,87 +35,66 @@ export default {
       }
     },
     created(){
-    if(this.articleDetail.title != '' || this.articleDetail.seo_content != '' || this.articleDetail.content != ''){
-              this.ifShow = true;
-     }
-     this.description = this.articleDetail.seo_content;
-      console.log(8888,this.articleDetail)
-      // var url_id,that = this;
-      // var path = this.$route.fullPath;
+      var url_id,that = this;
+      var path = this.$route.fullPath;
 
-      // if(path.indexOf('?') == -1){
-      //   url_id = path.slice(path.lastIndexOf('/')+1)
-      // }else{
-      //   url_id = path.slice(path.lastIndexOf('=')+1)
-      // }
-
-      // console.log(url_id)
-      // this.description = 123
+      if(path.indexOf('?') == -1){
+        url_id = path.slice(path.lastIndexOf('/')+1)
+      }else{
+        url_id = path.slice(path.lastIndexOf('=')+1)
+      }
 
       // 文章详情
-      // this.$axios.get('/article/article/detail', {
-      //   params: {
-      //     'id': url_id,
-      //   }
-      // }).then(res => {
-      //   that.articleDetail = res.data.data;
-      //   this.description = res.data.data.seo_content;
-      //   that.title = res.data.data.title;
+      this.$axios.get('/article/article/detail', {
+        params: {
+          'id': url_id,
+        }
+      }).then(res => {
+        that.articleDetail = res.data.data;
+        that.description = res.data.data.seo_content;
+        that.title = res.data.data.title;
 
-      //   console.log(123,this.description)
+        if(this.articleDetail.title != '' || this.articleDetail.seo_content != '' || this.articleDetail.content != ''){
+          this.ifShow = true;
+        }
 
-      //   if(this.articleDetail.title != '' || this.articleDetail.seo_content != '' || this.articleDetail.content != ''){
-      //     this.ifShow = true;
-      //   }
-      // }).catch(function(error) {
-      //   console.log(error);
-      // });
+        // var obj = document.getElementsByTagName("head")[0];
+        // var head_meta = obj.querySelectorAll('meta');
+        // head_meta[2].setAttribute('content','123123');
+        // console.log(head_meta[2])
+
+      }).catch(function(error) {
+        console.log(error);
+      });
     },
 
-asyncData({ app, $axios, route, store }) {
-    var url_id,path = route.fullPath;
-    if(path.indexOf('?') == -1){
-      url_id = path.slice(path.lastIndexOf('/')+1)
-    }else{
-      url_id = path.slice(path.lastIndexOf('=')+1)
-    }
-    return $axios({
-      method: `get`,
-      url: `/article/article/detail`,
-      params: {
-        'id': url_id,
-      }
-    })
-      .then(res => {
-        const infos = res.data.data;
-        return {
-          articleDetail: infos,
-        }
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  },
+// asyncData({ app, $axios, route, store }) {
+//     var url_id,path = route.fullPath;
+//     if(path.indexOf('?') == -1){
+//       url_id = path.slice(path.lastIndexOf('/')+1)
+//     }else{
+//       url_id = path.slice(path.lastIndexOf('=')+1)
+//     }
 
+//     return $axios({
+//       method: `get`,
+//       url: `/article/article/detail`,
+//       params: {
+//         'id': url_id,
+//       }
+//     })
+//       .then(res => {
+//         const infos = res.data.data;
+//         // store.commit('setData', 123231)
+//         return {
+//           articleDetail: infos,
+//         }
+//       })
+//       .catch(err => {
+//         console.log(err)
+//       })
+//   }
 
-   //  fetch ({ $axios, params, route, context }) {
-   //    console.log(11,this.$axios)
-   //     var url_id,path = route.fullPath;
-   //      if(path.indexOf('?') == -1){
-   //        url_id = path.slice(path.lastIndexOf('/')+1)
-   //      }else{
-   //        url_id = path.slice(path.lastIndexOf('=')+1)
-   //      }
-   //      return this.$axios.get('/article/article/detail', {
-   //      params: {
-   //        'id': url_id,
-   //      }
-   //    }).then(res => {
-   //      store.commit('setData', res.data.data)
-   //    }).catch(function(error) {
-   //      console.log(error);
-   //    });
-   // }
 }
 </script>
 
