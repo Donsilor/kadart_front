@@ -157,6 +157,13 @@ module.exports = {
         component: 'pages/article/article-detail.vue',
         alias: '/news-:s/:t/:p'
       })
+      //设计师
+      routes.push({
+        name: 'designer',
+        path: '/designer/index',
+        component: 'pages/designer/index.vue',
+        alias: '/designer/:p'
+      })
     }
   }
 }

@@ -5,6 +5,7 @@ import scrollBehavior from './router.scrollBehavior.js'
 
 const _e78a8d64 = () => interopDefault(import('..\\pages\\about-kadart.vue' /* webpackChunkName: "pages_about-kadart" */))
 const _2fae2aca = () => interopDefault(import('..\\pages\\contact-kadart.vue' /* webpackChunkName: "pages_contact-kadart" */))
+const _8ae9f344 = () => interopDefault(import('..\\pages\\designer\\index.vue' /* webpackChunkName: "pages_designer_index" */))
 const _ce89533e = () => interopDefault(import('..\\pages\\goods-detail.vue' /* webpackChunkName: "pages_goods-detail" */))
 const _2dbb9e2e = () => interopDefault(import('..\\pages\\goods-list.vue' /* webpackChunkName: "pages_goods-list" */))
 const _f25599f0 = () => interopDefault(import('..\\pages\\kadart-jewelry-factory.vue' /* webpackChunkName: "pages_kadart-jewelry-factory" */))
@@ -22,6 +23,7 @@ const _5de19fa1 = () => interopDefault(import('..\\pages\\goods-detail.vue' /* w
 const _7e63376e = () => interopDefault(import('..\\pages\\goods-list.vue' /* webpackChunkName: "" */))
 const _268dfef2 = () => interopDefault(import('..\\pages\\article\\article-list.vue' /* webpackChunkName: "" */))
 const _e42cf30c = () => interopDefault(import('..\\pages\\article\\article-detail.vue' /* webpackChunkName: "" */))
+const _57c12267 = () => interopDefault(import('..\\pages\\designer\\index.vue' /* webpackChunkName: "" */))
 
 // TODO: remove in Nuxt 3
 const emptyFn = () => {}
@@ -47,6 +49,10 @@ export const routerOptions = {
     path: "/contact-kadart",
     component: _2fae2aca,
     name: "contact-kadart"
+  }, {
+    path: "/designer",
+    component: _8ae9f344,
+    name: "designer"
   }, {
     path: "/goods-detail",
     component: _ce89533e,
@@ -124,6 +130,11 @@ export const routerOptions = {
     component: _e42cf30c,
     alias: "/news-:s/:t/:p",
     name: "article-detail"
+  }, {
+    path: "/designer/index",
+    component: _57c12267,
+    alias: "/designer/:p",
+    name: "designer"
   }],
 
   fallback: false

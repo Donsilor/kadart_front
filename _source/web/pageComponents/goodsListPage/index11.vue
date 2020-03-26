@@ -1,88 +1,7 @@
 <template>
   <div>
-    <h2 class="engagement" v-if="ifShowDescribe">{{seo.title}}</h2>
-    <div class="engagement-text" v-if="ifShowDescribe">{{seo.description}}</div>
-
     <div class="components-box clf">
-      <!-- 左侧选择区 -->
-      <div class="commodity-left fl" v-if="0">
-        <div class="refinements">Refinements</div>
-        <div class="classify-box" v-bind:class="{'pack-up': ifOpenA}">
-          <div class="tit clf">
-            <i class="iconfont iconxiangshang fr" @click="controlOpenA()"></i>
-          </div>
-
-          <div class="D-box">
-            <div class="child-b" v-for="item in arr">
-              <i class="iconfont iconshanchu"></i>{{item}}
-            </div>
-
-            <div class="clear-all" v-if="arr.length != 0" @click="clearAll()">
-              <i class="iconfont iconquxiao"></i>CLEAR ALL
-            </div>
-          </div>
-        </div>
-
-        <div class="refinements">Select Refinments</div>
-
-        <div class="classify-box" v-bind:class="{'pack-up': item.isShowT}" v-for="(item, index) in dataItem" :key="index"
-          v-if="index<3">
-          <div class="tit clf" @click="ifShowF(index)">
-            <div class="fl">{{item.form}}</div>
-            <i class="iconfont iconxiangshang fr"></i>
-          </div>
-
-          <div class="D-box" v-for="(children, idx) in item.content" :key="idx">
-            <div class="child-a clf" :class="[children.isChoose ? 'active' : '']" @click="ifChooseF(index, idx)">
-              <div class="square fl">
-                <i class="iconfont iconduihao" v-if="children.isChoose"></i>
-              </div>
-              <span class="square-text fl">{{children.text}}</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="classify-box" v-bind:class="{'pack-up': ifOpenB}">
-          <div class="tit clf" @click="controlOpenB()">
-            <div class="fl">HOLIDAY DEALS</div>
-            <i class="iconfont iconxiangshang fr"></i>
-          </div>
-
-          <div class="D-box">
-            <div class="child-c" :class="index_c == index ? 'active' : ''" v-for="(item, index) in priceList" @click="clickC(index)">{{item.list}}</div>
-
-            <div class="search-scope">
-              <span class="color">$</span><input type="text" class="ipt" placeholder="low">
-              <i>-</i>
-              <span class="color">$</span><input type="text" class="ipt" placeholder="high">
-              <div class="search-btn">GO</div>
-            </div>
-
-            <div class="more">More...</div>
-          </div>
-        </div>
-
-        <div class="classify-box" v-bind:class="{'pack-up': item.isShowT}" v-for="(item, index) in dataItem" :key="index"
-          v-if="index>=3">
-          <div class="tit clf" @click="ifShowF(index)">
-            <div class="fl">{{item.form}}</div>
-            <i class="iconfont iconxiangshang fr"></i>
-          </div>
-
-          <div class="D-box" v-for="(children, idx) in item.content" :key="idx">
-            <div class="child-a clf" :class="[children.isChoose ? 'active' : '']" @click="ifChooseF(index, idx)">
-              <div class="square fl">
-                <i class="iconfont iconduihao" v-if="children.isChoose"></i>
-              </div>
-              <span class="square-text fl">{{children.text}}</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- 右侧列表区 -->
-      <div class="commodity-right fl" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
+     <div class="commodity-right fl" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0)">
         <div class="filtrate clf">
           <div class="filtrate-text fl">
@@ -149,19 +68,16 @@
           </div>
 
           <div v-if="index >= 0" class="commodity-show-list fl" v-for="(item, index) in commodityItem.data" :key="index">
-            <!-- <router-link :to="{ name: 'goods-detail', query: {id: commodityItem.data[index].id}}"> -->
             <a :href="commodityItem.data[index].url">
               <div class="img-box">
                 <img :src=item.style_image alt="">
               </div>
               <div class="price"><span class="reference">Reference Price</span>{{item.currency}}{{item.sale_price}}</div>
               <div class="online">
-                <!-- <span v-if="item.style_sn">{{item.style_sn}}</span> -->
               </div>
               <div class="explain">{{item.style_name}}</div>
               <div class="btn">VIEW DETAILS</div>
             </a>
-            <!-- </router-link> -->
           </div>
         </div>
 
@@ -179,6 +95,24 @@
 <script>
   import Bus from '../../components/Bus.js'
   export default {
+    head() {
+      return {
+        title: this.seo.meta_title || 'Quality gold,silver jewelry wholesale at factory price',
+        meta: [{
+            hid: 'description',
+            name: 'description',
+            content: this.seo.meta_desc ||
+              'KADArt design, manufacture and wholesale gold,silver,brass and alloy jewelry with diamond,ruby,sapphire,zircon,crystal and rhinestone at very good price.'
+          },
+          {
+            hid: 'keywords',
+            name: 'keywords',
+            content: this.seo.meta_word ||
+              'jewelry factory, jewelry supplier, jewelry manufacturer,China jewelry wholesale,gold jewelry, silver jewelry, brass jewelry,best jewelry, fashion jewelry '
+          }
+        ]
+      }
+    },
     data() {
       return {
         loading: false,
@@ -296,16 +230,9 @@
             'list': '$4000 - $5000 (221)'
           }
         ],
-        keyword: '',
-        typeId: '',
-        searchId: '',
-        sortId: '',
-        attrId: '',
-        attrValue: '',
-        priceRange: '',
-        pageId: 1,
+
         line_id: 2,
-        pageSize: 20,
+
         ifShowText: false,
         nav_text: '',
         seo: {
@@ -315,243 +242,134 @@
           'title': '',
           'description': '',
         },
+
+        typeId: '',
+        keyword: '',
+        attrId: '',
+        attrValue: '',
+        priceRange: '',
+        pageId: 1,
+        pageSize: 6,
+        filter: ['1_0', '1_1', '2_0', '2_1', '3_0', '3_1', '4_0', '4_1'],
+        filter_index: 0,
       }
     },
     mounted() {
       window.addEventListener('scroll', this.scrollToTop);
 
-      var goods_id = localStorage.getItem('goods_id');
-      var now_page = localStorage.getItem('now_page');
-      var sort_id = localStorage.getItem('sort_id');
+      // if (this.keyword != undefined) {
+      //   this.loading = true;
+      //   this.nav_text = unescape(this.keyword);
+      // } else {
+      //   var nav_t = localStorage.getItem('nav_text');
+      //   if (nav_t) {
+      //     this.nav_text = unescape(nav_t);
+      //   }
+      // }
 
-      var type_id = this.$route.query.type_id;
-      this.keyword = this.$route.query.keyword;
+      // if (type_id == 2) {
+      //   this.ifShowDescribe = true;
+      // } else if (type_id == 4) {
+      //   this.ifShowDescribe = true;
+      // } else if (type_id == 6) {
+      //   this.ifShowDescribe = true;
+      // } else if (type_id == 8) {
+      //   this.ifShowDescribe = true;
+      // } else if (type_id == 15) {
+      //   this.ifShowDescribe = true;
+      // }
 
-      if (this.keyword == undefined) {
-        var keywordId = location.pathname;
-        if (keywordId.indexOf('keyword') != -1) {
-          var num = keywordId.lastIndexOf('/');
-          this.keyword = keywordId.slice(num + 1);
-        }
-      }
+      // var self = this;
+      // Bus.$on('sendPriceVal', function(val) {
+      //   location.search = '';
+      //   self.acquireData(val);
+      // })
 
-      if (this.keyword != undefined) {
-        this.loading = true;
-        this.nav_text = unescape(this.keyword);
-      } else {
-        var nav_t = localStorage.getItem('nav_text');
-        if (nav_t) {
-          this.nav_text = unescape(nav_t);
-        }
-      }
-
-      if (type_id) {
-        this.line_id = type_id;
-        localStorage.setItem('line_id', this.line_id);
-      } else {
-        localStorage.setItem('line_id', this.line_id);
-      }
-
-      if (type_id == 2) {
-        this.ifShowDescribe = true;
-      } else if (type_id == 4) {
-        this.ifShowDescribe = true;
-      } else if (type_id == 6) {
-        this.ifShowDescribe = true;
-      } else if (type_id == 8) {
-        this.ifShowDescribe = true;
-      } else if (type_id == 15) {
-        this.ifShowDescribe = true;
-      }
-
-      if (goods_id == null) {
-        this.searchId = ''
-      } else {
-        this.searchId = goods_id;
-      }
-
-      if (sort_id == null) {
-        this.sortId = '';
-      } else {
-        this.sortId = sort_id;
-      }
-
-      if (now_page == null) {
-        this.pageId = ''
-      } else {
-        this.pageId = now_page;
-        this.currentPage1 = now_page - 0
-      }
-
-      var urlData = location.search;
-
-      if (urlData.indexOf('?') == -1) {
-        urlData = location.pathname;
-        var num = urlData.lastIndexOf('/');
-
-        if(urlData.indexOf('search') != -1){
-          this.keyword = urlData.slice(num + 1)
-          this.nav_text = unescape(urlData.slice(num + 1))
-        }else{
-          urlData = urlData.slice(num + 1);
-
-          var urlArr = urlData.split(/&/);
-
-          for (var i = 0; i < urlArr.length; i++) {
-            var arrVal = urlArr[i].split(/=/);
-
-            if (arrVal[0] == 'type_id') {
-              this.typeId = arrVal[1]
-            } else if (arrVal[0] == 'attr_id') {
-              this.attrId = arrVal[1]
-            } else if (arrVal[0] == 'attr_value') {
-              this.attrValue = arrVal[1]
-            } else if (arrVal[0] == 'price_range') {
-              this.priceRange = arrVal[1]
-            }
-          }
-        }
-      } else {
-        var urlArr = urlData.split(/[?=&]/);
-        urlArr.shift();
-        for (var i = 0; i < urlArr.length; i += 2) {
-          if (urlArr[i] == 'type_id') {
-            this.typeId = urlArr[i + 1]
-          } else if (urlArr[i] == 'attr_id') {
-            this.attrId = urlArr[i + 1]
-          } else if (urlArr[i] == 'attr_value') {
-            this.attrValue = urlArr[i + 1]
-          } else if (urlArr[i] == 'price_range') {
-            this.priceRange = urlArr[i + 1]
-          }
-        }
-      }
-
-      this.acquireData(this.keyword, '', this.pageId, this.typeId, this.attrId, this.attrValue, this.priceRange, this.pageSize);
-
-      var self = this;
-      Bus.$on('sendPriceVal', function(val) {
-        location.search = '';
-        self.acquireData(val);
-      })
+      this.getData()
 
     },
     methods: {
-      acquireData(k_id, k_filter, k_page, k_type_id, K_attr_id, k_attr_value, k_price_range, k_page_size) {
-        if(k_id != undefined){
-          k_id = unescape(k_id);
+      acquireData(k_type_id, k_keyword, k_filter, K_attr_id, k_attr_value, k_price_range, k_page, k_page_size) {
+        if(k_keyword != undefined){
+          k_keyword = unescape(k_keyword);
         }
-        var _self = this;
-        _self.$axios.post('/goods/style/search', {
-          keyword: k_id,
-          sort: k_filter,
-          page: k_page,
+        var that = this;
+        this.$axios.post('/goods/style/search', {
           type_id: k_type_id,
+          keyword: k_keyword,
+          sort: k_filter,
           attr_id: K_attr_id,
           attr_value: k_attr_value,
           price_range: k_price_range,
+          page: k_page,
           page_size: k_page_size
         }).then(res => {
-          this.loading = false;
-          _self.commodityItem = res.data.data;
-          this.seo = _self.commodityItem.seo;
-          // this.currentPage1 = _self.commodityItem.page;
-          // console.log(_self.commodityItem.data)
-          this.totalNum = _self.commodityItem.total_count - 0;
-          this.totalPages = _self.commodityItem.page_count - 0;
+          that.loading = false;
+          that.commodityItem = res.data.data;
+          that.seo = res.data.data.seo;
+          that.totalNum = res.data.data.total_count - 0;
+          that.totalPages = res.data.data.page_count - 0;
 
-          // console.log(_self.commodityItem)
-
-          if (_self.commodityItem.data[0] == undefined) {
-            this.ifShowText = true;
+          if (that.commodityItem.data[0] == undefined) {
+            that.ifShowText = true;
           }
         }).catch(function(error) {
-          // console.log(error);
+          console.log(error);
         });
       },
+
       getData() {
-        var type_id = this.$route.query.type_id;
-        var attr_id = this.$route.query.attr_id;
-        var key_word = this.$route.query.keyword;
+        var path = location.href;
 
-        if (type_id == undefined) {
-          this.typeId = ''
-        } else {
-          this.typeId = type_id;
-        }
-
-        if (attr_id == undefined) {
-          this.attrId = ''
-        } else {
-          this.attrId = attr_id;
-        }
-
-        if (key_word == undefined) {
-          this.searchId = ''
-        } else {
-          this.searchId = key_word;
-        }
-
-        var urlData = location.search;
-
-        if (urlData.indexOf('?') == -1) {
-          urlData = location.pathname;
-          var num = urlData.lastIndexOf('/');
-
-          if(urlData.indexOf('search') != -1){
-            this.searchId = urlData.slice(num + 1)
-            this.nav_text = urlData.slice(num + 1)
+        // 有问号url
+        if(path.indexOf('?') != -1){
+          console.log(this.$route.query)
+        }else{
+          // 无问号url
+          path = path.slice(path.lastIndexOf('/')+1);
+          if(path.indexOf('=') == -1){
+            this.keyword = path;
           }else{
-            urlData = urlData.slice(num + 1);
+            if(path.indexOf('&') == -1){
+              this.typeId = path.split('=')[1]
+            }else{
+              var arr = path.split(/[=&]/);
 
-            var urlArr = urlData.split(/&/);
-
-            for (var i = 0; i < urlArr.length; i++) {
-              var arrVal = urlArr[i].split(/=/);
-
-              if (arrVal[0] == 'type_id') {
-                this.typeId = arrVal[1]
-              } else if (arrVal[0] == 'attr_id') {
-                this.attrId = arrVal[1]
-              } else if (arrVal[0] == 'attr_value') {
-                this.attrValue = arrVal[1]
-              } else if (arrVal[0] == 'price_range') {
-                this.priceRange = arrVal[1]
+              for(var i=0; i<arr.length; i++){
+                if(arr[i] == 'type_id'){
+                  this.typeId = arr[i+1];
+                }
+                if(arr[i] == 'attr_id'){
+                  this.attrId = arr[i+1];
+                }
+                if(arr[i] == 'price_range'){
+                  this.priceRange = arr[i+1]
+                }
               }
             }
           }
-        } else {
-          var urlArr = urlData.split(/[?=&]/);
-          urlArr.shift();
-          for (var i = 0; i < urlArr.length; i += 2) {
-            if (urlArr[i] == 'type_id') {
-              this.typeId = urlArr[i + 1]
-            } else if (urlArr[i] == 'attr_id') {
-              this.attrId = urlArr[i + 1]
-            } else if (urlArr[i] == 'attr_value') {
-              this.attrValue = urlArr[i + 1]
-            } else if (urlArr[i] == 'price_range') {
-              this.priceRange = urlArr[i + 1]
-            }
-          }
         }
+
+        var page_id = localStorage.getItem('page_id');
+        if(page_id){
+          this.pageId = page_id;
+          this.currentPage1 = page_id-0;
+        }
+
+        this.acquireData(this.typeId, this.keyword, this.filter[this.filter_index], this.attrId, this.attrValue, this.priceRange, this.pageId, this.page_size)
       },
 
       handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
+        // console.log(`每页 ${val} 条`);
       },
       handleCurrentChange(val) {
         document.documentElement.scrollTop = document.body.scrollTop = 0;
 
-        localStorage.setItem('now_page', val);
-        this.currentPage1 = val;
-
+        this.pageId = val;
+        localStorage.setItem('page_id', val);
         this.getData();
 
-        this.acquireData(this.searchId, this.sortId, val, this.typeId, this.attrId, this.attrValue, this.priceRange,
-          this.pageSize)
-
-        console.log(`当前页: ${val}`);
+        // console.log(`当前页: ${val}`);
       },
       ifShowF(k) {
         this.dataItem[k].isShowT = !this.dataItem[k].isShowT
@@ -597,10 +415,11 @@
       sort(i) {
         this.getData();
 
-        if (this.sort_i != 0) {
-          if (this.sort_i != i) {
-            this.flag = true;
-          }
+        // console.log('i=',i)
+        if (this.sort_i != 0 && this.sort_i != i) {
+          this.flag = true;
+        }else{
+          this.flag = false;
         }
 
         var _self = this;
@@ -610,34 +429,12 @@
           _self.filter_index = i - 1;
         }
         localStorage.setItem('sort_id', _self.filter[_self.filter_index]);
-        localStorage.setItem('now_page', '');
-        this.currentPage1 = 1;
 
-        _self.acquireData(this.searchId, this.filter[_self.filter_index], '', this.typeId, this.attrId, this.attrValue,
-          this.priceRange);
         this.flag = !this.flag;
         this.sort_i = i;
       },
       clickC(i) {
         this.index_c = i;
-      }
-    },
-    head() {
-      return {
-        title: this.seo.meta_title || 'Quality gold,silver jewelry wholesale at factory price',
-        meta: [{
-            hid: 'description',
-            name: 'description',
-            content: this.seo.meta_desc ||
-              'KADArt design, manufacture and wholesale gold,silver,brass and alloy jewelry with diamond,ruby,sapphire,zircon,crystal and rhinestone at very good price.'
-          },
-          {
-            hid: 'keywords',
-            name: 'keywords',
-            content: this.seo.meta_word ||
-              'jewelry factory, jewelry supplier, jewelry manufacturer,China jewelry wholesale,gold jewelry, silver jewelry, brass jewelry,best jewelry, fashion jewelry '
-          }
-        ]
       }
     }
   }

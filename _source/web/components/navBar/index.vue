@@ -81,13 +81,13 @@
       }
     },
     mounted(){
-      var list = JSON.parse(sessionStorage.getItem('navList'));
+      var list = JSON.parse(localStorage.getItem('navList_31'));
       if(!list){
         this.$axios.get('/common/menu/index', {
           params: {}
         }).then(res => {
           this.navList = res.data.data;
-          sessionStorage.setItem('navList',JSON.stringify(this.navList))
+          localStorage.setItem('navList_31',JSON.stringify(this.navList))
         }).catch(function(error) {
           console.log(error);
         });
@@ -137,7 +137,7 @@
             this.isShowText = false;
             break;
           case(8):
-            this.isShow = false;
+            this.isShow = true;
             this.isShowText = false;
             break;
           case(9):
@@ -147,9 +147,7 @@
         }
       },
       noSearch(i,e){
-        localStorage.setItem('goods_id','')
-        localStorage.setItem('now_page','')
-        localStorage.setItem('sort_id','1_1')
+        localStorage.removeItem('page_id');
         localStorage.setItem('nav_text', e.target.innerText)
       },
       liveNav(){
