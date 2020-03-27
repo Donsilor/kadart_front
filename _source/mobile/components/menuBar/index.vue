@@ -111,14 +111,14 @@
         }
       })
 
-      var list = JSON.parse(sessionStorage.getItem('navList'));
+      var list = JSON.parse(sessionStorage.getItem('navList_1'));
       if(!list){
         this.$axios.get('/common/menu/index', {
           params: {}
         }).then(res => {
           that.navList = res.data.data;
           that.judge();
-          sessionStorage.setItem('navList',JSON.stringify(this.navList))
+          sessionStorage.setItem('navList_1',JSON.stringify(this.navList))
         }).catch(function(error) {
           console.log(error);
         });
@@ -159,9 +159,6 @@
         this.navList[k].isShow = !this.navList[k].isShow;
         if(k == 0){
           this.$router.push("/about-kadart");
-          this.ifShow = false;
-        }else if(k == 8){
-          this.$router.push("/pages/kad-art-jewelry-timeline");
           this.ifShow = false;
         }
       },
