@@ -169,7 +169,7 @@ export default {
     z-index: 20;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.7);
     box-sizing: border-box;
   }
 
@@ -184,12 +184,17 @@ export default {
     text-align: center;
   }
   .layer{
+    position: relative;
      width: 100%;
      height: 100%;
      overflow-y: scroll;
   }
   .layer::-webkit-scrollbar {display:none}
   .pop-img-box img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: auto;
     height: auto;
   }
