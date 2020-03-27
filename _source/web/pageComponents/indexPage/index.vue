@@ -146,8 +146,7 @@
       return {
         auto: false,
         banners: [],
-        bannersTwo: [
-        ],
+        bannersTwo: [],
         classifyImg: [],
         footNewImg: [{
           adv_url: '',
@@ -496,7 +495,7 @@
   }
 
   .home_cid .pos{
-    margin-top: 10px;
+    margin: 10px 0 16px;
   }
 
   /* 分页器容器 */

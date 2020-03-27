@@ -166,7 +166,7 @@
     height: 26px;
     text-align: center;
     font-size: 0;
-    margin: 20px 0 10px;
+    margin: 20px 0;
   }
 
   .pos .inline {

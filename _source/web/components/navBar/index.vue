@@ -81,18 +81,21 @@
       }
     },
     mounted(){
-      var list = JSON.parse(localStorage.getItem('navList_31'));
+      var that = this;
+      var list = JSON.parse(localStorage.getItem('navList_01'));
       if(!list){
         this.$axios.get('/common/menu/index', {
           params: {}
         }).then(res => {
           this.navList = res.data.data;
-          localStorage.setItem('navList_31',JSON.stringify(this.navList))
+          localStorage.setItem('navList_01',JSON.stringify(this.navList));
+          that.$emit('load','true');
         }).catch(function(error) {
           console.log(error);
         });
       }else{
         this.navList = list;
+        that.$emit('load','true');
       }
     },
     methods: {
@@ -148,6 +151,9 @@
       },
       noSearch(i,e){
         localStorage.removeItem('page_id');
+        sessionStorage.removeItem('now_p');
+        sessionStorage.removeItem('min_p');
+        sessionStorage.removeItem('max_p');
         localStorage.setItem('nav_text', e.target.innerText)
       },
       liveNav(){

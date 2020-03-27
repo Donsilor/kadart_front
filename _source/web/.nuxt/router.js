@@ -134,7 +134,7 @@ export const routerOptions = {
     path: "/designer/index",
     component: _57c12267,
     alias: "/designer/:p",
-    name: "designer"
+    name: "designer-list"
   }],
 
   fallback: false

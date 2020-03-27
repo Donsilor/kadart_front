@@ -159,7 +159,7 @@ module.exports = {
       })
       //设计师
       routes.push({
-        name: 'designer',
+        name: 'designer-list',
         path: '/designer/index',
         component: 'pages/designer/index.vue',
         alias: '/designer/:p'
