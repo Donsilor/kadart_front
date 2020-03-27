@@ -87,11 +87,11 @@ export default {
       var path_id = path.split('=')[1];
       // console.log(path_id)
 
-      if(path_id == 9){
+      if(path_id == 2){
         this.type = 'zoey';
-      }else if(path_id == 10){
+      }else if(path_id == 4){
         this.type = 'heewon';
-      }else if(path_id == 12){
+      }else if(path_id == 6){
         this.type = 'isha';
       }
 
@@ -107,6 +107,7 @@ export default {
       sessionStorage.setItem('now_p', val);
       sessionStorage.setItem('min_p', this.min_page);
       sessionStorage.setItem('max_p', this.max_page);
+      document.documentElement.scrollTop = document.body.scrollTop = 0;
       this.getData();
       // console.log(`当前页: ${val}`);
     },
