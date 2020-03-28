@@ -31,90 +31,70 @@ export default {
 				},
         title: '',
         description: '',
-        pid: '',
-        result: '',
-				ifShow: false
+				ifShow: false,
       }
     },
-    mounted() {
-      document.documentElement.scrollTop = document.body.scrollTop = 0;
+    created(){
+      var url_id,that = this;
+      var path = this.$route.fullPath;
 
-      this.$axios.get('/article/article-cate/index', {
-        params: {}
+      if(path.indexOf('?') == -1){
+        url_id = path.slice(path.lastIndexOf('/')+1)
+      }else{
+        url_id = path.slice(path.lastIndexOf('=')+1)
+      }
+
+      // 文章详情
+      this.$axios.get('/article/article/detail', {
+        params: {
+          'id': url_id,
+        }
       }).then(res => {
-        this.result = res.data.data.lists;
-				
-				this.getDetail(url_id);
+        that.articleDetail = res.data.data;
+        that.description = res.data.data.seo_content;
+        that.title = res.data.data.title;
+
+        if(this.articleDetail.title != '' || this.articleDetail.seo_content != '' || this.articleDetail.content != ''){
+          this.ifShow = true;
+        }
+
+        // var obj = document.getElementsByTagName("head")[0];
+        // var head_meta = obj.querySelectorAll('meta');
+        // head_meta[2].setAttribute('content','123123');
+        // console.log(head_meta[2])
+
       }).catch(function(error) {
         console.log(error);
-      })
-
-      var url_id, path = location.href;
-      if (path.indexOf('?') != -1) {
-        url_id = path.split('=')[1];
-      } else {
-        url_id = path.slice(path.lastIndexOf('/') + 1);
-      }			
-
+      });
     },
-    methods: {
-      // 文章详情
-      getDetail(k) {
-        var that = this;
-        this.$axios.get('/article/article/detail', {
-          params: {
-            'id': k,
-          }
-        }).then(res => {
-          this.articleDetail = res.data.data;
-          this.description = res.data.data.seo_content;
-          this.pid = res.data.data.cate_id;
-					
-					if(this.articleDetail.title != '' || this.articleDetail.seo_content != '' || this.articleDetail.content != ''){
-						that.ifShow = true;
-					}
 
-          that.getClassify();
-        }).catch(function(error) {
-          console.log(error);
-        });
-      },
-			
+// asyncData({ app, $axios, route, store }) {
+//     var url_id,path = route.fullPath;
+//     if(path.indexOf('?') == -1){
+//       url_id = path.slice(path.lastIndexOf('/')+1)
+//     }else{
+//       url_id = path.slice(path.lastIndexOf('=')+1)
+//     }
 
-      // 文章分类
-      getClassify() {
-        var that = this;
+//     return $axios({
+//       method: `get`,
+//       url: `/article/article/detail`,
+//       params: {
+//         'id': url_id,
+//       }
+//     })
+//       .then(res => {
+//         const infos = res.data.data;
+//         // store.commit('setData', 123231)
+//         return {
+//           articleDetail: infos,
+//         }
+//       })
+//       .catch(err => {
+//         console.log(err)
+//       })
+//   }
 
-        var articleList = that.result;
-        var flag = false;
-
-        for (var i = 0; i < articleList.length; i++) {
-          for (var j = 0; j < articleList[i].items.length; j++) {
-            for (var k = 0; k < articleList[i].items[j].items.length; k++) {
-              var list = articleList[i].items[j].items[k];
-
-              if (list.id == that.pid) {
-                that.title = list.title;
-                flag = true;
-                break;
-              } else {
-                // 跳转404
-                // console.log(222)
-              }
-            }
-
-            if (flag) {
-              break;
-            }
-          }
-
-          if (flag) {
-            break;
-          }
-
-        }
-      }
-    }
 }
 </script>
 

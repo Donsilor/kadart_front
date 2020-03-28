@@ -90,7 +90,7 @@
       },
 
       startSearch() {
-        localStorage.removeItem('now_page');
+        localStorage.removeItem('page_id');
         localStorage.removeItem('nav_text');
         this.$router.push({
           path: '/search/'+this.ipt

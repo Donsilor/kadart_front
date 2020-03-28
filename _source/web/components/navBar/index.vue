@@ -81,18 +81,21 @@
       }
     },
     mounted(){
-      var list = JSON.parse(sessionStorage.getItem('navList'));
+      var that = this;
+      var list = JSON.parse(localStorage.getItem('navList_01'));
       if(!list){
         this.$axios.get('/common/menu/index', {
           params: {}
         }).then(res => {
           this.navList = res.data.data;
-          sessionStorage.setItem('navList',JSON.stringify(this.navList))
+          localStorage.setItem('navList_01',JSON.stringify(this.navList));
+          that.$emit('load','true');
         }).catch(function(error) {
           console.log(error);
         });
       }else{
         this.navList = list;
+        that.$emit('load','true');
       }
     },
     methods: {
@@ -137,19 +140,20 @@
             this.isShowText = false;
             break;
           case(8):
-            this.isShow = false;
+            this.isShow = true;
             this.isShowText = false;
             break;
           case(9):
-            this.isShow = false;
+            this.isShow = true;
             this.isShowText = false;
             break;
         }
       },
       noSearch(i,e){
-        localStorage.setItem('goods_id','')
-        localStorage.setItem('now_page','')
-        localStorage.setItem('sort_id','1_1')
+        localStorage.removeItem('page_id');
+        sessionStorage.removeItem('now_p');
+        sessionStorage.removeItem('min_p');
+        sessionStorage.removeItem('max_p');
         localStorage.setItem('nav_text', e.target.innerText)
       },
       liveNav(){
@@ -221,6 +225,7 @@
     background-color: #fff;
     padding: 30px 40px;
     box-sizing: border-box;
+    min-height: 500px;
   }
 
   .nav-box .nav-classify {

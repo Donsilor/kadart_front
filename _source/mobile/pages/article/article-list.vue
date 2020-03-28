@@ -4,14 +4,14 @@
 
     <div class="nav-box">
       <div class="scroll">
-        <a :href="item.url" class="list" :class="active_idx == index ? 'active' : ''" v-for="(item, index) in articleTitle"
+        <a :href="item.url" class="list" :class="active_idx == index ? 'active' : ''" v-for="(item, index) in menu_list"
           :key="index">
           {{item.title}}
         </a>
       </div>
     </div>
 
-    <div class="article-wrap">
+   <div class="article-wrap">
       <div class="article-right-box">
         <div class="article-right-list" v-for="(ite, index) in articleItem" @click="intoDetail(index)">
           <div class="article-right-r">
@@ -23,7 +23,6 @@
           </div>
         </div>
       </div>
-
     </div>
 
     <div class="more" v-if="ifShowLoad" @click="loadMore">
@@ -37,111 +36,42 @@
   export default {
     head() {
       return {
-        title: this.title,
-        meta: [{
-          hid: 'description',
-          name: 'description',
-          content: ''
-        }]
+        title: this.title
       }
     },
     data() {
       return {
-        tdk: {
-          title: ''
-        },
         active_idx: 0,
-        articleTitle: [{
-          title: ''
-        }],
         articleItem: [],
         article_pid: 0,
-        a: 0,
-        b: 0,
         detailUrl: '',
         title: '',
-        tittle: '',
         ifShowLoad: false,
         ifLoad: false,
         page_size: 5,
-        total_count: 0,
-        result: ''
+
+        menu_list: [],
+        pid_fore: '',
       }
     },
     mounted() {
       document.documentElement.scrollTop = document.body.scrollTop = 0;
 
-      var that = this;
+      var url_id, path = location.href;
+      if (path.indexOf('?') != -1) {
+        url_id = path.split('=')[1];
+      } else {
+        url_id = path.slice(path.lastIndexOf('/') + 1);
+      }
 
-      this.$axios.get('/article/article-cate/index', {
-        params: {}
-      }).then(res => {
-        this.result = res.data.data.lists;
+      this.article_pid = url_id;
 
-        this.getClassify();
-        this.getList()
-      }).catch(function(error) {
-        console.log(error);
-      });
+      this.getList()
 
     },
     methods: {
       intoDetail(k) {
-        // var that = this;
-        // localStorage.setItem('articleId', that.articleItem[k].id)
-        // location.href = '/article/article-detail';
-
-        // console.log(this.articleItem[k].url)
         location.href = this.articleItem[k].url;
-      },
-
-      // 文章分类
-      getClassify() {
-        var that = this;
-
-        var url_id, path = location.href;
-        if (path.indexOf('?') != -1) {
-          url_id = path.split('=')[1];
-        } else {
-          url_id = path.slice(path.lastIndexOf('/') + 1);
-        }
-
-        var articleList = this.result;
-        var flag = false;
-
-        for (var i = 0; i < articleList.length; i++) {
-          for (var j = 0; j < articleList[i].items.length; j++) {
-            for (var k = 0; k < articleList[i].items[j].items.length; k++) {
-              var list = articleList[i].items[j].items[k];
-              // console.log(list)
-
-              if (list.id == url_id) {
-                that.a = i;
-                that.b = j;
-                that.active_idx = k;
-                that.article_pid = list.id;
-                that.title = articleList[i].items[j].items[k].title,
-                  that.tittle = articleList[i].title;
-                flag = true;
-                break;
-              } else {
-                // 跳转404
-                // console.log(222)
-              }
-            }
-
-            if (flag) {
-              break;
-            }
-          }
-
-          if (flag) {
-            break;
-          }
-        }
-
-        this.articleTitle = articleList[this.a].items[this.b].items;
-        // console.log(123, this.articleTitle)
       },
 
       // 文章列表
@@ -157,19 +87,45 @@
           }
         }).then(res => {
           this.articleItem = res.data.data.data;
-          // console.log(res.data.data)
+          this.pid_fore = res.data.data.pid;
+          this.title = res.data.data.category_name;
+
+          this.classify();
+
           if (res.data.data.total_count > 5 && this.page_size < res.data.data.total_count) {
             this.ifShowLoad = true;
           } else {
             this.ifShowLoad = false;
           }
           this.ifLoad = false;
-
-          // console.log(this.articleItem)
         }).catch(function(error) {
           console.log(error);
         });
       },
+
+      // 文章分类
+      classify(){
+        var that = this;
+        this.$axios.get('/article/article-cate/index', {
+          params: {
+            'id' : this.article_pid
+          }
+        }).then(res => {
+          this.menu_list = res.data.data.lists;
+
+          // localStorage.setItem('article_list', JSON.stringify(this.result))
+          for(var i=0; i<this.menu_list.length; i++){
+            if(this.menu_list[i].id == this.pid_fore){
+              that.active_idx = i;
+              continue;
+            }
+          }
+
+        }).catch(function(error) {
+          console.log(error);
+        });
+      },
+
       loadMore() {
         this.ifLoad = true;
         this.getList(5);

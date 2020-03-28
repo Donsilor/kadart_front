@@ -9,10 +9,12 @@
     </div>
 
     <div>
-      <nav-bar></nav-bar>
+      <nav-bar @load="onload"></nav-bar>
     </div>
 
-    <nuxt />
+    <div v-if="ifShow">
+      <nuxt />
+    </div>
 
     <div>
       <footer-bar></footer-bar>
@@ -25,12 +27,18 @@
 </template>
 
 <script>
+  import Bus from '~/components/Bus.js'
   import azzd from '~/components/azzd/index.vue'
   import vuex from 'vuex'
-  import Bus from '../components/Bus.js'
 
   export default {
+    data(){
+      return {
+        ifShow: false
+      }
+    },
     mounted() {
+      var that = this;
       this.getWidth();
       const _this = this
       _this.$nextTick(() => {
@@ -51,6 +59,11 @@
 
         this.$store.commit('getWidth', winWidth);
         Bus.$emit('scrollFn', true)
+        Bus.$emit('designer', true)
+      },
+      onload(){
+        var that = this;
+        that.ifShow = true;
       }
     }
   }
