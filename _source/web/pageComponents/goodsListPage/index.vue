@@ -12,8 +12,8 @@
           </div>
 
           <div class="filtrate-condition fr clf">
-            <div class="filtrate-child fl" :class="[item.ifChoose == true ? 'active' : '']" v-for="(item, index) in sort_type" :key="index" @click="sort(index)">
-              <div class="filtrate-child-text fl">{{item.type}}</div>
+            <div class="filtrate-child fl" :class="[filter_index == index * 2 || filter_index == + index * 2 + 1 ? 'active' : '']" v-for="(item, index) in sort_type" :key="index" @click="sort(index)">
+              <div class="filtrate-child-text fl">{{item}}</div>
               <div class="triangle-wrap fl">
                 <div class="triangle-box" :class="[filter_index == index*2 ? 'on' : '']" @click.stop="sort(index, 'a')">
                   <i class="iconfont iconshengxu"></i>
@@ -212,14 +212,9 @@
         pageSize: 6,
         filter: ['1_0', '1_1', '2_0', '2_1', '3_0', '3_1', '4_0', '4_1'],
         filter_index: -1,
-				sort_i: '',
-				flag: false,
-				sort_type:[
-					{type: 'Price', ifChoose: false},
-					{type: 'Popular', ifChoose: false},
-					{type: 'Latest', ifChoose: false},
-					{type: 'Integrated', ifChoose: false},
-				]
+		sort_i: '',
+		flag: false,
+		sort_type:['Price','Popular','Latest','Integrated']
       }
     },
     mounted() {
@@ -392,11 +387,6 @@
 				sessionStorage.removeItem('page_id');
 				this.pageId = 1;
 				this.currentPage1 = 1;
-
-				for(var k=0; k<this.sort_type.length; k++){
-					this.sort_type[k].ifChoose = false;
-				}
-				this.sort_type[i].ifChoose = true;
 				
 				if(j != 'b'){
 					this.filter_index = i*2;
