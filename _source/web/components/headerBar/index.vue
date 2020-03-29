@@ -90,8 +90,10 @@
       },
 
       startSearch() {
-        localStorage.removeItem('page_id');
-        localStorage.removeItem('nav_text');
+        sessionStorage.removeItem('page_id');
+				sessionStorage.removeItem('sort_id');
+        sessionStorage.removeItem('nav_text');
+				
         this.$router.push({
           path: '/search/'+this.ipt
         })
@@ -115,10 +117,16 @@
         this.$router.go(0);
       }
     },
-    mounted() {},
-    created() {
-      this.ipt = this.$route.query.keyword;
-    }
+    mounted() {
+			var path = location.href;
+			if(path.indexOf('search') != -1){
+				if(path.indexOf('?') == -1){
+					this.ipt = path.slice(path.lastIndexOf('/')+1);
+				}else{
+					this.ipt = path.split('=')[1];
+				}
+			}
+		}
   }
 </script>
 

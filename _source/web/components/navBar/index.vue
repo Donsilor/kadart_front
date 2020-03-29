@@ -1,7 +1,7 @@
 <template>
   <div class="nav" @mouseleave="liveNav()">
     <div class="inline">
-      <div v-if="navList" class="nav-list fl" :class="[idx_r == 0 ? 'active' : '']" @mouseover="chooseMe(0)">
+      <div v-if="navList.length > 0" class="nav-list fl" :class="[idx_r == 0 ? 'active' : '']" @mouseover="chooseMe(0)">
         <a href="/about-kadart">{{navList[0].title}}</a>
       </div>
 
@@ -31,49 +31,7 @@
   export default {
     data() {
       return {
-        navList: [{
-          id: '',
-          items: [{
-            id: '',
-            items: [{
-              id: '',
-              items: [],
-              level: '',
-              pid: '',
-              title: '',
-              url: ''
-            }],
-            level: '',
-            pid: '',
-            title: '',
-            url: ''
-          }],
-          level: '',
-          pid: '',
-          title: '',
-          url: ''
-        },{
-          id: '',
-          items: [{
-            id: '',
-            items: [{
-              id: '',
-              items: [],
-              level: '',
-              pid: '',
-              title: '',
-              url: ''
-            }],
-            level: '',
-            pid: '',
-            title: '',
-            url: ''
-          }],
-          level: '',
-          pid: '',
-          title: '',
-          url: ''
-        }],
+        navList: [],
         isShow: false,
         idx_r: -1,
         isShowText: true,
@@ -150,11 +108,12 @@
         }
       },
       noSearch(i,e){
-        localStorage.removeItem('page_id');
+        sessionStorage.removeItem('page_id');
+        sessionStorage.removeItem('sort_id');
+        sessionStorage.setItem('nav_text', e.target.innerText);
         sessionStorage.removeItem('now_p');
         sessionStorage.removeItem('min_p');
         sessionStorage.removeItem('max_p');
-        localStorage.setItem('nav_text', e.target.innerText)
       },
       liveNav(){
         this.isShow = false;
