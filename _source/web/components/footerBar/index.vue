@@ -44,7 +44,7 @@
             <div class="icon" @click="shareFaceBook">
               <img src="../../static/index/icon01.png" alt="">
             </div>
-            <div class="icon">
+            <div class="icon" @click="shartTwitter">
               <img src="../../static/index/icon02.png" alt="">
             </div>
             <div class="icon">
@@ -82,6 +82,35 @@
   import Bus from '../Bus.js'
 
   export default{
+    head() {
+      return {
+        title: this.title,
+        meta: [
+          {
+            property: 'og:url',
+            class: 'fb_url',
+            content: 'www.kadart.com'
+          },
+          {
+            property: 'og:type',
+            content: 'website'
+          },
+          {
+            property: 'og:title',
+            class: 'fb_title',
+            content: '11111'
+          },
+          {
+            property: 'og:description',
+            content: '222222'
+          },
+          {
+            property: 'og:image',
+            content: ''
+          },
+        ]
+      }
+    },
     data(){
       return{
         heig: ''
@@ -105,18 +134,34 @@
         Bus.$emit('send', true)
       },
       shareFaceBook(){
-        var _url = window.location.href;
-        var shareUrl = "http://www.facebook.com/sharer/sharer.php?u="+ _url;
-        popupwindow(shareUrl, 'Facebook', 600, 400);
+        // var _url = window.location.href;
+        // var shareUrl = "http://www.facebook.com/sharer/sharer.php?u="+ _url;
+        // popupwindow(shareUrl, 'Facebook', 600, 400);
 
-        function popupwindow(url, title, w, h) {
-            var wLeft = window.screenLeft ? window.screenLeft : window.screenX;
-            var wTop = window.screenTop ? window.screenTop : window.screenY;
+        // function popupwindow(url, title, w, h) {
+        //     var wLeft = window.screenLeft ? window.screenLeft : window.screenX;
+        //     var wTop = window.screenTop ? window.screenTop : window.screenY;
 
-            var left = wLeft + (window.innerWidth / 2) - (w / 2);
-            var top = wTop + (window.innerHeight / 2) - (h / 2);
-            return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
-        }
+        //     var left = wLeft + (window.innerWidth / 2) - (w / 2);
+        //     var top = wTop + (window.innerHeight / 2) - (h / 2);
+        //     return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+        // }
+
+        // 方法二-----------------
+        // function fbShare(contentId) {
+
+            var u = document.getElementsByClassName("fb_url")[0].content;
+
+            var t = document.getElementsByClassName("fb_title")[0].content;
+
+            window.open("http://www.facebook.com/sharer.php?u="+ encodeURIComponent(u) + "&t="+ encodeURIComponent(t), "sharer","toolbar=0,status=0,width=626,height=436");
+
+
+        // }
+      },
+      shartTwitter(){
+          var text = "Glass Water Pipes Bong Factory Creative Smokes. @CreativeSmokes  http://www.creativesmokes.com/";
+          window.open("https://twitter.com/intent/tweet?text="+encodeURIComponent(text));
       },
       toArticle(i){
         localStorage.setItem('article', i)

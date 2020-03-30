@@ -65,9 +65,9 @@
           </div>
         </div>
 
-        <div class="share-text" style="display: none;">Share:</div>
-        <div class="share-box" style="display: none;">
-          <a href="">
+        <div class="share-text" style="display: block;">Share:</div>
+        <div class="share-box" style="display: block;">
+          <a @click="shareFaceBook">
             <img src="../../static/index/icon01.png" alt="">
           </a>
           <a href="">
@@ -133,12 +133,34 @@
     components: {
       magnifying
     },
-    head () {
+    head() {
       return {
         title: 'Best high quality jewelry with fine craftsmanship wholesale',
         meta: [
           { hid: 'description', name: 'description', content: 'KADArt manufacturer and wholesale top-end gold,silver, copper and alloy jewelry with precious,semi gems,crystal,zircon,rhinestone at good price'},
-          { hid: 'keywords', name: 'keywords', content: 'jewelry factory, jewelry supplier, jewelry manufacturer,jewelry wholesale,gold jewelry, silver jewelry, brass jewelry, high quality jewelry, best jewelry, stylish jewelry, fashion jewelry' }
+          { hid: 'keywords', name: 'keywords', content: 'jewelry factory, jewelry supplier, jewelry manufacturer,jewelry wholesale,gold jewelry, silver jewelry, brass jewelry, high quality jewelry, best jewelry, stylish jewelry, fashion jewelry' },
+          {
+            property: 'og:url',
+            class: 'fc_url',
+            content: 'https:\/\/www.kadart.com/goods-120-CT-TW-Diamond-Winged-Unicorn-Pendant-in-Sterling-Silver/106'
+          },
+          {
+            property: 'og:type',
+            content: 'website'
+          },
+          {
+            property: 'og:title',
+            class: 'fb_title',
+            content: '11111'
+          },
+          {
+            property: 'og:description',
+            content: '222222'
+          },
+          {
+            property: 'og:image',
+            content: ''
+          },
         ]
       }
     },
@@ -277,7 +299,33 @@
         // var that = this;
         this.commodityLeftWidth = comBox-568;
         // console.log(that.commodityLeftWidth)
-      }
+      },
+      shareFaceBook(){
+        // var _url = window.location.href;
+        // var shareUrl = "http://www.facebook.com/sharer/sharer.php?u="+ _url;
+        // popupwindow(shareUrl, 'Facebook', 600, 400);
+
+        // function popupwindow(url, title, w, h) {
+        //     var wLeft = window.screenLeft ? window.screenLeft : window.screenX;
+        //     var wTop = window.screenTop ? window.screenTop : window.screenY;
+
+        //     var left = wLeft + (window.innerWidth / 2) - (w / 2);
+        //     var top = wTop + (window.innerHeight / 2) - (h / 2);
+        //     return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+        // }
+
+        // 方法二-----------------
+        // function fbShare(contentId) {
+
+            var u = document.getElementsByClassName("fc_url")[0].content;
+
+            var t = document.getElementsByClassName("fb_title")[0].content;
+
+            window.open("http://www.facebook.com/sharer.php?u="+ encodeURIComponent(u) + "&t="+ encodeURIComponent(t), "sharer","toolbar=0,status=0,width=626,height=436");
+
+
+        // }
+      },
     }
   }
 </script>
