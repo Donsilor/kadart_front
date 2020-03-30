@@ -5,7 +5,7 @@
     <div class="article-wrap clf">
       <div class="article-left fl">
         <div>
-          <div class="article-left-tit">{{tittle}}</div>
+          <div class="article-left-tit">{{article_title}}</div>
           <div class="article-left-box">
             <a :href="item.url" class="article-left-list" :class="active_idx == index ? 'active' : ''" v-for="(item, index) in articleTitle"
               :key="index">
@@ -76,7 +76,7 @@
         b: 0,
         detailUrl: '',
         title: '',
-        tittle: '',
+        article_title: '',
         currentPage1: 1,
         page_count: 0,
         total_count: 0,
@@ -91,7 +91,7 @@
       }).then(res => {
         this.result = res.data.data.lists ;
 
-        this.gitClassify()
+        this.getClassify()
         this.getList()
 
       }).catch(function(error) {
@@ -99,7 +99,7 @@
       });
     },
     methods: {
-      gitClassify(){
+      getClassify(){
         var that = this;
 
         var url_id,path = location.href;
@@ -126,7 +126,7 @@
                 that.active_idx = k;
                 that.article_pid = list.id;
                 that.title = articleList[i].items[j].items[k].title,
-                that.tittle = articleList[i].items[j].title;
+                that.article_title = articleList[i].items[j].title;
                 flag = true;
                 break;
               } else {
