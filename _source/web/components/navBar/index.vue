@@ -1,7 +1,7 @@
 <template>
   <div class="nav" @mouseleave="liveNav()">
     <div class="inline">
-      <div v-if="navList" class="nav-list fl" :class="[idx_r == 0 ? 'active' : '']" @mouseover="chooseMe(0)">
+      <div v-if="navList.length > 0" class="nav-list fl" :class="[idx_r == 0 ? 'active' : '']" @mouseover="chooseMe(0)">
         <a href="/about-kadart">{{navList[0].title}}</a>
       </div>
 
@@ -31,49 +31,7 @@
   export default {
     data() {
       return {
-        navList: [{
-          id: '',
-          items: [{
-            id: '',
-            items: [{
-              id: '',
-              items: [],
-              level: '',
-              pid: '',
-              title: '',
-              url: ''
-            }],
-            level: '',
-            pid: '',
-            title: '',
-            url: ''
-          }],
-          level: '',
-          pid: '',
-          title: '',
-          url: ''
-        },{
-          id: '',
-          items: [{
-            id: '',
-            items: [{
-              id: '',
-              items: [],
-              level: '',
-              pid: '',
-              title: '',
-              url: ''
-            }],
-            level: '',
-            pid: '',
-            title: '',
-            url: ''
-          }],
-          level: '',
-          pid: '',
-          title: '',
-          url: ''
-        }],
+        navList: [],
         isShow: false,
         idx_r: -1,
         isShowText: true,
@@ -81,18 +39,21 @@
       }
     },
     mounted(){
-      var list = JSON.parse(sessionStorage.getItem('navList'));
+      var that = this;
+      var list = JSON.parse(localStorage.getItem('navList_01'));
       if(!list){
         this.$axios.get('/common/menu/index', {
           params: {}
         }).then(res => {
           this.navList = res.data.data;
-          sessionStorage.setItem('navList',JSON.stringify(this.navList))
+          localStorage.setItem('navList_01',JSON.stringify(this.navList));
+          that.$emit('load','true');
         }).catch(function(error) {
           console.log(error);
         });
       }else{
         this.navList = list;
+        that.$emit('load','true');
       }
     },
     methods: {
@@ -137,7 +98,7 @@
             this.isShowText = false;
             break;
           case(8):
-            this.isShow = false;
+            this.isShow = true;
             this.isShowText = false;
             break;
           case(9):
@@ -147,10 +108,12 @@
         }
       },
       noSearch(i,e){
-        localStorage.setItem('goods_id','')
-        localStorage.setItem('now_page','')
-        localStorage.setItem('sort_id','1_1')
-        localStorage.setItem('nav_text', e.target.innerText)
+        sessionStorage.removeItem('page_id');
+        sessionStorage.removeItem('sort_id');
+        sessionStorage.setItem('nav_text', e.target.innerText);
+        sessionStorage.removeItem('now_p');
+        sessionStorage.removeItem('min_p');
+        sessionStorage.removeItem('max_p');
       },
       liveNav(){
         this.isShow = false;

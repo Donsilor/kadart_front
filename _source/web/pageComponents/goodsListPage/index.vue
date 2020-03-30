@@ -1,57 +1,24 @@
 <template>
   <div>
+		<h2 class="engagement" v-if="ifShowDescribe">{{seo.title}}</h2>
+		<div class="engagement-text" v-if="ifShowDescribe">{{seo.description}}</div>
+		
     <div class="components-box clf">
      <div class="commodity-right fl" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0)">
         <div class="filtrate clf">
-          <div class="filtrate-text fl">
+          <div class="filtrate-text fl" v-if="totalNum && nav_text">
             <span class="bold">{{totalNum}} Items found for </span>{{nav_text}}
           </div>
 
           <div class="filtrate-condition fr clf">
-            <div class="filtrate-child fl" :class="[filter_index == 0 || filter_index == 1 ? 'active' : '']" @click="sort(1)">
-              <div class="filtrate-child-text fl">Price</div>
+            <div class="filtrate-child fl" :class="[filter_index == index * 2 || filter_index == + index * 2 + 1 ? 'active' : '']" v-for="(item, index) in sort_type" :key="index" @click="sort(index)">
+              <div class="filtrate-child-text fl">{{item}}</div>
               <div class="triangle-wrap fl">
-                <div class="triangle-box" :class="[filter_index == 0 ? 'on' : '']" @click.stop="sort(0)">
+                <div class="triangle-box" :class="[filter_index == index*2 ? 'on' : '']" @click.stop="sort(index, 'a')">
                   <i class="iconfont iconshengxu"></i>
                 </div>
-                <div class="triangle-box" :class="[filter_index == 1 ? 'on' : '']" @click.stop="sort(1)">
-                  <i class="iconfont iconjiangxu"></i>
-                </div>
-              </div>
-            </div>
-
-            <div class="filtrate-child fl" :class="[filter_index == 2 || filter_index == 3 ? 'active' : '']" @click="sort(3)">
-              <div class="filtrate-child-text fl">Popular</div>
-              <div class="triangle-wrap fl">
-                <div class="triangle-box" :class="[filter_index == 2 ? 'on' : '']" @click.stop="sort(2)">
-                  <i class="iconfont iconshengxu"></i>
-                </div>
-                <div class="triangle-box" :class="[filter_index == 3 ? 'on' : '']" @click.stop="sort(3)">
-                  <i class="iconfont iconjiangxu"></i>
-                </div>
-              </div>
-            </div>
-
-            <div class="filtrate-child fl" :class="[filter_index == 4 || filter_index == 5 ? 'active' : '']" @click="sort(5)">
-              <div class="filtrate-child-text fl">Latest</div>
-              <div class="triangle-wrap fl">
-                <div class="triangle-box" :class="[filter_index == 4 ? 'on' : '']" @click.stop="sort(4)">
-                  <i class="iconfont iconshengxu"></i>
-                </div>
-                <div class="triangle-box" :class="[filter_index == 5 ? 'on' : '']" @click.stop="sort(5)">
-                  <i class="iconfont iconjiangxu"></i>
-                </div>
-              </div>
-            </div>
-
-            <div class="filtrate-child fl" :class="[filter_index == 6 || filter_index == 7 ? 'active' : '']" @click="sort(7)">
-              <div class="filtrate-child-text fl">Integrated</div>
-              <div class="triangle-wrap fl">
-                <div class="triangle-box" :class="[filter_index == 6 ? 'on' : '']" @click.stop="sort(6)">
-                  <i class="iconfont iconshengxu"></i>
-                </div>
-                <div class="triangle-box" :class="[filter_index == 7 ? 'on' : '']" @click.stop="sort(7)">
+                <div class="triangle-box" :class="[filter_index == +index*2+1 ? 'on' : '']" @click.stop="sort(index, 'b')">
                   <i class="iconfont iconjiangxu"></i>
                 </div>
               </div>
@@ -95,6 +62,24 @@
 <script>
   import Bus from '../../components/Bus.js'
   export default {
+    head() {
+      return {
+        title: this.seo.meta_title || 'Quality gold,silver jewelry wholesale at factory price',
+        meta: [{
+            hid: 'description',
+            name: 'description',
+            content: this.seo.meta_desc ||
+              'KADArt design, manufacture and wholesale gold,silver,brass and alloy jewelry with diamond,ruby,sapphire,zircon,crystal and rhinestone at very good price.'
+          },
+          {
+            hid: 'keywords',
+            name: 'keywords',
+            content: this.seo.meta_word ||
+              'jewelry factory, jewelry supplier, jewelry manufacturer,China jewelry wholesale,gold jewelry, silver jewelry, brass jewelry,best jewelry, fashion jewelry '
+          }
+        ]
+      }
+    },
     data() {
       return {
         loading: false,
@@ -104,10 +89,6 @@
         totalNum: 0,
         ifOpenA: false,
         ifOpenB: false,
-        filter: ['1_0', '1_1', '2_0', '2_1', '3_0', '3_1', '4_0', '4_1'],
-        filter_index: -1,
-        flag: true,
-        sort_i: 0,
         ifShowDescribe: false,
         dataItem: [{
             form: 'GENDER',
@@ -213,8 +194,6 @@
           }
         ],
 
-        line_id: 2,
-
         ifShowText: false,
         nav_text: '',
         seo: {
@@ -224,7 +203,6 @@
           'title': '',
           'description': '',
         },
-
         typeId: '',
         keyword: '',
         attrId: '',
@@ -233,127 +211,15 @@
         pageId: 1,
         pageSize: 6,
         filter: ['1_0', '1_1', '2_0', '2_1', '3_0', '3_1', '4_0', '4_1'],
-        filter_index: 0,
+        filter_index: -1,
+		sort_i: '',
+		flag: false,
+		sort_type:['Price','Popular','Latest','Integrated']
       }
     },
     mounted() {
       window.addEventListener('scroll', this.scrollToTop);
-
-      // var goods_id = localStorage.getItem('goods_id');
-      // var now_page = localStorage.getItem('now_page');
-      // var sort_id = localStorage.getItem('sort_id');
-
-      // var type_id = this.$route.query.type_id;
-      // this.keyword = this.$route.query.keyword;
-
-      // if (this.keyword == undefined) {
-      //   var keywordId = location.pathname;
-      //   if (keywordId.indexOf('keyword') != -1) {
-      //     var num = keywordId.lastIndexOf('/');
-      //     this.keyword = keywordId.slice(num + 1);
-      //   }
-      // }
-
-      // if (this.keyword != undefined) {
-      //   this.loading = true;
-      //   this.nav_text = unescape(this.keyword);
-      // } else {
-      //   var nav_t = localStorage.getItem('nav_text');
-      //   if (nav_t) {
-      //     this.nav_text = unescape(nav_t);
-      //   }
-      // }
-
-      // if (type_id) {
-      //   this.line_id = type_id;
-      //   localStorage.setItem('line_id', this.line_id);
-      // } else {
-      //   localStorage.setItem('line_id', this.line_id);
-      // }
-
-      // if (type_id == 2) {
-      //   this.ifShowDescribe = true;
-      // } else if (type_id == 4) {
-      //   this.ifShowDescribe = true;
-      // } else if (type_id == 6) {
-      //   this.ifShowDescribe = true;
-      // } else if (type_id == 8) {
-      //   this.ifShowDescribe = true;
-      // } else if (type_id == 15) {
-      //   this.ifShowDescribe = true;
-      // }
-
-      // if (goods_id == null) {
-      //   this.searchId = ''
-      // } else {
-      //   this.searchId = goods_id;
-      // }
-
-      // if (sort_id == null) {
-      //   this.sortId = '';
-      // } else {
-      //   this.sortId = sort_id;
-      // }
-
-      // if (now_page == null) {
-      //   this.pageId = ''
-      // } else {
-      //   this.pageId = now_page;
-      //   this.currentPage1 = now_page - 0
-      // }
-
-      // var urlData = location.search;
-
-      // if (urlData.indexOf('?') == -1) {
-      //   urlData = location.pathname;
-      //   var num = urlData.lastIndexOf('/');
-
-      //   if(urlData.indexOf('search') != -1){
-      //     this.keyword = urlData.slice(num + 1)
-      //     this.nav_text = unescape(urlData.slice(num + 1))
-      //   }else{
-      //     urlData = urlData.slice(num + 1);
-
-      //     var urlArr = urlData.split(/&/);
-
-      //     for (var i = 0; i < urlArr.length; i++) {
-      //       var arrVal = urlArr[i].split(/=/);
-
-      //       if (arrVal[0] == 'type_id') {
-      //         this.typeId = arrVal[1]
-      //       } else if (arrVal[0] == 'attr_id') {
-      //         this.attrId = arrVal[1]
-      //       } else if (arrVal[0] == 'attr_value') {
-      //         this.attrValue = arrVal[1]
-      //       } else if (arrVal[0] == 'price_range') {
-      //         this.priceRange = arrVal[1]
-      //       }
-      //     }
-      //   }
-      // } else {
-      //   var urlArr = urlData.split(/[?=&]/);
-      //   urlArr.shift();
-      //   for (var i = 0; i < urlArr.length; i += 2) {
-      //     if (urlArr[i] == 'type_id') {
-      //       this.typeId = urlArr[i + 1]
-      //     } else if (urlArr[i] == 'attr_id') {
-      //       this.attrId = urlArr[i + 1]
-      //     } else if (urlArr[i] == 'attr_value') {
-      //       this.attrValue = urlArr[i + 1]
-      //     } else if (urlArr[i] == 'price_range') {
-      //       this.priceRange = urlArr[i + 1]
-      //     }
-      //   }
-      // }
-
-      // var self = this;
-      // Bus.$on('sendPriceVal', function(val) {
-      //   location.search = '';
-      //   self.acquireData(val);
-      // })
-
       this.getData()
-
     },
     methods: {
       acquireData(k_type_id, k_keyword, k_filter, K_attr_id, k_attr_value, k_price_range, k_page, k_page_size) {
@@ -377,11 +243,11 @@
           that.totalNum = res.data.data.total_count - 0;
           that.totalPages = res.data.data.page_count - 0;
 
-          if (_self.commodityItem.data[0] == undefined) {
+          if (that.commodityItem.data[0] == undefined) {
             that.ifShowText = true;
           }
         }).catch(function(error) {
-          // console.log(error);
+          console.log(error);
         });
       },
 
@@ -390,38 +256,76 @@
 
         // 有问号url
         if(path.indexOf('?') != -1){
-          console.log(this.$route.query)
+          path = path.split('?')[1];
+					var arr = path.split(/[=&]/);
+					
+					for(var i=0; i<arr.length; i++){
+						if(arr[i] == 'search'){
+							this.keyword = unescape(arr[i+1]);
+						}
+					  if(arr[i] == 'type_id'){
+					    this.typeId = arr[i+1];
+							sessionStorage.setItem('line_id', this.typeId);
+					  }
+					  if(arr[i] == 'attr_id'){
+					    this.attrId = arr[i+1];
+					  }
+					  if(arr[i] == 'price_range'){
+					    this.priceRange = arr[i+1];
+					  }
+					}
         }else{
           // 无问号url
           path = path.slice(path.lastIndexOf('/')+1);
           if(path.indexOf('=') == -1){
-            this.keyword = path;
+            this.keyword = unescape(path);
           }else{
             if(path.indexOf('&') == -1){
-              this.typeId = path.split('=')[1]
+              this.typeId = path.split('=')[1];
+							sessionStorage.setItem('line_id', this.typeId);
             }else{
               var arr = path.split(/[=&]/);
 
               for(var i=0; i<arr.length; i++){
                 if(arr[i] == 'type_id'){
                   this.typeId = arr[i+1];
+									sessionStorage.setItem('line_id', this.typeId);
                 }
                 if(arr[i] == 'attr_id'){
                   this.attrId = arr[i+1];
                 }
                 if(arr[i] == 'price_range'){
-                  this.priceRange = arr[i+1]
+                  this.priceRange = arr[i+1];
                 }
               }
             }
           }
         }
 
-        var page_id = localStorage.getItem('page_id');
+				
+				if(this.keyword){
+					this.nav_text = this.keyword;
+				}else{
+					var nav_text = sessionStorage.getItem('nav_text');
+					this.nav_text = nav_text;
+				}
+				
+				if(this.typeId == 2 || this.typeId == 4 || this.typeId == 6 || this.typeId == 8 || this.typeId == 15){
+					this.ifShowDescribe = true;
+				}
+
+        var page_id = sessionStorage.getItem('page_id');
         if(page_id){
           this.pageId = page_id;
-          this.currentPage1 = page_id;
+          this.currentPage1 = page_id-0;
         }
+				
+				var sort_id = sessionStorage.getItem('sort_id');
+				if(sort_id){
+					this.filter_index = sort_id;
+				}
+				
+				console.log(this.pageId)
 
         this.acquireData(this.typeId, this.keyword, this.filter[this.filter_index], this.attrId, this.attrValue, this.priceRange, this.pageId, this.page_size)
       },
@@ -433,7 +337,7 @@
         document.documentElement.scrollTop = document.body.scrollTop = 0;
 
         this.pageId = val;
-        localStorage.setItem('page_id', val);
+        sessionStorage.setItem('page_id', val);
         this.getData();
 
         // console.log(`当前页: ${val}`);
@@ -479,50 +383,36 @@
       controlOpenB() {
         this.ifOpenB = !this.ifOpenB;
       },
-      sort(i) {
-        this.getData();
-
-        if (this.sort_i != 0) {
-          if (this.sort_i != i) {
-            this.flag = true;
-          }
-        }
-
-        var _self = this;
-        if (_self.flag) {
-          _self.filter_index = i;
-        } else {
-          _self.filter_index = i - 1;
-        }
-        localStorage.setItem('sort_id', _self.filter[_self.filter_index]);
-        localStorage.setItem('now_page', '');
-        this.currentPage1 = 1;
-
-        _self.acquireData(this.searchId, this.filter[_self.filter_index], '', this.typeId, this.attrId, this.attrValue,
-          this.priceRange);
-        this.flag = !this.flag;
-        this.sort_i = i;
+      sort(i, j) {
+				sessionStorage.removeItem('page_id');
+				this.pageId = 1;
+				this.currentPage1 = 1;
+				
+				if(j != 'b'){
+					this.filter_index = i*2;
+				}else{
+					this.filter_index = +i*2+1;
+				}
+				
+				if(!j){
+					if(this.sort_i == i && this.flag == false){
+						this.filter_index = +i*2+1;
+					}
+					if(this.sort_i != i){
+						this.flag = true;
+						this.filter_index = +i*2;
+					}
+				}
+				
+				this.sort_i = i;
+				this.flag = !this.flag;
+				
+       sessionStorage.setItem('sort_id', this.filter_index);
+				
+				this.getData();
       },
       clickC(i) {
         this.index_c = i;
-      }
-    },
-    head() {
-      return {
-        title: this.seo.meta_title || 'Quality gold,silver jewelry wholesale at factory price',
-        meta: [{
-            hid: 'description',
-            name: 'description',
-            content: this.seo.meta_desc ||
-              'KADArt design, manufacture and wholesale gold,silver,brass and alloy jewelry with diamond,ruby,sapphire,zircon,crystal and rhinestone at very good price.'
-          },
-          {
-            hid: 'keywords',
-            name: 'keywords',
-            content: this.seo.meta_word ||
-              'jewelry factory, jewelry supplier, jewelry manufacturer,China jewelry wholesale,gold jewelry, silver jewelry, brass jewelry,best jewelry, fashion jewelry '
-          }
-        ]
       }
     }
   }
