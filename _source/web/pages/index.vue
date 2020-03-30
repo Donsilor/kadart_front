@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import mains from '~/pageComponents/indexPage/index'
+import mains from '../pageComponents/indexPage/index'
 
 export default {
   components: {

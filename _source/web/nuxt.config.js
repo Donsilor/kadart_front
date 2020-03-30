@@ -1,4 +1,5 @@
-module.exports = {
+
+export default {
   mode: 'universal',
   server: {
     port: 3002, // default: 3000
@@ -8,15 +9,11 @@ module.exports = {
    ** Headers of the page
    */
   head: {
-    title: 'vue-web2',
-    meta: [{
-        charset: 'utf-8'
-      },
-      {
-        hid: 'description',
-        name: 'description',
-        content: ''
-      }
+    title: process.env.npm_package_name || '',
+    meta: [
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0' },
+      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [{
       rel: 'icon',
@@ -56,9 +53,9 @@ module.exports = {
     //prefix: 'https://api.kadart.com/index.php/v1',
     // proxy: true // Can be also an object with default options
     // 线上api
-  	baseURL: 'https://api.kadart.com/index.php/v1',
+  	// baseURL: 'https://api.kadart.com/index.php/v1',
     // 测试api
-  	// baseURL: 'https://kadart.bddia.com/api/index.php/v1'
+  	baseURL: 'https://kadart.bddia.com/api/index.php/v1'
 
 
   },

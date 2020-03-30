@@ -1,4 +1,4 @@
-# vue-web2
+# Kadart
 
 > Nuxt.js project
 

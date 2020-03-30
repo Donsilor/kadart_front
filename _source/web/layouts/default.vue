@@ -12,9 +12,9 @@
       <nav-bar @load="onload"></nav-bar>
     </div>
 
-    <div v-if="ifShow">
+    <!-- <div v-if="ifShow"> -->
       <nuxt />
-    </div>
+    <!-- </div> -->
 
     <div>
       <footer-bar></footer-bar>

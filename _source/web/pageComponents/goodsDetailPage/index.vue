@@ -142,7 +142,7 @@
           {
             property: 'og:url',
             class: 'fc_url',
-            content: 'https:\/\/www.kadart.com/goods-120-CT-TW-Diamond-Winged-Unicorn-Pendant-in-Sterling-Silver/106'
+            content: 'https://www.kadart.com/goods-120-CT-TW-Diamond-Winged-Unicorn-Pendant-in-Sterling-Silver/106'
           },
           {
             property: 'og:type',

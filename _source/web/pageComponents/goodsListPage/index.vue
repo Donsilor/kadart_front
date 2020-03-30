@@ -296,6 +296,8 @@
         sort_type: ['Price', 'Popular', 'Latest', 'Integrated']
       }
     },
+    created(){
+    },
     mounted() {
       window.addEventListener('scroll', this.scrollToTop);
       this.getData()
@@ -403,8 +405,6 @@
         if (sort_id) {
           this.filter_index = sort_id;
         }
-
-        console.log(this.pageId)
 
         this.acquireData(this.typeId, this.keyword, this.filter[this.filter_index], this.attrId, this.attrValue, this.priceRange,
           this.pageId, this.page_size)
