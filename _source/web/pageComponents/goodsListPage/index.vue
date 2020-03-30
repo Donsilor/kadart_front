@@ -1,10 +1,88 @@
 <template>
   <div>
-		<h2 class="engagement" v-if="ifShowDescribe">{{seo.title}}</h2>
-		<div class="engagement-text" v-if="ifShowDescribe">{{seo.description}}</div>
-		
+    <h2 class="engagement" v-if="ifShowDescribe">{{seo.title}}</h2>
+    <div class="engagement-text" v-if="ifShowDescribe">{{seo.description}}</div>
+
     <div class="components-box clf">
-     <div class="commodity-right fl" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
+      <!-- 左侧选择区 -->
+      <div class="commodity-left fl" v-if="0">
+        <div class="refinements">Refinements</div>
+        <div class="classify-box" v-bind:class="{'pack-up': ifOpenA}">
+          <div class="tit clf">
+            <i class="iconfont iconxiangshang fr" @click="controlOpenA()"></i>
+          </div>
+
+          <div class="D-box">
+            <div class="child-b" v-for="item in arr">
+              <i class="iconfont iconshanchu"></i>{{item}}
+            </div>
+
+            <div class="clear-all" v-if="arr.length != 0" @click="clearAll()">
+              <i class="iconfont iconquxiao"></i>CLEAR ALL
+            </div>
+          </div>
+        </div>
+
+        <div class="refinements">Select Refinments</div>
+
+        <div class="classify-box" v-bind:class="{'pack-up': item.isShowT}" v-for="(item, index) in dataItem" :key="index"
+          v-if="index<3">
+          <div class="tit clf" @click="ifShowF(index)">
+            <div class="fl">{{item.form}}</div>
+            <i class="iconfont iconxiangshang fr"></i>
+          </div>
+
+          <div class="D-box" v-for="(children, idx) in item.content" :key="idx">
+            <div class="child-a clf" :class="[children.isChoose ? 'active' : '']" @click="ifChooseF(index, idx)">
+              <div class="square fl">
+                <i class="iconfont iconduihao" v-if="children.isChoose"></i>
+              </div>
+              <span class="square-text fl">{{children.text}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="classify-box" v-bind:class="{'pack-up': ifOpenB}">
+          <div class="tit clf" @click="controlOpenB()">
+            <div class="fl">HOLIDAY DEALS</div>
+            <i class="iconfont iconxiangshang fr"></i>
+          </div>
+
+          <div class="D-box">
+            <div class="child-c" :class="index_c == index ? 'active' : ''" v-for="(item, index) in priceList" @click="clickC(index)">{{item.list}}</div>
+
+            <div class="search-scope">
+              <span class="color">$</span><input type="text" class="ipt" placeholder="low">
+              <i>-</i>
+              <span class="color">$</span><input type="text" class="ipt" placeholder="high">
+              <div class="search-btn">GO</div>
+            </div>
+
+            <div class="more">More...</div>
+          </div>
+        </div>
+
+        <div class="classify-box" v-bind:class="{'pack-up': item.isShowT}" v-for="(item, index) in dataItem" :key="index"
+          v-if="index>=3">
+          <div class="tit clf" @click="ifShowF(index)">
+            <div class="fl">{{item.form}}</div>
+            <i class="iconfont iconxiangshang fr"></i>
+          </div>
+
+          <div class="D-box" v-for="(children, idx) in item.content" :key="idx">
+            <div class="child-a clf" :class="[children.isChoose ? 'active' : '']" @click="ifChooseF(index, idx)">
+              <div class="square fl">
+                <i class="iconfont iconduihao" v-if="children.isChoose"></i>
+              </div>
+              <span class="square-text fl">{{children.text}}</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 右侧列表区 -->
+      <div class="commodity-right fl" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0)">
         <div class="filtrate clf">
           <div class="filtrate-text fl" v-if="totalNum && nav_text">
@@ -12,7 +90,8 @@
           </div>
 
           <div class="filtrate-condition fr clf">
-            <div class="filtrate-child fl" :class="[filter_index == index * 2 || filter_index == + index * 2 + 1 ? 'active' : '']" v-for="(item, index) in sort_type" :key="index" @click="sort(index)">
+            <div class="filtrate-child fl" :class="[filter_index == index * 2 || filter_index == + index * 2 + 1 ? 'active' : '']"
+              v-for="(item, index) in sort_type" :key="index" @click="sort(index)">
               <div class="filtrate-child-text fl">{{item}}</div>
               <div class="triangle-wrap fl">
                 <div class="triangle-box" :class="[filter_index == index*2 ? 'on' : '']" @click.stop="sort(index, 'a')">
@@ -212,9 +291,9 @@
         pageSize: 6,
         filter: ['1_0', '1_1', '2_0', '2_1', '3_0', '3_1', '4_0', '4_1'],
         filter_index: -1,
-		sort_i: '',
-		flag: false,
-		sort_type:['Price','Popular','Latest','Integrated']
+        sort_i: '',
+        flag: false,
+        sort_type: ['Price', 'Popular', 'Latest', 'Integrated']
       }
     },
     mounted() {
@@ -223,7 +302,7 @@
     },
     methods: {
       acquireData(k_type_id, k_keyword, k_filter, K_attr_id, k_attr_value, k_price_range, k_page, k_page_size) {
-        if(k_keyword != undefined){
+        if (k_keyword != undefined) {
           k_keyword = unescape(k_keyword);
         }
         var that = this;
@@ -255,79 +334,80 @@
         var path = location.href;
 
         // 有问号url
-        if(path.indexOf('?') != -1){
+        if (path.indexOf('?') != -1) {
           path = path.split('?')[1];
-					var arr = path.split(/[=&]/);
-					
-					for(var i=0; i<arr.length; i++){
-						if(arr[i] == 'search'){
-							this.keyword = unescape(arr[i+1]);
-						}
-					  if(arr[i] == 'type_id'){
-					    this.typeId = arr[i+1];
-							sessionStorage.setItem('line_id', this.typeId);
-					  }
-					  if(arr[i] == 'attr_id'){
-					    this.attrId = arr[i+1];
-					  }
-					  if(arr[i] == 'price_range'){
-					    this.priceRange = arr[i+1];
-					  }
-					}
-        }else{
+          var arr = path.split(/[=&]/);
+
+          for (var i = 0; i < arr.length; i++) {
+            if (arr[i] == 'search') {
+              this.keyword = unescape(arr[i + 1]);
+            }
+            if (arr[i] == 'type_id') {
+              this.typeId = arr[i + 1];
+              sessionStorage.setItem('line_id', this.typeId);
+            }
+            if (arr[i] == 'attr_id') {
+              this.attrId = arr[i + 1];
+            }
+            if (arr[i] == 'price_range') {
+              this.priceRange = arr[i + 1];
+            }
+          }
+        } else {
           // 无问号url
-          path = path.slice(path.lastIndexOf('/')+1);
-          if(path.indexOf('=') == -1){
+          path = path.slice(path.lastIndexOf('/') + 1);
+          if (path.indexOf('=') == -1) {
             this.keyword = unescape(path);
-          }else{
-            if(path.indexOf('&') == -1){
+          } else {
+            if (path.indexOf('&') == -1) {
               this.typeId = path.split('=')[1];
-							sessionStorage.setItem('line_id', this.typeId);
-            }else{
+              sessionStorage.setItem('line_id', this.typeId);
+            } else {
               var arr = path.split(/[=&]/);
 
-              for(var i=0; i<arr.length; i++){
-                if(arr[i] == 'type_id'){
-                  this.typeId = arr[i+1];
-									sessionStorage.setItem('line_id', this.typeId);
+              for (var i = 0; i < arr.length; i++) {
+                if (arr[i] == 'type_id') {
+                  this.typeId = arr[i + 1];
+                  sessionStorage.setItem('line_id', this.typeId);
                 }
-                if(arr[i] == 'attr_id'){
-                  this.attrId = arr[i+1];
+                if (arr[i] == 'attr_id') {
+                  this.attrId = arr[i + 1];
                 }
-                if(arr[i] == 'price_range'){
-                  this.priceRange = arr[i+1];
+                if (arr[i] == 'price_range') {
+                  this.priceRange = arr[i + 1];
                 }
               }
             }
           }
         }
 
-				
-				if(this.keyword){
-					this.nav_text = this.keyword;
-				}else{
-					var nav_text = sessionStorage.getItem('nav_text');
-					this.nav_text = nav_text;
-				}
-				
-				if(this.typeId == 2 || this.typeId == 4 || this.typeId == 6 || this.typeId == 8 || this.typeId == 15){
-					this.ifShowDescribe = true;
-				}
+
+        if (this.keyword) {
+          this.nav_text = this.keyword;
+        } else {
+          var nav_text = sessionStorage.getItem('nav_text');
+          this.nav_text = nav_text;
+        }
+
+        if (this.typeId == 2 || this.typeId == 4 || this.typeId == 6 || this.typeId == 8 || this.typeId == 15) {
+          this.ifShowDescribe = true;
+        }
 
         var page_id = sessionStorage.getItem('page_id');
-        if(page_id){
+        if (page_id) {
           this.pageId = page_id;
-          this.currentPage1 = page_id-0;
+          this.currentPage1 = page_id - 0;
         }
-				
-				var sort_id = sessionStorage.getItem('sort_id');
-				if(sort_id){
-					this.filter_index = sort_id;
-				}
-				
-				console.log(this.pageId)
 
-        this.acquireData(this.typeId, this.keyword, this.filter[this.filter_index], this.attrId, this.attrValue, this.priceRange, this.pageId, this.page_size)
+        var sort_id = sessionStorage.getItem('sort_id');
+        if (sort_id) {
+          this.filter_index = sort_id;
+        }
+
+        console.log(this.pageId)
+
+        this.acquireData(this.typeId, this.keyword, this.filter[this.filter_index], this.attrId, this.attrValue, this.priceRange,
+          this.pageId, this.page_size)
       },
 
       handleSizeChange(val) {
@@ -384,32 +464,32 @@
         this.ifOpenB = !this.ifOpenB;
       },
       sort(i, j) {
-				sessionStorage.removeItem('page_id');
-				this.pageId = 1;
-				this.currentPage1 = 1;
-				
-				if(j != 'b'){
-					this.filter_index = i*2;
-				}else{
-					this.filter_index = +i*2+1;
-				}
-				
-				if(!j){
-					if(this.sort_i == i && this.flag == false){
-						this.filter_index = +i*2+1;
-					}
-					if(this.sort_i != i){
-						this.flag = true;
-						this.filter_index = +i*2;
-					}
-				}
-				
-				this.sort_i = i;
-				this.flag = !this.flag;
-				
-       sessionStorage.setItem('sort_id', this.filter_index);
-				
-				this.getData();
+        sessionStorage.removeItem('page_id');
+        this.pageId = 1;
+        this.currentPage1 = 1;
+
+        if (j != 'b') {
+          this.filter_index = i * 2;
+        } else {
+          this.filter_index = +i * 2 + 1;
+        }
+
+        if (!j) {
+          if (this.sort_i == i && this.flag == false) {
+            this.filter_index = +i * 2 + 1;
+          }
+          if (this.sort_i != i) {
+            this.flag = true;
+            this.filter_index = +i * 2;
+          }
+        }
+
+        this.sort_i = i;
+        this.flag = !this.flag;
+
+        sessionStorage.setItem('sort_id', this.filter_index);
+
+        this.getData();
       },
       clickC(i) {
         this.index_c = i;
@@ -606,7 +686,7 @@
     border-radius: 4px 0 0 4px;
   }
 
-  .search-scope i{
+  .search-scope i {
     margin: 0 10px;
   }
 
@@ -712,7 +792,7 @@
 
   .commodity-show-list .img-box {
     width: 96%;
-		margin: 0 auto;
+    margin: 0 auto;
     /* height: 294px; */
   }
 

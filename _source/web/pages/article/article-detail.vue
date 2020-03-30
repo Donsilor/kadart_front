@@ -31,11 +31,17 @@ export default {
   head() {
     return {
       title: this.title,
-      meta: [{
-        hid: 'description',
-        name: 'description',
-        content: this.description
-      }]
+      meta: [
+        {
+          name: 'title',
+          content: this.title
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: '1231'
+        }
+      ]
     }
   },
   components: {
@@ -94,7 +100,8 @@ export default {
         }
       }).then(res => {
         this.articleDetail = res.data.data;
-        this.description = res.data.data.seo_content;
+        this.description = 'ssssss';
+        this.title = res.data.data.title;
         this.pid = res.data.data.cate_id;
 
         that.getClassify();
@@ -138,7 +145,8 @@ export default {
           for (var k = 0; k < articleList[i].items[j].items.length; k++) {
             var list = articleList[i].items[j].items[k];
             if (list.id == that.pid) {
-              that.title = list.title;
+              // that.title = list.title;
+              // that.description = list.title;
               flag = true;
               break;
             } else {

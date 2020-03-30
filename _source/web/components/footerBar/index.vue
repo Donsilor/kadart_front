@@ -40,8 +40,8 @@
             <a href="/kadart-jewelry-privacy-policy">Privacy Policy</a>
           </div>
 
-          <!-- <div class="icon-box">
-            <div class="icon">
+          <div class="icon-box">
+            <div class="icon" @click="shareFaceBook">
               <img src="../../static/index/icon01.png" alt="">
             </div>
             <div class="icon">
@@ -56,7 +56,7 @@
             <div class="icon">
               <img src="../../static/index/icon05.png" alt="">
             </div>
-          </div> -->
+          </div>
         </div>
       </div>
     </div>
