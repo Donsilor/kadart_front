@@ -4,7 +4,7 @@
 
     <div class="article-wrap clf">
       <div class="article-left fl">
-        <div class="article-left-tit">{{title}}</div>
+        <div class="article-left-tit">{{article_titm}}</div>
         <div class="article-left-box">
           <div class="article-left-list" :class="active_idx == index ? 'active' : ''" v-for="(item, index) in articleItem" :key="index">
             <i class="article-left-icon fl"></i>
@@ -45,12 +45,14 @@ export default {
     return{
       // 详情数据
       articleDetail:{},
+	  // 标题
+      title: '',
       // 描述
       description: '',
       // 上级id
       pid: '',
       // 左侧标题
-      title: '',
+	  article_tit: '',
 
       active_idx: 0,
       articleItem: [
@@ -93,9 +95,10 @@ export default {
           'id': k,
         }
       }).then(res => {
-        this.articleDetail = res.data.data;
-        this.description = res.data.data.seo_content;
-        this.pid = res.data.data.cate_id;
+        that.articleDetail = res.data.data;
+        that.title = res.data.data.title;
+        that.description = res.data.data.seo_content;
+        that.pid = res.data.data.cate_id;
 
         that.getClassify();
         that.getList();
@@ -138,7 +141,7 @@ export default {
           for (var k = 0; k < articleList[i].items[j].items.length; k++) {
             var list = articleList[i].items[j].items[k];
             if (list.id == that.pid) {
-              that.title = list.title;
+              that.article_titm = list.title;
               flag = true;
               break;
             } else {
