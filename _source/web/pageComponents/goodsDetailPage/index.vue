@@ -65,8 +65,8 @@
           </div>
         </div>
 
-        <div class="share-text" v-if="1">Share:</div>
-        <div class="share-box" v-if="1">
+        <div class="share-text" v-if="0">Share:</div>
+        <div class="share-box" v-if="0">
           <div class="icon" @click="shareFaceBook">
             <img src="../../static/index/icon01.png" alt="">
           </div>
