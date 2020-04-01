@@ -141,14 +141,6 @@ export default{
       "/designer/zoey/Zoey-ymq-7.jpg",
       "/designer/zoey/Zoey-ymq-8.jpg"
     ],
-    "freehand":[
-      "/designer/freehand/freehand-1.jpg",
-      "/designer/freehand/freehand-2.jpg",
-      "/designer/freehand/freehand-3.jpg",
-      "/designer/freehand/freehand-4.jpg",
-      "/designer/freehand/freehand-5.jpg",
-      "/designer/freehand/freehand-6.jpg"
-    ],
     "a": []
   }
 }

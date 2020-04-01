@@ -93,8 +93,6 @@ export default {
         this.type = 'heewon';
       }else if(path_id == 6){
         this.type = 'isha';
-      }else if(path_id == 10){
-        this.type = 'freehand';
       }
 
       this.totalNum = this.items[this.type].length;

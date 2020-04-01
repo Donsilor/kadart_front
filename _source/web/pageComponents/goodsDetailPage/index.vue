@@ -65,23 +65,27 @@
           </div>
         </div>
 
-        <div class="share-text" style="display: none;">Share:</div>
-        <div class="share-box" style="display: none;">
-          <a href="">
+        <div class="share-text" v-if="0">Share:</div>
+        <div class="share-box" v-if="0">
+          <div class="icon" @click="shareFaceBook">
             <img src="../../static/index/icon01.png" alt="">
-          </a>
-          <a href="">
+          </div>
+          <div class="icon" @click="shareTwitter">
             <img src="../../static/index/icon02.png" alt="">
-          </a>
-          <a href="">
-            <img src="../../static/index/icon03.png" alt="">
-          </a>
-          <a href="">
+          </div>
+          <div class="icon" style="position: relative;">
+              <img src="../../static/index/icon03.png" alt="" style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: -1;">
+              <a style="background: none !important;opacity: 0;" target="_blank" href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"  data-pin-shape="round" data-pin-height="28">pinterest分享</a>
+              <script type="text/javascript" async src="//assets.pinterest.com/js/pinit.js"></script><!-- ＊＊＊＊＊这是pinterest分享必带JS＊＊＊＊＊＊＊ -->
+          </div>
+          <div class="icon">
             <img src="../../static/index/icon04.png" alt="">
-          </a>
-          <a href="">
-            <img src="../../static/index/icon05.png" alt="">
-          </a>
+          </div>
+          <div class="icon">
+            <a href="https://studio.youtube.com/channel/UChui2nY6e-tN-poHVdcpb3Q/videos/upload?d=ud&filter=%5B%5D&sort=%7B'columnType'" target="_blank">
+              <img src="../../static/index/icon05.png" alt="">
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -133,18 +137,44 @@
     components: {
       magnifying
     },
-    head () {
+    head() {
       return {
         title: 'Best high quality jewelry with fine craftsmanship wholesale',
         meta: [
           { hid: 'description', name: 'description', content: 'KADArt manufacturer and wholesale top-end gold,silver, copper and alloy jewelry with precious,semi gems,crystal,zircon,rhinestone at good price'},
-          { hid: 'keywords', name: 'keywords', content: 'jewelry factory, jewelry supplier, jewelry manufacturer,jewelry wholesale,gold jewelry, silver jewelry, brass jewelry, high quality jewelry, best jewelry, stylish jewelry, fashion jewelry' }
+          { hid: 'keywords', name: 'keywords', content: 'jewelry factory, jewelry supplier, jewelry manufacturer,jewelry wholesale,gold jewelry, silver jewelry, brass jewelry, high quality jewelry, best jewelry, stylish jewelry, fashion jewelry' },
+          {
+            property: 'og:url',
+            class: 'fa_url',
+            content: 'https://www.kadart/casd.com',
+          },
+          {
+            property: 'og:type',
+            content: 'website'
+          },
+          {
+            property: 'og:title',
+            class: 'fa_title',
+            content: '11111'
+          },
+          {
+            property: 'og:description',
+            class: 'fa_desc',
+            content: '222222'
+          },
+          {
+            property: 'og:image',
+            class: 'fa_img',
+            // content: 'https://cdn.kadart.com/images/2019/12/24/image_157716063699535250.jpg?x-oss-process=style/800X800',
+            content: 'http://static.chiefmore.com/u/cms/www/201801/261037582477.jpg',
+          },
         ]
       }
     },
     data() {
       return {
-        title: '',
+        og_url: '',
+        og_img: 'www.baidu.com/img/bd_logo1.png',
         recommendUrl: '',
         goodsId: '',
         goodsDetail: {
@@ -220,7 +250,12 @@
         commodityLeftWidth: ''
       }
     },
+    created(){
+
+    },
     mounted() {
+      // console.log(location)
+      // this.og_url= location.host+location.pathname;
       var goodsDetailId = this.$route.query.id;
 
       if(goodsDetailId == undefined){
@@ -245,6 +280,8 @@
         this.goodsDetail = res.data;
         this.smallImg = res.data.data.goods_images.thumb || '';
         this.bigImg = res.data.data.goods_images.big || '';
+
+        console.log(res)
 
       }).catch(function(error) {
         console.log(error);
@@ -277,7 +314,23 @@
         // var that = this;
         this.commodityLeftWidth = comBox-568;
         // console.log(that.commodityLeftWidth)
-      }
+      },
+      shareFaceBook(){
+        var u = 'www.yousfku.com';
+        var t = document.getElementsByClassName("fa_title")[0].content;
+        var m = document.getElementsByClassName("fa_img")[0].content;
+        // console.log(u)
+
+        window.open("http://www.facebook.com/sharer.php?u="+ encodeURIComponent(u)+"&t=123123"+ encodeURIComponent(m), "sharer","toolbar=0,status=0,width=626,height=436");
+      },
+      shareTwitter(){
+        var t = document.getElementsByClassName("fa_title")[0].content;
+        var d = document.getElementsByClassName("fa_desc")[0].content;
+        var u = document.getElementsByClassName("fa_url")[0].content;
+        var share = u + '\n' + t + '\n' + d;
+
+        window.open("https://twitter.com/intent/tweet?text="+ encodeURIComponent(share), "sharer","toolbar=0,status=0,width=626,height=436");
+      },
     }
   }
 </script>
@@ -566,10 +619,19 @@
     box-sizing: border-box;
   }
 
-  .share-box img {
+  .share-box{
+    display: flex;
+    align-items: center;
+  }
+
+  .share-box>div{
+    /* display: inline-block; */
     width: 30px;
     height: 30px;
     margin: 20px 0 0 24px;
+  }
+
+  .share-box img {
   }
 
   .other {
@@ -745,5 +807,8 @@
   }
   .goods-detail-box img{
     max-width: 1000px;
+  }
+  .icon-box span{
+    background: none !important;
   }
 </style>

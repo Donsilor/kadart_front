@@ -32,7 +32,7 @@ export default function({
     const toWapUrl = path => {
       host = host + path;
 
-      // redirect(host)
+      redirect(host)
       return
     }
     // console.log("req.originalUrl", req.originalUrl)
