@@ -40,7 +40,7 @@
             <a href="/kadart-jewelry-privacy-policy">Privacy Policy</a>
           </div>
 
-          <div class="icon-box" v-if="0">
+          <div class="icon-box" v-if="1">
             <div class="icon" @click="shareFaceBook">
               <img src="../../static/index/icon01.png" alt="">
             </div>
@@ -49,7 +49,7 @@
             </div>
             <div class="icon" style="position: relative;">
                 <img src="../../static/index/icon03.png" alt="" style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: -1;">
-                <a style="background: none !important;opacity: 0;" target="_blank" href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"  data-pin-shape="round" data-pin-height="28">pinterest分享</a>
+                <a style="background: none !important;opacity: 0;display: block;width: 100%;height: 100%;overflow: hidden;" target="_blank" href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"  data-pin-shape="round" data-pin-height="28">pinterest分享</a>
                 <script type="text/javascript" async src="//assets.pinterest.com/js/pinit.js"></script><!-- ＊＊＊＊＊这是pinterest分享必带JS＊＊＊＊＊＊＊ -->
             </div>
             <div class="icon">

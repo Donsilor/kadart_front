@@ -65,8 +65,10 @@
           </div>
         </div>
 
-        <div class="share-text" v-if="0">Share:</div>
-        <div class="share-box" v-if="0">
+        <div class="share-text" v-if="1">Share:</div>
+        <div class="share-box" v-if="1">
+          <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fwww.kadart.com%2fcategory%2fNECKLACES%2ftype_id%3d4">123</a>
+          <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.instagram.com%2Fp%2FB-Z9lBVJVk4%2F%3Futm_source%3Dig_web_button_share_sheet">456</a>
           <div class="icon" @click="shareFaceBook">
             <img src="../../static/index/icon01.png" alt="">
           </div>
@@ -75,7 +77,7 @@
           </div>
           <div class="icon" style="position: relative;">
               <img src="../../static/index/icon03.png" alt="" style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: -1;">
-              <a style="background: none !important;opacity: 0;" target="_blank" href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"  data-pin-shape="round" data-pin-height="28">pinterest分享</a>
+              <a style="background: none !important;opacity: 0;display: block;width: 100%;height: 100%;overflow: hidden;" target="_blank" href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"  data-pin-shape="round" data-pin-height="28">pinterest分享</a>
               <script type="text/javascript" async src="//assets.pinterest.com/js/pinit.js"></script><!-- ＊＊＊＊＊这是pinterest分享必带JS＊＊＊＊＊＊＊ -->
           </div>
           <div class="icon">
@@ -149,24 +151,9 @@
             content: 'https://www.kadart/casd.com',
           },
           {
-            property: 'og:type',
-            content: 'website'
-          },
-          {
-            property: 'og:title',
-            class: 'fa_title',
-            content: '11111'
-          },
-          {
-            property: 'og:description',
-            class: 'fa_desc',
-            content: '222222'
-          },
-          {
             property: 'og:image',
             class: 'fa_img',
-            // content: 'https://cdn.kadart.com/images/2019/12/24/image_157716063699535250.jpg?x-oss-process=style/800X800',
-            content: 'http://static.chiefmore.com/u/cms/www/201801/261037582477.jpg',
+            content: 'static/white-1.jpg',
           },
         ]
       }
@@ -318,12 +305,13 @@
         // console.log(that.commodityLeftWidth)
       },
       shareFaceBook(){
-        var u = 'www.yousfku.com';
-        var t = document.getElementsByClassName("fa_title")[0].content;
+        var u = location.href;
         var m = document.getElementsByClassName("fa_img")[0].content;
-        // console.log(u)
 
-        window.open("http://www.facebook.com/sharer.php?u="+ encodeURIComponent(u)+"&t=123123"+ encodeURIComponent(m), "sharer","toolbar=0,status=0,width=626,height=436");
+        u = encodeURIComponent(u)
+        console.log(11,u)
+
+        // window.open("http://www.facebook.com/sharer.php?u="+ encodeURIComponent(u), "sharer","toolbar=0,status=0,width=626,height=436");
       },
       shareTwitter(){
         var t = document.getElementsByClassName("fa_title")[0].content;
