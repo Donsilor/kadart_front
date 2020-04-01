@@ -17,7 +17,7 @@
           </div>
         </div>
         <div class="list fl">
-          <div class="child">	About Us</div>
+          <div class="child">About Us</div>
           <div class="child">
             <a href="/about-kadart">Brand Culture</a>
           </div>
@@ -40,23 +40,27 @@
             <a href="/kadart-jewelry-privacy-policy">Privacy Policy</a>
           </div>
 
-          <!-- <div class="icon-box">
-            <div class="icon">
+          <div class="icon-box" v-if="0">
+            <div class="icon" @click="shareFaceBook">
               <img src="../../static/index/icon01.png" alt="">
             </div>
-            <div class="icon">
+            <div class="icon" @click="shareTwitter">
               <img src="../../static/index/icon02.png" alt="">
             </div>
-            <div class="icon">
-              <img src="../../static/index/icon03.png" alt="">
+            <div class="icon" style="position: relative;">
+                <img src="../../static/index/icon03.png" alt="" style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: -1;">
+                <a style="background: none !important;opacity: 0;" target="_blank" href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"  data-pin-shape="round" data-pin-height="28">pinterest分享</a>
+                <script type="text/javascript" async src="//assets.pinterest.com/js/pinit.js"></script><!-- ＊＊＊＊＊这是pinterest分享必带JS＊＊＊＊＊＊＊ -->
             </div>
             <div class="icon">
               <img src="../../static/index/icon04.png" alt="">
             </div>
             <div class="icon">
-              <img src="../../static/index/icon05.png" alt="">
+              <a href="https://studio.youtube.com/channel/UChui2nY6e-tN-poHVdcpb3Q/videos/upload?d=ud&filter=%5B%5D&sort=%7B'columnType'" target="_blank">
+                <img src="../../static/index/icon05.png" alt="">
+              </a>
             </div>
-          </div> -->
+          </div>
         </div>
       </div>
     </div>
@@ -82,6 +86,36 @@
   import Bus from '../Bus.js'
 
   export default{
+    head() {
+      return {
+        meta: [
+          {
+            property: 'twitter:url',
+            class: 'fr_url',
+            content: 'http://www.kadart.com'
+          },
+          {
+            property: 'twitter:type',
+            content: 'website'
+          },
+          {
+            property: 'twitter:title',
+            class: 'fr_title',
+            content: 'KAD ART LIMITED |High-quality Jewelry Manufacturer'
+          },
+          {
+            property: 'twitter:description',
+            class: 'fr_desc',
+            content: 'KADArt, jewelry manufacturer, high-quality jewelry supplier,  jewelry factory, jewelry wholesale'
+          },
+          {
+            property: 'twitter:image',
+            class: 'fr_image',
+            content: 'http://b2-q.mafengwo.net/s5/M00/91/06/wKgB3FH_RVuATULaAAH7UzpKp6043.jpeg'
+          },
+        ]
+      }
+    },
     data(){
       return{
         heig: ''
@@ -104,20 +138,7 @@
       sendMsg(){
         Bus.$emit('send', true)
       },
-      shareFaceBook(){
-        var _url = window.location.href;
-        var shareUrl = "http://www.facebook.com/sharer/sharer.php?u="+ _url;
-        popupwindow(shareUrl, 'Facebook', 600, 400);
 
-        function popupwindow(url, title, w, h) {
-            var wLeft = window.screenLeft ? window.screenLeft : window.screenX;
-            var wTop = window.screenTop ? window.screenTop : window.screenY;
-
-            var left = wLeft + (window.innerWidth / 2) - (w / 2);
-            var top = wTop + (window.innerHeight / 2) - (h / 2);
-            return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
-        }
-      },
       toArticle(i){
         localStorage.setItem('article', i)
         var url = location.pathname;
@@ -129,7 +150,20 @@
             path: '/article'
           })
         }
-      }
+      },
+      shareFaceBook(){
+        var u = document.getElementsByClassName("fr_url")[0].content;
+
+        window.open("http://www.facebook.com/sharer.php?u="+ encodeURIComponent(u), "sharer","toolbar=0,status=0,width=626,height=436");
+      },
+      shareTwitter(){
+        var t = document.getElementsByClassName("fr_title")[0].content;
+        var d = document.getElementsByClassName("fr_desc")[0].content;
+        var u = document.getElementsByClassName("fr_url")[0].content;
+        var share = u + '\n' + t + '\n' + d;
+
+        window.open("https://twitter.com/intent/tweet?text="+ encodeURIComponent(share), "sharer","toolbar=0,status=0,width=626,height=436");
+      },
     }
   }
 </script>
@@ -273,5 +307,9 @@
   }
   .footer-bottom .footer-bottom-list:not(:first-child){
     border-left: 1px solid #fff;
+  }
+
+  .icon-box span{
+    background: none !important;
   }
 </style>

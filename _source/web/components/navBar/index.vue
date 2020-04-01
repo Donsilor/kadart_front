@@ -40,13 +40,13 @@
     },
     mounted(){
       var that = this;
-      var list = JSON.parse(localStorage.getItem('navList_01'));
+      var list = JSON.parse(localStorage.getItem('navList_05'));
       if(!list){
         this.$axios.get('/common/menu/index', {
           params: {}
         }).then(res => {
           this.navList = res.data.data;
-          localStorage.setItem('navList_01',JSON.stringify(this.navList));
+          localStorage.setItem('navList_05',JSON.stringify(this.navList));
           that.$emit('load','true');
         }).catch(function(error) {
           console.log(error);

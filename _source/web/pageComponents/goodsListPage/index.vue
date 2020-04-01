@@ -220,6 +220,7 @@
 		},
 		mounted() {
 			window.addEventListener('scroll', this.scrollToTop);
+      console.log(99999999999)
 			this.getData()
 		},
 		methods: {
@@ -259,6 +260,7 @@
 				if (path.indexOf('?') != -1) {
 					path = path.split('?')[1];
 					var arr = path.split(/[=&]/);
+          console.log(1111)
 
 					for (var i = 0; i < arr.length; i++) {
 						if (arr[i] == 'search') {
@@ -282,7 +284,12 @@
 						this.keyword = unescape(path);
 					} else {
 						if (path.indexOf('&') == -1) {
-							this.typeId = path.split('=')[1];
+							var arr = path.split('=');
+              if(arr[0] == 'type_id'){
+                this.typeId = path.split('=')[1];
+              }else if(arr[0] == 'attr_id'){
+                this.attrId = path.split('=')[1];
+              }
 							sessionStorage.setItem('line_id', this.typeId);
 						} else {
 							var arr = path.split(/[=&]/);

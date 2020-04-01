@@ -57,7 +57,7 @@
         meta: [{
           hid: 'description',
           name: 'description',
-          content: ''
+          content: this.title
         }]
       }
     },
