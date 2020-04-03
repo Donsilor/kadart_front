@@ -65,28 +65,28 @@
           </div>
         </div>
 
-        <div class="share-text" v-if="1">Share:</div>
-        <div class="share-box" v-if="1">
-          <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fwww.kadart.com%2fcategory%2fNECKLACES%2ftype_id%3d4">123</a>
-          <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.instagram.com%2Fp%2FB-Z9lBVJVk4%2F%3Futm_source%3Dig_web_button_share_sheet">456</a>
-          <div class="icon" @click="shareFaceBook">
-            <img src="../../static/index/icon01.png" alt="">
-          </div>
-          <div class="icon" @click="shareTwitter">
-            <img src="../../static/index/icon02.png" alt="">
-          </div>
-          <div class="icon" style="position: relative;">
-              <img src="../../static/index/icon03.png" alt="" style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: -1;">
-              <a style="background: none !important;opacity: 0;display: block;width: 100%;height: 100%;overflow: hidden;" target="_blank" href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"  data-pin-shape="round" data-pin-height="28">pinterest分享</a>
-              <script type="text/javascript" async src="//assets.pinterest.com/js/pinit.js"></script><!-- ＊＊＊＊＊这是pinterest分享必带JS＊＊＊＊＊＊＊ -->
-          </div>
-          <div class="icon">
-            <img src="../../static/index/icon04.png" alt="">
-          </div>
-          <div class="icon">
-            <a href="https://studio.youtube.com/channel/UChui2nY6e-tN-poHVdcpb3Q/videos/upload?d=ud&filter=%5B%5D&sort=%7B'columnType'" target="_blank">
-              <img src="../../static/index/icon05.png" alt="">
-            </a>
+        <div class="share-wrap">
+          <div class="share-text">Share:</div>
+          <div class="share-box">
+            <div class="icon" @click="shareFaceBook">
+              <img src="../../static/index/icon01.png" alt="">
+            </div>
+            <div class="icon" @click="shareTwitter">
+              <img src="../../static/index/icon02.png" alt="">
+            </div>
+            <div class="icon" style="position: relative;">
+                <img src="../../static/index/icon03.png" alt="" style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: -1;">
+                <a style="background: none !important;opacity: 0;display: block;width: 100%;height: 100%;overflow: hidden;" target="_blank" href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"  data-pin-shape="round" data-pin-height="28">pinterest分享</a>
+                <script type="text/javascript" async src="//assets.pinterest.com/js/pinit.js"></script><!-- ＊＊＊＊＊这是pinterest分享必带JS＊＊＊＊＊＊＊ -->
+            </div>
+            <!-- <div class="icon">
+              <img src="../../static/index/icon04.png" alt="">
+            </div>
+            <div class="icon">
+              <a href="https://studio.youtube.com/channel/UChui2nY6e-tN-poHVdcpb3Q/videos/upload?d=ud&filter=%5B%5D&sort=%7B'columnType'" target="_blank">
+                <img src="../../static/index/icon05.png" alt="">
+              </a>
+            </div> -->
           </div>
         </div>
       </div>
@@ -146,22 +146,15 @@
           { hid: 'description', name: 'description', content: this.seo.meta_desc || 'KADArt manufacturer and wholesale top-end gold,silver, copper and alloy jewelry with precious,semi gems,crystal,zircon,rhinestone at good price'},
           { hid: 'keywords', name: 'keywords', content: this.seo.meta_word || 'jewelry factory, jewelry supplier, jewelry manufacturer,jewelry wholesale,gold jewelry, silver jewelry, brass jewelry, high quality jewelry, best jewelry, stylish jewelry, fashion jewelry' },
           {
-            property: 'og:url',
-            class: 'fa_url',
-            content: 'https://www.kadart/casd.com',
-          },
-          {
             property: 'og:image',
-            class: 'fa_img',
-            content: 'static/white-1.jpg',
+            class: 'fr_image',
+            content: 'http://b2-q.mafengwo.net/s5/M00/91/06/wKgB3FH_RVuATULaAAH7UzpKp6043.jpeg'
           },
         ]
       }
     },
     data() {
       return {
-        og_url: '',
-        og_img: 'www.baidu.com/img/bd_logo1.png',
         recommendUrl: '',
         goodsId: '',
         goodsDetail: {
@@ -306,21 +299,19 @@
       },
       shareFaceBook(){
         var u = location.href;
-        var m = document.getElementsByClassName("fa_img")[0].content;
-
-        u = encodeURIComponent(u)
-        console.log(11,u)
-
-        // window.open("http://www.facebook.com/sharer.php?u="+ encodeURIComponent(u), "sharer","toolbar=0,status=0,width=626,height=436");
+        window.open("http://www.facebook.com/sharer.php?u="+ encodeURIComponent(u), "sharer","toolbar=0,status=0,width=626,height=436");
       },
       shareTwitter(){
-        var t = document.getElementsByClassName("fa_title")[0].content;
-        var d = document.getElementsByClassName("fa_desc")[0].content;
-        var u = document.getElementsByClassName("fa_url")[0].content;
-        var share = u + '\n' + t + '\n' + d;
+        var u = location.href;
+        var t = document.getElementsByTagName("title")[0].innerText;
+        var d = document.querySelectorAll('meta[name="description"]')[0].content;
 
+        var share = u + '\n' + t + '\n';
+        if(share.length>280){
+          share = share.slice(0, 279);
+        }
         window.open("https://twitter.com/intent/tweet?text="+ encodeURIComponent(share), "sharer","toolbar=0,status=0,width=626,height=436");
-      },
+      }
     }
   }
 </script>
@@ -600,10 +591,16 @@
     z-index: -1;
   }
 
+  .share-wrap{
+     display: flex;
+     align-items: center;
+     margin-top: 20px;
+  }
+
   .share-text {
     margin-top: 20px;
-    font-family: Didot;
-    font-size: 18px;
+    /* font-family: Didot; */
+    font-size: 12px;
     color: #666;
     padding-left: 24px;
     box-sizing: border-box;
@@ -616,9 +613,9 @@
 
   .share-box>div{
     /* display: inline-block; */
-    width: 30px;
-    height: 30px;
-    margin: 20px 0 0 24px;
+    width: 24px;
+    height: 24px;
+    margin: 20px 0 0 14px;
   }
 
   .share-box img {
@@ -797,8 +794,5 @@
   }
   .goods-detail-box img{
     max-width: 1000px;
-  }
-  .icon-box span{
-    background: none !important;
   }
 </style>

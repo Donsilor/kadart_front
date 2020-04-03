@@ -63,8 +63,6 @@ module.exports = {
   	// baseURL: 'https://api.kadart.com/index.php/v1',
     // 测试api
   	baseURL: 'https://kadart.bddia.com/api/index.php/v1'
-
-
   },
 
   proxy: {

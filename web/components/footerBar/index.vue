@@ -40,7 +40,7 @@
             <a href="/kadart-jewelry-privacy-policy">Privacy Policy</a>
           </div>
 
-          <div class="icon-box" v-if="1">
+          <div class="icon-box">
             <div class="icon" @click="shareFaceBook">
               <img src="../../static/index/icon01.png" alt="">
             </div>
@@ -52,14 +52,14 @@
                 <a style="background: none !important;opacity: 0;display: block;width: 100%;height: 100%;overflow: hidden;" target="_blank" href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"  data-pin-shape="round" data-pin-height="28">pinterest分享</a>
                 <script type="text/javascript" async src="//assets.pinterest.com/js/pinit.js"></script><!-- ＊＊＊＊＊这是pinterest分享必带JS＊＊＊＊＊＊＊ -->
             </div>
-            <div class="icon">
+            <!-- <div class="icon">
               <img src="../../static/index/icon04.png" alt="">
             </div>
             <div class="icon">
               <a href="https://studio.youtube.com/channel/UChui2nY6e-tN-poHVdcpb3Q/videos/upload?d=ud&filter=%5B%5D&sort=%7B'columnType'" target="_blank">
                 <img src="../../static/index/icon05.png" alt="">
               </a>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -90,29 +90,14 @@
       return {
         meta: [
           {
-            property: 'twitter:url',
-            class: 'fr_url',
-            content: 'http://www.kadart.com'
-          },
-          {
-            property: 'twitter:type',
-            content: 'website'
-          },
-          {
-            property: 'twitter:title',
-            class: 'fr_title',
-            content: 'KAD ART LIMITED |High-quality Jewelry Manufacturer'
-          },
-          {
-            property: 'twitter:description',
-            class: 'fr_desc',
-            content: 'KADArt, jewelry manufacturer, high-quality jewelry supplier,  jewelry factory, jewelry wholesale'
-          },
-          {
-            property: 'twitter:image',
+            property: 'og:image',
             class: 'fr_image',
-            content: 'http://b2-q.mafengwo.net/s5/M00/91/06/wKgB3FH_RVuATULaAAH7UzpKp6043.jpeg'
+            content: 'https://cdn.kadart.com/images/2019/12/26/image_157734195110248574.jpg?x-oss-process=style/800X800'
           },
+          {
+            property: 'og:image:width',
+            content: '200'
+          }
         ]
       }
     },
@@ -152,16 +137,18 @@
         }
       },
       shareFaceBook(){
-        var u = document.getElementsByClassName("fr_url")[0].content;
-
+        var u = location.href;
         window.open("http://www.facebook.com/sharer.php?u="+ encodeURIComponent(u), "sharer","toolbar=0,status=0,width=626,height=436");
       },
       shareTwitter(){
-        var t = document.getElementsByClassName("fr_title")[0].content;
-        var d = document.getElementsByClassName("fr_desc")[0].content;
-        var u = document.getElementsByClassName("fr_url")[0].content;
-        var share = u + '\n' + t + '\n' + d;
+        var u = location.href;
+        var t = document.getElementsByTagName("title")[0].innerText;
+        var d = document.querySelectorAll('meta[name="description"]')[0].content;
 
+        var share = u + '\n' + t + '\n';
+        if(share.length>280){
+          share = share.slice(0, 279);
+        }
         window.open("https://twitter.com/intent/tweet?text="+ encodeURIComponent(share), "sharer","toolbar=0,status=0,width=626,height=436");
       },
     }
@@ -269,13 +256,20 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    padding-right: 60px;
+    box-sizing: border-box;
   }
 
   .icon-box .icon {
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
     margin-bottom: 10px;
     cursor: pointer;
+  }
+
+  .icon-box .icon img{
+    width: 100%;
+    height: 100%;
   }
 
   .brand {
@@ -307,9 +301,5 @@
   }
   .footer-bottom .footer-bottom-list:not(:first-child){
     border-left: 1px solid #fff;
-  }
-
-  .icon-box span{
-    background: none !important;
   }
 </style>
