@@ -32,16 +32,6 @@
 
 <script>
   export default {
-    data() {
-      return {
-        onload: false
-      }
-    },
-    mounted() {
-      window.onload = function(){
-        this.onload = true
-      }
-    },
     methods: {
       shareFaceBook(){
         var u = location.href;

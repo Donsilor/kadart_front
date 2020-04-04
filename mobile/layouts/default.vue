@@ -1,5 +1,6 @@
 <template>
   <div class="app-box">
+	  <div v-if="0" class="abc" style="width: 100px;height: 100px;background-color: saddlebrown;position: absolute;z-index: 10;left: 100px;top: 100px;"></div>
     <div class="header-bar">
       <header-bar></header-bar>
     </div>

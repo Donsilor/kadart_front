@@ -1,4 +1,3 @@
-
 /* reset */
 
 body,
@@ -26,14 +25,14 @@ th,
 td {
 	margin: 0;
 	padding: 0;
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 body {
 	background: #fff;
 	color: #555;
 	font-size: 14px;
-	font-family: "NotoSans","Microsoft YaHei","NotoSansBold","Gadugi","ArialMT","ArialMTBold";
+	font-family: "NotoSans", "Microsoft YaHei", "NotoSansBold", "Gadugi", "ArialMT", "ArialMTBold";
 }
 
 td,
@@ -64,13 +63,13 @@ a {
 	text-decoration: none;
 }
 
-#companyForm a{
+#companyForm a {
 	display: inline;
 }
 
 img {
-  width: 100%;
-  height: 100%;
+	width: 100%;
+	height: 100%;
 	border: none;
 	vertical-align: middle;
 }
@@ -88,10 +87,12 @@ section {
 	border: 0;
 	outline: none;
 }
+
 input::placeholder,
-textarea::placeholder{
+textarea::placeholder {
 	color: #999;
 }
+
 button {
 	cursor: pointer;
 }
@@ -101,12 +102,12 @@ table {
 	border-spacing: 0
 }
 
-.fl{
-  float: left;
+.fl {
+	float: left;
 }
 
-.fr{
-  float: right;
+.fr {
+	float: right;
 }
 
 .clf:before,
@@ -122,43 +123,46 @@ table {
 	*zoom: 1;
 }
 
-html, body{
-  width: 100%;
-  max-width: 500px;
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  margin: 0 auto;
-  font-size: 10px;
+html,
+body {
+	width: 100%;
+	max-width: 500px;
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	margin: 0 auto;
+	font-size: 10px;
 }
+
 *::-webkit-scrollbar {
-  display: none !important;
-  width: 0 !important;
-  height: 0 !important;
+	display: none !important;
+	width: 0 !important;
+	height: 0 !important;
 }
+
 * {
-  -webkit-overflow-scrolling: touch;
+	-webkit-overflow-scrolling: touch;
 }
 
-.flex-splice{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-@font-face {
-  font-family: DFPYaSong;
-  src: url('../font/DFPYaSong.TTf');
+.flex-splice {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
 @font-face {
-  font-family: STKAITI;
-  src: url('../font/STKAITI.TTF');
+	font-family: DFPYaSong;
+	src: url('../font/DFPYaSong.TTf');
 }
 
 @font-face {
-  font-family: FZFYSJW;
-  src: url('../font/FZFYSJW.TTF');
+	font-family: STKAITI;
+	src: url('../font/STKAITI.TTF');
+}
+
+@font-face {
+	font-family: FZFYSJW;
+	src: url('../font/FZFYSJW.TTF');
 }
 
 .no-stretch {
@@ -172,58 +176,77 @@ html, body{
 	-o-transform: translate(-50%, -50%);
 	max-width: 100%;
 	min-height: 100%;
-  width: auto !important;
-  height: auto !important;
+	width: auto !important;
+	height: auto !important;
 }
 
-.mylivechat_buttonround{
-  top: 12px !important;
-  width: 148px !important;
+.mylivechat_buttonround {
+	top: 12px !important;
+	width: 148px !important;
+	left: 2px !important;
 }
 
-.mylivechat_inline.mylivechat_template1{
-  top: inherit !important;
-  bottom: 50px;
+.mylivechat_inline {
+	top: inherit !important;
+	bottom: 50px;
+	/* top: 0!important; */
+	/* left: 0 !important; */
+	/* margin-top: 400px; */
+	/* margin-left: 200px; */
+	/* display: none; */
 }
 
-.more{
-    width: 100%;
-    height: 4.5rem;
-    background-color: #916F84;
-    text-align: center;
-    line-height: 4.5rem;
-    font-size: 1.45rem;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* opacity: 0.6; */
-    margin-top: 2rem;
-  }
+.mylivechat_buttonround_label {
+	-webkit-touch-callout: none;
+	/* 系统默认菜单被禁用 */
+	-webkit-user-select: none;
+	/* webkit浏览器 */
+	-moz-user-select: none;
+	/* 火狐 */
+	-ms-user-select: none;
+	/* IE10 */
+	user-select: none;
+}
 
-  .more-icon{
-    width: 2rem;
-    height: 2rem;
-    margin-left: 1rem;
-    background: url(../../static/goods-list/load.gif) no-repeat center;
-    background-size: 100% 100%;
-  }
+.more {
+	width: 100%;
+	height: 4.5rem;
+	background-color: #916F84;
+	text-align: center;
+	line-height: 4.5rem;
+	font-size: 1.45rem;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	/* opacity: 0.6; */
+	margin-top: 2rem;
+}
 
-  .no-more{
-    width: 4rem;
-    height: 4rem;
-    margin: 5rem auto 2rem;
-    background: url(../../static/index/icon/search-2.png) no-repeat center;
-    background-size: 100% 100%;
-  }
-  .no-more-text{
-    font-family: STKAITI;
-    font-size: 1.8rem;
-    color: #d2b8c7;
-    text-align: center;
-  }
-  
-  .share-icon span{
-    background: none !important;
-    opacity: 0 !important;
-  }
+.more-icon {
+	width: 2rem;
+	height: 2rem;
+	margin-left: 1rem;
+	background: url(../../static/goods-list/load.gif) no-repeat center;
+	background-size: 100% 100%;
+}
+
+.no-more {
+	width: 4rem;
+	height: 4rem;
+	margin: 5rem auto 2rem;
+	background: url(../../static/index/icon/search-2.png) no-repeat center;
+	background-size: 100% 100%;
+}
+
+.no-more-text {
+	font-family: STKAITI;
+	font-size: 1.8rem;
+	color: #d2b8c7;
+	text-align: center;
+}
+
+.share-icon span {
+	background: none !important;
+	opacity: 0 !important;
+}
