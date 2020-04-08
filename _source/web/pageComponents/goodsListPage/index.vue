@@ -220,7 +220,6 @@
 		},
 		mounted() {
 			window.addEventListener('scroll', this.scrollToTop);
-      console.log(99999999999)
 			this.getData()
 		},
 		methods: {
@@ -260,7 +259,6 @@
 				if (path.indexOf('?') != -1) {
 					path = path.split('?')[1];
 					var arr = path.split(/[=&]/);
-          console.log(1111)
 
 					for (var i = 0; i < arr.length; i++) {
 						if (arr[i] == 'search') {
@@ -310,7 +308,6 @@
 					}
 				}
 
-
 				if (this.keyword) {
 					this.nav_text = this.keyword;
 				} else {
@@ -332,8 +329,6 @@
 				if (sort_id) {
 					this.filter_index = sort_id;
 				}
-
-				console.log(this.pageId)
 
 				this.acquireData(this.typeId, this.keyword, this.filter[this.filter_index], this.attrId, this.attrValue, this.priceRange,
 					this.pageId, this.page_size)

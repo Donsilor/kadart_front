@@ -139,10 +139,10 @@
     },
     head() {
       return {
-        title: 'Best high quality jewelry with fine craftsmanship wholesale',
+        title: this.seo.meta_title ||  'Best high quality jewelry with fine craftsmanship wholesale',
         meta: [
-          { hid: 'description', name: 'description', content: 'KADArt manufacturer and wholesale top-end gold,silver, copper and alloy jewelry with precious,semi gems,crystal,zircon,rhinestone at good price'},
-          { hid: 'keywords', name: 'keywords', content: 'jewelry factory, jewelry supplier, jewelry manufacturer,jewelry wholesale,gold jewelry, silver jewelry, brass jewelry, high quality jewelry, best jewelry, stylish jewelry, fashion jewelry' },
+          { hid: 'description', name: 'description', content: this.seo.meta_desc || 'KADArt manufacturer and wholesale top-end gold,silver, copper and alloy jewelry with precious,semi gems,crystal,zircon,rhinestone at good price'},
+          { hid: 'keywords', name: 'keywords', content: this.seo.meta_word || 'jewelry factory, jewelry supplier, jewelry manufacturer,jewelry wholesale,gold jewelry, silver jewelry, brass jewelry, high quality jewelry, best jewelry, stylish jewelry, fashion jewelry' },
           {
             property: 'og:url',
             class: 'fa_url',
@@ -247,15 +247,19 @@
             }
           }
         },
-        commodityLeftWidth: ''
+        commodityLeftWidth: '',
+        seo: {
+        	"meta_title": '',
+        	"meta_word": '',
+        	"meta_desc": '',
+        }
       }
     },
     created(){
 
     },
     mounted() {
-      // console.log(location)
-      // this.og_url= location.host+location.pathname;
+      var that = this;
       var goodsDetailId = this.$route.query.id;
 
       if(goodsDetailId == undefined){
@@ -277,12 +281,10 @@
           id: this.goodsId
         }
       }).then(res => {
-        this.goodsDetail = res.data;
-        this.smallImg = res.data.data.goods_images.thumb || '';
-        this.bigImg = res.data.data.goods_images.big || '';
-
-        console.log(res)
-
+        that.goodsDetail = res.data;
+        that.smallImg = res.data.data.goods_images.thumb || '';
+        that.bigImg = res.data.data.goods_images.big || '';
+        that.seo = res.data.data.seo;
       }).catch(function(error) {
         console.log(error);
       });
