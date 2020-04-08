@@ -78,13 +78,15 @@
       },
       getHeight(element,resu){
        // 获取图片高度
-       var url = element[0].adv_image;
-       var image = new Image();
-       image.src = url;
-       var that = this;
-       image.onload = function(){
-         that.resu = (document.body.clientWidth * image.height) / image.width;
-         console.log(that.resu)
+       if(element.length > 0){
+         var url = element[0].adv_image;
+         var image = new Image();
+         image.src = url;
+         var that = this;
+         image.onload = function(){
+           that.resu = (document.body.clientWidth * image.height) / image.width;
+           console.log(that.resu)
+         }
        }
      },
       getAdData() {
