@@ -323,3 +323,9 @@ table {
   height: 30px !important;
   top: 10px !important;
 }
+
+.icon-box .icon span,
+.share-box .icon span{
+  background: none !important;
+  opacity: 0 !important;
+}
