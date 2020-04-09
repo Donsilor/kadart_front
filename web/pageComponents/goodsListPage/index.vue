@@ -5,7 +5,7 @@
 
     <div class="components-box">
       <!-- 左侧选择区 -->
-      <div class="commodity-left" v-if="1">
+      <div class="commodity-left" v-if="0">
         <div class="refinements">Refinements</div>
         <div class="classify-box" v-bind:class="{'pack-up': ifOpenA}">
           <div class="tit clf">
