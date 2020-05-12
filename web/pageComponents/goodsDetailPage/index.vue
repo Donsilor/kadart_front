@@ -133,7 +133,7 @@
 
 <script>
   import Bus from '../../components/Bus.js'
-  import magnifying from '../Magnifying/index.vue'
+  import magnifying from '../magnifying/index.vue'
 
   export default {
     components: {
