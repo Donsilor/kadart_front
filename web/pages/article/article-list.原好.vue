@@ -46,6 +46,16 @@
   import azzd from '~/components/azzd/index.vue'
 
   export default {
+    head() {
+      return {
+        title: this.title,
+        meta: [{
+          hid: 'description',
+          name: 'description',
+          content: this.title
+        }]
+      }
+    },
     components: {
       azzd
     },
@@ -64,39 +74,37 @@
         article_tit: ''
       }
     },
-    async asyncData({ $axios, route, store, app }) {
-      var last = route.path.lastIndexOf('/')+1;
-      var url_id = route.path.slice(last);
-
-      return await $axios.get('/article/article-cate/index', {
-        params: {
-          id: 3
-        }
-      }).then(res => {
-        var head_r = {
-            title: res.data.data.title,
-            meta: [
-              { hid: 'description', name: 'description', content: res.data.data.title || ''}
-            ]
-        };
-
-        app.head.title = head_r.title;
-        app.head.meta = head_r.meta;
-        var articleTitle = res.data.data.lists;
-
-        return {articleTitle: articleTitle, url_id: url_id}
-      }).catch(err => {
-        // console.log(err)
-      })
-    },
     mounted() {
       document.documentElement.scrollTop = document.body.scrollTop = 0;
 
-      this.getList()
+      this.getNav()
     },
     methods: {
       intoDetail(k) {
         location.href = this.articleItem[k].url;
+      },
+
+      // 文章导航
+      getNav() {
+        var path = location.href;
+        if (path.indexOf('?') != -1) {
+          this.url_id = path.split('=')[1];
+        } else {
+          this.url_id = path.slice(path.lastIndexOf('/') + 1);
+        }
+
+        this.$axios.get('/article/article-cate/index', {
+          params: {
+            id: this.url_id
+          }
+        }).then(res => {
+          this.articleTitle = res.data.data.lists;
+          this.title = res.data.data.title;
+
+          this.getList()
+        }).catch(function(error) {
+          console.log(error);
+        })
       },
 
       // 文章列表

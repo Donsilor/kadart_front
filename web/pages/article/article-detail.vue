@@ -4,7 +4,7 @@
 
     <div class="article-wrap clf">
       <div class="article-left fl">
-        <div class="article-left-tit">{{article_titm}}</div>
+        <div class="article-left-tit">{{article_tit}}</div>
         <div class="article-left-box">
           <div class="article-left-list" :class="active_idx == index ? 'active' : ''" v-for="(item, index) in articleItem" :key="index">
             <i class="article-left-icon fl"></i>
@@ -28,16 +28,6 @@
 import azzd from '~/components/azzd/index.vue'
 
 export default {
-  head() {
-    return {
-      title: this.title,
-      meta: [{
-        hid: 'description',
-        name: 'description',
-        content: this.description
-      }]
-    }
-  },
   components: {
     azzd
   },
@@ -50,7 +40,6 @@ export default {
       // 描述
       description: '',
       // 上级id
-      pid: '',
       // 左侧标题
 	  article_tit: '',
 
@@ -64,58 +53,49 @@ export default {
       a: '',
       b: '',
       result: '',
+      article_tit: ''
     }
+  },
+  async asyncData({ $axios, route, store, app }) {
+    var last = route.path.lastIndexOf('/')+1;
+    var url_id = route.path.slice(last);
+
+    return await $axios.get('/article/article/detail', {
+      params: {
+        id: url_id
+      }
+    }).then(res => {
+      var head_r = {
+          title: res.data.data.title,
+          meta: [
+            { hid: 'description', name: 'description', content: res.data.data.seo_content || ''}
+          ]
+      };
+
+      app.head.title = head_r.title;
+      app.head.meta = head_r.meta;
+
+      return {articleDetail: res.data.data, pid: res.data.data.cate_id}
+    }).catch(err => {
+      console.log(err)
+    })
   },
   mounted(){
    document.documentElement.scrollTop = document.body.scrollTop = 0;
 
-   this.$axios.get('/article/article-cate/index', {
-     params: {}
-   }).then(res => {
-      this.result = res.data.data.lists;
-
-      var url_id,path = location.href;
-      if(path.indexOf('?') != -1){
-        url_id = path.split('=')[1];
-      }else{
-        url_id = path.slice(path.lastIndexOf('/')+1);
-      }
-
-      this.getDetail(url_id);
-   }).catch(function(error) {
-     console.log(error);
-   })
+   this.getList()
   },
   methods:{
-    // 文章详情
-    getDetail(k){
-      var that = this;
-      this.$axios.get('/article/article/detail', {
-        params: {
-          'id': k,
-        }
-      }).then(res => {
-        that.articleDetail = res.data.data;
-        that.title = res.data.data.title;
-        that.description = res.data.data.seo_content;
-        that.pid = res.data.data.cate_id;
-
-        that.getClassify();
-        that.getList();
-      }).catch(function(error) {
-        console.log(error);
-      });
-    },
     // 文章列表
     getList(){
       var that = this;
       this.$axios.get('/article/article/search', {
         params: {
-          'pid': this.pid
+          pid: this.pid
         }
       }).then(res => {
         this.articleItem = res.data.data.data;
-        // console.log(res)
+        this.article_tit = res.data.data.category_name;
 
         for(var i=0; i<this.articleItem.length; i++){
           if(this.articleItem[i].title == this.articleDetail.title){
@@ -127,39 +107,6 @@ export default {
       }).catch(function(error) {
         console.log(error);
       });
-    },
-
-    // 文章分类
-    getClassify(){
-      var that = this;
-
-      var articleList = this.result;
-      var flag = false;
-
-      for (var i = 0; i < articleList.length; i++) {
-        for (var j = 0; j < articleList[i].items.length; j++) {
-          for (var k = 0; k < articleList[i].items[j].items.length; k++) {
-            var list = articleList[i].items[j].items[k];
-            if (list.id == that.pid) {
-              that.article_titm = list.title;
-              flag = true;
-              break;
-            } else {
-              // 跳转404
-              // console.log(222)
-            }
-          }
-
-          if (flag) {
-            break;
-          }
-        }
-
-        if (flag) {
-          break;
-        }
-
-      }
     }
   }
 }

@@ -8,7 +8,7 @@ module.exports = {
    ** Headers of the page
    */
   head: {
-    title: 'vue-web2',
+    title: 'KAD',
     meta: [{
         charset: 'utf-8'
       },
@@ -34,11 +34,11 @@ module.exports = {
         charset: 'utf-8',
         async: true
       },
-			{
-			  src: '/google-ga.js',
-			  type: 'text/javascript',
-			  charset: 'utf-8'
-			},
+    	{
+    	  src: '/google-ga.js',
+    	  type: 'text/javascript',
+    	  charset: 'utf-8'
+    	},
       {
         src: '/live-chat.js',
         type: 'text/javascript',
@@ -62,7 +62,7 @@ module.exports = {
     // 线上api
   	// baseURL: 'https://api.kadart.com/index.php/v1',
     // 测试api
-  	baseURL: 'https://kadart.bddia.com/api/index.php/v1'
+  	baseURL: 'https://kadart.bddco.cn/api/index.php/v1'
   },
 
   proxy: {

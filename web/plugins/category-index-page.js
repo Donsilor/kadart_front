@@ -28,7 +28,6 @@ export default {
     resetBannerSize() {
       const _this = this
 
-      console.log(this.banners[0])
       // if (_this.banners[0] && _this.banners[0].adv_image) {
       //   const image = new Image()
       //   image.src = _this.banner[0].adv_image

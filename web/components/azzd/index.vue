@@ -101,7 +101,6 @@
           },
         }).then(res => {
           this.banners = res.data;
-          // console.log(this.banners)
           this.getHeight(this.banners, that.bannerHeightA)
         }).catch(function(error) {
           // console.log(error);
