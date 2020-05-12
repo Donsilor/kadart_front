@@ -52,7 +52,6 @@
         that.ifShowSearch = !that.ifShowSearch;
         if (that.ifShowSearch) {
           var timer = setTimeout(function() {
-            // console.log(that.$refs.searchBox)
             that.$refs.searchBox.classList.add('hei');
           }, 20)
         }

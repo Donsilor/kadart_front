@@ -96,23 +96,18 @@
 
       var that = this;
 
-      console.log(this.result)
-
       // // 文章分类
       // if(this.resule.info){
       //   var articleList = this.resule.info;
-      //   // console.log(articleList)
       // }else{
       //   return
       // }
       // var flag = false;
-      // console.log(123)
 
       // for (var i = 0; i < articleList.length; i++) {
       //   for (var j = 0; j < articleList[i].items.length; j++) {
       //     for (var k = 0; k < articleList[i].items[j].items.length; k++) {
       //       var list = articleList[i].items[j].items[k];
-      //       // console.log(list)
 
       //       if (list.title == url) {
       //         that.a = i;
@@ -126,7 +121,6 @@
       //         break;
       //       } else {
       //         // 跳转404
-      //         // console.log(222)
       //       }
       //     }
 
@@ -141,8 +135,6 @@
       // }
 
       // this.articleTitle = articleList[this.a].items[this.b].items;
-      // console.log(this.articleTitle)
-
     },
     mounted() {
       document.documentElement.scrollTop = document.body.scrollTop = 0;
@@ -157,7 +149,6 @@
       //       params: {}
       //     }).then(res => {
       // 			// that.tdk.title = '456';
-      //       // console.log(res)
       //       var articleList = res.data.data.lists;
       //       // console.log(articleList)
       //       var flag = false;
@@ -177,7 +168,6 @@
       //               break;
       //             }else{
       //               // 跳转404
-      //               // console.log(222)
       //             }
       //           }
       //
@@ -192,10 +182,6 @@
       //       }
       //
       //       this.articleTitle = res.data.data.lists[this.a].items[this.b].items;
-      //
-      //       // console.log(this.articleTitle)
-      //
-      //       // console.log(this.articleTitle)
       //     }).catch(function(error) {
       //       console.log(error);
       //     });

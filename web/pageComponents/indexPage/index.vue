@@ -287,7 +287,6 @@
       //  var that = this;
       //  image.onload = function(){
       //    that.resu = (document.body.clientWidth * image.height) / image.width;
-      //    // console.log(that.resu)
       //  }
       // },
       onPlay() {

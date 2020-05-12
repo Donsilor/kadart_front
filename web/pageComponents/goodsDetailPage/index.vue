@@ -250,7 +250,6 @@
         }
       }).then(res => {
         this.goodsRecommend = res.data;
-        // console.log(this.goodsRecommend)
       }).catch(function(error) {
         console.log(error);
       });
@@ -269,7 +268,6 @@
         var comBox = this.$refs.commodityBox.clientWidth;
         // var that = this;
         this.commodityLeftWidth = comBox-568;
-        // console.log(that.commodityLeftWidth)
       },
       shareFaceBook(){
         var u = location.href;

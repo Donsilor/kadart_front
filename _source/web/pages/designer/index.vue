@@ -54,11 +54,9 @@ export default {
     var min = sessionStorage.getItem('min_p');
     var max = sessionStorage.getItem('max_p');
     if(min){
-      console.log(min)
       this.min_page = min;
     }
     if(max){
-      console.log(max)
       this.max_page = max;
     }
 

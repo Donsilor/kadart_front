@@ -33,13 +33,10 @@ export default {
       //   image.src = _this.banner[0].adv_image
       //   image.onload = result => {
       //     // console.log(image.width, image.height)
-      //     console.log(111111111)
       //     _this.bannerHeight =
       //       (document.body.clientWidth * image.height) / image.width
-      //       console.log(_this.bannerHeight)
       //   }
       // }
-      // console.log(_this.bannerHeight)
     }
   }
 }

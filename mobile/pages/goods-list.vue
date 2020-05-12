@@ -61,8 +61,6 @@
         page: 1,
         page_size: 16
       }).then(res => {
-        console.log(1231231,res.data.data)
-
         var t = '',
           d = '',
           k = '';
@@ -120,9 +118,13 @@
 
         var head_r = {
           title: t,
-          meta: [
-            { charset: 'utf-8' },
-            { name: 'viewport', content: 'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0' },
+          meta: [{
+              charset: 'utf-8'
+            },
+            {
+              name: 'viewport',
+              content: 'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0'
+            },
             {
               hid: 'description',
               name: 'description',

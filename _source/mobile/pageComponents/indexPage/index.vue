@@ -266,7 +266,6 @@
       }).then(res => {
          var that = this;
          that.bannersThree = res.data.data;
-         // console.log(that.bannersThree)
 
          // that.imgUrl = that.classifyImg[0].adv_image;
          // that.getSeriesHeight()
@@ -281,7 +280,6 @@
         }
       }).then(res => {
         this.bannersFour = res.data.data;
-        // console.log(this.bannersFour)
       }).catch(function(error) {
         console.log(error);
       });

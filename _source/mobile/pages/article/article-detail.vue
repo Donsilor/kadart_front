@@ -58,11 +58,6 @@ export default {
           this.ifShow = true;
         }
 
-        // var obj = document.getElementsByTagName("head")[0];
-        // var head_meta = obj.querySelectorAll('meta');
-        // head_meta[2].setAttribute('content','123123');
-        // console.log(head_meta[2])
-
       }).catch(function(error) {
         console.log(error);
       });
