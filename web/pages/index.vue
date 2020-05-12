@@ -12,7 +12,6 @@ export default {
     mains,
   },
   async asyncData({ $axios, route, store, app }) {
-
     let [request1Data, request2Data, request3Data, request4Data] = await Promise.all([
           $axios.get('/common/advert-images',{params: {'acdv_id': 11,}}),
           $axios.get('/common/advert-images',{params: {'acdv_id': 10,}}),

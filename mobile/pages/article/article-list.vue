@@ -4,7 +4,7 @@
 
     <div class="nav-box">
       <div class="scroll">
-        <a :href="item.url" class="list" :class="active_idx == index ? 'active' : ''" v-for="(item, index) in menu_list"
+        <a :href="item.url" class="list" :class="active_idx == index ? 'active' : ''" v-for="(item, index) in articleTitle"
           :key="index">
           {{item.title}}
         </a>
@@ -34,16 +34,6 @@
 
 <script>
   export default {
-    head() {
-      return {
-        title: this.title,
-        meta: [{
-          hid: 'description',
-          name: 'description',
-          content: this.title
-        }]
-      }
-    },
     data() {
       return {
         active_idx: 0,
@@ -59,17 +49,34 @@
         pid_fore: '',
       }
     },
+    async asyncData({ $axios, route, store, app }) {
+      var last = route.path.lastIndexOf('/')+1;
+      var url_id = route.path.slice(last);
+
+      return await $axios.get('/article/article-cate/index', {
+        params: {
+          id: 3
+        }
+      }).then(res => {
+        var head_r = {
+            title: res.data.data.title,
+            meta: [
+              { charset: 'utf-8' },
+              { name: 'viewport', content: 'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0' },
+              { hid: 'description', name: 'description', content: res.data.data.title || ''}
+            ]
+        };
+
+        app.head.title = head_r.title;
+        app.head.meta = head_r.meta;
+
+        return {articleTitle: res.data.data.lists, url_id: url_id}
+      }).catch(err => {
+        // console.log(err)
+      })
+    },
     mounted() {
       document.documentElement.scrollTop = document.body.scrollTop = 0;
-
-      var url_id, path = location.href;
-      if (path.indexOf('?') != -1) {
-        url_id = path.split('=')[1];
-      } else {
-        url_id = path.slice(path.lastIndexOf('/') + 1);
-      }
-
-      this.article_pid = url_id;
 
       this.getList()
 
@@ -87,7 +94,7 @@
         }
         this.$axios.get('/article/article/search', {
           params: {
-            'pid': that.article_pid,
+            'pid': this.url_id,
             'page_size': this.page_size
           }
         }).then(res => {
@@ -95,7 +102,12 @@
           this.pid_fore = res.data.data.pid;
           this.title = res.data.data.category_name;
 
-          this.classify();
+          for (var i = 0; i < this.articleTitle.length; i++) {
+            if (this.articleTitle[i].title == this.title) {
+              this.active_idx = i;
+              break;
+            }
+          }
 
           if (res.data.data.total_count > 5 && this.page_size < res.data.data.total_count) {
             this.ifShowLoad = true;
@@ -103,29 +115,6 @@
             this.ifShowLoad = false;
           }
           this.ifLoad = false;
-        }).catch(function(error) {
-          console.log(error);
-        });
-      },
-
-      // 文章分类
-      classify(){
-        var that = this;
-        this.$axios.get('/article/article-cate/index', {
-          params: {
-            'id' : this.article_pid
-          }
-        }).then(res => {
-          this.menu_list = res.data.data.lists;
-
-          // localStorage.setItem('article_list', JSON.stringify(this.result))
-          for(var i=0; i<this.menu_list.length; i++){
-            if(this.menu_list[i].id == this.pid_fore){
-              that.active_idx = i;
-              continue;
-            }
-          }
-
         }).catch(function(error) {
           console.log(error);
         });

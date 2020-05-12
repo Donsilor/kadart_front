@@ -82,9 +82,8 @@
 
         app.head.title = head_r.title;
         app.head.meta = head_r.meta;
-        var articleTitle = res.data.data.lists;
 
-        return {articleTitle: articleTitle, url_id: url_id}
+        return {articleTitle: res.data.data.lists, url_id: url_id}
       }).catch(err => {
         // console.log(err)
       })

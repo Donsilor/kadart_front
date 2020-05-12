@@ -90,7 +90,7 @@ export default {
    // 线上api
   // baseURL: 'https://api.kadart.com/index.php/v1',
    // 测试api
-  baseURL: 'https://kadart.bddia.com/api/index.php/v1'
+  baseURL: 'https://kadart.bddco.cn/api/index.php/v1'
 
   },
   /*
