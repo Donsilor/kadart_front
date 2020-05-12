@@ -3,7 +3,7 @@ import MenuBar from '@/components/menuBar'
 import HeaderBar from '@/components/headerBar'
 import FooterBar from '@/components/footerBar'
 import SlideShow from '@/components/slideShow'
-import ArtcleSlideShow from '@/components/ArtcleSlideShow'
+import ArtcleSlideShow from '@/components/artcleSlideShow'
 import login from '@/components/login'
 
 Vue.use(MenuBar)
