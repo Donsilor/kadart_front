@@ -23,12 +23,12 @@ if (!process.server) {
 
   var host = location.host;
 
-  if (!(/www\-kadart/).test(host)) {
+  if (!(/kadart.com/).test(host)) {
     //测试环境
     host = 'http://wap-kadart.bddco.cn';
   }else{
     //生产环境
-    host = 'https://wap.kadart.com/';
+    host = 'https://wap.kadart.com';
   }
 
   var href = location.href;

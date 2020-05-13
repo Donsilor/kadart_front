@@ -22,7 +22,7 @@ if (!process.server) {
   };
 
   var host = location.host;
-  if (!(/wap\-kadart/).test(host)) {
+  if (!(/kadart.com/).test(host)) {
     //测试环境
     host = 'http://www-kadart.bddco.cn';
   }else{
