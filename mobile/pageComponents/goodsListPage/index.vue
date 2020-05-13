@@ -118,6 +118,10 @@
         this.totalPages = this.info.page_count - 0;
         this.goods_num = this.info.total_count;
       }else{
+        this.$nextTick(() => {
+          this.$nuxt.$loading.start()
+        })
+
         var num = location.href.lastIndexOf('/')+1;
         var search = location.href.slice(num);
 
@@ -131,6 +135,7 @@
           page: 1,
           page_size: 6
         }).then(res => {
+          this.$nuxt.$loading.finish()
           if(res.data.data.total_count >= 6){
             this.ifShowLoad = true;
           }
@@ -140,6 +145,7 @@
           this.totalPages = res.data.data.page_count - 0;
           this.goods_num = res.data.data.total_count;
         }).catch(err => {
+          this.$nuxt.$loading.finish()
           // console.log(err)
         })
       }
@@ -228,6 +234,7 @@
         if(k_keyword != undefined){
           k_keyword = unescape(k_keyword);
         }
+        this.$nuxt.$loading.start()
         var that = this;
         that.$axios.post('/goods/style/search', {
           type_id: k_type_id,
@@ -239,6 +246,7 @@
           page: k_page,
           page_size: k_page_size
         }).then(res => {
+          that.$nuxt.$loading.finish()
           that.ifLoad = false;
           that.commodityItem = res.data.data;
           that.goods_num = res.data.data.total_count;
@@ -251,12 +259,13 @@
             // this.ifShowText = true;
           // }
         }).catch(function(error) {
+          that.$nuxt.$loading.finish()
           // console.log(error);
         });
       },
       loadMore(){
         if(this.pageSize < this.goods_num){
-          this.ifLoad = true;
+          // this.ifLoad = true;
           this.pageSize += 6;
           this.analysisUrl();
           this.acquireData(this.typeId, this.keyword, this.filter[this.filter_index], this.attrId, this.attrValue, this.priceRange,this.pageId, this.pageSize);

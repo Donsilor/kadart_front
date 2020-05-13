@@ -296,10 +296,44 @@
     },
     mounted() {
       window.addEventListener('scroll', this.scrollToTop);
-      this.commodityItem = this.info;
-      this.totalNum = this.info.total_count - 0;
-      this.totalPages = this.info.page_count - 0;
-      
+
+      if(location.href.indexOf('search') == -1){
+        this.commodityItem = this.info;
+        this.totalNum = this.info.total_count - 0;
+        this.totalPages = this.info.page_count - 0;
+      }else{
+        // this.$nextTick(() => {
+          this.$nuxt.$loading.start()
+        // })
+
+        var num = location.href.lastIndexOf('/')+1;
+        var search = location.href.slice(num);
+
+        this.$axios.post('/goods/style/search', {
+          type_id: '',
+          keyword: search,
+          sort: '1_0',
+          attr_id: '',
+          attr_value: '',
+          price_range: '',
+          page: 1,
+          page_size: 6
+        }).then(res => {
+          this.$nuxt.$loading.finish()
+          if(res.data.data.total_count >= 6){
+            this.ifShowLoad = true;
+          }
+
+          this.commodityItem = res.data.data;
+          this.totalNum = res.data.data.total_count - 0;
+          this.totalPages = res.data.data.page_count - 0;
+        }).catch(err => {
+          this.$nuxt.$loading.finish()
+          // console.log(err)
+        })
+      }
+
+
       this.getData()
     },
     methods: {

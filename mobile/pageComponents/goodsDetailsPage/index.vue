@@ -176,7 +176,7 @@
       }
     },
     mounted(){
-      this.goodsDetail = this.info;
+      this.goodsDetail = this.info.data;
       this.smallImg = this.info.data.goods_images.thumb || '';
       this.bigImg = this.info.data.goods_images.big || '';
       this.goodsAttr = [...this.info.data.style_attrs];
