@@ -1,2 +1,4 @@
 /web/favicon.ico
 
+/web/nuxt.config.js
+/mobile/nuxt.config.js
