@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="home_cid">
-      <div v-if="this.banners && this.banners != 0" v-swiper:mySwiper="swiperOption">
+      <div v-if="this.banners && this.banners.length != 0" v-swiper:mySwiper="swiperOption">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="banner in banners">
             <a :href='banner.adv_url || "javascript:;"' target="_blank">
@@ -14,7 +14,7 @@
     </div>
 
     <div class="banner">
-      <div v-if="this.bannersTwo && this.bannersTwo != 0" v-swiper:youSwiper="swiperOptionTwo">
+      <div v-if="this.bannersTwo && this.bannersTwo.length != 0" v-swiper:youSwiper="swiperOptionTwo">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="ban in bannersTwo">
             <a :href='ban.adv_url || "javascript:;"' target="_blank">
@@ -168,19 +168,48 @@
   import Bus from '../../assets/js/bus.js'
 
   export default {
-    components:{
+    components: {
       search
     },
-    data () {
+    props: {
+      data1: {
+        type: Array,
+        required: false,
+        default () {
+          return []
+        }
+      },
+      data2: {
+        type: Array,
+        required: false,
+        default () {
+          return []
+        }
+      },
+      data3: {
+        type: Array,
+        required: false,
+        default () {
+          return []
+        }
+      },
+      data4: {
+        type: Array,
+        required: false,
+        default () {
+          return []
+        }
+      }
+    },
+    data() {
       return {
         banners: [],
         bannersTwo: [],
         bannersThree: [],
-        bannersFour: [
-          {
-            adv_image: ''
-          }
-        ],
+        bannersFour: [{
+          adv_image: '',
+          adv_url: ''
+        }],
         swiperOption: {
           loop: true,
           autoplay: {
@@ -232,65 +261,17 @@
         },
       }
     },
-    mounted(){
-      // 顶部轮播图
-      this.$axios.get('/common/advert-images', {
-        params: {
-          'acdv_id': 15,
-        }
-      }).then(res => {
-        this.banners = res.data.data;
-        if(this.banners.length == 1){
-          this.swiperOption.autoplay = false;
-        }
-      }).catch(function(error) {
-        console.log(error);
-      });
-
-      // banner图
-      this.$axios.get('/common/advert-images', {
-        params: {
-          'acdv_id': 16,
-        }
-      }).then(res => {
-        this.bannersTwo = res.data.data;
-      }).catch(function(error) {
-        console.log(error);
-      });
-
-      // 分类小图，6张
-      this.$axios.get('/common/advert-images', {
-        params: {
-          'acdv_id': 19,
-        }
-      }).then(res => {
-         var that = this;
-         that.bannersThree = res.data.data;
-         // console.log(that.bannersThree)
-
-         // that.imgUrl = that.classifyImg[0].adv_image;
-         // that.getSeriesHeight()
-      }).catch(function(error) {
-        console.log(error);
-      });
-
-      // 底部新品预告图
-      this.$axios.get('/common/advert-images', {
-        params: {
-          'acdv_id': 20,
-        }
-      }).then(res => {
-        this.bannersFour = res.data.data;
-        // console.log(this.bannersFour)
-      }).catch(function(error) {
-        console.log(error);
-      });
+    mounted() {
+      this.banners = this.data1;
+      this.bannersTwo = this.data2;
+      this.bannersThree = this.data3;
+      this.bannersFour = this.data4;
     },
     methods: {
-      contactOption(k){
-        if(this.optionIndex == k){
+      contactOption(k) {
+        if (this.optionIndex == k) {
           this.optionIndex = 0
-        }else{
+        } else {
           this.optionIndex = k
         }
       }
@@ -299,62 +280,64 @@
 </script>
 
 <style scoped>
-  .home_cid{
+  .home_cid {
     width: 100%;
     /* height: 9.2rem; */
   }
 
-  .home_cid .swiper-container{
+  .home_cid .swiper-container {
     width: 100%;
     height: 10rem;
   }
 
-  .home_cid .swiper-wrapper{
+  .home_cid .swiper-wrapper {
     width: 100%;
     height: 9.2rem;
   }
 
-  .home_cid .swiper-slide{
+  .home_cid .swiper-slide {
     width: 100%;
     height: 7.4rem;
     position: relative;
     overflow: hidden;
   }
 
-  .swiper-slide img{
+  .swiper-slide img {
     width: 100%;
     height: 100%;
   }
 
-  .banner{
+  .banner {
     width: 100%;
     margin: 1rem 0 3rem;
     height: 32.6rem;
   }
-  .banner .swiper-container{
+
+  .banner .swiper-container {
     width: 100%;
     height: 100%;
   }
 
-  .banner .swiper-wrapper{
+  .banner .swiper-wrapper {
     width: 100%;
     height: 100%;
   }
 
-  .banner .swiper-slide{
+  .banner .swiper-slide {
     width: 100%;
     height: 100%;
     position: relative;
     overflow: hidden;
   }
 
-  .h3{
+  .h3 {
     font-family: DFPYaSong;
     font-size: 1.55rem;
     color: #333;
     text-align: center;
   }
-  .h4{
+
+  .h4 {
     font-family: STKAITI;
     font-size: 1.1rem;
     color: #333;
@@ -363,34 +346,35 @@
     margin-top: 0.6rem;
   }
 
-  .img-box-2{
+  .img-box-2 {
     width: 100%;
     margin-top: 2.5rem;
   }
 
   .img-box-3,
-  .img-box-4{
+  .img-box-4 {
     width: 49%;
   }
 
-  .img-box-34{
+  .img-box-34 {
     width: 100;
     margin: 1.25rem 0 5rem;
   }
 
-  .img-box-567{
+  .img-box-567 {
     display: flex;
     justify-content: space-between;
     width: 98%;
     height: 33.3rem;
     margin: 3.5rem auto 5rem;
   }
-  .img-box-5{
+
+  .img-box-5 {
     width: 49.5%;
     height: 100%;
   }
 
-  .img-box-67{
+  .img-box-67 {
     display: flex;
     width: 49.5%;
     height: 100%;
@@ -398,12 +382,13 @@
     justify-content: space-between;
     align-items: center;
   }
+
   .img-box-6,
-  .img-box-7{
+  .img-box-7 {
     height: 16.5rem;
   }
 
-  .img-box-more{
+  .img-box-more {
     width: 99%;
     height: 13.1rem;
     overflow-x: scroll;
@@ -411,12 +396,12 @@
     padding-right: 1%;
   }
 
-  .img-box-more .swiper-slide{
+  .img-box-more .swiper-slide {
     width: 10.5rem;
     height: 13.1rem;
   }
 
-  .img-box-more .swiper-button-next{
+  .img-box-more .swiper-button-next {
     width: 2rem;
     height: 3rem;
     background: url(../../static/index/icon/right.png) no-repeat center;
@@ -429,62 +414,65 @@
   }
 
 
-  .img-box-scroll{
+  .img-box-scroll {
     display: inline-block;
     white-space: nowrap;
     height: 100%;
   }
 
-  .img-box-r{
+  .img-box-r {
     width: 10.5rem;
     height: 13.1rem;
     display: inline-block;
   }
 
-  .img-box-8{
+  .img-box-8 {
     width: 100%;
   }
 
-  .contact-box{
+  .contact-box {
     width: 100%;
     border-top: 1px solid #bcb9c3;
     padding: 0.6rem 0.8% 0 0.8%;
     margin: 4rem 0 5rem;
   }
 
-  .contact-box .list-tit{
+  .contact-box .list-tit {
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 4rem;
     padding: 0.8rem 3.2% 0 4%;
-    border-bottom: 1px solid rgba(29, 0, 58, 0.32);;
+    border-bottom: 1px solid rgba(29, 0, 58, 0.32);
+    ;
   }
 
-  .contact-box .list-left{
+  .contact-box .list-left {
     display: flex;
-    align-items:  center;
+    align-items: center;
   }
 
-  .contact-box .list-icon{
+  .contact-box .list-icon {
     width: 1.5rem;
     height: 1.5rem;
   }
 
-  .list-icon-1{
+  .list-icon-1 {
     background: url(../../static/index/icon/icon-5.png) no-repeat center;
     background-size: 100% 100%;
   }
-  .list-icon-2{
+
+  .list-icon-2 {
     background: url(../../static/index/icon/icon-4.png) no-repeat center;
     background-size: 100% 100%;
   }
-  .list-icon-3{
+
+  .list-icon-3 {
     background: url(../../static/index/icon/icon-6.png) no-repeat center;
     background-size: 100% 100%;
   }
 
-  .list-tit-text{
+  .list-tit-text {
     font-family: DFPYaSong;
     font-size: 1.45rem;
     color: #333;
@@ -492,28 +480,28 @@
     margin-left: 1rem;
   }
 
-  .list-right-icon{
+  .list-right-icon {
     width: 1.5rem;
     height: 1.5rem;
     background: url(../../static/index/icon/icon-7.png) no-repeat center;
     background-size: 100% 100%;
   }
 
-  .list.on .list-right-icon{
+  .list.on .list-right-icon {
     transform: rotate(180deg);
   }
 
-  .list-content{
+  .list-content {
     min-height: 4rem;
     padding-left: 3.8rem;
     display: none;
   }
 
-  .list.on .list-content{
+  .list.on .list-content {
     display: block;
   }
 
-  .list-content-child{
+  .list-content-child {
     font-family: STKAITI;
     font-size: 1.3rem;
     color: #333;
@@ -544,8 +532,7 @@
     background-color: #480f33 !important;
   }
 
-  .swiper-button-next:focus{
+  .swiper-button-next:focus {
     outline: none;
   }
-
 </style>

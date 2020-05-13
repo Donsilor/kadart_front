@@ -37,7 +37,7 @@
       <div class="filter-right" style="display: none;"></div>
     </div>
 
-    <div class="goods-box clf" v-if="goods_num > 0">
+    <div class="goods-box clf" v-if="1">
       <div class="goods-list fl" v-for="(item, index) in commodityItem.data" :key="index">
         <div class="img-box" :style="{height : listHeight+'px'}">
           <a :href="commodityItem.data[index].url">
@@ -64,22 +64,20 @@
 
 <script>
   export default{
-    head() {
-      return {
-        title: this.seo.meta_title || 'Quality gold,silver jewelry wholesale at factory price',
-        meta: [{
-            hid: 'description',
-            name: 'description',
-            content: this.seo.meta_desc ||
-              'KADArt design, manufacture and wholesale gold,silver,brass and alloy jewelry with diamond,ruby,sapphire,zircon,crystal and rhinestone at very good price.'
-          },
-          {
-            hid: 'keywords',
-            name: 'keywords',
-            content: this.seo.meta_word ||
-              'jewelry factory, jewelry supplier, jewelry manufacturer,China jewelry wholesale,gold jewelry, silver jewelry, brass jewelry,best jewelry, fashion jewelry '
-          }
-        ]
+    props:{
+      info: {
+        type: Object,
+        required: false,
+        default() {
+          return {}
+        }
+      },
+      goods_id: {
+        type: String,
+        required: false,
+        default() {
+          return ''
+        }
       }
     },
     data (){
@@ -103,13 +101,6 @@
         goods_num: '',
         ifLoad: false,
         ifShowLoad: true,
-        seo: {
-          "meta_title": '',
-          "meta_word": '',
-          "meta_desc": '',
-          'title': '',
-          'description': '',
-        },
       }
     },
     mounted(){
@@ -117,8 +108,12 @@
       var win_width = document.body.clientWidth;
       that.listHeight = Math.round(win_width*0.49);
 
-      this.analysisUrl();
-      this.acquireData(this.typeId, this.keyword, '1_0', this.attrId, this.attrValue, this.priceRange,this.pageId, this.pageSize);
+      this.commodityItem = this.info;
+      this.totalNum = this.info.total_count - 0;
+      this.totalPages = this.info.page_count - 0;
+
+      // this.analysisUrl();
+      // this.acquireData(this.typeId, this.keyword, '1_0', this.attrId, this.attrValue, this.priceRange,this.pageId, this.pageSize);
     },
     methods:{
       // 排序筛选
@@ -215,8 +210,6 @@
           that.ifLoad = false;
           that.commodityItem = res.data.data;
           that.goods_num = res.data.data.total_count;
-          that.seo = that.commodityItem.seo;
-          // console.log(that.commodityItem)
 
           if(that.goods_num < 7){
             that.ifShowLoad = false;

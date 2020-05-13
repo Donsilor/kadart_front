@@ -59,7 +59,6 @@
         }
       }).then(res => {
         that.banners = res.data.data;
-        // console.log(that.banners)
         if(this.banners.length == 1){
           this.swiperOptionR.autoplay = false;
         }

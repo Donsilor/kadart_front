@@ -216,7 +216,6 @@
           that.commodityItem = res.data.data;
           that.goods_num = res.data.data.total_count;
           that.seo = that.commodityItem.seo;
-          // console.log(that.commodityItem)
 
           if(that.goods_num < 7){
             that.ifShowLoad = false;

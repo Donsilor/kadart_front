@@ -62,8 +62,6 @@ export default {
       //   this.description = res.data.data.seo_content;
       //   that.title = res.data.data.title;
 
-      //   console.log(123,this.description)
-
       //   if(this.articleDetail.title != '' || this.articleDetail.seo_content != '' || this.articleDetail.content != ''){
       //     this.ifShow = true;
       //   }
@@ -99,7 +97,6 @@ asyncData({ app, $axios, route, store }) {
 
 
    //  fetch ({ $axios, params, route, context }) {
-   //    console.log(11,this.$axios)
    //     var url_id,path = route.fullPath;
    //      if(path.indexOf('?') == -1){
    //        url_id = path.slice(path.lastIndexOf('/')+1)

@@ -85,7 +85,6 @@
          var that = this;
          image.onload = function(){
            that.resu = (document.body.clientWidth * image.height) / image.width;
-           console.log(that.resu)
          }
        }
      },
@@ -101,7 +100,6 @@
           },
         }).then(res => {
           this.banners = res.data;
-          // console.log(this.banners)
           this.getHeight(this.banners, that.bannerHeightA)
         }).catch(function(error) {
           // console.log(error);

@@ -117,7 +117,6 @@
         },1500)
       },
       ifLogin(){
-				console.log(this.usernametwo)
 				if(this.usernametwo == ''){
 					this.ifShowLogin = true;
 				}

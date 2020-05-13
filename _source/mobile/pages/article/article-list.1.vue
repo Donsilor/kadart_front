@@ -113,7 +113,6 @@
           for (var j = 0; j < articleList[i].items.length; j++) {
             for (var k = 0; k < articleList[i].items[j].items.length; k++) {
               var list = articleList[i].items[j].items[k];
-              // console.log(list)
 
               if (list.id == url_id) {
                 that.a = i;
@@ -126,7 +125,6 @@
                 break;
               } else {
                 // 跳转404
-                // console.log(222)
               }
             }
 
@@ -141,7 +139,6 @@
         }
 
         this.articleTitle = articleList[this.a].items[this.b].items;
-        // console.log(123, this.articleTitle)
       },
 
       // 文章列表
@@ -157,7 +154,6 @@
           }
         }).then(res => {
           this.articleItem = res.data.data.data;
-          // console.log(res.data.data)
           if (res.data.data.total_count > 5 && this.page_size < res.data.data.total_count) {
             this.ifShowLoad = true;
           } else {
@@ -165,7 +161,6 @@
           }
           this.ifLoad = false;
 
-          // console.log(this.articleItem)
         }).catch(function(error) {
           console.log(error);
         });

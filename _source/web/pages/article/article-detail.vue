@@ -115,7 +115,6 @@ export default {
         }
       }).then(res => {
         this.articleItem = res.data.data.data;
-        // console.log(res)
 
         for(var i=0; i<this.articleItem.length; i++){
           if(this.articleItem[i].title == this.articleDetail.title){
@@ -146,7 +145,6 @@ export default {
               break;
             } else {
               // 跳转404
-              // console.log(222)
             }
           }
 

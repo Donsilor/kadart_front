@@ -204,50 +204,47 @@
         seriesHeight: 320
       }
     },
-    created() {
-      // 顶部轮播图
-      this.$axios.get('/common/advert-images', {
-        params: {
-          'acdv_id': 11,
+    props:{
+      data1: {
+        type: Array,
+        required: false,
+        default() {
+          return []
         }
-      }).then(res => {
-        this.banners = res.data.data;
-        // this.getHeight(this.banners)
-      }).catch(function(error) {
-        console.log(error);
-      });
-
-      // banner图
-      this.$axios.get('/common/advert-images', {
-        params: {
-          'acdv_id': 10,
+      },
+      data2: {
+        type: Array,
+        required: false,
+        default() {
+          return []
         }
-      }).then(res => {
-        this.bannersTwo = res.data.data;
-        // this.getHeight(this.bannersTwo)
-      }).catch(function(error) {
-        console.log(error);
-      });
-
-      // 底部新品预告图
-      this.$axios.get('/common/advert-images', {
-        params: {
-          'acdv_id': 14,
+      },
+      data3: {
+        type: Array,
+        required: false,
+        default() {
+          return []
         }
-      }).then(res => {
-        this.footNewImg = res.data.data;
-      }).catch(function(error) {
-        console.log(error);
-      });
+      },
+      data4: {
+        type: Array,
+        required: false,
+        default() {
+          return []
+        }
+      }
     },
     mounted(){
+      this.banners = this.data1;
+      this.bannersTwo = this.data2;
+      this.footNewImg = this.data3;
       // 分类小图，6张
       this.$axios.get('/common/advert-images', {
         params: {
           'acdv_id': 13,
         }
       }).then(res => {
-         var that = this;
+         var that = this
          that.classifyImg = res.data.data;
 
          that.imgUrl = that.classifyImg[0].adv_image;
@@ -290,7 +287,6 @@
       //  var that = this;
       //  image.onload = function(){
       //    that.resu = (document.body.clientWidth * image.height) / image.width;
-      //    // console.log(that.resu)
       //  }
       // },
       onPlay() {

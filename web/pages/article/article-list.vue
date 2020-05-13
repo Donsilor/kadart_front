@@ -5,7 +5,7 @@
     <div class="article-wrap clf">
       <div class="article-left fl">
         <div>
-          <div class="article-left-tit">{{tittle}}</div>
+          <div class="article-left-tit">{{title}}</div>
           <div class="article-left-box">
             <a :href="item.url" class="article-left-list" :class="active_idx == index ? 'active' : ''" v-for="(item, index) in articleTitle"
               :key="index">
@@ -17,7 +17,7 @@
       </div>
 
       <div class="article-right fr">
-        <div class="article-right-tit">{{articleTitle[active_idx].title}}</div>
+        <div class="article-right-tit">{{article_tit}}</div>
         <div class="article-right-box">
           <div class="article-right-list" v-for="(ite, index) in articleItem" @click="intoDetail(index)">
             <div class="img-box">
@@ -32,13 +32,8 @@
 
         <div class="pages" v-if="page_count > 1">
           <div class="totle" v-if="total_count != 0"><span>total</span>{{total_count}}</div>
-          <el-pagination
-            :total="page_count"
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :current-page.sync="currentPage1"
-            :page-size="1"
-            layout="prev, pager, next, jumper">
+          <el-pagination :total="page_count" @size-change="handleSizeChange" @current-change="handleCurrentChange"
+            :current-page.sync="currentPage1" :page-size="1" layout="prev, pager, next, jumper">
           </el-pagination>
         </div>
       </div>
@@ -51,16 +46,6 @@
   import azzd from '~/components/azzd/index.vue'
 
   export default {
-    head() {
-      return {
-        title: this.title,
-        meta: [{
-          hid: 'description',
-          name: 'description',
-          content: this.title
-        }]
-      }
-    },
     components: {
       azzd
     },
@@ -71,111 +56,58 @@
           title: ''
         }],
         articleItem: [],
-        article_pid: 0,
-        a: 0,
-        b: 0,
-        detailUrl: '',
         title: '',
-        tittle: '',
         currentPage1: 1,
         page_count: 0,
         total_count: 0,
-        result: ''
+        url_id: 0,
+        article_tit: ''
       }
+    },
+    async asyncData({ $axios, route, store, app }) {
+      var last = route.path.lastIndexOf('/')+1;
+      var url_id = route.path.slice(last);
+
+      return await $axios.get('/article/article-cate/index', {
+        params: {
+          id: 3
+        }
+      }).then(res => {
+        var head_r = {
+            title: res.data.data.title,
+            meta: [
+              { hid: 'description', name: 'description', content: res.data.data.title || ''}
+            ]
+        };
+
+        app.head.title = head_r.title;
+        app.head.meta = head_r.meta;
+
+        return {articleTitle: res.data.data.lists, url_id: url_id}
+      }).catch(err => {
+        // console.log(err)
+      })
     },
     mounted() {
       document.documentElement.scrollTop = document.body.scrollTop = 0;
 
-      this.$axios.get('/article/article-cate/index', {
-        params: {}
-      }).then(res => {
-        this.result = res.data.data.lists ;
-
-        this.gitClassify()
-        this.getList()
-
-      }).catch(function(error) {
-        console.log(error);
-      });
+      this.getList()
     },
     methods: {
-      gitClassify(){
-        var that = this;
-
-        var url_id,path = location.href;
-        if(path.indexOf('?') != -1){
-          url_id = path.split('=')[1];
-        }else{
-          url_id = path.slice(path.lastIndexOf('/')+1);
-        }
-
-
-        // 文章分类
-        var articleList = this.result;
-        var flag = false;
-
-        for (var i = 0; i < articleList.length; i++) {
-          for (var j = 0; j < articleList[i].items.length; j++) {
-            for (var k = 0; k < articleList[i].items[j].items.length; k++) {
-              var list = articleList[i].items[j].items[k];
-              // console.log(list)
-
-              if (list.id == url_id) {
-                that.a = i;
-                that.b = j;
-                that.active_idx = k;
-                that.article_pid = list.id;
-                that.title = articleList[i].items[j].items[k].title,
-                that.tittle = articleList[i].items[j].title;
-                flag = true;
-                break;
-              } else {
-                // 跳转404
-                // console.log(222)
-              }
-            }
-
-            if (flag) {
-              break;
-            }
-          }
-
-          if (flag) {
-            break;
-          }
-        }
-
-        this.articleTitle = articleList[this.a].items[this.b].items;
-      },
       intoDetail(k) {
-        // var that = this;
-        // localStorage.setItem('articleId', that.articleItem[k].id)
-        // location.href = '/article/article-detail';
-
-        // console.log(this.articleItem[k].url)
         location.href = this.articleItem[k].url;
       },
-
-      // chooseItem(k) {
-        // this.active_idx = k;
-        // this.article_pid = this.articleTitle[k].id;
-        // this.getList();
-
-        // var urlA = this.$refs.list[k].getElementsByTagName('span')[0].innerText.replace(' ', '-');
-        // location.href = '/' + urlA;
-        // console.log(urlA)
-      // },
 
       // 文章列表
       getList(k) {
         var that = this;
         var i = 1;
-        if(k){
+        if (k) {
           i = k;
         }
         this.$axios.get('/article/article/search', {
           params: {
-            'pid': that.article_pid,
+            'pid': this.url_id,
             'page_size': 5,
             'page': i
           }
@@ -183,8 +115,14 @@
           this.articleItem = res.data.data.data;
           this.total_count = res.data.data.total_count;
           this.page_count = res.data.data.page_count;
+          this.article_tit = res.data.data.category_name;
 
-          console.log(this.articleItem)
+          for (var i = 0; i < this.articleTitle.length; i++) {
+            if (this.articleTitle[i].title == this.article_tit) {
+              this.active_idx = i;
+              break;
+            }
+          }
         }).catch(function(error) {
           console.log(error);
         });
@@ -266,18 +204,20 @@
     white-space: nowrap;
   }
 
-  .pages{
+  .pages {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 120px;
   }
-  .totle{
+
+  .totle {
     margin-right: 24px;
     font-weight: 400;
     color: #606266;
   }
-  .totle span{
+
+  .totle span {
     margin-right: 14px;
   }
 </style>

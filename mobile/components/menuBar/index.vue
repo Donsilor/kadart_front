@@ -19,7 +19,7 @@
           </div>
 
           <div class="menu-list-two" :class="navTwo.isShowTwo == true ? 'on' : ''" v-for="(navTwo, idx) in nav.items" :key="idx">
-            <div class="menu-list-two-content" @click.stop="showMenuTwo(index, idx)">
+            <div class="menu-list-two-content" v-if="index != 5 && idx != 0" @click.stop="showMenuTwo(index, idx)">
               <div class="menu-list-text">{{navTwo.title}}</div>
               <div class="menu-list-icon" v-if="navTwo.items.length != 0"></div>
             </div>

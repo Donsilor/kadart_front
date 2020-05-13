@@ -321,7 +321,6 @@
         var u = 'www.yousfku.com';
         var t = document.getElementsByClassName("fa_title")[0].content;
         var m = document.getElementsByClassName("fa_img")[0].content;
-        // console.log(u)
 
         window.open("http://www.facebook.com/sharer.php?u="+ encodeURIComponent(u)+"&t=123123"+ encodeURIComponent(m), "sharer","toolbar=0,status=0,width=626,height=436");
       },

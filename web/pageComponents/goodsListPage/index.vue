@@ -140,22 +140,20 @@
 <script>
   import Bus from '../../components/Bus.js'
   export default {
-    head() {
-      return {
-        title: this.seo.meta_title || 'Quality gold,silver jewelry wholesale at factory price',
-        meta: [{
-            hid: 'description',
-            name: 'description',
-            content: this.seo.meta_desc ||
-              'KADArt design, manufacture and wholesale gold,silver,brass and alloy jewelry with diamond,ruby,sapphire,zircon,crystal and rhinestone at very good price.'
-          },
-          {
-            hid: 'keywords',
-            name: 'keywords',
-            content: this.seo.meta_word ||
-              'jewelry factory, jewelry supplier, jewelry manufacturer,China jewelry wholesale,gold jewelry, silver jewelry, brass jewelry,best jewelry, fashion jewelry '
-          }
-        ]
+    props:{
+      info: {
+        type: Object,
+        required: false,
+        default() {
+          return {}
+        }
+      },
+      goods_id: {
+        type: String,
+        required: false,
+        default() {
+          return ''
+        }
       }
     },
     data() {
@@ -298,6 +296,10 @@
     },
     mounted() {
       window.addEventListener('scroll', this.scrollToTop);
+      this.commodityItem = this.info;
+      this.totalNum = this.info.total_count - 0;
+      this.totalPages = this.info.page_count - 0;
+      
       this.getData()
     },
     methods: {
@@ -408,8 +410,10 @@
           this.filter_index = sort_id;
         }
 
-        this.acquireData(this.typeId, this.keyword, this.filter[this.filter_index], this.attrId, this.attrValue, this.priceRange,
+        if(page_id || sort_id){
+          this.acquireData(this.typeId, this.keyword, this.filter[this.filter_index], this.attrId, this.attrValue, this.priceRange,
           this.pageId, this.page_size)
+        }
       },
 
       handleSizeChange(val) {

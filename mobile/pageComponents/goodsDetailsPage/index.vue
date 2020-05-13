@@ -57,7 +57,7 @@
       </div>
 
       <div class="parameter-box">
-        <div class="parameter-list clf" v-if="index < parameterList" v-for="(item, index) in goodsDetail.style_attrs">
+        <div class="parameter-list clf" v-if="index < parameterList" v-for="(item, index) in goodsAttr">
           <div class="parameter-name fl">{{item.name}}</div>
           <div class="parameter-val fl">{{item.value}}</div>
         </div>
@@ -99,18 +99,20 @@
 
 <script>
   export default{
-    head () {
-      return {
-        title: this.seo.meta_title ||  'Best high quality jewelry with fine craftsmanship wholesale',
-        meta: [
-          { hid: 'description', name: 'description', content: this.seo.meta_desc || 'KADArt manufacturer and wholesale top-end gold,silver, copper and alloy jewelry with precious,semi gems,crystal,zircon,rhinestone at good price'},
-          { hid: 'keywords', name: 'keywords', content: this.seo.meta_word || 'jewelry factory, jewelry supplier, jewelry manufacturer,jewelry wholesale,gold jewelry, silver jewelry, brass jewelry, high quality jewelry, best jewelry, stylish jewelry, fashion jewelry' },
-          {
-            property: 'og:image',
-            class: 'fr_image',
-            content: 'http://b2-q.mafengwo.net/s5/M00/91/06/wKgB3FH_RVuATULaAAH7UzpKp6043.jpeg'
-          },
-        ]
+    props:{
+      info: {
+        type: Object,
+        required: false,
+        default() {
+          return {}
+        }
+      },
+      g_id: {
+        type: String,
+        required: false,
+        default() {
+          return ''
+        }
       }
     },
     data (){
@@ -160,6 +162,7 @@
         smallImg: [],
         bigImg: [],
         index_k: 0,
+        goodsAttr: [],
         goodsRecommend: [],
         imgHeight: '',
         recImgHei: '',
@@ -173,40 +176,15 @@
       }
     },
     mounted(){
-      var that = this;
-      var goodsDetailId = this.$route.query.id;
-
-      if(goodsDetailId == undefined){
-        var dataId = location.pathname;
-        var num = dataId.lastIndexOf('/');
-        goodsDetailId = dataId.slice(num+1);
-      }
-
-      if (goodsDetailId) {
-        localStorage.setItem('goodsDetailId', goodsDetailId)
-        this.goodsId = goodsDetailId;
-      } else {
-        this.goodsId = localStorage.getItem('goodsDetailId');
-      }
-
-      this.$axios.get('/goods/style/detail', {
-        params: {
-          id: this.goodsId
-        }
-      }).then(res => {
-        that.goodsDetail = res.data.data;
-        that.smallImg = res.data.data.goods_images.thumb || '';
-        that.bigImg = res.data.data.goods_images.big || '';
-        that.seo = res.data.data.seo;
-        console.log(111,that.goodsDetail,222,that.seo)
-      }).catch(function(error) {
-        console.log(error);
-      });
+      this.goodsDetail = this.info;
+      this.smallImg = this.info.data.goods_images.thumb || '';
+      this.bigImg = this.info.data.goods_images.big || '';
+      this.goodsAttr = [...this.info.data.style_attrs];
 
       // 商品推荐
       this.$axios.get('/goods/style/guess-list', {
         params: {
-          style_id: this.goodsId
+          style_id: this.g_id
         }
       }).then(res => {
         this.goodsRecommend = res.data.data;
@@ -215,8 +193,8 @@
       });
 
       var heig = document.body.clientWidth;
-      that.imgHeight = Math.round(heig*0.8);
-      that.recImgHei = Math.round((heig*0.9 - 20) * 0.333);
+      this.imgHeight = Math.round(heig*0.8);
+      this.recImgHei = Math.round((heig*0.9 - 20) * 0.333);
     },
     methods:{
       chooseImg(k) {
@@ -333,6 +311,7 @@
     width: 5rem;
     height: 5rem;
     border: 1px solid #c3c3c3;
+    vertical-align: middle;
   }
   .small-img:not(:last-child){
     margin-right: 6px;

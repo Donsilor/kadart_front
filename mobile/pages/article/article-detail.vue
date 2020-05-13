@@ -2,9 +2,9 @@
   <div class="container">
     <div class="article-wrap" v-if="ifShow">
       <div class="article-right-box">
-        <div class="title">{{articleDetail.title}}</div>
-        <div class="synopsis">{{articleDetail.seo_content}}</div>
-        <div class="article-detail-box" v-html="articleDetail.content"></div>
+        <div class="title">{{this.articleDetail.title}}</div>
+        <div class="synopsis">{{this.articleDetail.seo_content}}</div>
+        <div class="article-detail-box" v-html="this.articleDetail.content"></div>
       </div>
     </div>
   </div>
@@ -13,12 +13,12 @@
 <script>
   export default {
     head() {
-      return {
-        title: this.title,
+      return this.seo || {
+        title: 'this.title',
         meta: [{
           hid: 'description',
           name: 'description',
-          content: this.description
+          content: 'this.description'
         }]
       }
     },
@@ -31,71 +31,33 @@
         },
         title: '',
         description: '',
-        ifShow: false,
+        ifShow: true,
       }
     },
-    created() {
-      var url_id, that = this;
-      var path = this.$route.fullPath;
+    async asyncData({ $axios, route, store, app }) {
+      var last = route.path.lastIndexOf('/')+1;
+      var url_id = route.path.slice(last);
 
-      if (path.indexOf('?') == -1) {
-        url_id = path.slice(path.lastIndexOf('/') + 1)
-      } else {
-        url_id = path.slice(path.lastIndexOf('=') + 1)
-      }
-
-      // 文章详情
-      this.$axios.get('/article/article/detail', {
+      return await $axios.get('/article/article/detail', {
         params: {
-          'id': url_id,
+          id: url_id
         }
       }).then(res => {
-        that.articleDetail = res.data.data;
-        that.description = res.data.data.seo_content;
-        that.title = res.data.data.title;
+        var seo = {
+            title: res.data.data.title,
+            meta: [
+              { hid: 'description', name: 'description', content: res.data.data.seo_content || ''}
+            ]
+        };
 
-        if (this.articleDetail.title != '' || this.articleDetail.seo_content != '' || this.articleDetail.content !=
-          '') {
-          this.ifShow = true;
-        }
-
-        // var obj = document.getElementsByTagName("head")[0];
-        // var head_meta = obj.querySelectorAll('meta');
-        // head_meta[2].setAttribute('content','123123');
-        // console.log(head_meta[2])
-
-      }).catch(function(error) {
-        console.log(error);
-      });
+        return {articleDetail: res.data.data, pid: res.data.data.cate_id, seo: seo}
+      }).catch(err => {
+        console.log(err)
+      })
     },
-
-    // asyncData({ app, $axios, route, store }) {
-    //     var url_id,path = route.fullPath;
-    //     if(path.indexOf('?') == -1){
-    //       url_id = path.slice(path.lastIndexOf('/')+1)
-    //     }else{
-    //       url_id = path.slice(path.lastIndexOf('=')+1)
-    //     }
-
-    //     return $axios({
-    //       method: `get`,
-    //       url: `/article/article/detail`,
-    //       params: {
-    //         'id': url_id,
-    //       }
-    //     })
-    //       .then(res => {
-    //         const infos = res.data.data;
-    //         // store.commit('setData', 123231)
-    //         return {
-    //           articleDetail: infos,
-    //         }
-    //       })
-    //       .catch(err => {
-    //         console.log(err)
-    //       })
-    //   }
-
+    mounted(){
+     document.documentElement.scrollTop = document.body.scrollTop = 0;
+    }
   }
 </script>
 

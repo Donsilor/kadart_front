@@ -131,7 +131,6 @@
                 break;
               } else {
                 // 跳转404
-                // console.log(222)
               }
             }
 
@@ -163,7 +162,6 @@
 
         // var urlA = this.$refs.list[k].getElementsByTagName('span')[0].innerText.replace(' ', '-');
         // location.href = '/' + urlA;
-        // console.log(urlA)
       // },
 
       // 文章列表

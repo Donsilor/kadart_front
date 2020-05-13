@@ -131,7 +131,7 @@
     },
     mounted() {
       window.addEventListener('scroll', this.scrollToTop);
-      this.getUserBook();
+      // this.getUserBook();
 
       // var ifShowM = sessionStorage.getItem('ifShowM');
       // if(ifShowM == undefined){
@@ -290,7 +290,6 @@
               this.getUserBook();
               this.isShowHint2 = true;
 
-              console.log(this.isLogin)
               if (this.isLogin) {
                 setTimeout(() => {
                   this.ifShowMessage = false;

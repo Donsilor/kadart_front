@@ -133,25 +133,11 @@
 
 <script>
   import Bus from '../../components/Bus.js'
-  import magnifying from '../Magnifying/index.vue'
+  import magnifying from '../magnifying/index.vue'
 
   export default {
     components: {
       magnifying
-    },
-    head() {
-      return {
-        title: this.seo.meta_title ||  'Best high quality jewelry with fine craftsmanship wholesale',
-        meta: [
-          { hid: 'description', name: 'description', content: this.seo.meta_desc || 'KADArt manufacturer and wholesale top-end gold,silver, copper and alloy jewelry with precious,semi gems,crystal,zircon,rhinestone at good price'},
-          { hid: 'keywords', name: 'keywords', content: this.seo.meta_word || 'jewelry factory, jewelry supplier, jewelry manufacturer,jewelry wholesale,gold jewelry, silver jewelry, brass jewelry, high quality jewelry, best jewelry, stylish jewelry, fashion jewelry' },
-          {
-            property: 'og:image',
-            class: 'fr_image',
-            content: 'http://b2-q.mafengwo.net/s5/M00/91/06/wKgB3FH_RVuATULaAAH7UzpKp6043.jpeg'
-          },
-        ]
-      }
     },
     data() {
       return {
@@ -235,48 +221,35 @@
         }
       }
     },
-    created(){
-
+    props:{
+      info: {
+        type: Object,
+        required: false,
+        default() {
+          return {}
+        }
+      },
+      g_id: {
+        type: String,
+        required: false,
+        default() {
+          return ''
+        }
+      }
     },
     mounted() {
-      var that = this;
-      var goodsDetailId = this.$route.query.id;
-
-      if(goodsDetailId == undefined){
-        var dataId = location.pathname;
-        var num = dataId.lastIndexOf('/');
-        goodsDetailId = dataId.slice(num+1);
-      }
-
-      if (goodsDetailId) {
-        localStorage.setItem('goodsDetailId', goodsDetailId)
-        this.goodsId = goodsDetailId;
-      } else {
-        goodsDetailId = localStorage.getItem('goodsDetailId');
-        this.goodsId = goodsDetailId;
-      }
-
-      this.$axios.get('/goods/style/detail', {
-        params: {
-          id: this.goodsId
-        }
-      }).then(res => {
-        that.goodsDetail = res.data;
-        that.smallImg = res.data.data.goods_images.thumb || '';
-        that.bigImg = res.data.data.goods_images.big || '';
-        that.seo = res.data.data.seo;
-      }).catch(function(error) {
-        console.log(error);
-      });
+      this.goodsDetail = this.info;
+      this.smallImg = this.info.data.goods_images.thumb || '';
+      this.bigImg = this.info.data.goods_images.big || '';
 
       // 商品推荐
       this.$axios.get('/goods/style/guess-list', {
         params: {
-          style_id: this.goodsId
+          style_id: this.g_id
+
         }
       }).then(res => {
         this.goodsRecommend = res.data;
-        // console.log(this.goodsRecommend)
       }).catch(function(error) {
         console.log(error);
       });
@@ -295,7 +268,6 @@
         var comBox = this.$refs.commodityBox.clientWidth;
         // var that = this;
         this.commodityLeftWidth = comBox-568;
-        // console.log(that.commodityLeftWidth)
       },
       shareFaceBook(){
         var u = location.href;
