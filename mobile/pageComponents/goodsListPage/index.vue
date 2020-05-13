@@ -100,7 +100,7 @@
         listHeight: '',
         goods_num: '',
         ifLoad: false,
-        ifShowLoad: true,
+        ifShowLoad: false,
       }
     },
     mounted(){
@@ -108,9 +108,41 @@
       var win_width = document.body.clientWidth;
       that.listHeight = Math.round(win_width*0.49);
 
-      this.commodityItem = this.info;
-      this.totalNum = this.info.total_count - 0;
-      this.totalPages = this.info.page_count - 0;
+      if(location.href.indexOf('search') == -1){
+        if(this.info.total_count >= 6){
+          this.ifShowLoad = true;
+        }
+
+        this.commodityItem = this.info;
+        this.totalNum = this.info.total_count - 0;
+        this.totalPages = this.info.page_count - 0;
+        this.goods_num = this.info.total_count;
+      }else{
+        var num = location.href.lastIndexOf('/')+1;
+        var search = location.href.slice(num);
+
+        this.$axios.post('/goods/style/search', {
+          type_id: '',
+          keyword: search,
+          sort: '1_0',
+          attr_id: '',
+          attr_value: '',
+          price_range: '',
+          page: 1,
+          page_size: 6
+        }).then(res => {
+          if(res.data.data.total_count >= 6){
+            this.ifShowLoad = true;
+          }
+
+          this.commodityItem = res.data.data;
+          this.totalNum = res.data.data.total_count - 0;
+          this.totalPages = res.data.data.page_count - 0;
+          this.goods_num = res.data.data.total_count;
+        }).catch(err => {
+          // console.log(err)
+        })
+      }
 
       // this.analysisUrl();
       // this.acquireData(this.typeId, this.keyword, '1_0', this.attrId, this.attrValue, this.priceRange,this.pageId, this.pageSize);

@@ -59,7 +59,7 @@
         attr_value: '',
         price_range: priceRange,
         page: 1,
-        page_size: 16
+        page_size: 6
       }).then(res => {
         var t = '',
           d = '',
