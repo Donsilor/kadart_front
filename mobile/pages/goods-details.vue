@@ -21,7 +21,7 @@
         }
       }).then(res => {
         var head_r = {
-            title:'Best high quality jewelry with fine craftsmanship wholesale',
+            title: res.data.data.seo.meta_title || 'Best high quality jewelry with fine craftsmanship wholesale',
             meta: [
               { charset: 'utf-8' },
               { name: 'viewport', content: 'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0' },

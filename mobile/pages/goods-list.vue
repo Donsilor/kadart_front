@@ -67,53 +67,35 @@
         switch (typeId) {
           case '2':
             t = 'Best rings in gold, 925 silver,brass and for engagement, marriage, fashion wear and more!';
-            d =
-              'KADArt manufactures huge collections of fine engagement ring, bands ring, fashion ring, vintage ring with diamond, ruby,sapphire precious, semi-precious stone and zircon,rhinestone in 18K,14K gold, 925 sterling silver, brass and alloy at reasonable price. ';
+            d = 'KADArt manufactures huge collections of fine engagement ring, bands ring, fashion ring, vintage ring with diamond, ruby,sapphire precious, semi-precious stone and zircon,rhinestone in 18K,14K gold, 925 sterling silver, brass and alloy at reasonable price. ';
             k = 'gold ring, sterling silver ring, 925 silver ring, engagement ring, fashion ring';
             break;
           case '4':
             t = 'Premium gold, silver and fashion crystal necklace wholesale';
-            d =
-              'KADArt manufacture and wholesale tons of fine fashionable necklace with diamond, ruby, sapphire and amber teeth, opal pendant from 24K, 18K, 14K gold, 925 silver and brass.';
-            k =
-              'diamond necklace, gold necklace, silver necklace, pearl necklace, crystal necklace,chain necklace';
+            d = 'KADArt manufacture and wholesale tons of fine fashionable necklace with diamond, ruby, sapphire and amber teeth, opal pendant from 24K, 18K, 14K gold, 925 silver and brass.';
+            k = 'diamond necklace, gold necklace, silver necklace, pearl necklace, crystal necklace,chain necklace';
             break;
           case '6':
             t = 'Fashion high-end earring of gold, silver, brass wholesale';
-            d =
-              'KADArt design, manufacturer and wholesale top quality 24K,18K,14Kgold earring, 925 silver earring, brass earring with diamond, pearl, ruby, sapphire and other semiprecious stone.';
-            k =
-              'fashion earring, earring for girl,pearl earring, golden earring, silver earring, diamond earring';
+            d = 'KADArt design, manufacturer and wholesale top quality 24K,18K,14Kgold earring, 925 silver earring, brass earring with diamond, pearl, ruby, sapphire and other semiprecious stone.';
+            k = 'fashion earring, earring for girl,pearl earring, golden earring, silver earring, diamond earring';
             break;
           case '8':
             t = 'High-quality stylish gold, silver, brass bracelet with diamond, zircon,rhinestone wholesale';
-            d =
-              'KADArt supply fashionable bracelts are made from 18K, 14K gold, 925 silver, brass and alloy with stones with top-notch quality at competitive price for cooperation.';
-            k =
-              'bracelet wholesale, bracelet factory, gold bracelet, silver bracelet,alloy bracelet,brass bracelet,fashion bracelet,';
-            break;
-          case '15':
-            t = 'Premium natural jadeite necklace,ring and bangle supplier';
-            d =
-              'KADArt provides top-grade natural jadeite  necklace,ring,pendant and bracelet at reasonable price';
-            k =
-              'jadeite pendant,jadeite necklace,jadeite ring,jadeite bangle, jadeite bracelet,jadeite manufacturer,jadeite wholesale';
+            d = 'KADArt supply fashionable bracelts are made from 18K, 14K gold, 925 silver, brass and alloy with stones with top-notch quality at competitive price for cooperation.';
+            k = 'bracelet wholesale, bracelet factory, gold bracelet, silver bracelet,alloy bracelet,brass bracelet,fashion bracelet,';
             break;
           default:
             t = 'Quality gold,silver jewelry  wholesale at factory price';
-            d =
-              'KADArt design, manufacture and wholesale gold,silver,brass and alloy jewelry with diamond,ruby,sapphire,zircon,crystal and rhinestone at very good price.';
-            k =
-              'jewelry factory, jewelry supplier, jewelry manufacturer,China jewelry wholesale,gold jewelry, silver jewelry, brass jewelry,best jewelry, fashion jewelry';
+            d = 'KADArt design, manufacture and wholesale gold,silver,brass and alloy jewelry with diamond,ruby,sapphire,zircon,crystal and rhinestone at very good price.';
+            k = 'jewelry factory, jewelry supplier, jewelry manufacturer,China jewelry wholesale,gold jewelry, silver jewelry, brass jewelry,best jewelry, fashion jewelry';
             break;
         }
 
-        if (attrId == 286 || attrId == 287 || attrId == 288 || attrId == 289) {
-          t = 'Quality gold,silver jewelry  wholesale at factory price';
-          d =
-            'KADArt design, manufacture and wholesale gold,silver,brass and alloy jewelry with diamond,ruby,sapphire,zircon,crystal and rhinestone at very good price.';
-          k =
-            'jewelry factory, jewelry supplier, jewelry manufacturer,China jewelry wholesale,gold jewelry, silver jewelry, brass jewelry,best jewelry, fashion jewelry';
+        if (attrId == 313) {
+          t = 'Premium natural jadeite necklace,ring and bangle supplier';
+          d = 'KADArt provides top-grade natural jadeite  necklace,ring,pendant and bracelet at reasonable price';
+          k = 'jadeite pendant,jadeite necklace,jadeite ring,jadeite bangle, jadeite bracelet,jadeite manufacturer,jadeite wholesale';
         }
 
         var head_r = {
