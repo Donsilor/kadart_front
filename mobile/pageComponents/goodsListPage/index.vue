@@ -100,7 +100,7 @@
         listHeight: '',
         goods_num: '',
         ifLoad: false,
-        ifShowLoad: true,
+        ifShowLoad: false,
       }
     },
     mounted(){
@@ -108,9 +108,47 @@
       var win_width = document.body.clientWidth;
       that.listHeight = Math.round(win_width*0.49);
 
-      this.commodityItem = this.info;
-      this.totalNum = this.info.total_count - 0;
-      this.totalPages = this.info.page_count - 0;
+      if(location.href.indexOf('search') == -1){
+        if(this.info.total_count >= 6){
+          this.ifShowLoad = true;
+        }
+
+        this.commodityItem = this.info;
+        this.totalNum = this.info.total_count - 0;
+        this.totalPages = this.info.page_count - 0;
+        this.goods_num = this.info.total_count;
+      }else{
+        this.$nextTick(() => {
+          this.$nuxt.$loading.start()
+        })
+
+        var num = location.href.lastIndexOf('/')+1;
+        var search = location.href.slice(num);
+
+        this.$axios.post('/goods/style/search', {
+          type_id: '',
+          keyword: search,
+          sort: '1_0',
+          attr_id: '',
+          attr_value: '',
+          price_range: '',
+          page: 1,
+          page_size: 6
+        }).then(res => {
+          this.$nuxt.$loading.finish()
+          if(res.data.data.total_count >= 6){
+            this.ifShowLoad = true;
+          }
+
+          this.commodityItem = res.data.data;
+          this.totalNum = res.data.data.total_count - 0;
+          this.totalPages = res.data.data.page_count - 0;
+          this.goods_num = res.data.data.total_count;
+        }).catch(err => {
+          this.$nuxt.$loading.finish()
+          // console.log(err)
+        })
+      }
 
       // this.analysisUrl();
       // this.acquireData(this.typeId, this.keyword, '1_0', this.attrId, this.attrValue, this.priceRange,this.pageId, this.pageSize);
@@ -196,6 +234,7 @@
         if(k_keyword != undefined){
           k_keyword = unescape(k_keyword);
         }
+        this.$nuxt.$loading.start()
         var that = this;
         that.$axios.post('/goods/style/search', {
           type_id: k_type_id,
@@ -207,6 +246,7 @@
           page: k_page,
           page_size: k_page_size
         }).then(res => {
+          that.$nuxt.$loading.finish()
           that.ifLoad = false;
           that.commodityItem = res.data.data;
           that.goods_num = res.data.data.total_count;
@@ -219,12 +259,13 @@
             // this.ifShowText = true;
           // }
         }).catch(function(error) {
+          that.$nuxt.$loading.finish()
           // console.log(error);
         });
       },
       loadMore(){
         if(this.pageSize < this.goods_num){
-          this.ifLoad = true;
+          // this.ifLoad = true;
           this.pageSize += 6;
           this.analysisUrl();
           this.acquireData(this.typeId, this.keyword, this.filter[this.filter_index], this.attrId, this.attrValue, this.priceRange,this.pageId, this.pageSize);

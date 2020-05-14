@@ -11,7 +11,7 @@
         </div>
       </div>
 
-      <div class="menu-body">
+      <div class="menu-body" ref="menub">
         <div class="menu-list" :class="navList[index].isShow == true ? 'active' : ''" v-for="(nav, index) in navList" :key="index">
           <div class="menu-list-content" @click.stop="showMenuOne(index)">
             <div class="menu-list-text">{{nav.title}}</div>
@@ -19,7 +19,7 @@
           </div>
 
           <div class="menu-list-two" :class="navTwo.isShowTwo == true ? 'on' : ''" v-for="(navTwo, idx) in nav.items" :key="idx">
-            <div class="menu-list-two-content" v-if="index != 5 && idx != 0" @click.stop="showMenuTwo(index, idx)">
+            <div class="menu-list-two-content" @click.stop="showMenuTwo(index, idx)">
               <div class="menu-list-text">{{navTwo.title}}</div>
               <div class="menu-list-icon" v-if="navTwo.items.length != 0"></div>
             </div>
@@ -116,13 +116,32 @@
         this.$axios.get('/common/menu/index', {
           params: {}
         }).then(res => {
-          that.navList = res.data.data;
+          var list_s = res.data.data;
+          
+          list_s.forEach(o => {
+            o.items.forEach((k, i) => {
+              if(k.title == 'Designer'){
+                o.items.splice(i,1)
+              }
+            })
+          })
+          
+          that.navList = list_s;
+          
           that.judge();
           localStorage.setItem('navList_2',JSON.stringify(this.navList))
         }).catch(function(error) {
           console.log(error);
         });
       }else{
+        list.forEach(o => {
+          o.items.forEach((k, i) => {
+            if(k.title == 'Designer'){
+              o.items.splice(i,1)
+            }
+          })
+        })
+        
         that.navList = list;
       }
 

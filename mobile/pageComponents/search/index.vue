@@ -39,7 +39,7 @@
       startSearch() {
         if (this.ipt != '') {
           this.$router.push({
-            path: '/search/' + this.ipt
+            path: '/search/' + this.ipt,
           })
 
           this.$emit('starsSearch', true)
