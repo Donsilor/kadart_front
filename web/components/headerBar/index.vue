@@ -15,7 +15,7 @@
           <div @click="startSearch()">
             <i class="iconfont iconfangdajing fl"></i>
           </div>
-          <input class="ipt fl" type="text" v-on:input="monitorIpt()" v-model="ipt" placeholder="SEARCH" @focus="onFocus()"
+          <input class="ipt fl" type="text" v-on:input="monitorIpt()" v-model.trim="ipt" placeholder="SEARCH" @focus="onFocus()"
             @blur="onBlur()" value="123" @keyup.enter="startSearch()">
           <span class="del fl">
             <i class="iconfont iconquxiao" @click="del()"></i>
@@ -93,10 +93,11 @@
         sessionStorage.removeItem('page_id');
 				sessionStorage.removeItem('sort_id');
         sessionStorage.removeItem('nav_text');
-				
-        this.$router.push({
-          path: '/search/'+this.ipt
-        })
+
+        if(!(/^\s*$/.test(this.ipt))){
+          location.href = '/search/'+this.ipt
+        }
+
       },
 
       // 输入下方热词隐藏

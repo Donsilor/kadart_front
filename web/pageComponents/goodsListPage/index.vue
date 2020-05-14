@@ -81,7 +81,7 @@
       </div>
 
       <!-- 右侧列表区 -->
-      <div class="commodity-right fl" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
+      <div class="commodity-right fl" v-loading="loadings" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0)">
         <div class="filtrate clf">
           <div class="filtrate-text fl" v-if="totalNum && nav_text">
@@ -134,6 +134,13 @@
       </div>
 
     </div>
+
+    <div class="loading-page" v-if="loading">
+      <div class="loading-box">
+        <img class="img" src="../../static/load.gif" alt="">
+        <p>Loading...</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -159,6 +166,7 @@
     data() {
       return {
         loading: false,
+        loadings: false,
         // fullscreenLoading: true,
         currentPage1: 1,
         totalPages: 1,
@@ -301,13 +309,16 @@
         this.commodityItem = this.info;
         this.totalNum = this.info.total_count - 0;
         this.totalPages = this.info.page_count - 0;
+
+        this.getData()
       }else{
-        // this.$nextTick(() => {
+        this.$nextTick(() => {
           this.$nuxt.$loading.start()
-        // })
+        })
 
         var num = location.href.lastIndexOf('/')+1;
         var search = location.href.slice(num);
+        search = unescape(search);
 
         this.$axios.post('/goods/style/search', {
           type_id: '',
@@ -317,9 +328,10 @@
           attr_value: '',
           price_range: '',
           page: 1,
-          page_size: 6
+          page_size: 16
         }).then(res => {
           this.$nuxt.$loading.finish()
+          
           if(res.data.data.total_count >= 6){
             this.ifShowLoad = true;
           }
@@ -329,18 +341,16 @@
           this.totalPages = res.data.data.page_count - 0;
         }).catch(err => {
           this.$nuxt.$loading.finish()
-          // console.log(err)
+          console.log(err)
         })
       }
-
-
-      this.getData()
     },
     methods: {
       acquireData(k_type_id, k_keyword, k_filter, K_attr_id, k_attr_value, k_price_range, k_page, k_page_size) {
         if (k_keyword != undefined) {
           k_keyword = unescape(k_keyword);
         }
+        this.$nuxt.$loading.start()
         var that = this;
         this.$axios.post('/goods/style/search', {
           type_id: k_type_id,
@@ -352,7 +362,7 @@
           page: k_page,
           page_size: k_page_size
         }).then(res => {
-          that.loading = false;
+          this.$nuxt.$loading.finish()
           that.commodityItem = res.data.data;
           that.seo = res.data.data.seo;
           that.totalNum = res.data.data.total_count - 0;
@@ -362,6 +372,7 @@
             that.ifShowText = true;
           }
         }).catch(function(error) {
+          this.$nuxt.$loading.finish()
           console.log(error);
         });
       },
@@ -954,5 +965,39 @@
     color: #ae809a;
     text-align: center;
     margin-top: 20px;
+  }
+
+  .loading-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 200;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    font-size: 1.6rem;
+    font-family: sans-serif;
+    color: #999;
+  }
+
+  .loading-box {
+    width: 12rem;
+    height: 12rem;
+    background-color: #333;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    border-radius: 6px;
+    transform: translateX(-50%);
+  }
+  .loading-box .img{
+    width: 3.6rem;
+    height: 3.6rem;
+    margin: 2.4rem auto 1rem;
+  }
+  .loading-box p{
+    padding-left: 1rem;
+    box-sizing: border-box;
   }
 </style>
