@@ -3,7 +3,7 @@
     <div class="search-box-r">
       <div class="search-icon-left" @click="startSearch()"></div>
       <div class="search-icon-right" @click="clearIpt"></div>
-      <input type="text" class="search-ipt" v-model="ipt" :placeholder="placeholder" @keydown.enter="startSearch()"
+      <input type="text" class="search-ipt" v-model.trim="ipt" :placeholder="placeholder" @keydown.enter="startSearch()"
         @focus="onFocus" @blur="onBlur">
     </div>
 
@@ -37,10 +37,8 @@
     },
     methods: {
       startSearch() {
-        if (this.ipt != '') {
-          this.$router.push({
-            path: '/search/' + this.ipt,
-          })
+        if(!(/^\s*$/.test(this.ipt))) {
+          location.href = '/search/' + this.ipt;
 
           this.$emit('starsSearch', true)
         }
