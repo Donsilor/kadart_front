@@ -82,24 +82,19 @@
 import azzd from '~/components/azzd/index.vue'
 
 export default {
+  async asyncData({ app }) {
+    var head_r = {
+        title: 'High-Quality Diamond 14K 18k Gold 925 Sterling Silver Jewelry Factory',
+        meta: [
+          { hid: 'description', name: 'description', content: 'Kad Art Jewelry own 9 jewelry factory, 20 designers, 1200 technicians. We are specializing in fine exquisite jewellery design and manufacture of diamond, 10K 14K 18K gold, 925 silver, and copper.'},
+          { hid: 'keywords', name: 'keywords', content: 'Fine jewelry factory, jewelry manufacturer, gemstone jewelry supplier'}
+        ]
+    }
+    app.head.title = head_r.title;
+    app.head.meta = head_r.meta;
+  },
   components: {
     azzd
-  },
-  head() {
-    return {
-      title: 'KADArt introduction | High quality jewelry manufacture and wholesale',
-      meta: [{
-          hid: 'description',
-          name: 'description',
-          content: 'KADArt design, manufacture top-grade gold,silver jewellery like necklaces,rings,earrings,bracelets with diamond,ruby,sapphire,topaz,pearl,zircon,rhinstone, wholesale at reasonable price.'
-        },
-        {
-          hid: 'keywords',
-          name: 'keywords',
-          content: 'Kadart jewelry,BDD jewelry,Hengdeli jewelry,high-quality jewelry, top-grade jewelry'
-        }
-      ]
-    }
   },
   mounted(){
     document.documentElement.scrollTop = document.body.scrollTop = 0;

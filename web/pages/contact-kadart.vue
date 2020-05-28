@@ -49,24 +49,19 @@
 import azzd from '~/components/azzd/index.vue'
 
 export default {
+  async asyncData({ app }) {
+    var head_r = {
+        title: 'Contact fine jewelry manufacturer-Kad Art Limited',
+        meta: [
+          { hid: 'description', name: 'description', content: 'Contact high-quality fine jewelry manufacturer with email, message, or phone call to the get best price for your ODM OEM or private label jewelry. Usually reply within 12 hours on workdays. Quality products, short lead time and excellent service.'},
+          { hid: 'keywords', name: 'keywords', content: 'contact kadart, china jewelry factory, chinese jewelry supplier'}
+        ]
+    }
+    app.head.title = head_r.title;
+    app.head.meta = head_r.meta;
+  },
   components: {
     azzd
-  },
-  head() {
-    return {
-      title: 'KADArt introduction | High quality jewelry manufacture and wholesale',
-      meta: [{
-          hid: 'description',
-          name: 'description',
-          content: 'KADArt design, manufacture top-grade gold,silver jewellery like necklaces,rings,earrings,bracelets with diamond,ruby,sapphire,topaz,pearl,zircon,rhinstone, wholesale at reasonable price.'
-        },
-        {
-          hid: 'keywords',
-          name: 'keywords',
-          content: 'Kadart jewelry,BDD jewelry,Hengdeli jewelry,high-quality jewelry, top-grade jewelry'
-        }
-      ]
-    }
   },
   mounted(){
     document.documentElement.scrollTop = document.body.scrollTop = 0;
