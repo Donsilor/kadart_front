@@ -31,19 +31,19 @@
 
     <div class="img-box-2">
       <a href="https://wap.kadart.com/category/RINGS/type_id=2">
-        <img src="../../static/index/01_05.jpg" alt="">
+        <img src="../../static/index/01_05_0528.jpg" alt="">
       </a>
     </div>
 
     <div class="img-box-34 clf">
       <div class="img-box-3 fl">
         <a href="https://wap.kadart.com/category/NECKLACES/type_id=4">
-          <img src="../../static/index/01_07.jpg" alt="">
+          <img src="../../static/index/01_07_0528.jpg" alt="">
         </a>
       </div>
       <div class="img-box-4 fr">
         <a href="https://wap.kadart.com/category/NECKLACES/type_id=6">
-          <img src="../../static/index/01_09.jpg" alt="">
+          <img src="../../static/index/01_09_0528.jpg" alt="">
         </a>
       </div>
     </div>
@@ -54,18 +54,18 @@
     <div class="img-box-567">
       <div class="img-box-5">
         <a href="/about-kadart">
-          <img src="../../static/index/01_13.jpg" alt="">
+          <img src="../../static/index/01_13_0528.jpg" alt="">
         </a>
       </div>
       <div class="img-box-67">
         <div class="img-box-6">
           <a href="/kadart-jewelry-factory">
-            <img src="../../static/index/01_15.jpg" alt="">
+            <img src="../../static/index/01_15_0528.jpg" alt="">
           </a>
         </div>
         <div class="img-box-7">
           <a href="https://wap.kadart.com/category/NECKLACES/type_id=6">
-            <img src="../../static/index/01_19.jpg" alt="">
+            <img src="../../static/index/01_19_0528.jpg" alt="">
           </a>
         </div>
       </div>

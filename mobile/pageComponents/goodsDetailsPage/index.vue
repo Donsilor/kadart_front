@@ -118,12 +118,12 @@
     data (){
       return{
         banners: [
-          '/index/01_03.jpg',
-          '/index/01_05.jpg',
-          '/index/01_07.jpg',
-          '/index/01_09.jpg',
-          '/index/01_07.jpg',
-          '/index/01_09.jpg',
+          '/index/01_03_0528.jpg',
+          '/index/01_05_0528.jpg',
+          '/index/01_07_0528.jpg',
+          '/index/01_09_0528.jpg',
+          '/index/01_07_0528.jpg',
+          '/index/01_09_0528.jpg',
         ],
         bannersT: [
           '/index/01_03.jpg',
