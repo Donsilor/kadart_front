@@ -93,7 +93,7 @@
 </script>
 
 <style scoped>
-  .article-wrap {
+  body {
     position: relative;
   }
   .cut-line{
