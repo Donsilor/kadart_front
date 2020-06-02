@@ -9,7 +9,7 @@
 
       <div class="cut-line"></div>
       <div class="share-box clf">
-        <div class="fr clf" style="margin-right: 1rem;">
+        <div class="fr clf" style="margin-right: 2rem;">
           <div class="share-icon share-share-1 fl" @click="shareFaceBook"></div>
           <!-- <div class="share-icon share-share-2 fl"></div> -->
           <div class="share-icon share-share-3 fl" @click="shareTwitter"></div>
@@ -93,24 +93,25 @@
 </script>
 
 <style scoped>
-  body {
+  /* body {
     position: relative;
-  }
+  } */
   .cut-line{
-    position: absolute;
+    /* position: absolute;
     bottom: 4.375rem;
-    right:0;
-    width: 100%;
+    right:1.1875rem; */
+    margin: 0 1.875rem;
+    width: 90%;
     height: .0625rem;
     background: #e8e4e4;
   }
 
   .share-box{
-    position: absolute;
+    /* position: absolute;
     bottom: 1.25rem;
-    right:0;
+    right:0; */
     height: 2.1rem;
-    margin-top: 2rem;
+    margin: 1rem 0;
   }
   .share-icon{
     height: 2.1rem;
