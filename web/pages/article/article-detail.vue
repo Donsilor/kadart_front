@@ -172,8 +172,8 @@ export default {
     position: absolute;
     bottom: 100px;
     right:0px;
-    /* width: 67%; */
-    width: 100%;
+    width: 70%;
+    /* width: 100%; */
     height: 1px;
     background: #e8e4e4;
   }
