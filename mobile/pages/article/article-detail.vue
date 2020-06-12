@@ -6,6 +6,20 @@
         <div class="synopsis">{{this.articleDetail.seo_content}}</div>
         <div class="article-detail-box" v-html="this.articleDetail.content"></div>
       </div>
+
+      <div class="cut-line"></div>
+      <div class="share-box clf">
+        <div class="fr clf" style="margin-right: 2rem;">
+          <div class="share-icon share-share-1 fl" @click="shareFaceBook"></div>
+          <!-- <div class="share-icon share-share-2 fl"></div> -->
+          <div class="share-icon share-share-3 fl" @click="shareTwitter"></div>
+          <!-- <div class="share-icon share-share-4 fl"></div> -->
+          <div class="share-icon share-share-5 fl">
+            <a style="background: none !important;opacity: 0;display: block;width: 100%;height: 100%;overflow: hidden;" target="_blank" href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"  data-pin-shape="round" data-pin-height="28">pinterest分享</a>
+            <script type="text/javascript" async src="//assets.pinterest.com/js/pinit.js"></script><!-- ＊＊＊＊＊这是pinterest分享必带JS＊＊＊＊＊＊＊ -->
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -57,11 +71,75 @@
     },
     mounted(){
      document.documentElement.scrollTop = document.body.scrollTop = 0;
+    },
+    methods:{
+      shareFaceBook(){
+        var u = location.href;
+        window.open("http://www.facebook.com/sharer.php?u="+ encodeURIComponent(u), "sharer","toolbar=0,status=0,width=626,height=436");
+      },
+      shareTwitter(){
+        var u = location.href;
+        var t = document.getElementsByTagName("title")[0].innerText;
+        var d = document.querySelectorAll('meta[name="description"]')[0].content;
+
+        var share = u + '\n' + t + '\n';
+        if(share.length>280){
+          share = share.slice(0, 279);
+        }
+        window.open("https://twitter.com/intent/tweet?text="+ encodeURIComponent(share), "sharer","toolbar=0,status=0,width=626,height=436");
+      }
     }
   }
 </script>
 
 <style scoped>
+  /* body {
+    position: relative;
+  } */
+  .cut-line{
+    /* position: absolute;
+    bottom: 4.375rem;
+    right:1.1875rem; */
+    margin: 0 1.875rem;
+    width: 90%;
+    height: .0625rem;
+    background: #e8e4e4;
+  }
+
+  .share-box{
+    /* position: absolute;
+    bottom: 1.25rem;
+    right:0; */
+    height: 2.1rem;
+    margin: 1rem 0;
+  }
+  .share-icon{
+    height: 2.1rem;
+    width: 2.1rem;
+    margin-left: 1rem;
+  }
+
+  .share-share-1{
+    background: url(../../static/index/icon/web-Facebook.png) no-repeat center;
+    background-size: 100% 100%;
+  }
+  .share-share-2{
+    background: url(../../static/index/icon/youtube.png) no-repeat center;
+    background-size: 100% 100%;
+  }
+  .share-share-3{
+    background: url(../../static/index/icon/tuite.png) no-repeat center;
+    background-size: 100% 100%;
+  }
+  .share-share-4{
+    background: url(../../static/index/icon/in.png) no-repeat center;
+    background-size: 100% 100%;
+  }
+  .share-share-5{
+    background: url(../../static/index/icon/pinterest.png) no-repeat center;
+    background-size: 100% 100%;
+  }
+
   .article-right-box {
     font-size: 1.3rem;
     line-height: 2rem;

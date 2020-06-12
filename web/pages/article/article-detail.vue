@@ -19,6 +19,21 @@
           <div class="synopsis">{{articleDetail.seo_content}}</div>
           <div class="article-detail-box" v-html="articleDetail.content"></div>
         </div>
+
+        <div class="cut-line"></div>
+        <div class="icon-box">
+          <div class="icon" @click="shareFaceBook">
+            <img src="../../static/index/icon01.png" alt="">
+          </div>
+          <div class="icon" @click="shareTwitter">
+            <img src="../../static/index/icon02.png" alt="">
+          </div>
+          <div class="icon" style="position: relative;">
+            <img src="../../static/index/icon03.png" alt="" style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: -1;">
+            <a style="background: none !important;opacity: 0;display: block;width: 100%;height: 100%;overflow: hidden;" target="_blank" href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"  data-pin-shape="round" data-pin-height="28">pinterest分享</a>
+            <script type="text/javascript" async src="//assets.pinterest.com/js/pinit.js"></script><!-- ＊＊＊＊＊这是pinterest分享必带JS＊＊＊＊＊＊＊ -->
+          </div> 
+        </div>
       </div>
     </div>
   </div>
@@ -107,12 +122,66 @@ export default {
       }).catch(function(error) {
         console.log(error);
       });
-    }
+    },
+    shareFaceBook(){
+      var u = location.href;
+      window.open("http://www.facebook.com/sharer.php?u="+ encodeURIComponent(u), "sharer","toolbar=0,status=0,width=626,height=436");
+    },
+    shareTwitter(){
+      var u = location.href;
+      var t = document.getElementsByTagName("title")[0].innerText;
+      var d = document.querySelectorAll('meta[name="description"]')[0].content;
+
+      var share = u + '\n' + t + '\n';
+      if(share.length>280){
+        share = share.slice(0, 279);
+      }
+      window.open("https://twitter.com/intent/tweet?text="+ encodeURIComponent(share), "sharer","toolbar=0,status=0,width=626,height=436");
+    },
   }
 }
 </script>
 
 <style scoped>
+
+  .icon-box {
+    position: absolute;
+    bottom: 25px;
+    right:0px;
+    margin: 20px auto 0;
+    width: 200px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding-right: 60px;
+    box-sizing: border-box;
+  }
+
+  .icon-box .icon {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+
+  .icon-box .icon img{
+    width: 100%;
+    height: 100%;
+  }
+  .cut-line{
+    position: absolute;
+    bottom: 100px;
+    right:0px;
+    width: 70%;
+    /* width: 100%; */
+    height: 1px;
+    background: #e8e4e4;
+  }
+
+  .article-wrap{
+    position: relative;
+  }
+
   .article-right-box{
     font-size: 14px;
     line-height: 24px;
