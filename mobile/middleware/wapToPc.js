@@ -17,19 +17,18 @@ export default function({
     }
     // return
 
-     // 头部host
-      let headerHost = req.headers['host'];
+    // 头部host
+    let headerHost = req.headers['host'];
 
     //生产环境
     let host = 'https://www.kadart.com';
     if (!(/kadart\.com/).test(headerHost)) {
       //测试环境
-      host = 'http://www.kadart.bddia.com';
+      host = 'https://www-kadart.bddco.cn';
     }
     const toWapUrl = path => {
       // console.log('path',path)
-      if(path == '/leave-message'){
-      }else{
+      if (path == '/leave-message') {} else {
         host = host + path;
       }
       redirect(host)

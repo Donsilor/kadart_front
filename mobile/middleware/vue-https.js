@@ -7,7 +7,7 @@ export default function({
 }) {
   if (process.server) {
     var location = req.headers.referer;
-    
+
     var protocol,path,url;
     if(location){
       protocol = req.headers.referer.split('://')[0],

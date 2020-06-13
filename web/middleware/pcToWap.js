@@ -11,7 +11,7 @@ export default function({
   }
 
   if (process.server && req) {
-		let u = req.headers['user-agent']
+    let u = req.headers['user-agent']
 
     // console.log('headerHost',headerHost);
 
@@ -20,16 +20,17 @@ export default function({
     }
     // return
 
-    //头部host
-		let headerHost = req.headers['host']
+    // 头部host
+    let headerHost = req.headers['host']
 
     //生产环境
-    let host = 'https://wap.kadart.bddia.com';
-    if (!(/bddia\.com/).test(headerHost)) {
+    let host = 'https://wap.kadart.com';
+    if (!(/kadart\.com/).test(headerHost)) {
       //测试环境
-      host = 'http://wap.kadart.bddia.com';
+      host = 'https://wap-kadart.bddco.cn';
     }
     const toWapUrl = path => {
+      // console.log('path',path)
       host = host + path;
 
       redirect(host)
