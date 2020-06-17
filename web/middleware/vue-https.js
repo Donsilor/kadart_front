@@ -6,16 +6,14 @@ export default function({
   route
 }) {
   if (process.server) {
-    var location = req.headers.referer;
-    
-    var protocol,path,url;
-    if(location){
-      protocol = req.headers.referer.split('://')[0],
-      path = req.headers.referer.split('://')[1];
+	  // var host = req.getRequestURL().toString();
+	  // console.log(77889,host)
+	  
+	var host = req.headers.host;
+    var url = req.url;
 
-      if (protocol != 'https') {
-        url = 'https://' + path;
-      }
+	if(host && url){
+	  var url = 'https://'+host+url
 
       redirect(url)
       return
