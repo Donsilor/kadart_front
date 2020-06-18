@@ -19,6 +19,10 @@ export default function({
 			if (protocol != 'https') {
 				url = 'https://' + path;
 
+        console.log('进入if')
+        console.log('protocol=',protocol)
+        console.log('url=',url)
+        
 				redirect(url)
 				return
 			}
@@ -29,6 +33,9 @@ export default function({
 			if (host && url) {
 				var url = 'https://' + host + url
 
+        console.log('进入else')
+        console.log('url=',url)
+        
 				redirect(url)
 				return
 			}
