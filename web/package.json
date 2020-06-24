@@ -5,7 +5,7 @@
   "author": "donsilor <390807392@qq.com>",
   "private": true,
   "scripts": {
-    "dev": "nuxt --open",
+    "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",

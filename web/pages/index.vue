@@ -20,9 +20,9 @@ export default {
         ])
         
         var head_r = {
-            title:'KAD ART LIMITED|High-quality Fine Jewelry Manufacturer and Supplier',
+            title:'High-quality Fine Jewelry Manufacturer and Supplier|KAD ART LIMITED',
             meta: [
-              { hid: 'description', name: 'KADART, a global premium jewelry manufacturer. We provide high-quality gold, sterling silver jewelry with worldwide sourced gemstones made by experienced craftsmen for the world! Top-notch quality, short lead time, excellent service, we guarantee it!'},
+              { hid: 'description', name: 'description', content: 'KADART, a global premium jewelry manufacturer. We provide high-quality gold, sterling silver jewelry with worldwide sourced gemstones made by experienced craftsmen for the world! Top-notch quality, short lead time, excellent service, we guarantee it!'},
               { hid: 'keywords', name: 'keywords', content: 'Jewelry manufacturer, quality jewelry maker, jewellery supplier'}
             ]
         }

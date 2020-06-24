@@ -11,4 +11,3 @@ function redirectHttps() {
 if(!isServer) {
   redirectHttps()
 }
-

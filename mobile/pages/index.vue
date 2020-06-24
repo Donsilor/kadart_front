@@ -21,7 +21,7 @@ export default {
         ])
 
         var head_r = {
-            title:'KAD ART LIMITED|High-quality Fine Jewelry Manufacturer and Supplier',
+            title:'High-quality Fine Jewelry Manufacturer and Supplier|KAD ART LIMITED',
             meta: [
               { charset: 'utf-8' },
               { name: 'viewport', content: 'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0' },

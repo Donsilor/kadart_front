@@ -56,10 +56,10 @@ The high quality  jewelry we showed is made by our practiced craftsman.</div>
   export default{
     async asyncData({ app }) {
       var head_r = {
-          title: 'Kad Art Limited-One-stop Fine Jewellery Provider',
+          title: 'One-stop Fine Jewellery Supplier-Kad Art Limited',
           meta: [
             { name: 'viewport', content: 'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0' },
-            { hid: 'description', name: 'description', content: 'Find exquisite diamond, gold, and silver jewelry in Kad Art. 3 branch offices, 20 designers to ODM OEM your private label jewelry in short lead time. We guarantee high-quality and excellent customer service!  '},
+            { hid: 'description', name: 'description', content: 'Find exquisite diamond, gold, and silver jewelry in Kad Art. 3 branch offices, 20 designers to ODM OEM your private label jewelry in short lead time. We guarantee high-quality and excellent customer service!'},
             { hid: 'keywords', name: 'keywords', content: 'Fine jewelry manufacturer, quality jewelry supplier, bulk jewelry factory'}
           ]
       }
