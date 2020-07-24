@@ -86,21 +86,6 @@
   import Bus from '../Bus.js'
 
   export default{
-    head() {
-      return {
-        meta: [
-          {
-            property: 'og:image',
-            class: 'fr_image',
-            content: 'https://cdn.kadart.com/images/2019/12/26/image_157734195110248574.jpg?x-oss-process=style/800X800'
-          },
-          {
-            property: 'og:image:width',
-            content: '200'
-          }
-        ]
-      }
-    },
     data(){
       return{
         heig: ''
@@ -137,7 +122,7 @@
         }
       },
       shareFaceBook(){
-        var u = location.href;
+        var u = 'https://kadart.com';
         window.open("http://www.facebook.com/sharer.php?u="+ encodeURIComponent(u), "sharer","toolbar=0,status=0,width=626,height=436");
       },
       shareTwitter(){

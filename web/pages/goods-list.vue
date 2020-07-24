@@ -102,6 +102,7 @@
           k = 'jadeite pendant,jadeite necklace,jadeite ring,jadeite bangle, jadeite bracelet,jadeite manufacturer,jadeite wholesale';
         }
 
+        var imgUrl = res.data.data.data[1].style_image;
         var head_r = {
           title: t,
           meta: [{
@@ -113,11 +114,16 @@
               hid: 'keywords',
               name: 'keywords',
               content: k
-            }
+            },
+            { property: 'og:image', content: imgUrl},
+            { property: 'og:site_name', content: 'site name'},
+            { property: 'og:title', content: 'title'},
+            { property: 'og:description', content: 'description'}
           ]
         }
         app.head.title = head_r.title;
         app.head.meta = head_r.meta;
+
 
         return {
           info: res.data.data,
