@@ -17,16 +17,26 @@ export default {
   async asyncData({ $axios, route, store, app }) {
     var last = route.path.lastIndexOf('/')+1;
     var goods_id = route.path.slice(last);
+    console.log(666,route)
     return await $axios.get('/goods/style/detail', {
       params: {
         id: goods_id
       }
     }).then(res => {
+      // console.log('000',res.data)
+      var a = 2;
+      var shareUrl = '',imgUrl =  'http://kadart.com' + last;
+      console.log(777,imgUrl)
       var head_r = {
           title: res.data.data.seo.meta_title || 'Best high quality jewelry with fine craftsmanship wholesale',
           meta: [
             { hid: 'description', name: 'description', content: res.data.data.seo.meta_desc || 'KADArt manufacturer and wholesale top-end gold,silver, copper and alloy jewelry with precious,semi gems,crystal,zircon,rhinestone at good price.'},
-            { hid: 'keywords', name: 'keywords', content: res.data.data.seo.meta_word || ' jewelry factory, jewelry supplier, jewelry manufacturer,jewelry wholesale,gold jewelry, silver jewelry, brass jewelry, high quality jewelry, best jewelry, stylish jewelry, fashion jewelry'}
+            { hid: 'keywords', name: 'keywords', content: res.data.data.seo.meta_word || ' jewelry factory, jewelry supplier, jewelry manufacturer,jewelry wholesale,gold jewelry, silver jewelry, brass jewelry, high quality jewelry, best jewelry, stylish jewelry, fashion jewelry'},
+            { property: 'og:url', content: shareUrl},
+            { property: 'og:image', content: imgUrl},
+            { property: 'og:site_name', content: 'site name'},
+            { property: 'og:title', content: 'title'},
+            { property: 'og:description', content: 'description'}
           ]
       }
       app.head.title = head_r.title;
