@@ -15,18 +15,18 @@ export default {
     goodsDetailPage,
   },
   async asyncData({ $axios, route, store, app }) {
-    var last = route.path.lastIndexOf('/')+1;
-    var goods_id = route.path.slice(last);
-    console.log(666,route)
+    var site = route.path.lastIndexOf('/')+1,
+        urlFront = route.path.slice(0, site),
+        goods_id = route.path.slice(site);
+        
     return await $axios.get('/goods/style/detail', {
       params: {
         id: goods_id
       }
     }).then(res => {
-      // console.log('000',res.data)
-      var a = 2;
-      var shareUrl = '',imgUrl =  'http://kadart.com' + last;
-      console.log(777,imgUrl)
+      console.log('000',res.data.data.goods_images.thumb[0])
+
+      var shareUrl = urlFront + goods_id, imgUrl = res.data.data.goods_images.thumb[0];
       var head_r = {
           title: res.data.data.seo.meta_title || 'Best high quality jewelry with fine craftsmanship wholesale',
           meta: [
@@ -52,3 +52,4 @@ export default {
 
 <style>
 </style>
+
