@@ -28,6 +28,7 @@ export default {
               { hid: 'keywords', name: 'keywords', content: 'Jewelry manufacturer, quality jewelry maker, jewellery supplier'},
               { property: 'og:url', content: url},
               { property: 'og:image', content: '/share/index.png'},
+              { property: 'og:image:width', content: "600" },
               { property: 'og:type', content: 'website'},
               { property: 'og:site_name', content: 'site name'},
               { property: 'og:title', content: 'High-quality Fine Jewelry Manufacturer and Supplier|KAD ART LIMITED'},
