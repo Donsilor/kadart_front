@@ -103,7 +103,13 @@
         }
 
         var shareUrl = 'https://www-kadart.bddco.cn' + route.path;
-        var imgUrl = res.data.data.data[1].style_image;
+
+        var imgUrl = 'share/index.png';
+        // var imgUrl = res.data.data.data[1].style_image;
+        // if(imgUrl.indexOf('?')){
+        //   imgUrl = imgUrl.split('?')[0];
+        // }
+
         var head_r = {
           title: t,
           meta: [{
@@ -117,8 +123,8 @@
               content: k
             },
             { property: 'og:url', content: shareUrl},
-            { property: 'og:type', content: 'website'},
             { property: 'og:image', content: imgUrl},
+            { property: 'og:type', content: 'website'},
             { property: 'og:site_name', content: 'site name'},
             { property: 'og:title', content: t},
             { property: 'og:description', content: d}

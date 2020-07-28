@@ -122,19 +122,8 @@
         }
       },
       shareFaceBook(){
-        // var url = location.href,urlFront,urlAfter,site,u;
-        // console.log(location)
-        // if(url.indexOf('goods-') != -1){
-        //   site = url.lastIndexOf('/')+1;
-        //   urlFront = url.slice(0, site)
-        //   urlAfter = url.slice(site)
-        //   u = urlFront + urlAfter;
-        // }else if(){
-
-        // }else{
         var  u = location.href;
         console.log(999,u)
-        // }
 
         window.open("http://www.facebook.com/sharer.php?u="+ encodeURIComponent(u), "sharer","toolbar=0,status=0,width=626,height=436");
       },
