@@ -103,7 +103,6 @@
         }
 
         var shareUrl = 'https://www-kadart.bddco.cn' + route.path;
-
         var imgUrl = 'share/index.jpg';
         // var imgUrl = res.data.data.data[1].style_image;
         // if(imgUrl.indexOf('?')){
@@ -123,6 +122,7 @@
               content: k
             },
             { property: 'og:url', content: shareUrl},
+            { property: 'og:image', content: '/share/index.png'},
             { property: 'og:image:width', content: 600},
             { property: 'og:type', content: 'website'},
             { property: 'og:site_name', content: 'site name'},
