@@ -30,6 +30,7 @@ export default {
               { hid: 'description', name: 'description', content: 'KADART, a global premium jewelry manufacturer. We provide high-quality gold, sterling silver jewelry with worldwide sourced gemstones made by experienced craftsmen for the world! Top-notch quality, short lead time, excellent service, we guarantee it!'},
               { hid: 'keywords', name: 'keywords', content: 'Jewelry manufacturer, quality jewelry maker, jewellery supplier'},
               { property: 'og:url', content: url},
+              { property: 'og:type', content: 'website'},
               { property: 'og:image', content: 'index/01_15_0528.jpg'},
               { property: 'og:site_name', content: 'site name'},
               { property: 'og:title', content: '123123|KAD ART LIMITED'},
