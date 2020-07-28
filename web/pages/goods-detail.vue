@@ -24,11 +24,13 @@ export default {
         id: goods_id
       }
     }).then(res => {
-      var shareUrl = route.path, imgUrl = res.data.data.goods_images.thumb[0];
+      var shareUrl = 'https://www-kadart.bddco.cn/' + route.path, imgUrl = res.data.data.goods_images.thumb[0];
       if(imgUrl.indexOf('?')){
         imgUrl = imgUrl.split('?')[0];
       }
-      console.log(878,imgUrl)
+      console.log(878,shareUrl)
+      console.log(978,imgUrl)
+
       var head_r = {
           title: res.data.data.seo.meta_title || 'Best high quality jewelry with fine craftsmanship wholesale',
           meta: [
