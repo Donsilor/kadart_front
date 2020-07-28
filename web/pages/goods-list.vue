@@ -123,7 +123,6 @@
               content: k
             },
             { property: 'og:url', content: shareUrl},
-            { property: 'og:image', content: imgUrl},
             { property: 'og:image:width', content: 600},
             { property: 'og:type', content: 'website'},
             { property: 'og:site_name', content: 'site name'},
