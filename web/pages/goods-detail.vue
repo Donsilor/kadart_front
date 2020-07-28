@@ -24,9 +24,11 @@ export default {
         id: goods_id
       }
     }).then(res => {
-      console.log('000',res.data.data.goods_images.thumb[0])
-
       var shareUrl = urlFront + goods_id, imgUrl = res.data.data.goods_images.thumb[0];
+      if(imgUrl.indexOf('?')){
+        imgUrl = imgUrl.split('?')[0];
+      }
+      console.log(878,imgUrl)
       var head_r = {
           title: res.data.data.seo.meta_title || 'Best high quality jewelry with fine craftsmanship wholesale',
           meta: [
@@ -35,8 +37,8 @@ export default {
             { property: 'og:url', content: shareUrl},
             { property: 'og:image', content: imgUrl},
             { property: 'og:site_name', content: 'site name'},
-            { property: 'og:title', content: 'title'},
-            { property: 'og:description', content: 'description'}
+            { property: 'og:title', content: res.data.data.seo.meta_title || 'Best high quality jewelry with fine craftsmanship wholesale'},
+            { property: 'og:description', content: res.data.data.seo.meta_desc || 'KADArt manufacturer and wholesale top-end gold,silver, copper and alloy jewelry with precious,semi gems,crystal,zircon,rhinestone at good price.'}
           ]
       }
       app.head.title = head_r.title;
