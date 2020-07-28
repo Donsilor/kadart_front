@@ -29,8 +29,8 @@ export default {
               { property: 'og:url', content: url},
               { property: 'og:image', content: '/index/home-12.jpg'},
               { property: 'og:site_name', content: 'site name'},
-              { property: 'og:title', content: 'title'},
-              { property: 'og:description', content: 'description'}
+              { property: 'og:title', content: 'High-quality Fine Jewelry Manufacturer and Supplier|KAD ART LIMITED'},
+              { property: 'og:description', content: 'KADART, a global premium jewelry manufacturer. We provide high-quality gold, sterling silver jewelry with worldwide sourced gemstones made by experienced craftsmen for the world! Top-notch quality, short lead time, excellent service, we guarantee it!'}
             ]
         }
         app.head.title = head_r.title;

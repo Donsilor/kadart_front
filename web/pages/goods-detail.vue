@@ -24,7 +24,7 @@ export default {
         id: goods_id
       }
     }).then(res => {
-      var shareUrl = urlFront + goods_id, imgUrl = res.data.data.goods_images.thumb[0];
+      var shareUrl = route.path, imgUrl = res.data.data.goods_images.thumb[0];
       if(imgUrl.indexOf('?')){
         imgUrl = imgUrl.split('?')[0];
       }

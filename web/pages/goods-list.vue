@@ -103,7 +103,7 @@
         }
 
         // var imgUrl = res.data.data.data[1].style_image;
-        var imgUrl = 'https://cdn.kadart.com/images/2019/12/24/image_157717509897555310.jpg';
+        var imgUrl = 'cdn.kadart.com/images/2019/12/24/image_157717509897555310.jpg';
         var shareUrl = route.path;
         var head_r = {
           title: t,
@@ -117,7 +117,7 @@
               name: 'keywords',
               content: k
             },
-            { property: 'og:image', content: imgUrl},
+            { property: 'og:url', content: shareUrl},
             { property: 'og:image', content: imgUrl},
             { property: 'og:site_name', content: 'site name'},
             { property: 'og:title', content: t},
