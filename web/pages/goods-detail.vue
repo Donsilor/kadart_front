@@ -29,7 +29,7 @@ export default {
           // if(imgUrl.indexOf('?')){
           //   imgUrl = imgUrl.split('?')[0];
           // }
-          imgUrl = 'share/index.png';
+          imgUrl = '/share/index.png';
 
           console.log(77,shareUrl)
 

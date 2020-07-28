@@ -104,7 +104,7 @@
 
         var shareUrl = 'https://www-kadart.bddco.cn' + route.path;
 
-        var imgUrl = 'share/index.png';
+        var imgUrl = 'share/index.jpg';
         // var imgUrl = res.data.data.data[1].style_image;
         // if(imgUrl.indexOf('?')){
         //   imgUrl = imgUrl.split('?')[0];
