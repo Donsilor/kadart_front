@@ -41,8 +41,6 @@ export default {
             { hid: 'keywords', name: 'keywords', content: res.data.data.seo.meta_word || ' jewelry factory, jewelry supplier, jewelry manufacturer,jewelry wholesale,gold jewelry, silver jewelry, brass jewelry, high quality jewelry, best jewelry, stylish jewelry, fashion jewelry'},
             { property: 'og:url', content: shareUrl},
             { property: 'og:image', content: '/share/index.png'},
-            { property: 'og:image:width', content: '600'},
-            { property: 'og:image:height', content: '314'},
             { property: 'og:type', content: 'website'},
             { property: 'og:site_name', content: 'site name'},
             { property: 'og:title', content: res.data.data.seo.meta_title || 'Best high quality jewelry with fine craftsmanship wholesale'},
