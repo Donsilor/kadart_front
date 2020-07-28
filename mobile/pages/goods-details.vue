@@ -20,7 +20,7 @@
           id: goods_id
         }
       }).then(res => {
-        var shareUrl = 'https://www-kadart.bddco.cn/' + route.path, imgUrl = res.data.data.goods_images.thumb[0];
+        var shareUrl = 'https://wap-kadart.bddco.cn' + route.path, imgUrl = res.data.data.goods_images.thumb[0];
         if(imgUrl.indexOf('?')){
           imgUrl = imgUrl.split('?')[0];
         }

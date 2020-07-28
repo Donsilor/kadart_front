@@ -20,7 +20,7 @@ export default {
           $axios.get('/common/advert-images',{params: {'acdv_id': 20,}})
         ])
 
-        var url = route.path;
+        var url = 'https://wap-kadart.bddco.cn' + route.path;
 
         var head_r = {
             title:'High-quality Fine Jewelry Manufacturer and Supplier|KAD ART LIMITED',

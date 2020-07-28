@@ -102,10 +102,8 @@
           k = 'jadeite pendant,jadeite necklace,jadeite ring,jadeite bangle, jadeite bracelet,jadeite manufacturer,jadeite wholesale';
         }
 
-        var shareUrl = 'https://www-kadart.bddco.cn/' + route.path;
-        console.log(77,shareUrl)
-        // var imgUrl = res.data.data.data[1].style_image;
-        var imgUrl = '/index/home-14.jpg';
+        var shareUrl = 'https://www-kadart.bddco.cn' + route.path;
+        var imgUrl = res.data.data.data[1].style_image;
         var head_r = {
           title: t,
           meta: [{
