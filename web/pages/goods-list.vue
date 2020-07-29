@@ -124,9 +124,9 @@
               content: k
             },
             { property: 'og:url', content: shareUrl},
-            { property: 'og:image', content: csDomain + '/share/index_300px.png'},
-            { property: 'og:image:width', content: "200" },
-            { property: 'og:image:height', content: "140" },
+            { property: 'og:image', content: csDomain + '/share/index_540px.png'},
+            { property: 'og:image:width', content: "400" },
+            { property: 'og:image:height', content: "400" },
             { property: 'og:type', content: 'website'},
             { property: 'og:site_name', content: 'site name'},
             { property: 'og:title', content: t},
