@@ -24,7 +24,6 @@ export default {
         id: goods_id
       }
     }).then(res => {
-      console.log(222,route)
       var csDomain = 'https://www-kadart.bddco.cn';
       var Domain = 'https://kadart.com';
       var shareUrl = csDomain + route.path;
@@ -34,15 +33,15 @@ export default {
       //   imgUrl = imgUrl.split('?')[0];
       // }
 
-      console.log(77,shareUrl)
-
       var head_r = {
           title: res.data.data.seo.meta_title || 'Best high quality jewelry with fine craftsmanship wholesale',
           meta: [
             { hid: 'description', name: 'description', content: res.data.data.seo.meta_desc || 'KADArt manufacturer and wholesale top-end gold,silver, copper and alloy jewelry with precious,semi gems,crystal,zircon,rhinestone at good price.'},
             { hid: 'keywords', name: 'keywords', content: res.data.data.seo.meta_word || ' jewelry factory, jewelry supplier, jewelry manufacturer,jewelry wholesale,gold jewelry, silver jewelry, brass jewelry, high quality jewelry, best jewelry, stylish jewelry, fashion jewelry'},
             { property: 'og:url', content: shareUrl},
-            { property: 'og:image', content: csDomain + '/share/index626.png'},
+            { property: 'og:image', content: csDomain + '/share/index_626px.png'},
+            { property: 'og:image:width', content: "200" },
+            { property: 'og:image:height', content: "140" },
             { property: 'og:type', content: 'website'},
             { property: 'og:site_name', content: 'site name'},
             { property: 'og:title', content: res.data.data.seo.meta_title || 'Best high quality jewelry with fine craftsmanship wholesale'},
