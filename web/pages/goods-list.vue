@@ -122,7 +122,7 @@
               content: k
             },
             { property: 'og:url', content: shareUrl},
-            { property: 'og:image', content: '/share/index.png'},
+            { property: 'og:image', content: '/share/index300.png'},
             { property: 'og:type', content: 'website'},
             { property: 'og:site_name', content: 'site name'},
             { property: 'og:title', content: t},
