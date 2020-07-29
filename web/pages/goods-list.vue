@@ -106,10 +106,10 @@
         var Domain = 'https://kadart.com';
         var shareUrl = csDomain + route.path;
 
-        // var imgUrl = res.data.data.data[1].style_image;
-        // if(imgUrl.indexOf('?')){
-        //   imgUrl = imgUrl.split('?')[0];
-        // }
+        var imgUrl = res.data.data.data[1].style_image;
+        if(imgUrl.indexOf('?')){
+          imgUrl = imgUrl.split('?')[0];
+        }
 
         var head_r = {
           title: t,
@@ -124,7 +124,9 @@
               content: k
             },
             { property: 'og:url', content: shareUrl},
-            { property: 'og:image', content: csDomain + '/share/index_3.png'},
+            { property: 'og:image', content: imgUrl},
+            { property: 'og:image:width', content: '600'},
+            { property: 'og:image:height', content: '314'},
             { property: 'og:type', content: 'website'},
             { property: 'og:site_name', content: 'site name'},
             { property: 'og:title', content: t},
