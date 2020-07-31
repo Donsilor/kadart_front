@@ -19,7 +19,7 @@
       <div class="article-right fr">
         <div class="article-right-tit">{{article_tit}}</div>
         <div class="article-right-box">
-          <div class="article-right-list" v-for="(ite, index) in articleItem" @click="intoDetail(index)">
+          <div class="article-right-list" v-for="(ite, index) in articleItem" :key="index" @click="intoDetail(index)">
             <div class="img-box">
               <img :src="ite.img" alt="">
             </div>
@@ -73,12 +73,24 @@
           id: 3
         }
       }).then(res => {
+        var csDomain = 'https://www-kadart.bddco.cn';
+        var Domain = 'https://kadart.com';
+        var shareUrl = csDomain + route.path;
+
         var head_r = {
-            title: res.data.data.title,
+            title: res.data.data.title || '',
             meta: [
-              { hid: 'description', name: 'description', content: res.data.data.title || ''}
+              { hid: 'description', name: 'description', content: res.data.data.title || ''},
+              { property: 'og:url', content: shareUrl},
+              { property: 'og:image', content: csDomain + '/share/index_3.png'},
+              { property: 'og:type', content: 'website'},
+              { property: 'og:site_name', content: 'site name'},
+              { property: 'og:title', content: res.data.data.title || ''},
+              { property: 'og:description', content: ''}
+
             ]
         };
+
 
         app.head.title = head_r.title;
         app.head.meta = head_r.meta;
