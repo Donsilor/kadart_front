@@ -85,9 +85,7 @@
               { property: 'og:image', content: csDomain + '/share/index_3.png'},
               { property: 'og:type', content: 'website'},
               { property: 'og:site_name', content: 'site name'},
-              { property: 'og:title', content: res.data.data.title || ''},
-              { property: 'og:description', content: ''}
-
+              { property: 'og:title', content: res.data.data.title || ''}
             ]
         };
 
