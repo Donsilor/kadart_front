@@ -21,7 +21,7 @@ export default {
 
         var csDomain = 'https://www-kadart.bddco.cn';
         var Domain = 'https://kadart.com';
-        var shareUrl = csDomain + route.path;
+        var shareUrl = Domain + route.path;
         
         var head_r = {
             title:'High-quality Fine Jewelry Manufacturer and Supplier|KAD ART LIMITED',
@@ -29,7 +29,7 @@ export default {
               { hid: 'description', name: 'description', content: 'KADART, a global premium jewelry manufacturer. We provide high-quality gold, sterling silver jewelry with worldwide sourced gemstones made by experienced craftsmen for the world! Top-notch quality, short lead time, excellent service, we guarantee it!'},
               { hid: 'keywords', name: 'keywords', content: 'Jewelry manufacturer, quality jewelry maker, jewellery supplier'},
               { property: 'og:url', content: shareUrl},
-              { property: 'og:image', content: csDomain + '/share/index_3.png'},
+              { property: 'og:image', content: Domain + '/share/index_3.png'},
               { property: 'og:type', content: 'website'},
               { property: 'og:site_name', content: 'site name'},
               { property: 'og:title', content: 'High-quality Fine Jewelry Manufacturer and Supplier|KAD ART LIMITED'},

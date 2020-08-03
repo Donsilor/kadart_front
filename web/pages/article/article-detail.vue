@@ -82,14 +82,14 @@ export default {
     }).then(res => {
       var csDomain = 'https://www-kadart.bddco.cn';
       var Domain = 'https://kadart.com';
-      var shareUrl = csDomain + route.path;
+      var shareUrl = Domain + route.path;
 
       var head_r = {
           title: res.data.data.title || '',
           meta: [
             { hid: 'description', name: 'description', content:  res.data.data.seo_content || ''},
             { property: 'og:url', content: shareUrl},
-            { property: 'og:image', content: csDomain + '/share/index_3.png'},
+            { property: 'og:image', content: Domain + '/share/index_3.png'},
             { property: 'og:type', content: 'website'},
             { property: 'og:site_name', content: 'site name'},
             { property: 'og:title', content:  res.data.data.title || ''},

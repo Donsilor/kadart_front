@@ -104,7 +104,7 @@
 
         var csDomain = 'https://www-kadart.bddco.cn';
         var Domain = 'https://kadart.com';
-        var shareUrl = csDomain + route.path;
+        var shareUrl = Domain + route.path;
 
         // var imgUrl = res.data.data.data[1].style_image;
         // if(imgUrl.indexOf('?')){
@@ -124,7 +124,7 @@
               content: k
             },
             { property: 'og:url', content: shareUrl},
-            { property: 'og:image', content: csDomain + '/share/index_3.png'},
+            { property: 'og:image', content: Domain + '/share/index_3.png'},
             // { property: 'og:image:width', content: '600'},
             // { property: 'og:image:height', content: '314'},
             { property: 'og:type', content: 'website'},
