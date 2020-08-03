@@ -3,7 +3,7 @@
     <azzd></azzd>
 
     <div class="img-box clf">
-      <div class="img-list fl" :style="{height: e_height+'px',marginBottom: e_margin+'px'}" v-if="index < max_page && index > min_page" v-for="(item, index) in items[type]">
+      <div class="img-list fl" :style="{height: e_height+'px',marginBottom: e_margin+'px'}" v-if="index < max_page && index > min_page" v-for="(item, index) in items[type]" :key="index">
         <img :src="item" alt="" @click="showImg(index)">
       </div>
     </div>

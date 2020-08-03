@@ -5,16 +5,16 @@
         <a href="/about-kadart">{{navList[0].title}}</a>
       </div>
 
-      <div v-if="index>0" class="nav-list fl" :class="[idx_r == index ? 'active' : '']" v-for="(list, index) in navList" :key="'a'+index" @mouseover="chooseMe(index)">
+      <div v-if="index>0" class="nav-list fl" :class="[idx_r == index ? 'active' : '']" v-for="(list, index) in navList" :key="index+'a'" @mouseover="chooseMe(index)">
         <a :href="list.url || 'javascript:;'" target="_blank" @click="noSearch(index,$event)">{{list.title}}</a>
       </div>
     </div>
 
     <div class="nav-box" v-if="isShow">
       <div class="clf">
-        <div class="nav-classify fl" v-for="(item, index) in navList[idx_r].items" :key="'b'+index">
+        <div class="nav-classify fl" v-for="(item, index) in navList[idx_r].items" :key="index+'b'">
           <div class="nav-classify-child"><a href="javascript:;">{{item.title}}</a></div>
-          <div class="nav-classify-child" v-for="(ite, ide) in item.items" :key="'c'+ide">
+          <div class="nav-classify-child" v-for="(ite, ide) in item.items" :key="ide+'c'">
             <a :href="ite.url || 'javascript:;'" target="_blank" @click="noSearch('',$event)">{{ite.title}}</a>
           </div>
         </div>

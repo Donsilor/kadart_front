@@ -23,7 +23,7 @@
         </div>
         <div class="hot" v-show="ifShowHot" @mouseover="showHot()" @mouseleave="hideHot()">
           <div class="first-list">Quick Search</div>
-          <div class="hot-list" v-for="(item, index) in hotList">
+          <div class="hot-list" v-for="(item, index) in hotList" :key="index">
             <a :href="hotUrl[index]" target="_blank" @click="hotListA()">{{item}}</a>
           </div>
         </div>

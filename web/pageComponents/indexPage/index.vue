@@ -3,7 +3,7 @@
     <div class="home_cid">
       <div v-if="this.banners && this.banners != 0" v-swiper:mySwiper="swiperOption" :style="{'height': bannerHeightA+'px'}">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="banner in banners">
+          <div class="swiper-slide" v-for="(banner, index) in banners" :key="index">
             <a :href='banner.adv_url || "javascript:;"' target="_blank">
               <img :src="banner.adv_image" alt="" ref="img">
             </a>
@@ -30,7 +30,7 @@
     <div class="banner">
       <div v-if="this.bannersTwo && this.bannersTwo != 0" v-swiper:youSwiper="swiperOptionTk" :style="{'height': bannerHeightB+'px'}">
         <div class="swiper-wrapper" :style="{'height': bannerHeightB+'px'}">
-          <div class="swiper-slide" v-for="ban in bannersTwo">
+          <div class="swiper-slide" v-for="(ban, idx) in bannersTwo" :key="idx">
             <a :href='ban.adv_url || "javascript:;"' target="_blank">
               <img :src="ban.adv_image" alt="">
             </a>
@@ -120,7 +120,7 @@
         <el-carousel indicator-position="" :autoplay='auto' class="swiper" :style="{'height': seriesHeight+'px !important'}">
           <el-carousel-item class="swiper-item" :style="{'height': seriesHeight+'px'}">
             <div class="swiper-item-box" :style="{'height': seriesHeight+'px'}">
-              <a :href="sixUrl[index]" v-for="(item,index) in classifyImg" target="_blank">
+              <a :href="sixUrl[index]" v-for="(item,index) in classifyImg" :key="index+'a'" target="_blank">
                 <img :src="item.adv_image" alt="" class="swiper-img">
               </a>
             </div>
@@ -178,6 +178,9 @@
         },
         swiperOptionTk: {
           loop: true,
+          autoplay: {
+            stopOnLastSlide: true
+          },
           slidesPerView: 'auto',
           centeredSlides: true,
           spaceBetween: 30,

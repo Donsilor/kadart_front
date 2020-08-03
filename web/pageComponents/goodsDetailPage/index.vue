@@ -16,16 +16,16 @@
         <div class="show-img">
           <div class="img-box-b">
             <div class="img-box-b-mid">
-              <div v-if="index<5" class="img-box" :class="[index_k == index ? 'active' : '']" v-for="(item, index) in smallImg"
+              <div v-if="index<5" class="img-box" :class="[index_k == index ? 'active' : '']" v-for="(item, index) in smallImg" :key="index+'a'"
                 @click="chooseImg(index)">
                 <img :src="item" alt="">
               </div>
-              <div v-if="index>4 && index<6" class="img-box" :class="[index_k == index ? 'active' : '']" v-for="(item, index) in smallImg"
+              <div v-if="index>4 && index<6" class="img-box" :class="[index_k == index ? 'active' : '']" v-for="(item, index) in smallImg" :key="index+'b'"
                 @click.prevent="chooseImg(index)">
                 <img :src="item" alt="">
                 <i class="iconfont iconyou" v-if="!isShowImg" @click.prevent="ShowImg()"></i>
               </div>
-              <div v-if="index>6 && isShowImg" class="img-box" :class="[index_k == index ? 'active' : '']" v-for="(item, index) in smallImg"
+              <div v-if="index>6 && isShowImg" class="img-box" :class="[index_k == index ? 'active' : '']" v-for="(item, index) in smallImg" :key="index+'c'"
                 @click="chooseImg(index)">
                 <img :src="item" alt="">
               </div>
@@ -51,7 +51,7 @@
           <div class="table">
             <table width="100%">
               <tbody>
-                <tr class="table-list clf" v-if="index < 13" v-for="(item, index) in goodsDetail.data.style_attrs">
+                <tr class="table-list clf" v-if="index < 13" v-for="(item, index) in goodsDetail.data.style_attrs" :key="index+'d'">
                   <td class="left fl">
                     <div class="table-child">{{item.name}}</div>
                   </td>

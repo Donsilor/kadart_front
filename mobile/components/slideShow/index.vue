@@ -2,7 +2,7 @@
   <div class="menu">
     <div v-if="this.banners && this.banners != 0" v-swiper:mkSwiper="swiperOptionR" class="swiper-box">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" v-for="banner in banners">
+        <div class="swiper-slide" v-for="(banner, index) in banners" :key="index">
           <a :href="banner.adv_url">
             <img class="no-stretch" :src="banner.adv_image">
           </a>

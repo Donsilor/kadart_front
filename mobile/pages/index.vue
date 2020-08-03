@@ -20,7 +20,9 @@ export default {
           $axios.get('/common/advert-images',{params: {'acdv_id': 20,}})
         ])
 
-        var url = 'https://wap-kadart.bddco.cn' + route.path;
+        var csDomain = 'https://www-kadart.bddco.cn';
+        var Domain = 'https://kadart.com';
+        var shareUrl = Domain + route.path;
 
         var head_r = {
             title:'High-quality Fine Jewelry Manufacturer and Supplier|KAD ART LIMITED',
@@ -29,9 +31,9 @@ export default {
               { name: 'viewport', content: 'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0' },
               { hid: 'description', name: 'description', content: 'KADART, a global premium jewelry manufacturer. We provide high-quality gold, sterling silver jewelry with worldwide sourced gemstones made by experienced craftsmen for the world! Top-notch quality, short lead time, excellent service, we guarantee it!'},
               { hid: 'keywords', name: 'keywords', content: 'Jewelry manufacturer, quality jewelry maker, jewellery supplier'},
-              { property: 'og:url', content: url},
+              { property: 'og:url', content: shareUrl},
+              { property: 'og:image', content: Domain + '/share/index_3.png'},
               { property: 'og:type', content: 'website'},
-              { property: 'og:image', content: 'index/01_15_0528.jpg'},
               { property: 'og:site_name', content: 'site name'},
               { property: 'og:title', content: '123123|KAD ART LIMITED'},
               { property: 'og:description', content: 'eee it!666'}

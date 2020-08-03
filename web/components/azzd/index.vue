@@ -2,7 +2,7 @@
   <div class="azzd">
     <div v-if="this.banners && this.banners != 0" v-swiper:hisSwiper="swiperOptionTh" :style="{'height': bannerHeightA+'px'}">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" v-for="banner in banners.data">
+        <div class="swiper-slide" v-for="(banner, index) in banners.data" :key="index">
           <a :href='banner.adv_url || "javascript:;"' target="_blank">
             <img :src="banner.adv_image">
           </a>

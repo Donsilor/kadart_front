@@ -3,7 +3,7 @@
     <div class="home_cid">
       <div v-if="this.banners && this.banners.length != 0" v-swiper:mySwiper="swiperOption">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="banner in banners">
+          <div class="swiper-slide" v-for="(banner, index) in banners" :key="index">
             <a :href='banner.adv_url || "javascript:;"' target="_blank">
               <img :src="banner.adv_image" class="no-stretch">
             </a>
@@ -16,7 +16,7 @@
     <div class="banner">
       <div v-if="this.bannersTwo && this.bannersTwo.length != 0" v-swiper:youSwiper="swiperOptionTwo">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="ban in bannersTwo">
+          <div class="swiper-slide" v-for="(ban, idx) in bannersTwo" :key="idx">
             <a :href='ban.adv_url || "javascript:;"' target="_blank">
               <img :src="ban.adv_image" alt="">
             </a>

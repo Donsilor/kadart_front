@@ -13,7 +13,7 @@
           </div>
 
           <div class="D-box">
-            <div class="child-b" v-for="item in arr">
+            <div class="child-b" v-for="(item, index) in arr" :key="index+'a'">
               <i class="iconfont iconshanchu"></i>{{item}}
             </div>
 
@@ -25,14 +25,14 @@
 
         <div class="refinements">Select Refinments</div>
 
-        <div class="classify-box" v-bind:class="{'pack-up': item.isShowT}" v-for="(item, index) in dataItem" :key="index"
+        <div class="classify-box" v-bind:class="{'pack-up': item.isShowT}" v-for="(item, index) in dataItem" :key="index+'b'"
           v-if="index<3">
           <div class="tit clf" @click="ifShowF(index)">
             <div class="fl">{{item.form}}</div>
             <i class="iconfont iconxiangshang fr"></i>
           </div>
 
-          <div class="D-box" v-for="(children, idx) in item.content" :key="idx">
+          <div class="D-box" v-for="(children, idx) in item.content" :key="idx+'a'">
             <div class="child-a clf" :class="[children.isChoose ? 'active' : '']" @click="ifChooseF(index, idx)">
               <div class="square fl">
                 <i class="iconfont iconduihao" v-if="children.isChoose"></i>
@@ -49,7 +49,7 @@
           </div>
 
           <div class="D-box">
-            <div class="child-c" :class="index_c == index ? 'active' : ''" v-for="(item, index) in priceList" @click="clickC(index)">{{item.list}}</div>
+            <div class="child-c" :class="index_c == index ? 'active' : ''" v-for="(item, index) in priceList" :key="index+'c'" @click="clickC(index)">{{item.list}}</div>
 
             <div class="search-scope">
               <span class="color">$</span><input type="text" class="ipt" placeholder="low">
@@ -62,14 +62,14 @@
           </div>
         </div>
 
-        <div class="classify-box" v-bind:class="{'pack-up': item.isShowT}" v-for="(item, index) in dataItem" :key="index"
+        <div class="classify-box" v-bind:class="{'pack-up': item.isShowT}" v-for="(item, index) in dataItem" :key="index+'d'"
           v-if="index>=3">
           <div class="tit clf" @click="ifShowF(index)">
             <div class="fl">{{item.form}}</div>
             <i class="iconfont iconxiangshang fr"></i>
           </div>
 
-          <div class="D-box" v-for="(children, idx) in item.content" :key="idx">
+          <div class="D-box" v-for="(children, idx) in item.content" :key="idx+'b'">
             <div class="child-a clf" :class="[children.isChoose ? 'active' : '']" @click="ifChooseF(index, idx)">
               <div class="square fl">
                 <i class="iconfont iconduihao" v-if="children.isChoose"></i>
@@ -90,7 +90,7 @@
 
           <div class="filtrate-condition fr clf">
             <div class="filtrate-child fl" :class="[filter_index == index * 2 || filter_index == + index * 2 + 1 ? 'active' : '']"
-              v-for="(item, index) in sort_type" :key="index" @click="sort(index)">
+              v-for="(item, index) in sort_type" :key="index+'e'" @click="sort(index)">
               <div class="filtrate-child-text fl">{{item}}</div>
               <div class="triangle-wrap fl">
                 <div class="triangle-box" :class="[filter_index == index*2 ? 'on' : '']" @click.stop="sort(index, 'a')">
@@ -112,7 +112,7 @@
             <div class="text">No results, try another keyword.</div>
           </div>
 
-          <div v-if="index >= 0" class="commodity-show-list fl" v-for="(item, index) in commodityItem.data" :key="index">
+          <div v-if="index >= 0" class="commodity-show-list fl" v-for="(item, index) in commodityItem.data" :key="index+'f'">
             <a :href="commodityItem.data[index].url">
               <div class="img-box">
                 <img :src=item.style_image alt="">

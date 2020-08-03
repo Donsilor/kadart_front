@@ -8,7 +8,7 @@
           <div class="article-left-tit">{{title}}</div>
           <div class="article-left-box">
             <a :href="item.url" class="article-left-list" :class="active_idx == index ? 'active' : ''" v-for="(item, index) in articleTitle"
-              :key="index">
+              :key="index+'a'">
               <i class="article-left-icon fl"></i>
               <span>{{item.title}}</span>
             </a>
@@ -19,7 +19,7 @@
       <div class="article-right fr">
         <div class="article-right-tit">{{article_tit}}</div>
         <div class="article-right-box">
-          <div class="article-right-list" v-for="(ite, index) in articleItem" :key="index" @click="intoDetail(index)">
+          <div class="article-right-list" v-for="(ite, index) in articleItem" :key="index+'b'" @click="intoDetail(index)">
             <div class="img-box">
               <img :src="ite.img" alt="">
             </div>

@@ -13,7 +13,7 @@
 
    <div class="article-wrap">
       <div class="article-right-box">
-        <div class="article-right-list" v-for="(ite, index) in articleItem" @click="intoDetail(index)">
+        <div class="article-right-list" v-for="(ite, idx) in articleItem" :key="idx" @click="intoDetail(index)">
           <div class="article-right-r">
             <div class="article-right-list-title">{{ite.title}}</div>
             <div class="article-right-list-text">{{ite.seo_content}}</div>

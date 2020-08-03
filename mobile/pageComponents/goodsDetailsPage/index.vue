@@ -6,7 +6,7 @@
       <div class="goods-img-box" :style="{height: imgHeight + 'px'}">
         <div v-swiper:mybSwiper="swiperOptionFi">
           <div class="swiper-wrapper" :style="{height: imgHeight + 'px'}">
-            <div class="swiper-slide" v-for="banner in banners" :style="{height: (imgHeight - 2) + 'px'}">
+            <div class="swiper-slide" v-for="(banner, index) in banners" :key="index" :style="{height: (imgHeight - 2) + 'px'}">
                <img :src="bigImg[index_k]">
             </div>
           </div>
@@ -18,7 +18,7 @@
 
       <div class="small-img-box">
         <div class="img-scroll">
-          <div class="small-img" :class="index_k == index ?'active' : ''" v-for="(item, index) in smallImg" @click="chooseImg(index)">
+          <div class="small-img" :class="index_k == index ?'active' : ''" v-for="(item, index) in smallImg" :key="index + 'a'" @click="chooseImg(index)">
             <a :href="item.url">
               <img :src="item" alt="">
             </a>
@@ -57,7 +57,7 @@
       </div>
 
       <div class="parameter-box">
-        <div class="parameter-list clf" v-if="index < parameterList" v-for="(item, index) in goodsAttr">
+        <div class="parameter-list clf" v-if="index < parameterList" v-for="(item, index) in goodsAttr" :key="index+'b'">
           <div class="parameter-name fl">{{item.name}}</div>
           <div class="parameter-val fl">{{item.value}}</div>
         </div>
@@ -74,7 +74,7 @@
 
       <div v-swiper:myaSwiper="swiperOptionTh">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-if="index < 6" v-for="(item, index) in goodsRecommend" :key="index">
+          <div class="swiper-slide" v-if="index < 6" v-for="(item, index) in goodsRecommend" :key="index+'c'">
             <div class="swiper-img" :style="{height: recImgHei + 'px'}">
               <a :href="item.url">
                 <img :src="item.style_image">

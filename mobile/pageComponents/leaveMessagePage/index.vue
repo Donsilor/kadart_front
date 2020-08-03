@@ -3,7 +3,7 @@
     <div class="home_cid">
       <div v-if="this.banners && this.banners != 0" v-swiper:mySwiper="swiperOption">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="banner in banners">
+          <div class="swiper-slide" v-for="(banner,index) in banners" :key="index">
             <a :href='banner.adv_url || "javascript:;"' target="_blank">
               <img :src="banner.adv_image" class="no-stretch">
             </a>
@@ -48,7 +48,7 @@
           <i class="message-text">00 0000 011110000  000000 00000 00000 000000 00 000 000000 0000 0000 000 0000 0000000 00000000000</i>
         </div> -->
         <!-- <div class="log-time">12:23</div> -->
-        <div class="message-list message-right" v-for="(item, index) in book_list" :key="index">
+        <div class="message-list message-right" v-for="(item, idx) in book_list" :key="idx">
           <i class="message-icon"></i>
           <i class="message-text">{{item.content}}</i>
         </div>
